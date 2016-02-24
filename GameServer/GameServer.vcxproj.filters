@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{3e318638-275c-4cf8-a1dc-c2df50e2d1ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Header Files">
+      <UniqueIdentifier>{d1be7f89-e062-4411-93e7-aed5a6a66d69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Source Files">
+      <UniqueIdentifier>{4b060124-f1a9-4370-91a1-189e7b932f51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOCPServer">
+      <UniqueIdentifier>{2ea6d9e4-6290-4dd4-b3c6-fd3733d1c139}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOCPServer\Header Files">
+      <UniqueIdentifier>{c0ee3df1-b36d-4eea-97d3-d564c799faa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IOCPServer\Source Files">
+      <UniqueIdentifier>{96151e7f-79b0-477a-bed4-90691bf01e70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameServer">
+      <UniqueIdentifier>{9f8229ad-6053-4754-bf15-14641c8f88ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameServer\Header Files">
+      <UniqueIdentifier>{de2030db-9056-443f-9e51-d04dc2603c2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameServer\Source Files">
+      <UniqueIdentifier>{ab661a84-0013-40ad-83cb-724f1bcda3cb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Common\CacheBuffer.h">
+      <Filter>Common\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Common.h">
+      <Filter>Common\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Event.h">
+      <Filter>Common\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Serializer.h">
+      <Filter>Common\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IOCPServer\IOCP.h">
+      <Filter>IOCPServer\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Common\CacheBuffer.cpp">
+      <Filter>Common\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Common.cpp">
+      <Filter>Common\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Event.cpp">
+      <Filter>Common\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Serializer.cpp">
+      <Filter>Common\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IOCPServer\IOCP.cpp">
+      <Filter>IOCPServer\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp" />
+  </ItemGroup>
+</Project>
