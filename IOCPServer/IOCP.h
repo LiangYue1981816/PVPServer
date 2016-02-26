@@ -101,7 +101,7 @@ public:
 
 	// 方法
 public:
-	virtual BOOL Start(const char *ip, int port, int maxContexts = 1024);                          // 启动服务器
+	virtual BOOL Start(const char *ip, int port, int maxContexts = 1000);                          // 启动服务器
 	virtual void Stop(void);                                                                       // 停止服务器
 
 protected:

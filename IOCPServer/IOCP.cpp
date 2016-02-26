@@ -251,6 +251,8 @@ CIOCPServer::CIOCPServer(void)
 	, m_pFreeContext(NULL)
 	, m_pActiveContext(NULL)
 {
+	m_port = 0;
+	memset(m_ip, 0, sizeof(m_ip));
 	memset(m_hWorkThreads, 0, sizeof(m_hWorkThreads));
 
 	WSADATA wsaData;
@@ -291,6 +293,7 @@ BOOL CIOCPServer::AllocIOContexts(int maxContexts)
 	}
 
 	m_pFreeContext = m_contexts[0];
+	m_pActiveContext = NULL;
 
 	return TRUE;
 }
@@ -309,6 +312,7 @@ void CIOCPServer::FreeIOContexts(void)
 
 		m_contexts = NULL;
 		m_pFreeContext = NULL;
+		m_pActiveContext = NULL;
 	}
 
 	m_curContexts = 0;
@@ -500,7 +504,9 @@ CIOContext* CIOCPServer::GetIOContextByIndex(int index, BOOL bLock /*= TRUE*/)
 
 	if (bLock) EnterCriticalSection(&m_sectionIOContext);
 	{
-		pIOContext = m_contexts[index];
+		if (index >= 0 && index < m_maxContexts) {
+			pIOContext = m_contexts[index];
+		}
 	}
 	if (bLock) LeaveCriticalSection(&m_sectionIOContext);
 
@@ -560,10 +566,10 @@ void CIOCPServer::ReleaseIOContext(CIOContext *pIOContext, BOOL bLock /*= TRUE*/
 //
 BOOL CIOCPServer::Start(const char *ip, int port, int maxContexts)
 {
-	if (!Listen(ip, port)) return FALSE;
-	if (!AllocIOContexts(maxContexts)) return FALSE;
-	if (!CreateIOCP()) return FALSE;
-	if (!CreateWorkThreads()) return FALSE;
+	if (AllocIOContexts(maxContexts) == FALSE) return FALSE;
+	if (Listen(ip, port) == FALSE) return FALSE;
+	if (CreateIOCP() == FALSE) return FALSE;
+	if (CreateWorkThreads() == FALSE) return FALSE;
 
 	return TRUE;
 }
