@@ -22,18 +22,18 @@ void main()
 	Client::SendToPlayerAll protoSendToPlayerAll;
 	Client::SendToPlayerFilterAll protoSendToPlayerFilterAll;
 
-	protoHeart.set_timestamp(tick());
+	protoHeart.set_timestamp(0xffff0000);
 	protoHeart.SerializeToArray(buffer, sizeof(buffer));
 	size = protoHeart.ByteSize();
+
+	protoFlags.set_flags(0xffff0000);
+	protoFlags.SerializeToArray(buffer, sizeof(buffer));
+	size = protoFlags.ByteSize();
 
 	protoLogin.set_guid(100);
 	protoLogin.set_version(200);
 	protoLogin.SerializeToArray(buffer, sizeof(buffer));
 	size = protoLogin.ByteSize();
-
-	protoFlags.set_flags(0xffff0000);
-	protoFlags.SerializeToArray(buffer, sizeof(buffer));
-	size = protoFlags.ByteSize();
 
 	protoCreateGame.set_name("Fuck");
 	protoCreateGame.set_password("You");
