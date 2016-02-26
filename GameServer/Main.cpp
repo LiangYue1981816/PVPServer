@@ -1,7 +1,9 @@
 #include <conio.h>
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "Common.h"
+#include "IOCP.h"
 #include "Client.pb.h"
 
 void main()
@@ -18,5 +20,6 @@ void main()
 	aaa.ParseFromArray(buffer, size);
 	printf("%d\n", aaa.guid());
 	printf("%d\n", aaa.version());
+
 	getch();
 }

@@ -7,18 +7,18 @@
 CIOContext::CIOContext(void)
 	: dwHeartTime(0x00000000)
 
-	, recvBuffer(RECV_BUFFER_SIZE)
-	, sendBuffer(SEND_BUFFER_SIZE)
-
 	, id(0xffffffff)
 	, guid(0xffffffff)
+
+	, bInUsed(FALSE)
+	, acceptSocket(INVALID_SOCKET)
+
+	, recvBuffer(RECV_BUFFER_SIZE)
+	, sendBuffer(SEND_BUFFER_SIZE)
 
 	, pNext(NULL)
 	, pNextActive(NULL)
 	, pPrevActive(NULL)
-
-	, bInUsed(FALSE)
-	, acceptSocket(INVALID_SOCKET)
 {
 	ClearBuffer();
 }
@@ -44,11 +44,6 @@ void CIOContext::Accept(SOCKET sock)
 	int on = 1;
 	int off = 0;
 	setsockopt(acceptSocket, IPPROTO_TCP, TCP_NODELAY, (const char *)&on, sizeof(on));
-
-	//int recvBufferSize = RECV_BUFFER_SIZE;
-	//int sendBufferSize = SEND_BUFFER_SIZE;
-	//setsockopt(acceptSocket, SOL_SOCKET, SO_RCVBUF, (const char *)&recvBufferSize, sizeof(recvBufferSize));
-	//setsockopt(acceptSocket, SOL_SOCKET, SO_SNDBUF, (const char *)&sendBufferSize, sizeof(sendBufferSize));
 }
 
 //
