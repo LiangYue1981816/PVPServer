@@ -580,8 +580,8 @@ BOOL CIOCPServer::Start(const char *ip, int port, int maxContexts)
 void CIOCPServer::Stop(void)
 {
 	Disconnect();
-	DestroyWorkThreads();
 	DestroyIOCP();
+	DestroyWorkThreads();
 	FreeIOContexts();
 }
 
