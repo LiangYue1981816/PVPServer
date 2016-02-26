@@ -1,19 +1,22 @@
 #include <conio.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "CacheBuffer.h"
+#include "Common.h"
+#include "Client.pb.h"
 
 void main()
 {
-	CCacheBuffer buffer(10);
+	BYTE buffer[1204];
+	memset(buffer, 0, sizeof(buffer));
+	Client::Login login;
+	login.set_guid(123);
+	login.set_version(456);
+	login.SerializeToArray(buffer, sizeof(buffer));
+	int size = login.ByteSize();
 
-	char data[1024];
-	char szString[] = "Hello";
-
-	for (int index = 0; index < 10; index++) {
-		buffer.PushData((unsigned char *)szString, sizeof(szString));
-		buffer.PopData((unsigned char *)data, sizeof(szString));
-	}
-
+	Client::Login aaa;
+	aaa.ParseFromArray(buffer, size);
+	printf("%d\n", aaa.guid());
+	printf("%d\n", aaa.version());
 	getch();
 }

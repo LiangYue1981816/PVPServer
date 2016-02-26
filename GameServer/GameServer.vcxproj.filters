@@ -13,15 +13,6 @@
     <Filter Include="Common\Source Files">
       <UniqueIdentifier>{4b060124-f1a9-4370-91a1-189e7b932f51}</UniqueIdentifier>
     </Filter>
-    <Filter Include="IOCPServer">
-      <UniqueIdentifier>{2ea6d9e4-6290-4dd4-b3c6-fd3733d1c139}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="IOCPServer\Header Files">
-      <UniqueIdentifier>{c0ee3df1-b36d-4eea-97d3-d564c799faa5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="IOCPServer\Source Files">
-      <UniqueIdentifier>{96151e7f-79b0-477a-bed4-90691bf01e70}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameServer">
       <UniqueIdentifier>{9f8229ad-6053-4754-bf15-14641c8f88ab}</UniqueIdentifier>
     </Filter>
@@ -54,11 +45,11 @@
     <ClInclude Include="..\Common\Serializer.h">
       <Filter>Common\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\IOCPServer\IOCP.h">
-      <Filter>IOCPServer\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Proto\cpp\Client.pb.h">
       <Filter>Proto\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\IOCPServer\IOCP.h">
+      <Filter>GameServer\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -74,12 +65,12 @@
     <ClCompile Include="..\Common\Serializer.cpp">
       <Filter>Common\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\IOCPServer\IOCP.cpp">
-      <Filter>IOCPServer\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="..\..\Proto\cpp\Client.pb.cc">
       <Filter>Proto\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\IOCPServer\IOCP.cpp">
+      <Filter>GameServer\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
