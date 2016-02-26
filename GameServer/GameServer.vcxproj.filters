@@ -31,6 +31,15 @@
     <Filter Include="GameServer\Source Files">
       <UniqueIdentifier>{ab661a84-0013-40ad-83cb-724f1bcda3cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Proto">
+      <UniqueIdentifier>{440976b0-3594-491d-86b1-dcd01e21d4c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Proto\Header Files">
+      <UniqueIdentifier>{543e800a-4bc6-49f0-bcfa-943d4443cf67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Proto\Source Files">
+      <UniqueIdentifier>{3c183015-ee57-40fc-8b8d-ada4fbe61497}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\CacheBuffer.h">
@@ -47,6 +56,9 @@
     </ClInclude>
     <ClInclude Include="..\IOCPServer\IOCP.h">
       <Filter>IOCPServer\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Proto\cpp\Client.pb.h">
+      <Filter>Proto\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -66,5 +78,8 @@
       <Filter>IOCPServer\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="..\..\Proto\cpp\Client.pb.cc">
+      <Filter>Proto\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
