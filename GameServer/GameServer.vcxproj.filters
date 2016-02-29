@@ -51,6 +51,9 @@
     <ClInclude Include="..\IOCPServer\IOCP.h">
       <Filter>GameServer\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameServer.h">
+      <Filter>GameServer\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\CacheBuffer.cpp">
@@ -70,6 +73,15 @@
       <Filter>Proto\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\IOCPServer\IOCP.cpp">
+      <Filter>GameServer\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServer.cpp">
+      <Filter>GameServer\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>GameServer\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
       <Filter>GameServer\Source Files</Filter>
     </ClCompile>
   </ItemGroup>

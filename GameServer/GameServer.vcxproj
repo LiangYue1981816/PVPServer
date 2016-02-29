@@ -164,6 +164,7 @@
     <ClInclude Include="..\Common\Event.h" />
     <ClInclude Include="..\Common\Serializer.h" />
     <ClInclude Include="..\IOCPServer\IOCP.h" />
+    <ClInclude Include="GameServer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Proto\cpp\Client.pb.cc" />
@@ -172,7 +173,10 @@
     <ClCompile Include="..\Common\Event.cpp" />
     <ClCompile Include="..\Common\Serializer.cpp" />
     <ClCompile Include="..\IOCPServer\IOCP.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
