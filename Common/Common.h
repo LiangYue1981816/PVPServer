@@ -69,4 +69,9 @@ typedef unsigned int                   DWORD;    // 4BYTE
 #define MAX_CONTEXTS                   (MAX_GAMES*MAX_GAME_PLAYERS)
 
 
+#define IS_ENABLE(flags, attrib)       ((flags) & (attrib) ? TRUE : FALSE)
+#define SET_ENABLE(flags, attrib)      ((flags) = (flags) |  (attrib))
+#define SET_DISABLE(flags, attrib)     ((flags) = (flags) & ~(attrib))
+
+
 extern DWORD HashValue(const char *szString);

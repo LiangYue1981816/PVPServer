@@ -164,6 +164,7 @@
     <ClInclude Include="..\Common\Event.h" />
     <ClInclude Include="..\Common\Serializer.h" />
     <ClInclude Include="..\IOCPServer\IOCP.h" />
+    <ClInclude Include="Error.h" />
     <ClInclude Include="GameServer.h" />
   </ItemGroup>
   <ItemGroup>

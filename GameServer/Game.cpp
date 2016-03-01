@@ -2,8 +2,16 @@
 
 
 CGame::CGame(CGameServer *s)
-{
+	: pServer(s)
 
+	, m_mode(-1)
+	, m_mapid(-1)
+	, m_maxPlayers(0)
+	, m_numPlayers(0)
+
+	, pActivePlayer(NULL)
+{
+	memset(m_szPassword, 0, sizeof(m_szPassword));
 }
 
 CGame::~CGame(void)
@@ -12,11 +20,133 @@ CGame::~CGame(void)
 }
 
 //
+// 设置游戏密码
+//
+void CGame::SetPassword(const char *password)
+{
+	if (password && strlen(password) < sizeof(m_szPassword)) {
+		strcpy(m_szPassword, password);
+	}
+	else {
+		memset(m_szPassword, 0, sizeof(m_szPassword));
+	}
+}
+
+//
+// 设置游戏模式
+//
+void CGame::SetMode(int mode)
+{
+	m_mode = mode;
+}
+
+//
+// 设置游戏地图
+//
+void CGame::SetMapID(int mapid)
+{
+	m_mapid = mapid;
+}
+
+//
+// 设置最大玩家数
+//
+void CGame::SetMaxPlayers(int maxPlayers)
+{
+	m_maxPlayers = maxPlayers;
+}
+
+//
+// 获得游戏模式
+//
+int CGame::GetMode(void) const
+{
+	return m_mode;
+}
+
+//
+// 获得游戏地图
+//
+int CGame::GetMapID(void) const
+{
+	return m_mapid;
+}
+
+//
+// 获得当前玩家数
+//
+int CGame::GetPlayers(void) const
+{
+	return m_numPlayers;
+}
+
+//
+// 获得最大玩家数
+//
+int CGame::GetMaxPlayers(void) const
+{
+	return m_maxPlayers;
+}
+
+//
 // 添加玩家
 //
 int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 {
-	return 0;
+	//
+	// 1. 参数安全检查
+	//
+	if (pPlayer == NULL) {
+		return ERR_PLAYER_INVALID;
+	}
+
+	if (pPlayer->IsWaiting() == TRUE) {
+		return ERR_PLAYER_IN_GAME;
+	}
+
+	if (IsFull() == TRUE) {
+		return ERR_GAME_FULL;
+	}
+
+	if (IsEmpty() == FALSE && bCreater == TRUE) {
+		return ERR_GAME_USING;
+	}
+
+	if (IsEmpty() == TRUE && bCreater == FALSE) {
+		return ERR_GAME_EMPTY;
+	}
+
+	if (password == NULL ||
+		strncmp(password, m_szPassword, sizeof(m_szPassword))) {
+		return ERR_GAME_PASSWORD;
+	}
+
+	//
+	// 2. 添加玩家
+	//
+	pPlayer->pGame = this;
+	pPlayer->pServer = pServer;
+
+	pPlayer->pPrevPlayer = NULL;
+	pPlayer->pNextPlayer = pActivePlayer;
+
+	if (pActivePlayer) {
+		pActivePlayer->pPrevActive = pPlayer;
+	}
+
+	pActivePlayer = pPlayer;
+
+	//
+	// 3. 设置玩家状态
+	//
+	pPlayer->EnableFlag(PLAYER_FLAGS_WAITING);
+
+	//
+	// 4. 记录玩家
+	//
+	m_numPlayers++;
+
+	return ERR_NONE;
 }
 
 //
@@ -24,7 +154,46 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 //
 int CGame::DelPlayer(CPlayer *pPlayer)
 {
-	return 0;
+	//
+	// 1. 参数安全检查
+	//
+	if (pPlayer == NULL) {
+		return ERR_PLAYER_INVALID;
+	}
+
+	if (pPlayer->pGame != this) {
+		return ERR_PLAYER_OUT_GAME;
+	}
+
+	//
+	// 2. 删除玩家
+	//
+	if (pPlayer->pPrevPlayer) {
+		pPlayer->pPrevPlayer->pNextPlayer = pPlayer->pNextPlayer;
+	}
+
+	if (pPlayer->pNextPlayer) {
+		pPlayer->pNextPlayer->pPrevPlayer = pPlayer->pPrevPlayer;
+	}
+
+	if (pActivePlayer == pPlayer) {
+		pActivePlayer = pPlayer->pNextPlayer;
+	}
+
+	pPlayer->pPrevPlayer = NULL;
+	pPlayer->pNextPlayer = NULL;
+
+	//
+	// 3. 设置玩家状态
+	//
+	pPlayer->DisableFlag(PLAYER_FLAGS_WAITING);
+
+	//
+	// 4. 记录玩家
+	//
+	m_numPlayers--;
+
+	return ERR_NONE;
 }
 
 //
@@ -32,7 +201,9 @@ int CGame::DelPlayer(CPlayer *pPlayer)
 //
 void CGame::Clear(void)
 {
-
+	while (pActivePlayer) {
+		DelPlayer(pActivePlayer);
+	}
 }
 
 //
@@ -40,7 +211,7 @@ void CGame::Clear(void)
 //
 BOOL CGame::IsFull(void)
 {
-	return TRUE;
+	return m_numPlayers == m_maxPlayers ? TRUE : FALSE;
 }
 
 //
@@ -48,7 +219,7 @@ BOOL CGame::IsFull(void)
 //
 BOOL CGame::IsEmpty(void)
 {
-	return TRUE;
+	return m_numPlayers == 0 ? TRUE : FALSE;
 }
 
 //

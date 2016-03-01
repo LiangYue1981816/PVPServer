@@ -5,6 +5,19 @@
 #include <vector>
 #include <string>
 #include "IOCP.h"
+#include "Error.h"
+
+
+#define GAME_SERVER_VERSION            0x00010000
+
+
+#define PLAYER_FLAGS_LOGIN             0x00000001
+#define PLAYER_FLAGS_WAITING           0x00000002
+#define PLAYER_FLAGS_READY             0x00000004
+#define PLAYER_FLAGS_GAMING            0x00000008
+
+#define PLAYER_FLAGS_DEAD              0x00010000
+#define PLAYER_FLAGS_RESPAWN           0x00020000
 
 
 //
@@ -22,6 +35,12 @@ public:
 
 	// 方法
 public:
+	virtual VOID SetFlags(DWORD dwFlags);                                                          // 设置标识
+	virtual VOID ClearFlags(void);                                                                 // 清空标识
+
+	virtual VOID EnableFlag(DWORD dwFlag);                                                         // 使用标识
+	virtual VOID DisableFlag(DWORD dwFlag);                                                        // 禁用标识
+
 	virtual BOOL IsLogin(void) const;                                                              // 登陆状态
 	virtual BOOL IsReady(void) const;                                                              // 已准备状态
 	virtual BOOL IsWaiting(void) const;                                                            // 等待中状态
@@ -29,8 +48,8 @@ public:
 
 
 	// 属性
-public:
-	DWORD dwFlags;                                                                                 // 标识
+private:
+	DWORD m_dwFlags;                                                                               // 标识
 
 public:
 	CGame *pGame;                                                                                  // 游戏
@@ -54,6 +73,17 @@ public:
 
 	// 方法
 public:
+	virtual void SetPassword(const char *password);                                                // 设置游戏密码
+	virtual void SetMode(int mode);                                                                // 设置游戏模式
+	virtual void SetMapID(int mapid);                                                              // 设置游戏地图
+	virtual void SetMaxPlayers(int maxPlayers);                                                    // 设置最大玩家数
+
+	virtual int GetMode(void) const;                                                               // 获得游戏模式
+	virtual int GetMapID(void) const;                                                              // 获得游戏地图
+	virtual int GetPlayers(void) const;                                                            // 获得当前玩家数
+	virtual int GetMaxPlayers(void) const;                                                         // 获得最大玩家数
+
+public:
 	virtual int AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater);                  // 添加玩家
 	virtual int DelPlayer(CPlayer *pPlayer);                                                       // 删除玩家
 
@@ -67,6 +97,14 @@ public:
 
 
 	// 属性
+private:
+	CHAR m_szPassword[16];                                                                         // 游戏密码
+
+	int m_mode;                                                                                    // 游戏模式
+	int m_mapid;                                                                                   // 游戏地图
+	int m_maxPlayers;                                                                              // 最大玩家数
+	int m_numPlayers;                                                                              // 当前玩家数
+
 public:
 	CGameServer *pServer;                                                                          // 服务器指针
 	CPlayer *pActivePlayer;                                                                        // 玩家头指针

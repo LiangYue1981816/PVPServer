@@ -2,6 +2,13 @@
 
 
 CPlayer::CPlayer(void)
+	: m_dwFlags(0x00000000)
+
+	, pGame(NULL)
+	, pServer(NULL)
+
+	, pNextPlayer(NULL)
+	, pPrevPlayer(NULL)
 {
 
 }
@@ -12,11 +19,43 @@ CPlayer::~CPlayer(void)
 }
 
 //
+// 设置标识
+//
+VOID CPlayer::SetFlags(DWORD dwFlags)
+{
+	m_dwFlags = dwFlags;
+}
+
+//
+// 清空标识
+//
+VOID CPlayer::ClearFlags(void)
+{
+	m_dwFlags = 0x00000000;
+}
+
+//
+// 使用标识
+//
+VOID CPlayer::EnableFlag(DWORD dwFlag)
+{
+	SET_ENABLE(m_dwFlags, dwFlag);
+}
+
+//
+// 禁用标识
+//
+VOID CPlayer::DisableFlag(DWORD dwFlag)
+{
+	SET_DISABLE(m_dwFlags, dwFlag);
+}
+
+//
 // 登陆状态
 //
 BOOL CPlayer::IsLogin(void) const
 {
-	return TRUE;
+	return IS_ENABLE(m_dwFlags, PLAYER_FLAGS_LOGIN);
 }
 
 //
@@ -24,7 +63,7 @@ BOOL CPlayer::IsLogin(void) const
 //
 BOOL CPlayer::IsReady(void) const
 {
-	return TRUE;
+	return IS_ENABLE(m_dwFlags, PLAYER_FLAGS_READY);
 }
 
 //
@@ -32,7 +71,7 @@ BOOL CPlayer::IsReady(void) const
 //
 BOOL CPlayer::IsWaiting(void) const
 {
-	return TRUE;
+	return IS_ENABLE(m_dwFlags, PLAYER_FLAGS_WAITING);
 }
 
 //
@@ -40,5 +79,5 @@ BOOL CPlayer::IsWaiting(void) const
 //
 BOOL CPlayer::IsGaming(void) const
 {
-	return TRUE;
+	return IS_ENABLE(m_dwFlags, PLAYER_FLAGS_GAMING);
 }

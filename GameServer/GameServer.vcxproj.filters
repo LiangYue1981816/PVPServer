@@ -54,6 +54,9 @@
     <ClInclude Include="GameServer.h">
       <Filter>GameServer\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Error.h">
+      <Filter>GameServer\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\CacheBuffer.cpp">
