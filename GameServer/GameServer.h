@@ -197,7 +197,8 @@ protected:
 	GUIDMAP m_guidmap;                                                                             // 逻辑ID与连接ID映射表
 
 protected:
-	int m_maxGames;                                                                                // 游戏数
+	int m_curGames;                                                                                // 当前游戏数
+	int m_maxGames;                                                                                // 最大游戏数
 	CGame **m_games;                                                                               // 游戏集合
 	CGame *m_pFreeGame;                                                                            // 空闲游戏
 	CGame *m_pActiveGame;                                                                          // 活动游戏

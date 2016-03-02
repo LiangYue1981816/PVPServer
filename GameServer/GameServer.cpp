@@ -2,7 +2,8 @@
 
 
 CGameServer::CGameServer(void)
-	: m_maxGames(0)
+	: m_curGames(0)
+	, m_maxGames(0)
 	, m_games(NULL)
 	, m_pFreeGame(NULL)
 	, m_pActiveGame(NULL)
@@ -92,6 +93,7 @@ BOOL CGameServer::AllocGames(int maxGames)
 	//
 	// 1. 分配游戏存储
 	//
+	m_curGames = 0;
 	m_maxGames = maxGames;
 	m_games = new CGame*[m_maxGames];
 
@@ -175,6 +177,7 @@ void CGameServer::FreeGames(void)
 		delete[] m_games;
 	}
 
+	m_curGames = 0;
 	m_maxGames = 0;
 
 	m_games = NULL;
@@ -253,6 +256,11 @@ CGame* CGameServer::GetNextGame(void)
 		// 2. 建立空闲链表
 		//
 		m_pFreeGame = m_pFreeGame->pNext;
+
+		//
+		// 3. 记录游戏数
+		//
+		m_curGames++;
 	}
 
 	return pGame;
@@ -283,6 +291,11 @@ void CGameServer::ReleaseGame(CGame *pGame)
 	if (m_pActiveGame == pGame) {
 		m_pActiveGame = pGame->pNextActive;
 	}
+
+	//
+	// 3. 记录游戏数
+	//
+	m_curGames--;
 }
 
 //
