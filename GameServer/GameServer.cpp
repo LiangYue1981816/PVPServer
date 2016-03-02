@@ -172,7 +172,7 @@ void CGameServer::FreeGames(void)
 			delete m_games[indexGame];
 		}
 
-		delete [] m_games;
+		delete[] m_games;
 	}
 
 	m_maxGames = 0;
@@ -192,7 +192,7 @@ void CGameServer::FreePlayers(void)
 			delete m_contexts[indexContext];
 		}
 
-		delete [] m_contexts;
+		delete[] m_contexts;
 	}
 
 	m_curContexts = 0;
@@ -246,7 +246,7 @@ CGame* CGameServer::GetNextGame(void)
 		if (m_pActiveGame) {
 			m_pActiveGame->pPrevActive = pGame;
 		}
-		
+
 		m_pActiveGame = pGame;
 
 		//
@@ -281,7 +281,7 @@ void CGameServer::ReleaseGame(CGame *pGame)
 	}
 
 	if (m_pActiveGame == pGame) {
-		m_pActiveGame =  pGame->pNextActive;
+		m_pActiveGame = pGame->pNextActive;
 	}
 }
 

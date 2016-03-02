@@ -159,7 +159,7 @@ int CCacheBuffer::PushData(unsigned char *pData, size_t size)
 	sizeParts[0] = min(m_totalBufferSize + (size_t)(m_pBuffer - m_pPushPointer), size);
 	sizeParts[1] = size - sizeParts[0];
 
-	_PushData(pData,  sizeParts[0]);
+	_PushData(pData, sizeParts[0]);
 	_PushData(pData + sizeParts[0], sizeParts[1]);
 
 	return (int)size;
@@ -203,7 +203,7 @@ int CCacheBuffer::PopData(unsigned char *pData, size_t size)
 	sizeParts[0] = min(m_totalBufferSize + (size_t)(m_pBuffer - m_pPopPointer), size);
 	sizeParts[1] = size - sizeParts[0];
 
-	_PopData(pData,  sizeParts[0]);
+	_PopData(pData, sizeParts[0]);
 	_PopData(pData + sizeParts[0], sizeParts[1]);
 
 	return (int)size;

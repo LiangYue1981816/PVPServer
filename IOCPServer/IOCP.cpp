@@ -158,7 +158,7 @@ void CIOContext::OnComplete(WSA_BUFFER *pIOBuffer, DWORD dwTransferred)
 				WSARecv(acceptSocket, &pIOBuffer->wsaBuffer, 1, &dwBytes, &dwFlags, &pIOBuffer->overlapped, NULL);
 			}
 			else {
-				OnRecvNext(pIOBuffer->dataBuffer, pIOBuffer->dwCompleteSize, pIOBuffer->operationType&0x0000ffff);
+				OnRecvNext(pIOBuffer->dataBuffer, pIOBuffer->dwCompleteSize, pIOBuffer->operationType & 0x0000ffff);
 			}
 		}
 		recvBuffer.Unlock();
@@ -175,7 +175,7 @@ void CIOContext::OnComplete(WSA_BUFFER *pIOBuffer, DWORD dwTransferred)
 				WSASend(acceptSocket, &pIOBuffer->wsaBuffer, 1, &dwBytes, dwFlags, &pIOBuffer->overlapped, NULL);
 			}
 			else {
-				OnSendNext(pIOBuffer->dataBuffer, pIOBuffer->dwCompleteSize, pIOBuffer->operationType&0x0000ffff);
+				OnSendNext(pIOBuffer->dataBuffer, pIOBuffer->dwCompleteSize, pIOBuffer->operationType & 0x0000ffff);
 			}
 		}
 		sendBuffer.Unlock();
@@ -256,7 +256,7 @@ CIOCPServer::CIOCPServer(void)
 	memset(m_hWorkThreads, 0, sizeof(m_hWorkThreads));
 
 	WSADATA wsaData;
-	WSAStartup(MAKEWORD(2,2), &wsaData);
+	WSAStartup(MAKEWORD(2, 2), &wsaData);
 
 	InitializeCriticalSectionAndSpinCount(&m_sectionIOContext, 4000);
 }
@@ -307,7 +307,7 @@ BOOL CIOCPServer::AllocContexts(int maxContexts)
 	//
 	m_curContexts = 0;
 	m_maxContexts = maxContexts;
-	m_contexts = new CIOContext* [m_maxContexts];
+	m_contexts = new CIOContext*[m_maxContexts];
 
 	//
 	// 2. 建立空闲IO上下文链表
@@ -575,7 +575,7 @@ void CIOCPServer::ReleaseIOContext(CIOContext *pIOContext, BOOL bLock)
 			}
 
 			if (m_pActiveContext == pIOContext) {
-				m_pActiveContext =  pIOContext->pNextActive;
+				m_pActiveContext = pIOContext->pNextActive;
 			}
 
 			pIOContext->pNextActive = NULL;
@@ -701,7 +701,7 @@ UINT tick(void)
 	QueryPerformanceFrequency(&freq);
 	QueryPerformanceCounter(&count);
 
-	return (UINT)(((double)count.QuadPart/freq.QuadPart)*1000000);
+	return (UINT)(((double)count.QuadPart / freq.QuadPart) * 1000000);
 }
 
 //
