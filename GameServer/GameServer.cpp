@@ -53,8 +53,8 @@ BOOL CGameServer::Start(const char *ip, int port, int maxGames, int maxPlayers, 
 	if (Listen(ip, port) == FALSE) return FALSE;
 	if (CreateIOCP() == FALSE) return FALSE;
 	if (CreateShutdownEvent() == FALSE) return FALSE;
-	if (CreateWorkThreads() == FALSE) return FALSE;
 	if (CreateListenThread() == FALSE) return FALSE;
+	if (CreateTransferThreads() == FALSE) return FALSE;
 	if (CreateReportThread() == FALSE) return FALSE;
 	if (CreateUpdateThread() == FALSE) return FALSE;
 
@@ -75,8 +75,8 @@ void CGameServer::Stop(void)
 
 	Disconnect();
 	DestroyIOCP();
-	DestroyWorkThreads();
 	DestroyListenThread();
+	DestroyTransferThreads();
 	DestroyReportThread();
 	DestroyUpdateThread();
 	DestroyShutdownEvent();

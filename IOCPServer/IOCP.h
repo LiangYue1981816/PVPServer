@@ -107,14 +107,14 @@ public:
 protected:
 	virtual BOOL AllocContexts(int maxContexts);                                                   // 分配IO上下文
 	virtual BOOL CreateIOCP(void);                                                                 // 创建完成端口
-	virtual BOOL CreateWorkThreads(void);                                                          // 创建工作线程
 	virtual BOOL CreateListenThread(void);                                                         // 创建侦听线程
+	virtual BOOL CreateTransferThreads(void);                                                      // 创建传输线程
 	virtual BOOL CreateShutdownEvent(void);                                                        // 创建关闭事件
 
 	virtual void FreeContexts(void);                                                               // 释放IO上下文
 	virtual void DestroyIOCP(void);                                                                // 销毁完成端口
-	virtual void DestroyWorkThreads(void);                                                         // 销毁工作线程
 	virtual void DestroyListenThread(void);                                                        // 销毁侦听线程
+	virtual void DestroyTransferThreads(void);                                                     // 销毁传输线程
 	virtual void DestroyShutdownEvent(void);                                                       // 销毁关闭事件
 
 	virtual BOOL Listen(const char *ip, int port);                                                 // 侦听
@@ -131,7 +131,7 @@ protected:
 
 protected:
 	static DWORD WINAPI ListenThread(LPVOID lpParam);                                              // 监听线程
-	static DWORD WINAPI WorkThread(LPVOID lpParam);                                                // 工作线程
+	static DWORD WINAPI TransferThread(LPVOID lpParam);                                            // 传输线程
 
 
 	// 属性
@@ -144,7 +144,7 @@ protected:
 
 	HANDLE m_hIOCP;                                                                                // 完成端口句柄
 	HANDLE m_hListenThread;                                                                        // 监听线程句柄
-	HANDLE m_hWorkThreads[MAX_THREAD_COUNT];                                                       // 工作线程句柄
+	HANDLE m_hTransferThreads[MAX_THREAD_COUNT];                                                   // 传输线程句柄
 
 	HANDLE m_hShutdownEvent;                                                                       // 退出事件
 	CRITICAL_SECTION m_sectionIOContext;                                                           // IO上下文临界区

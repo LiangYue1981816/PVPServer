@@ -253,7 +253,7 @@ CIOCPServer::CIOCPServer(void)
 {
 	m_port = 0;
 	memset(m_ip, 0, sizeof(m_ip));
-	memset(m_hWorkThreads, 0, sizeof(m_hWorkThreads));
+	memset(m_hTransferThreads, 0, sizeof(m_hTransferThreads));
 
 	WSADATA wsaData;
 	WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -276,8 +276,8 @@ BOOL CIOCPServer::Start(const char *ip, int port, int maxContexts)
 	if (Listen(ip, port) == FALSE) return FALSE;
 	if (CreateIOCP() == FALSE) return FALSE;
 	if (CreateShutdownEvent() == FALSE) return FALSE;
-	if (CreateWorkThreads() == FALSE) return FALSE;
 	if (CreateListenThread() == FALSE) return FALSE;
+	if (CreateTransferThreads() == FALSE) return FALSE;
 
 	return TRUE;
 }
@@ -291,8 +291,8 @@ void CIOCPServer::Stop(void)
 
 	Disconnect();
 	DestroyIOCP();
-	DestroyWorkThreads();
 	DestroyListenThread();
+	DestroyTransferThreads();
 	DestroyShutdownEvent();
 	FreeContexts();
 }
@@ -338,27 +338,27 @@ BOOL CIOCPServer::CreateIOCP(void)
 }
 
 //
-// 创建工作线程
-//
-BOOL CIOCPServer::CreateWorkThreads(void)
-{
-	int numThreads = GetProcessors() * 2 + 1;
-
-	for (int indexThread = 0; indexThread < min(numThreads, MAX_THREAD_COUNT); indexThread++) {
-		m_hWorkThreads[indexThread] = CreateThread(0, 0, WorkThread, (LPVOID)this, 0, NULL);
-		if (m_hWorkThreads[indexThread] == NULL) return FALSE;
-	}
-
-	return TRUE;
-}
-
-//
 // 创建侦听线程
 //
 BOOL CIOCPServer::CreateListenThread(void)
 {
 	m_hListenThread = CreateThread(0, 0, ListenThread, (LPVOID)this, 0, NULL);
 	return m_hListenThread != NULL ? TRUE : FALSE;
+}
+
+//
+// 创建传输线程
+//
+BOOL CIOCPServer::CreateTransferThreads(void)
+{
+	int numThreads = GetProcessors() * 2 + 1;
+
+	for (int indexThread = 0; indexThread < min(numThreads, MAX_THREAD_COUNT); indexThread++) {
+		m_hTransferThreads[indexThread] = CreateThread(0, 0, TransferThread, (LPVOID)this, 0, NULL);
+		if (m_hTransferThreads[indexThread] == NULL) return FALSE;
+	}
+
+	return TRUE;
 }
 
 //
@@ -403,24 +403,6 @@ void CIOCPServer::DestroyIOCP(void)
 }
 
 //
-// 销毁工作线程
-//
-void CIOCPServer::DestroyWorkThreads(void)
-{
-	int numThreads = GetProcessors() * 2 + 1;
-
-	PostQueuedCompletionStatus(m_hIOCP, 0, 0, NULL);
-	WaitForMultipleObjects(min(numThreads, MAX_THREAD_COUNT), m_hWorkThreads, TRUE, INFINITE);
-
-	for (int indexThread = 0; indexThread < min(numThreads, MAX_THREAD_COUNT); indexThread++) {
-		if (m_hWorkThreads[indexThread]) {
-			CloseHandle(m_hWorkThreads[indexThread]);
-			m_hWorkThreads[indexThread] = NULL;
-		}
-	}
-}
-
-//
 // 销毁侦听线程
 //
 void CIOCPServer::DestroyListenThread(void)
@@ -429,6 +411,24 @@ void CIOCPServer::DestroyListenThread(void)
 		WaitForSingleObject(m_hListenThread, INFINITE);
 		CloseHandle(m_hListenThread);
 		m_hListenThread = NULL;
+	}
+}
+
+//
+// 销毁传输线程
+//
+void CIOCPServer::DestroyTransferThreads(void)
+{
+	int numThreads = GetProcessors() * 2 + 1;
+
+	PostQueuedCompletionStatus(m_hIOCP, 0, 0, NULL);
+	WaitForMultipleObjects(min(numThreads, MAX_THREAD_COUNT), m_hTransferThreads, TRUE, INFINITE);
+
+	for (int indexThread = 0; indexThread < min(numThreads, MAX_THREAD_COUNT); indexThread++) {
+		if (m_hTransferThreads[indexThread]) {
+			CloseHandle(m_hTransferThreads[indexThread]);
+			m_hTransferThreads[indexThread] = NULL;
+		}
 	}
 }
 
@@ -635,9 +635,9 @@ DWORD WINAPI CIOCPServer::ListenThread(LPVOID lpParam)
 }
 
 //
-// IOCP线程
+// 传输线程
 //
-DWORD WINAPI CIOCPServer::WorkThread(LPVOID lpParam)
+DWORD WINAPI CIOCPServer::TransferThread(LPVOID lpParam)
 {
 	if (CIOCPServer *pIOCPServer = (CIOCPServer *)lpParam) {
 		while (WAIT_OBJECT_0 != WaitForSingleObject(pIOCPServer->m_hShutdownEvent, 0)) {
