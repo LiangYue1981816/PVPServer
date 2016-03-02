@@ -87,5 +87,8 @@
     <ClCompile Include="Player.cpp">
       <Filter>GameServer\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameServerUpdate.cpp">
+      <Filter>GameServer\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

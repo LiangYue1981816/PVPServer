@@ -460,7 +460,7 @@ void CIOCPServer::Disconnect(void)
 //
 // 获得空闲IOContext
 //
-CIOContext* CIOCPServer::GetIOContext(BOOL bLock /*= TRUE*/)
+CIOContext* CIOCPServer::GetIOContext(BOOL bLock)
 {
 	CIOContext *pIOContext = NULL;
 
@@ -498,7 +498,7 @@ CIOContext* CIOCPServer::GetIOContext(BOOL bLock /*= TRUE*/)
 	return pIOContext;
 }
 
-CIOContext* CIOCPServer::GetIOContextByIndex(int index, BOOL bLock /*= TRUE*/)
+CIOContext* CIOCPServer::GetIOContextByIndex(int index, BOOL bLock)
 {
 	CIOContext *pIOContext = NULL;
 
@@ -516,7 +516,7 @@ CIOContext* CIOCPServer::GetIOContextByIndex(int index, BOOL bLock /*= TRUE*/)
 //
 // 释放IOContext
 //
-void CIOCPServer::ReleaseIOContext(CIOContext *pIOContext, BOOL bLock /*= TRUE*/)
+void CIOCPServer::ReleaseIOContext(CIOContext *pIOContext, BOOL bLock)
 {
 	if (bLock) EnterCriticalSection(&m_sectionIOContext);
 	{
@@ -537,12 +537,12 @@ void CIOCPServer::ReleaseIOContext(CIOContext *pIOContext, BOOL bLock /*= TRUE*/
 			//
 			// 3. 建立活动链表
 			//
-			if (pIOContext->pNextActive) {
-				pIOContext->pNextActive->pPrevActive = pIOContext->pPrevActive;
-			}
-
 			if (pIOContext->pPrevActive) {
 				pIOContext->pPrevActive->pNextActive = pIOContext->pNextActive;
+			}
+
+			if (pIOContext->pNextActive) {
+				pIOContext->pNextActive->pPrevActive = pIOContext->pPrevActive;
 			}
 
 			if (m_pActiveContext == pIOContext) {

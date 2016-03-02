@@ -51,6 +51,14 @@ VOID CPlayer::DisableFlag(DWORD dwFlag)
 }
 
 //
+// 获得标识
+//
+DWORD CPlayer::GetFlags(void) const
+{
+	return m_dwFlags;
+}
+
+//
 // 登陆状态
 //
 BOOL CPlayer::IsLogin(void) const

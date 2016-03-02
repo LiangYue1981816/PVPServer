@@ -176,6 +176,7 @@
     <ClCompile Include="..\IOCPServer\IOCP.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameServer.cpp" />
+    <ClCompile Include="GameServerUpdate.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>

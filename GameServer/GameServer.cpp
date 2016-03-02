@@ -49,7 +49,7 @@ BOOL CGameServer::Start(const char *ip, int port, int maxGames, int maxPlayers, 
 	// 3. 启动服务器
 	//
 	if (AllocGames(maxGames) == FALSE) return FALSE;
-	if (AllocPlayers(maxPlayers) == FALSE) return FALSE;
+	if (AllocPlayers(maxGames * maxPlayers) == FALSE) return FALSE;
 	if (Listen(ip, port) == FALSE) return FALSE;
 	if (CreateIOCP() == FALSE) return FALSE;
 	if (CreateWorkThreads() == FALSE) return FALSE;
@@ -203,6 +203,7 @@ void CGameServer::FreePlayers(void)
 void CGameServer::DestroyReportThread(void)
 {
 	if (m_hReportThread) {
+		WaitForSingleObject(m_hReportThread, INFINITE);
 		CloseHandle(m_hReportThread);
 		m_hReportThread = NULL;
 	}
@@ -214,6 +215,7 @@ void CGameServer::DestroyReportThread(void)
 void CGameServer::DestroyUpdateThread(void)
 {
 	if (m_hUpdateThread) {
+		WaitForSingleObject(m_hUpdateThread, INFINITE);
 		CloseHandle(m_hUpdateThread);
 		m_hUpdateThread = NULL;
 	}
@@ -224,7 +226,30 @@ void CGameServer::DestroyUpdateThread(void)
 //
 CGame* CGameServer::GetNextGame(void)
 {
-	return NULL;
+	CGame *pGame = NULL;
+
+	if (m_pFreeGame) {
+		//
+		// 1. 建立活动链接
+		//
+		pGame = m_pFreeGame;
+
+		pGame->pPrevActive = NULL;
+		pGame->pNextActive = m_pActiveGame;
+
+		if (m_pActiveGame) {
+			m_pActiveGame->pPrevActive = pGame;
+		}
+		
+		m_pActiveGame = pGame;
+
+		//
+		// 2. 建立空闲链表
+		//
+		m_pFreeGame = m_pFreeGame->pNext;
+	}
+
+	return pGame;
 }
 
 //
@@ -232,7 +257,26 @@ CGame* CGameServer::GetNextGame(void)
 //
 void CGameServer::ReleaseGame(CGame *pGame)
 {
+	//
+	// 1. 建立空闲链表
+	//
+	pGame->pNext = m_pFreeGame;
+	m_pFreeGame = pGame;
 
+	//
+	// 2. 建立活动链表
+	//
+	if (pGame->pPrevActive) {
+		pGame->pPrevActive->pNextActive = pGame->pNextActive;
+	}
+
+	if (pGame->pNextActive) {
+		pGame->pNextActive->pPrevActive = pGame->pPrevActive;
+	}
+
+	if (m_pActiveGame == pGame) {
+		m_pActiveGame =  pGame->pNextActive;
+	}
 }
 
 //
@@ -240,7 +284,8 @@ void CGameServer::ReleaseGame(CGame *pGame)
 //
 CPlayer* CGameServer::QueryPlayer(DWORD guid)
 {
-	return NULL;
+	GUIDMAP::const_iterator itPlayer = m_guidmap.find(guid);
+	return itPlayer != m_guidmap.end() ? (CPlayer *)GetIOContextByIndex(itPlayer->second) : NULL;
 }
 
 //
@@ -248,6 +293,18 @@ CPlayer* CGameServer::QueryPlayer(DWORD guid)
 //
 BOOL CGameServer::RegisterPlayer(CPlayer *pPlayer, DWORD guid)
 {
+	//
+	// 1. 检查玩家是否已注册
+	//
+	GUIDMAP::const_iterator itPlayer = m_guidmap.find(guid);
+	if (itPlayer != m_guidmap.end()) return FALSE;
+
+	//
+	// 2. 注册玩家
+	//
+	pPlayer->guid = guid;
+	m_guidmap[pPlayer->guid] = pPlayer->id;
+
 	return TRUE;
 }
 
@@ -256,6 +313,18 @@ BOOL CGameServer::RegisterPlayer(CPlayer *pPlayer, DWORD guid)
 //
 BOOL CGameServer::UnRegisterPlayer(CPlayer *pPlayer)
 {
+	//
+	// 1. 检查玩家是否已注册
+	//
+	GUIDMAP::const_iterator itPlayer = m_guidmap.find(pPlayer->guid);
+	if (itPlayer == m_guidmap.end()) return FALSE;
+
+	//
+	// 2. 注销玩家
+	//
+	pPlayer->guid = 0xffffffff;
+	m_guidmap.erase(itPlayer);
+
 	return TRUE;
 }
 
@@ -264,143 +333,31 @@ BOOL CGameServer::UnRegisterPlayer(CPlayer *pPlayer)
 //
 void CGameServer::SendToPlayer(CPlayer *pPlayer, BYTE *pBuffer, DWORD size)
 {
+	if (pPlayer && pBuffer && size > 0) {
+		pPlayer->sendBuffer.Lock();
+		pPlayer->sendBuffer.PushData(pBuffer, size);
+		pPlayer->sendBuffer.Unlock();
 
+		m_dwSendDataSize += size;
+	}
 }
 
 //
 // 发送所有玩家
 //
-void CGameServer::SendToPlayerAll(CGame *pGame, CPlayer *pPlayerIgnore, BYTE *pBuffer, DWORD size, DWORD dwFilter)
+void CGameServer::SendToPlayerAll(CGame *pGame, CPlayer *pIgnore, BYTE *pBuffer, DWORD size, DWORD dwFilter)
 {
-
-}
-
-//
-// 客户端链接回调
-//
-void CGameServer::OnConnect(CIOContext *pIOContext, SOCKET acceptSocket)
-{
-
-}
-
-//
-// 客户端断链回调
-//
-void CGameServer::OnDisconnect(CIOContext *pIOContext)
-{
-
-}
-
-//
-// 更新接收消息
-//
-void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
-{
-
-}
-
-//
-// 更新发送消息
-//
-void CGameServer::OnUpdateSend(void)
-{
-
-}
-
-//
-// 更新游戏
-//
-void CGameServer::OnUpdateGame(float deltaTime)
-{
-
-}
-
-//
-// 心跳
-//
-void CGameServer::OnHeart(CPlayer *pPlayer)
-{
-
-}
-
-//
-// 重置心跳
-//
-void CGameServer::OnHeartReset(CPlayer *pPlayer)
-{
-
-}
-
-//
-// 登陆
-//
-void CGameServer::OnLogin(CPlayer *pPlayer)
-{
-
-}
-
-//
-// 设置标识
-//
-void CGameServer::OnFlags(CPlayer *pPlayer)
-{
-
-}
-
-//
-// 创建游戏
-//
-void CGameServer::OnCreateGame(CPlayer *pPlayer)
-{
-
-}
-
-//
-// 销毁游戏
-//
-void CGameServer::OnDestroyGame(CPlayer *pPlayer)
-{
-
-}
-
-//
-// 进入游戏
-//
-void CGameServer::OnEnterGame(CPlayer *pPlayer)
-{
-
-}
-
-//
-// 退出游戏
-//
-void CGameServer::OnExitGame(CPlayer *pPlayer)
-{
-
-}
-
-//
-// 发送指定玩家
-//
-void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD packSize)
-{
-
-}
-
-//
-// 发送所有玩家
-//
-void CGameServer::OnSendToPlayerAll(CPlayer *pPlayer, WORD packSize)
-{
-
-}
-
-//
-// 发送所有玩家(带过滤)
-//
-void CGameServer::OnSendToPlayerFilterAll(CPlayer *pPlayer, WORD packSize)
-{
-
+	if (pGame) {
+		if (CPlayer *pPlayer = pGame->pActivePlayer) {
+			do {
+				if (pPlayer != pIgnore) {
+					if (pPlayer->GetFlags() & dwFilter) {
+						SendToPlayer(pPlayer, pBuffer, size);
+					}
+				}
+			} while (pPlayer->pNextPlayer);
+		}
+	}
 }
 
 //
@@ -424,6 +381,12 @@ void CGameServer::Report(BYTE *buffer, CCacheBuffer *pCacheBuffer)
 //
 DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 {
+	if (CGameServer *pServer = (CGameServer *)lpParam) {
+		while (WAIT_OBJECT_0 != WaitForSingleObject(pServer->m_hShutdownEvent, 0)) {
+			Sleep(1000);
+		}
+	}
+
 	return 0L;
 }
 
@@ -432,5 +395,68 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 //
 DWORD WINAPI CGameServer::UpdateThread(LPVOID lpParam)
 {
+	if (CGameServer *pServer = (CGameServer *)lpParam) {
+		while (WAIT_OBJECT_0 != WaitForSingleObject(pServer->m_hShutdownEvent, 0)) {
+			DWORD dwLastTime = tick() / 1000;
+			static DWORD dwDeltaTime = 0;
+			static DWORD dwGameDeltaTime = 0;
+			static DWORD dwReportDeltaTime = 0;
+			{
+				//
+				// 1. 更新服务器
+				//
+				DWORD dwBegin = tick() / 1000;
+				EnterCriticalSection(&pServer->m_sectionIOContext);
+				{
+					pServer->OnUpdateRecv(dwDeltaTime);
+
+					// 游戏更新20FPS
+					if (dwGameDeltaTime > 50) {
+						pServer->OnUpdateGame(dwGameDeltaTime / 1000.0f);
+						dwGameDeltaTime = 0;
+					}
+
+					pServer->OnUpdateSend();
+				}
+				LeaveCriticalSection(&pServer->m_sectionIOContext);
+				DWORD dwEnd = tick() / 1000;
+
+				//
+				// 2. 更新统计信息
+				//
+				pServer->m_dwUpdateCount++;
+				pServer->m_dwUpdateTimeTotal += dwEnd - dwBegin;
+				pServer->m_dwUpdateTime = pServer->m_dwUpdateTimeTotal / pServer->m_dwUpdateCount;
+
+				// 报告更新1FPS
+				if (dwReportDeltaTime > 1000) {
+					EnterCriticalSection(&pServer->m_sectionIOContext);
+					{
+						pServer->Monitor();
+					}
+					LeaveCriticalSection(&pServer->m_sectionIOContext);
+
+					pServer->m_dwRuntimeTotal++;
+					pServer->m_dwUpdateCount = 0;
+					pServer->m_dwUpdateTime = 0;
+					pServer->m_dwUpdateTimeTotal = 0;
+					pServer->m_dwRecvDataSize = 0;
+					pServer->m_dwSendDataSize = 0;
+
+					dwReportDeltaTime = 0;
+				}
+
+				//
+				// 3. 释放时间片
+				//
+				Sleep(1);
+			}
+			dwDeltaTime = tick() / 1000 - dwLastTime;
+			dwDeltaTime = dwDeltaTime < 1000 ? dwDeltaTime : 0;
+			dwGameDeltaTime += dwDeltaTime;
+			dwReportDeltaTime += dwDeltaTime;
+		}
+	}
+
 	return 0L;
 }

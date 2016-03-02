@@ -11,6 +11,7 @@
 #define GAME_SERVER_VERSION            0x00010000
 
 
+#define PLAYER_FLAGS_NONE              0x00000000
 #define PLAYER_FLAGS_LOGIN             0x00000001
 #define PLAYER_FLAGS_WAITING           0x00000002
 #define PLAYER_FLAGS_READY             0x00000004
@@ -40,6 +41,8 @@ public:
 
 	virtual VOID EnableFlag(DWORD dwFlag);                                                         // 使用标识
 	virtual VOID DisableFlag(DWORD dwFlag);                                                        // 禁用标识
+
+	virtual DWORD GetFlags(void) const;                                                            // 获得标识
 
 	virtual BOOL IsLogin(void) const;                                                              // 登陆状态
 	virtual BOOL IsReady(void) const;                                                              // 已准备状态
@@ -158,7 +161,7 @@ protected:
 
 protected:
 	virtual void SendToPlayer(CPlayer *pPlayer, BYTE *pBuffer, DWORD size);                        // 发送指定玩家
-	virtual void SendToPlayerAll(CGame *pGame, CPlayer *pPlayerIgnore, BYTE *pBuffer, DWORD size, DWORD dwFilter = 0xffffffff); // 发送所有玩家
+	virtual void SendToPlayerAll(CGame *pGame, CPlayer *pIgnore, BYTE *pBuffer, DWORD size, DWORD dwFilter = 0xffffffff); // 发送所有玩家
 
 protected:
 	virtual void OnConnect(CIOContext *pIOContext, SOCKET acceptSocket);                           // 客户端链接回调
@@ -191,7 +194,7 @@ protected:
 
 	// 属性
 protected:
-	GUIDMAP guidmap;                                                                               // 逻辑ID与连接ID映射表
+	GUIDMAP m_guidmap;                                                                             // 逻辑ID与连接ID映射表
 
 protected:
 	int m_maxGames;                                                                                // 游戏数
