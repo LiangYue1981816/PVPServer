@@ -270,7 +270,7 @@ CIOCPServer::~CIOCPServer(void)
 //
 // 分配IO上下文
 //
-BOOL CIOCPServer::AllocIOContexts(int maxContexts)
+BOOL CIOCPServer::AllocContexts(int maxContexts)
 {
 	//
 	// 1. 分配IO上下文存储
@@ -301,7 +301,7 @@ BOOL CIOCPServer::AllocIOContexts(int maxContexts)
 //
 // 释放IO上下文
 //
-void CIOCPServer::FreeIOContexts(void)
+void CIOCPServer::FreeContexts(void)
 {
 	if (m_contexts) {
 		for (int indexContext = 0; indexContext < m_maxContexts; indexContext++) {
@@ -309,14 +309,14 @@ void CIOCPServer::FreeIOContexts(void)
 		}
 
 		delete[] m_contexts;
-
-		m_contexts = NULL;
-		m_pFreeContext = NULL;
-		m_pActiveContext = NULL;
 	}
 
 	m_curContexts = 0;
 	m_maxContexts = 0;
+
+	m_contexts = NULL;
+	m_pFreeContext = NULL;
+	m_pActiveContext = NULL;
 }
 
 //
@@ -566,7 +566,7 @@ void CIOCPServer::ReleaseIOContext(CIOContext *pIOContext, BOOL bLock /*= TRUE*/
 //
 BOOL CIOCPServer::Start(const char *ip, int port, int maxContexts)
 {
-	if (AllocIOContexts(maxContexts) == FALSE) return FALSE;
+	if (AllocContexts(maxContexts) == FALSE) return FALSE;
 	if (Listen(ip, port) == FALSE) return FALSE;
 	if (CreateIOCP() == FALSE) return FALSE;
 	if (CreateWorkThreads() == FALSE) return FALSE;
@@ -582,7 +582,7 @@ void CIOCPServer::Stop(void)
 	Disconnect();
 	DestroyIOCP();
 	DestroyWorkThreads();
-	FreeIOContexts();
+	FreeContexts();
 }
 
 //

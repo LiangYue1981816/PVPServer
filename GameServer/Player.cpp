@@ -1,11 +1,11 @@
 #include "GameServer.h"
 
 
-CPlayer::CPlayer(void)
-	: m_dwFlags(0x00000000)
-
+CPlayer::CPlayer(CGameServer *s)
+	: pServer(s)
 	, pGame(NULL)
-	, pServer(NULL)
+
+	, m_dwFlags(0x00000000)
 
 	, pNextPlayer(NULL)
 	, pPrevPlayer(NULL)

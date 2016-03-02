@@ -29,7 +29,7 @@ class CPlayer : public CIOContext
 {
 	// 构造/析构函数
 public:
-	CPlayer(void);
+	CPlayer(CGameServer *s);
 	virtual ~CPlayer(void);
 
 
@@ -108,6 +108,11 @@ private:
 public:
 	CGameServer *pServer;                                                                          // 服务器指针
 	CPlayer *pActivePlayer;                                                                        // 玩家头指针
+
+public:
+	CGame *pNext;                                                                                  // 下一个游戏
+	CGame *pNextActive;                                                                            // 下一个游戏
+	CGame *pPrevActive;                                                                            // 前一个游戏
 };
 
 //
@@ -132,13 +137,13 @@ public:
 	virtual void Stop(void);                                                                       // 停止服务器
 
 protected:
-	virtual BOOL AllocPlayers(int maxPlayers);                                                     // 分配玩家
 	virtual BOOL AllocGames(int maxGames);                                                         // 分配游戏
+	virtual BOOL AllocPlayers(int maxPlayers);                                                     // 分配玩家
 	virtual BOOL CreateReportThread(void);                                                         // 创建汇报线程
 	virtual BOOL CreateUpdateThread(void);                                                         // 创建更新线程
 
-	virtual void FreePlayers(void);                                                                // 释放玩家
 	virtual void FreeGames(void);                                                                  // 释放游戏
+	virtual void FreePlayers(void);                                                                // 释放玩家
 	virtual void DestroyReportThread(void);                                                        // 销毁汇报线程
 	virtual void DestroyUpdateThread(void);                                                        // 销毁更新线程
 
@@ -191,6 +196,8 @@ protected:
 protected:
 	int m_maxGames;                                                                                // 游戏数
 	CGame **m_games;                                                                               // 游戏集合
+	CGame *m_pFreeGame;                                                                            // 空闲游戏
+	CGame *m_pActiveGame;                                                                          // 活动游戏
 
 	int m_timeOut;                                                                                 // 心跳超时
 

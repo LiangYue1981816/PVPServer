@@ -105,11 +105,11 @@ public:
 	virtual void Stop(void);                                                                       // 停止服务器
 
 protected:
-	virtual BOOL AllocIOContexts(int maxContexts);                                                 // 分配IO上下文
+	virtual BOOL AllocContexts(int maxContexts);                                                   // 分配IO上下文
 	virtual BOOL CreateIOCP(void);                                                                 // 创建完成端口
 	virtual BOOL CreateWorkThreads(void);                                                          // 创建工作线程
 
-	virtual void FreeIOContexts(void);                                                             // 释放IO上下文
+	virtual void FreeContexts(void);                                                               // 释放IO上下文
 	virtual void DestroyIOCP(void);                                                                // 销毁完成端口
 	virtual void DestroyWorkThreads(void);                                                         // 销毁工作线程
 

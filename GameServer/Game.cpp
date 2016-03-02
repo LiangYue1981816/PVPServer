@@ -10,6 +10,10 @@ CGame::CGame(CGameServer *s)
 	, m_numPlayers(0)
 
 	, pActivePlayer(NULL)
+
+	, pNext(NULL)
+	, pNextActive(NULL)
+	, pPrevActive(NULL)
 {
 	memset(m_szPassword, 0, sizeof(m_szPassword));
 }
@@ -124,7 +128,6 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 	//
 	// 2. Ìí¼ÓÍæ¼Ò
 	//
-	pPlayer->pGame = this;
 	pPlayer->pServer = pServer;
 
 	pPlayer->pPrevPlayer = NULL;
@@ -168,6 +171,8 @@ int CGame::DelPlayer(CPlayer *pPlayer)
 	//
 	// 2. É¾³ýÍæ¼Ò
 	//
+	pPlayer->pGame = NULL;
+
 	if (pPlayer->pPrevPlayer) {
 		pPlayer->pPrevPlayer->pNextPlayer = pPlayer->pNextPlayer;
 	}
