@@ -52,7 +52,9 @@ BOOL CGameServer::Start(const char *ip, int port, int maxGames, int maxPlayers, 
 	if (AllocPlayers(maxGames * maxPlayers) == FALSE) return FALSE;
 	if (Listen(ip, port) == FALSE) return FALSE;
 	if (CreateIOCP() == FALSE) return FALSE;
+	if (CreateShutdownEvent() == FALSE) return FALSE;
 	if (CreateWorkThreads() == FALSE) return FALSE;
+	if (CreateListenThread() == FALSE) return FALSE;
 	if (CreateReportThread() == FALSE) return FALSE;
 	if (CreateUpdateThread() == FALSE) return FALSE;
 
@@ -69,11 +71,15 @@ void CGameServer::Stop(void)
 	m_nRootServerPort = 0;
 	memset(m_szRootServerIP, 0, sizeof(m_szRootServerIP));
 
+	SetEvent(m_hShutdownEvent);
+
 	Disconnect();
 	DestroyIOCP();
 	DestroyWorkThreads();
+	DestroyListenThread();
 	DestroyReportThread();
 	DestroyUpdateThread();
+	DestroyShutdownEvent();
 	FreeGames();
 	FreePlayers();
 }

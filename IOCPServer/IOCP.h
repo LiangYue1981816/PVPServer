@@ -108,10 +108,14 @@ protected:
 	virtual BOOL AllocContexts(int maxContexts);                                                   // 分配IO上下文
 	virtual BOOL CreateIOCP(void);                                                                 // 创建完成端口
 	virtual BOOL CreateWorkThreads(void);                                                          // 创建工作线程
+	virtual BOOL CreateListenThread(void);                                                         // 创建侦听线程
+	virtual BOOL CreateShutdownEvent(void);                                                        // 创建关闭事件
 
 	virtual void FreeContexts(void);                                                               // 释放IO上下文
 	virtual void DestroyIOCP(void);                                                                // 销毁完成端口
 	virtual void DestroyWorkThreads(void);                                                         // 销毁工作线程
+	virtual void DestroyListenThread(void);                                                        // 销毁侦听线程
+	virtual void DestroyShutdownEvent(void);                                                       // 销毁关闭事件
 
 	virtual BOOL Listen(const char *ip, int port);                                                 // 侦听
 	virtual void Disconnect(void);                                                                 // 断开连接

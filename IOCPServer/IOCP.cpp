@@ -268,6 +268,36 @@ CIOCPServer::~CIOCPServer(void)
 }
 
 //
+// 启动
+//
+BOOL CIOCPServer::Start(const char *ip, int port, int maxContexts)
+{
+	if (AllocContexts(maxContexts) == FALSE) return FALSE;
+	if (Listen(ip, port) == FALSE) return FALSE;
+	if (CreateIOCP() == FALSE) return FALSE;
+	if (CreateShutdownEvent() == FALSE) return FALSE;
+	if (CreateWorkThreads() == FALSE) return FALSE;
+	if (CreateListenThread() == FALSE) return FALSE;
+
+	return TRUE;
+}
+
+//
+// 停止
+//
+void CIOCPServer::Stop(void)
+{
+	SetEvent(m_hShutdownEvent);
+
+	Disconnect();
+	DestroyIOCP();
+	DestroyWorkThreads();
+	DestroyListenThread();
+	DestroyShutdownEvent();
+	FreeContexts();
+}
+
+//
 // 分配IO上下文
 //
 BOOL CIOCPServer::AllocContexts(int maxContexts)
@@ -299,6 +329,48 @@ BOOL CIOCPServer::AllocContexts(int maxContexts)
 }
 
 //
+// 创建IOCP
+//
+BOOL CIOCPServer::CreateIOCP(void)
+{
+	m_hIOCP = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
+	return m_hIOCP != NULL ? TRUE : FALSE;
+}
+
+//
+// 创建工作线程
+//
+BOOL CIOCPServer::CreateWorkThreads(void)
+{
+	int numThreads = GetProcessors() * 2 + 1;
+
+	for (int indexThread = 0; indexThread < min(numThreads, MAX_THREAD_COUNT); indexThread++) {
+		m_hWorkThreads[indexThread] = CreateThread(0, 0, WorkThread, (LPVOID)this, 0, NULL);
+		if (m_hWorkThreads[indexThread] == NULL) return FALSE;
+	}
+
+	return TRUE;
+}
+
+//
+// 创建侦听线程
+//
+BOOL CIOCPServer::CreateListenThread(void)
+{
+	m_hListenThread = CreateThread(0, 0, ListenThread, (LPVOID)this, 0, NULL);
+	return m_hListenThread != NULL ? TRUE : FALSE;
+}
+
+//
+// 创建关闭事件
+//
+BOOL CIOCPServer::CreateShutdownEvent(void)
+{
+	m_hShutdownEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+	return m_hShutdownEvent != NULL ? TRUE : FALSE;
+}
+
+//
 // 释放IO上下文
 //
 void CIOCPServer::FreeContexts(void)
@@ -320,15 +392,6 @@ void CIOCPServer::FreeContexts(void)
 }
 
 //
-// 创建IOCP
-//
-BOOL CIOCPServer::CreateIOCP(void)
-{
-	m_hIOCP = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
-	return m_hIOCP != NULL ? TRUE : FALSE;
-}
-
-//
 // 销毁IOCP
 //
 void CIOCPServer::DestroyIOCP(void)
@@ -340,59 +403,10 @@ void CIOCPServer::DestroyIOCP(void)
 }
 
 //
-// 创建工作线程
-//
-BOOL CIOCPServer::CreateWorkThreads(void)
-{
-	//
-	// 1. 创建关闭事件
-	//
-	m_hShutdownEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
-	if (m_hShutdownEvent == NULL) return FALSE;
-
-	//
-	// 2. 创建工作线程
-	//
-	int numThreads = GetProcessors() * 2 + 1;
-
-	for (int indexThread = 0; indexThread < min(numThreads, MAX_THREAD_COUNT); indexThread++) {
-		m_hWorkThreads[indexThread] = CreateThread(0, 0, WorkThread, (LPVOID)this, 0, NULL);
-		if (m_hWorkThreads[indexThread] == NULL) return FALSE;
-	}
-
-	//
-	// 3. 创建监听线程
-	//
-	m_hListenThread = CreateThread(0, 0, ListenThread, (LPVOID)this, 0, NULL);
-	if (m_hListenThread == NULL) return FALSE;
-
-	return TRUE;
-}
-
-//
 // 销毁工作线程
 //
 void CIOCPServer::DestroyWorkThreads(void)
 {
-	//
-	// 1. 设置关闭事件
-	//
-	if (m_hShutdownEvent) {
-		SetEvent(m_hShutdownEvent);
-	}
-
-	//
-	// 2. 关闭监听线程
-	//
-	if (m_hListenThread) {
-		WaitForSingleObject(m_hListenThread, INFINITE);
-		CloseHandle(m_hListenThread);
-		m_hListenThread = NULL;
-	}
-
-	//
-	// 3. 关闭工作线程句柄
-	//
 	int numThreads = GetProcessors() * 2 + 1;
 
 	PostQueuedCompletionStatus(m_hIOCP, 0, 0, NULL);
@@ -404,10 +418,25 @@ void CIOCPServer::DestroyWorkThreads(void)
 			m_hWorkThreads[indexThread] = NULL;
 		}
 	}
+}
 
-	//
-	// 4. 释放关闭事件
-	//
+//
+// 销毁侦听线程
+//
+void CIOCPServer::DestroyListenThread(void)
+{
+	if (m_hListenThread) {
+		WaitForSingleObject(m_hListenThread, INFINITE);
+		CloseHandle(m_hListenThread);
+		m_hListenThread = NULL;
+	}
+}
+
+//
+// 销毁关闭事件
+//
+void CIOCPServer::DestroyShutdownEvent(void)
+{
 	if (m_hShutdownEvent) {
 		CloseHandle(m_hShutdownEvent);
 		m_hShutdownEvent = NULL;
@@ -559,30 +588,6 @@ void CIOCPServer::ReleaseIOContext(CIOContext *pIOContext, BOOL bLock)
 		}
 	}
 	if (bLock) LeaveCriticalSection(&m_sectionIOContext);
-}
-
-//
-// 启动
-//
-BOOL CIOCPServer::Start(const char *ip, int port, int maxContexts)
-{
-	if (AllocContexts(maxContexts) == FALSE) return FALSE;
-	if (Listen(ip, port) == FALSE) return FALSE;
-	if (CreateIOCP() == FALSE) return FALSE;
-	if (CreateWorkThreads() == FALSE) return FALSE;
-
-	return TRUE;
-}
-
-//
-// 停止
-//
-void CIOCPServer::Stop(void)
-{
-	Disconnect();
-	DestroyIOCP();
-	DestroyWorkThreads();
-	FreeContexts();
 }
 
 //
