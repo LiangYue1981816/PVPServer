@@ -6,6 +6,7 @@
 #include <string>
 #include "IOCP.h"
 #include "Error.h"
+#include "Message.h"
 
 
 #define GAME_SERVER_VERSION            0x00010000
