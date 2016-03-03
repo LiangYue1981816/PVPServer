@@ -168,8 +168,9 @@ protected:
 	virtual void OnConnect(CIOContext *pIOContext, SOCKET acceptSocket);                           // 客户端链接回调
 	virtual void OnDisconnect(CIOContext *pIOContext);                                             // 客户端断链回调
 
-	virtual void OnUpdateRecv(DWORD dwDeltaTime);                                                  // 更新接收消息
 	virtual void OnUpdateSend(void);                                                               // 更新发送消息
+	virtual void OnUpdateRecv(DWORD dwDeltaTime);                                                  // 更新接收消息
+	virtual void OnUpdateGameMessage(CPlayer *pPlayer, WORD msg);                                  // 更新游戏消息
 	virtual void OnUpdateGame(float deltaTime);                                                    // 更新游戏
 
 	virtual void OnHeart(CPlayer *pPlayer);                                                        // 心跳
@@ -180,6 +181,7 @@ protected:
 	virtual void OnDestroyGame(CPlayer *pPlayer);                                                  // 销毁游戏
 	virtual void OnEnterGame(CPlayer *pPlayer);                                                    // 进入游戏
 	virtual void OnExitGame(CPlayer *pPlayer);                                                     // 退出游戏
+	virtual void OnModifyGamePassword(CPlayer *pPlayer);                                           // 修改游戏密码
 	virtual void OnSendToPlayer(CPlayer *pPlayer, WORD packSize);                                  // 发送指定玩家
 	virtual void OnSendToPlayerAll(CPlayer *pPlayer, WORD packSize);                               // 发送所有玩家
 	virtual void OnSendToPlayerFilterAll(CPlayer *pPlayer, WORD packSize);                         // 发送所有玩家(带过滤)
