@@ -65,52 +65,52 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 					m_dwRecvDataSize += size;
 
 					switch (msg) {
-					case GAMESERVER_MSG_C2S_HEART:
+					case Client::SERVER_MSG::HEART:
 						OnHeart(pPlayer);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GAMESERVER_MSG_C2S_LOGIN:
+					case Client::SERVER_MSG::LOGIN:
 						OnLogin(pPlayer);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GAMESERVER_MSG_C2S_FLAGS:
+					case Client::SERVER_MSG::FLAGS:
 						OnFlags(pPlayer);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GAMESERVER_MSG_C2S_CREATE_GAME:
+					case Client::SERVER_MSG::CREATE_GAME:
 						OnCreateGame(pPlayer);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GAMESERVER_MSG_C2S_DESTROY_GAME:
+					case Client::SERVER_MSG::DESTROY_GAME:
 						OnDestroyGame(pPlayer);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GAMESERVER_MSG_C2S_ENTER_GAME:
+					case Client::SERVER_MSG::ENTER_GAME:
 						OnEnterGame(pPlayer);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GAMESERVER_MSG_C2S_EXIT_GAME:
+					case Client::SERVER_MSG::EXIT_GAME:
 						OnExitGame(pPlayer);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GAMESERVER_MSG_C2S_MODIFY_GAME_PASSWORD:
+					case Client::SERVER_MSG::MODIFY_GAME_PASSWORD:
 						OnModifyGamePassword(pPlayer);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GAMESERVER_MSG_C2S_SENDTO_PLAYER:
+					case Client::SERVER_MSG::SEND_TO_PLAYER:
 						OnSendToPlayer(pPlayer, size);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GAMESERVER_MSG_C2S_SENDTO_PLAYER_ALL:
+					case Client::SERVER_MSG::SEND_TO_PLAYER_ALL:
 						OnSendToPlayerAll(pPlayer, size);
 						OnHeartReset(pPlayer);
 						break;

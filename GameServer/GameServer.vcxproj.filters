@@ -57,8 +57,8 @@
     <ClInclude Include="Error.h">
       <Filter>GameServer\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Message.h">
-      <Filter>GameServer\Header Files</Filter>
+    <ClInclude Include="..\..\Proto\cpp\Server.pb.h">
+      <Filter>Proto\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="GameServerUpdate.cpp">
       <Filter>GameServer\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Proto\cpp\Server.pb.cc">
+      <Filter>Proto\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

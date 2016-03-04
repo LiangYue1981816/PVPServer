@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Proto\cpp\Client.pb.h" />
+    <ClInclude Include="..\..\Proto\cpp\Server.pb.h" />
     <ClInclude Include="..\Common\CacheBuffer.h" />
     <ClInclude Include="..\Common\Common.h" />
     <ClInclude Include="..\Common\Event.h" />
@@ -166,10 +167,10 @@
     <ClInclude Include="..\IOCPServer\IOCP.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="GameServer.h" />
-    <ClInclude Include="Message.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Proto\cpp\Client.pb.cc" />
+    <ClCompile Include="..\..\Proto\cpp\Server.pb.cc" />
     <ClCompile Include="..\Common\CacheBuffer.cpp" />
     <ClCompile Include="..\Common\Common.cpp" />
     <ClCompile Include="..\Common\Event.cpp" />
