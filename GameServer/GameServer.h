@@ -6,6 +6,7 @@
 #include <string>
 #include "IOCP.h"
 #include "Error.h"
+#include "Serializer.h"
 #include "Client.pb.h"
 #include "Server.pb.h"
 
@@ -78,10 +79,7 @@ public:
 
 	// 方法
 public:
-	virtual void SetPassword(const char *password);                                                // 设置游戏密码
-	virtual void SetMode(int mode);                                                                // 设置游戏模式
-	virtual void SetMapID(int mapid);                                                              // 设置游戏地图
-	virtual void SetMaxPlayers(int maxPlayers);                                                    // 设置最大玩家数
+	virtual void SetGame(const char *password, int mode, int mapid, int maxPlayers);               // 设置游戏
 
 	virtual int GetMode(void) const;                                                               // 获得游戏模式
 	virtual int GetMapID(void) const;                                                              // 获得游戏地图
@@ -162,8 +160,8 @@ protected:
 	virtual BOOL UnRegisterPlayer(CPlayer *pPlayer);                                               // 注销玩家
 
 protected:
-	virtual void SendToPlayer(CPlayer *pPlayer, BYTE *pBuffer, DWORD size);                        // 发送指定玩家
-	virtual void SendToPlayerAll(CGame *pGame, CPlayer *pIgnore, BYTE *pBuffer, DWORD size, DWORD dwFilter = 0xffffffff); // 发送所有玩家
+	virtual void SendToPlayer(CPlayer *pPlayer, BYTE *pBuffer, size_t size);                       // 发送指定玩家
+	virtual void SendToPlayerAll(CGame *pGame, CPlayer *pIgnore, BYTE *pBuffer, size_t size, DWORD dwFilter = 0xffffffff); // 发送所有玩家
 
 protected:
 	virtual void OnConnect(CIOContext *pIOContext, SOCKET acceptSocket);                           // 客户端链接回调

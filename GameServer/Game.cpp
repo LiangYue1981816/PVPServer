@@ -24,40 +24,14 @@ CGame::~CGame(void)
 }
 
 //
-// 设置游戏密码
+// 设置游戏
 //
-void CGame::SetPassword(const char *password)
-{
-	if (password && strlen(password) < sizeof(m_szPassword)) {
-		strcpy(m_szPassword, password);
-	}
-	else {
-		memset(m_szPassword, 0, sizeof(m_szPassword));
-	}
-}
-
-//
-// 设置游戏模式
-//
-void CGame::SetMode(int mode)
+void CGame::SetGame(const char *password, int mode, int mapid, int maxPlayers)
 {
 	m_mode = mode;
-}
-
-//
-// 设置游戏地图
-//
-void CGame::SetMapID(int mapid)
-{
 	m_mapid = mapid;
-}
-
-//
-// 设置最大玩家数
-//
-void CGame::SetMaxPlayers(int maxPlayers)
-{
 	m_maxPlayers = maxPlayers;
+	strcpy(m_szPassword, password);
 }
 
 //

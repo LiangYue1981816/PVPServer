@@ -350,21 +350,21 @@ BOOL CGameServer::UnRegisterPlayer(CPlayer *pPlayer)
 //
 // 发送指定玩家
 //
-void CGameServer::SendToPlayer(CPlayer *pPlayer, BYTE *pBuffer, DWORD size)
+void CGameServer::SendToPlayer(CPlayer *pPlayer, BYTE *pBuffer, size_t size)
 {
 	if (pPlayer && pBuffer && size > 0) {
 		pPlayer->sendBuffer.Lock();
 		pPlayer->sendBuffer.PushData(pBuffer, size);
 		pPlayer->sendBuffer.Unlock();
 
-		m_dwSendDataSize += size;
+		m_dwSendDataSize += (DWORD)size;
 	}
 }
 
 //
 // 发送所有玩家
 //
-void CGameServer::SendToPlayerAll(CGame *pGame, CPlayer *pIgnore, BYTE *pBuffer, DWORD size, DWORD dwFilter)
+void CGameServer::SendToPlayerAll(CGame *pGame, CPlayer *pIgnore, BYTE *pBuffer, size_t size, DWORD dwFilter)
 {
 	if (pGame) {
 		if (CPlayer *pPlayer = pGame->pActivePlayer) {
