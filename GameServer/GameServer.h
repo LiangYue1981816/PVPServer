@@ -174,18 +174,17 @@ protected:
 	virtual void OnUpdateGameMessage(CPlayer *pPlayer, WORD msg);                                  // 更新游戏消息
 	virtual void OnUpdateGame(float deltaTime);                                                    // 更新游戏
 
-	virtual void OnHeart(CPlayer *pPlayer);                                                        // 心跳
 	virtual void OnHeartReset(CPlayer *pPlayer);                                                   // 重置心跳
-	virtual void OnLogin(CPlayer *pPlayer);                                                        // 登陆
-	virtual void OnFlags(CPlayer *pPlayer);                                                        // 设置标识
-	virtual void OnCreateGame(CPlayer *pPlayer);                                                   // 创建游戏
-	virtual void OnDestroyGame(CPlayer *pPlayer);                                                  // 销毁游戏
-	virtual void OnEnterGame(CPlayer *pPlayer);                                                    // 进入游戏
-	virtual void OnExitGame(CPlayer *pPlayer);                                                     // 退出游戏
-	virtual void OnModifyGamePassword(CPlayer *pPlayer);                                           // 修改游戏密码
-	virtual void OnSendToPlayer(CPlayer *pPlayer, WORD packSize);                                  // 发送指定玩家
-	virtual void OnSendToPlayerAll(CPlayer *pPlayer, WORD packSize);                               // 发送所有玩家
-	virtual void OnSendToPlayerFilterAll(CPlayer *pPlayer, WORD packSize);                         // 发送所有玩家(带过滤)
+	virtual void OnHeart(CPlayer *pPlayer, WORD size);                                             // 心跳
+	virtual void OnLogin(CPlayer *pPlayer, WORD size);                                             // 登陆
+	virtual void OnFlags(CPlayer *pPlayer, WORD size);                                             // 设置标识
+	virtual void OnCreateGame(CPlayer *pPlayer, WORD size);                                        // 创建游戏
+	virtual void OnDestroyGame(CPlayer *pPlayer, WORD size);                                       // 销毁游戏
+	virtual void OnEnterGame(CPlayer *pPlayer, WORD size);                                         // 进入游戏
+	virtual void OnExitGame(CPlayer *pPlayer, WORD size);                                          // 退出游戏
+	virtual void OnModifyGamePassword(CPlayer *pPlayer, WORD size);                                // 修改游戏密码
+	virtual void OnSendToPlayer(CPlayer *pPlayer, WORD size);                                      // 发送指定玩家
+	virtual void OnSendToPlayerAll(CPlayer *pPlayer, WORD size);                                   // 发送所有玩家
 
 protected:
 	virtual void Monitor(void);                                                                    // 监控

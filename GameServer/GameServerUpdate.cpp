@@ -15,7 +15,7 @@ void CGameServer::OnConnect(CIOContext *pIOContext, SOCKET acceptSocket)
 //
 void CGameServer::OnDisconnect(CIOContext *pIOContext)
 {
-	OnExitGame((CPlayer *)pIOContext);
+	OnExitGame((CPlayer *)pIOContext, 0);
 	UnRegisterPlayer((CPlayer *)pIOContext);
 
 	CIOCPServer::OnDisconnect(pIOContext);
@@ -56,62 +56,63 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 
 				while (TRUE) {
 					WORD msg = 0;
-					WORD size = *(WORD *)pPlayer->recvBuffer.GetPopPointer();
+					WORD fullSize = *(WORD *)pPlayer->recvBuffer.GetPopPointer();
+					WORD bodySize = fullSize - sizeof(msg);
 
-					if (pPlayer->recvBuffer.GetActiveBufferSize() < sizeof(size) + size) break;
-					if (pPlayer->recvBuffer.PopData((BYTE *)&size, sizeof(size)) == FALSE) break;
+					if (pPlayer->recvBuffer.GetActiveBufferSize() < sizeof(fullSize) + fullSize) break;
+					if (pPlayer->recvBuffer.PopData((BYTE *)&fullSize, sizeof(fullSize)) == FALSE) break;
 					if (pPlayer->recvBuffer.PopData((BYTE *)&msg, sizeof(msg)) == FALSE)  break;
 
-					m_dwRecvDataSize += size;
+					m_dwRecvDataSize += sizeof(fullSize) + fullSize;
 
 					switch (msg) {
 					case Client::SERVER_MSG::HEART:
-						OnHeart(pPlayer);
+						OnHeart(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
 					case Client::SERVER_MSG::LOGIN:
-						OnLogin(pPlayer);
+						OnLogin(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
 					case Client::SERVER_MSG::FLAGS:
-						OnFlags(pPlayer);
+						OnFlags(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
 					case Client::SERVER_MSG::CREATE_GAME:
-						OnCreateGame(pPlayer);
+						OnCreateGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
 					case Client::SERVER_MSG::DESTROY_GAME:
-						OnDestroyGame(pPlayer);
+						OnDestroyGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
 					case Client::SERVER_MSG::ENTER_GAME:
-						OnEnterGame(pPlayer);
+						OnEnterGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
 					case Client::SERVER_MSG::EXIT_GAME:
-						OnExitGame(pPlayer);
+						OnExitGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
 					case Client::SERVER_MSG::MODIFY_GAME_PASSWORD:
-						OnModifyGamePassword(pPlayer);
+						OnModifyGamePassword(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
 					case Client::SERVER_MSG::SEND_TO_PLAYER:
-						OnSendToPlayer(pPlayer, size);
+						OnSendToPlayer(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
 					case Client::SERVER_MSG::SEND_TO_PLAYER_ALL:
-						OnSendToPlayerAll(pPlayer, size);
+						OnSendToPlayerAll(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
@@ -151,14 +152,6 @@ void CGameServer::OnUpdateGame(float deltaTime)
 }
 
 //
-// 心跳
-//
-void CGameServer::OnHeart(CPlayer *pPlayer)
-{
-
-}
-
-//
 // 重置心跳
 //
 void CGameServer::OnHeartReset(CPlayer *pPlayer)
@@ -167,9 +160,17 @@ void CGameServer::OnHeartReset(CPlayer *pPlayer)
 }
 
 //
+// 心跳
+//
+void CGameServer::OnHeart(CPlayer *pPlayer, WORD size)
+{
+
+}
+
+//
 // 登陆
 //
-void CGameServer::OnLogin(CPlayer *pPlayer)
+void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 {
 
 }
@@ -177,7 +178,7 @@ void CGameServer::OnLogin(CPlayer *pPlayer)
 //
 // 设置标识
 //
-void CGameServer::OnFlags(CPlayer *pPlayer)
+void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
 {
 
 }
@@ -185,7 +186,7 @@ void CGameServer::OnFlags(CPlayer *pPlayer)
 //
 // 创建游戏
 //
-void CGameServer::OnCreateGame(CPlayer *pPlayer)
+void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 {
 
 }
@@ -193,7 +194,7 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer)
 //
 // 销毁游戏
 //
-void CGameServer::OnDestroyGame(CPlayer *pPlayer)
+void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 {
 
 }
@@ -201,7 +202,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer)
 //
 // 进入游戏
 //
-void CGameServer::OnEnterGame(CPlayer *pPlayer)
+void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 {
 
 }
@@ -209,7 +210,7 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer)
 //
 // 退出游戏
 //
-void CGameServer::OnExitGame(CPlayer *pPlayer)
+void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 {
 
 }
@@ -217,7 +218,7 @@ void CGameServer::OnExitGame(CPlayer *pPlayer)
 //
 // 修改游戏密码
 //
-void CGameServer::OnModifyGamePassword(CPlayer *pPlayer)
+void CGameServer::OnModifyGamePassword(CPlayer *pPlayer, WORD size)
 {
 
 }
@@ -225,7 +226,7 @@ void CGameServer::OnModifyGamePassword(CPlayer *pPlayer)
 //
 // 发送指定玩家
 //
-void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD packSize)
+void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD size)
 {
 
 }
@@ -233,15 +234,8 @@ void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD packSize)
 //
 // 发送所有玩家
 //
-void CGameServer::OnSendToPlayerAll(CPlayer *pPlayer, WORD packSize)
+void CGameServer::OnSendToPlayerAll(CPlayer *pPlayer, WORD size)
 {
 
 }
 
-//
-// 发送所有玩家(带过滤)
-//
-void CGameServer::OnSendToPlayerFilterAll(CPlayer *pPlayer, WORD packSize)
-{
-
-}
