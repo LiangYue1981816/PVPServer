@@ -59,8 +59,8 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 					WORD size = *(WORD *)pPlayer->recvBuffer.GetPopPointer();
 
 					if (pPlayer->recvBuffer.GetActiveBufferSize() < sizeof(size) + size) break;
-					if (!pPlayer->recvBuffer.PopData((BYTE *)&size, sizeof(size))) break;
-					if (!pPlayer->recvBuffer.PopData((BYTE *)&msg, sizeof(msg)))  break;
+					if (pPlayer->recvBuffer.PopData((BYTE *)&size, sizeof(size)) == FALSE) break;
+					if (pPlayer->recvBuffer.PopData((BYTE *)&msg, sizeof(msg)) == FALSE)  break;
 
 					m_dwRecvDataSize += size;
 
