@@ -146,9 +146,9 @@ void CGameServer::OnUpdateGameMessage(CPlayer *pPlayer, WORD msg)
 }
 
 //
-// 更新游戏
+// 更新游戏逻辑
 //
-void CGameServer::OnUpdateGame(float deltaTime)
+void CGameServer::OnUpdateGameLogic(float deltaTime)
 {
 
 }

@@ -155,9 +155,9 @@ protected:
 	virtual void ReleaseGame(CGame *pGame);                                                        // 释放游戏
 
 protected:
-	virtual CPlayer* QueryPlayer(DWORD guid);                                                      // 查询玩家
 	virtual BOOL Login(CPlayer *pPlayer, DWORD guid);                                              // 玩家登陆
 	virtual BOOL Logout(CPlayer *pPlayer);                                                         // 玩家注销
+	virtual CPlayer* QueryPlayer(DWORD guid);                                                      // 查询玩家
 
 protected:
 	virtual void SendToPlayer(CPlayer *pPlayer, BYTE *pBuffer, size_t size);                       // 发送指定玩家
@@ -170,7 +170,7 @@ protected:
 	virtual void OnUpdateSend(void);                                                               // 更新发送消息
 	virtual void OnUpdateRecv(DWORD dwDeltaTime);                                                  // 更新接收消息
 	virtual void OnUpdateGameMessage(CPlayer *pPlayer, WORD msg);                                  // 更新游戏消息
-	virtual void OnUpdateGame(float deltaTime);                                                    // 更新游戏
+	virtual void OnUpdateGameLogic(float deltaTime);                                               // 更新游戏逻辑
 
 	virtual void OnHeartReset(CPlayer *pPlayer);                                                   // 重置心跳
 	virtual void OnHeart(CPlayer *pPlayer, WORD size);                                             // 心跳

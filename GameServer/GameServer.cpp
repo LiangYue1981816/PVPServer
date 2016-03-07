@@ -299,15 +299,6 @@ void CGameServer::ReleaseGame(CGame *pGame)
 }
 
 //
-// 查询玩家
-//
-CPlayer* CGameServer::QueryPlayer(DWORD guid)
-{
-	GUIDMAP::const_iterator itPlayer = m_guidmap.find(guid);
-	return itPlayer != m_guidmap.end() ? (CPlayer *)GetIOContextByIndex(itPlayer->second) : NULL;
-}
-
-//
 // 玩家登陆
 //
 BOOL CGameServer::Login(CPlayer *pPlayer, DWORD guid)
@@ -345,6 +336,15 @@ BOOL CGameServer::Logout(CPlayer *pPlayer)
 	m_guidmap.erase(itPlayer);
 
 	return TRUE;
+}
+
+//
+// 查询玩家
+//
+CPlayer* CGameServer::QueryPlayer(DWORD guid)
+{
+	GUIDMAP::const_iterator itPlayer = m_guidmap.find(guid);
+	return itPlayer != m_guidmap.end() ? (CPlayer *)GetIOContextByIndex(itPlayer->second) : NULL;
 }
 
 //
@@ -431,7 +431,7 @@ DWORD WINAPI CGameServer::UpdateThread(LPVOID lpParam)
 
 					// 游戏更新20FPS
 					if (dwGameDeltaTime > 50) {
-						pServer->OnUpdateGame(dwGameDeltaTime / 1000.0f);
+						pServer->OnUpdateGameLogic(dwGameDeltaTime / 1000.0f);
 						dwGameDeltaTime = 0;
 					}
 
