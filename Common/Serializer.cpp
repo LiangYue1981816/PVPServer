@@ -15,10 +15,12 @@ void Serializer(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WOR
 	pBuffer->PushData(body, bodySize);
 }
 
-void Parser(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD size)
+BOOL Parser(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD size)
 {
 	BYTE body[PACK_BUFFER_SIZE];
 
-	pBuffer->PopData(body, size);
-	message->ParseFromArray(body, size);
+	if (pBuffer->PopData(body, size) != size) return FALSE;
+	if (message->ParseFromArray(body, size) == false) return FALSE;
+
+	return TRUE;
 }

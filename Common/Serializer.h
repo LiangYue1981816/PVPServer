@@ -12,4 +12,4 @@
 
 
 extern void Serializer(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD msg);
-extern void Parser(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD size);
+extern BOOL Parser(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD size);
