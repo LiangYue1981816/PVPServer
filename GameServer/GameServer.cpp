@@ -308,12 +308,12 @@ CPlayer* CGameServer::QueryPlayer(DWORD guid)
 }
 
 //
-// ×¢²áÍæ¼Ò
+// Íæ¼ÒµÇÂ½
 //
-BOOL CGameServer::RegisterPlayer(CPlayer *pPlayer, DWORD guid)
+BOOL CGameServer::Login(CPlayer *pPlayer, DWORD guid)
 {
 	//
-	// 1. ¼ì²éÍæ¼ÒÊÇ·ñÒÑ×¢²á
+	// 1. ²éÕÒ×¢²áÍæ¼Ò
 	//
 	GUIDMAP::const_iterator itPlayer = m_guidmap.find(guid);
 	if (itPlayer != m_guidmap.end()) return FALSE;
@@ -322,18 +322,18 @@ BOOL CGameServer::RegisterPlayer(CPlayer *pPlayer, DWORD guid)
 	// 2. ×¢²áÍæ¼Ò
 	//
 	pPlayer->guid = guid;
-	m_guidmap[pPlayer->guid] = pPlayer->id;
+	m_guidmap[guid] = pPlayer->id;
 
 	return TRUE;
 }
 
 //
-// ×¢ÏúÍæ¼Ò
+// Íæ¼Ò×¢Ïú
 //
-BOOL CGameServer::UnRegisterPlayer(CPlayer *pPlayer)
+BOOL CGameServer::Logout(CPlayer *pPlayer)
 {
 	//
-	// 1. ¼ì²éÍæ¼ÒÊÇ·ñÒÑ×¢²á
+	// 1. ²éÕÒ×¢²áÍæ¼Ò
 	//
 	GUIDMAP::const_iterator itPlayer = m_guidmap.find(pPlayer->guid);
 	if (itPlayer == m_guidmap.end()) return FALSE;

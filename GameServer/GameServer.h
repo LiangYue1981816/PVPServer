@@ -156,8 +156,8 @@ protected:
 
 protected:
 	virtual CPlayer* QueryPlayer(DWORD guid);                                                      // 查询玩家
-	virtual BOOL RegisterPlayer(CPlayer *pPlayer, DWORD guid);                                     // 注册玩家
-	virtual BOOL UnRegisterPlayer(CPlayer *pPlayer);                                               // 注销玩家
+	virtual BOOL Login(CPlayer *pPlayer, DWORD guid);                                              // 玩家登陆
+	virtual BOOL Logout(CPlayer *pPlayer);                                                         // 玩家注销
 
 protected:
 	virtual void SendToPlayer(CPlayer *pPlayer, BYTE *pBuffer, size_t size);                       // 发送指定玩家
@@ -175,7 +175,7 @@ protected:
 	virtual void OnHeartReset(CPlayer *pPlayer);                                                   // 重置心跳
 	virtual void OnHeart(CPlayer *pPlayer, WORD size);                                             // 心跳
 	virtual void OnLogin(CPlayer *pPlayer, WORD size);                                             // 登陆
-	virtual void OnFlags(CPlayer *pPlayer, WORD size);                                             // 设置标识
+//	virtual void OnFlags(CPlayer *pPlayer, WORD size);                                             // 设置标识
 	virtual void OnCreateGame(CPlayer *pPlayer, WORD size);                                        // 创建游戏
 	virtual void OnDestroyGame(CPlayer *pPlayer, WORD size);                                       // 销毁游戏
 	virtual void OnEnterGame(CPlayer *pPlayer, WORD size);                                         // 进入游戏

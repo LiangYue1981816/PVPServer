@@ -16,7 +16,7 @@ void CGameServer::OnConnect(CIOContext *pIOContext, SOCKET acceptSocket)
 void CGameServer::OnDisconnect(CIOContext *pIOContext)
 {
 	OnExitGame((CPlayer *)pIOContext, 0);
-	UnRegisterPlayer((CPlayer *)pIOContext);
+	Logout((CPlayer *)pIOContext);
 
 	CIOCPServer::OnDisconnect(pIOContext);
 }
@@ -76,10 +76,12 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 						OnHeartReset(pPlayer);
 						break;
 
+						/*
 					case Client::SERVER_MSG::FLAGS:
 						OnFlags(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
+						*/
 
 					case Client::SERVER_MSG::CREATE_GAME:
 						OnCreateGame(pPlayer, bodySize);
@@ -173,7 +175,9 @@ void CGameServer::OnHeart(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	Parser(&pPlayer->recvBuffer, &clientHeart, size);
+	if (Parser(&pPlayer->recvBuffer, &clientHeart, size) == FALSE) {
+		return;
+	}
 
 	//
 	// 2. 心跳
@@ -205,20 +209,21 @@ void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	Parser(&pPlayer->recvBuffer, &clientLogin, size);
+	if (Parser(&pPlayer->recvBuffer, &clientLogin, size) == FALSE) {
+		return;
+	}
 
 	//
-	// 2. 登陆
+	// 2. 玩家登陆
 	//
 	int err = ERR_NONE;
-	DWORD guid = 0xffffffff;
 
 	if (err == ERR_NONE) err = clientLogin.version() == GAME_SERVER_VERSION ? ERR_NONE : ERR_VERSION_INVALID;
-	if (err == ERR_NONE) err = RegisterPlayer(pPlayer, clientLogin.guid()) == TRUE ? ERR_NONE : ERR_PLAYER_INVALID_GUID;
-	if (err == ERR_NONE) guid = clientLogin.guid();
+	if (err == ERR_NONE) err = pPlayer->GetFlags() == PLAYER_FLAGS_NONE ? ERR_NONE : ERR_PLAYER_STATE_LOGIN;
+	if (err == ERR_NONE) err = Login(pPlayer, clientLogin.guid()) == TRUE ? ERR_NONE : ERR_PLAYER_INVALID_GUID;
+	if (err == ERR_NONE) serverLogin.set_guid(clientLogin.guid());
 
 	serverLogin.set_err(err);
-	serverLogin.set_guid(guid);
 
 	//
 	// 3. 序列化消息
@@ -234,6 +239,7 @@ void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 //
 // 设置标识
 //
+/*
 void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
 {
 	::Client::Flags clientFlags;
@@ -245,13 +251,20 @@ void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	Parser(&pPlayer->recvBuffer, &clientFlags, size);
+	if (Parser(&pPlayer->recvBuffer, &clientFlags, size) == FALSE) {
+		return;
+	}
 
 	//
 	// 2. 设置标识
 	//
-	pPlayer->SetFlags(clientFlags.flags());
-	serverFlags.set_flags(clientFlags.flags());
+	int err = ERR_NONE;
+
+	if (err == ERR_NONE) err = pPlayer->IsLogin() == TRUE ? ERR_NONE : ERR_PLAYER_STATE_LOGIN;
+	if (err == ERR_NONE) pPlayer->SetFlags(clientFlags.flags());
+	if (err == ERR_NONE) serverFlags.set_flags(clientFlags.flags());
+
+	serverFlags.set_err(err);
 
 	//
 	// 3. 序列化消息
@@ -263,6 +276,7 @@ void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
 	//
 	SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
 }
+*/
 
 //
 // 创建游戏
@@ -278,7 +292,9 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	Parser(&pPlayer->recvBuffer, &clientCreateGame, size);
+	if (Parser(&pPlayer->recvBuffer, &clientCreateGame, size) == FALSE) {
+		return;
+	}
 
 	//
 	// 2. 创建游戏
@@ -287,8 +303,10 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 	CGame *pGame = GetNextGame();
 	
 	if (err == ERR_NONE) err = pGame ? ERR_NONE : ERR_SERVER_FULL;
+	if (err == ERR_NONE) pPlayer->GetFlags() == PLAYER_FLAGS_LOGIN ? ERR_NONE : ERR_PLAYER_STATE_LOGIN;
 	if (err == ERR_NONE) pGame->SetGame(clientCreateGame.password().c_str(), clientCreateGame.mode(), clientCreateGame.map(), clientCreateGame.maxplayers());
 	if (err == ERR_NONE) err = pGame->AddPlayer(pPlayer, clientCreateGame.password().c_str(), TRUE);
+	if (err != ERR_NONE) ReleaseGame(pGame);
 
 	serverCreateGame.set_err(err);
 
@@ -317,7 +335,9 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	Parser(&pPlayer->recvBuffer, &clientDestroyGame, size);
+	if (Parser(&pPlayer->recvBuffer, &clientDestroyGame, size) == FALSE) {
+		return;
+	}
 
 	//
 	// 2. 销毁检查
@@ -362,13 +382,16 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	Parser(&pPlayer->recvBuffer, &clientEnterGame, size);
+	if (Parser(&pPlayer->recvBuffer, &clientEnterGame, size) == FALSE) {
+		return;
+	}
 
 	//
 	// 2. 进入游戏
 	//
 	int err = ERR_NONE;
 
+	if (err == ERR_NONE) pPlayer->GetFlags() == PLAYER_FLAGS_LOGIN ? ERR_NONE : ERR_PLAYER_STATE_LOGIN;
 	if (err == ERR_NONE) err = clientEnterGame.gameid() >= 0 && clientEnterGame.gameid() < m_maxGames ? ERR_NONE : ERR_GAME_INVALID_ID;
 	if (err == ERR_NONE) err = m_games[clientEnterGame.gameid()]->AddPlayer(pPlayer, clientEnterGame.password().c_str(), FALSE);
 
@@ -405,7 +428,9 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	Parser(&pPlayer->recvBuffer, &clientExitGame, size);
+	if (Parser(&pPlayer->recvBuffer, &clientExitGame, size) == FALSE) {
+		return;
+	}
 
 	//
 	// 2. 退出游戏
@@ -451,7 +476,9 @@ void CGameServer::OnModifyGamePassword(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	Parser(&pPlayer->recvBuffer, &clientModifyGamePassword, size);
+	if (Parser(&pPlayer->recvBuffer, &clientModifyGamePassword, size) == FALSE) {
+		return;
+	}
 
 	//
 	// 2. 修改游戏密码
@@ -488,7 +515,9 @@ void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	Parser(&pPlayer->recvBuffer, &clientSendToPlayer, size);
+	if (Parser(&pPlayer->recvBuffer, &clientSendToPlayer, size) == FALSE) {
+		return;
+	}
 
 	//
 	// 2. 查找目标玩家
@@ -524,7 +553,9 @@ void CGameServer::OnSendToPlayerAll(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	Parser(&pPlayer->recvBuffer, &clientSendToPlayerAll, size);
+	if (Parser(&pPlayer->recvBuffer, &clientSendToPlayerAll, size) == FALSE) {
+		return;
+	}
 
 	//
 	// 2. 查找目标玩家

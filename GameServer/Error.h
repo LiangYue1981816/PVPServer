@@ -10,7 +10,7 @@ enum {
 	ERR_PLAYER_INVALID,                                                                            // 玩家无效
 	ERR_PLAYER_INVALID_ID,                                                                         // 玩家无效ID
 	ERR_PLAYER_INVALID_GUID,                                                                       // 玩家无效GUID
-	ERR_PLAYER_LOGIN,                                                                              // 玩家已经登陆
+	ERR_PLAYER_STATE_LOGIN,                                                                        // 玩家已经登陆
 	ERR_PLAYER_IN_GAME,                                                                            // 玩家已经在会话中
 	ERR_PLAYER_OUT_GAME,                                                                           // 玩家没有在会话中
 
