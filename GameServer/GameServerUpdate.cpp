@@ -71,17 +71,15 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::SERVER_MSG::LOGIN:
-						OnLogin(pPlayer, bodySize);
-						OnHeartReset(pPlayer);
-						break;
-
-						/*
 					case Client::SERVER_MSG::FLAGS:
 						OnFlags(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
-						*/
+
+					case Client::SERVER_MSG::LOGIN:
+						OnLogin(pPlayer, bodySize);
+						OnHeartReset(pPlayer);
+						break;
 
 					case Client::SERVER_MSG::CREATE_GAME:
 						OnCreateGame(pPlayer, bodySize);
@@ -103,10 +101,12 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 						OnHeartReset(pPlayer);
 						break;
 
+						/*
 					case Client::SERVER_MSG::MODIFY_GAME_PASSWORD:
 						OnModifyGamePassword(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
+						*/
 
 					case Client::SERVER_MSG::SEND_TO_PLAYER:
 						OnSendToPlayer(pPlayer, bodySize);
@@ -196,6 +196,40 @@ void CGameServer::OnHeart(CPlayer *pPlayer, WORD size)
 }
 
 //
+// 标识
+//
+void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
+{
+	::Client::Flags clientFlags;
+	::Server::Flags serverFlags;
+
+	BYTE buffer[PACK_BUFFER_SIZE];
+	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
+
+	//
+	// 1. 解析消息
+	//
+	if (Parser(&pPlayer->recvBuffer, &clientFlags, size) == FALSE) {
+		return;
+	}
+
+	//
+	// 2. 标识
+	//
+	serverFlags.set_flags(pPlayer->GetFlags());
+
+	//
+	// 3. 序列化消息
+	//
+	Serializer(&writeBuffer, &serverFlags, ::Server::SERVER_MSG::FLAGS);
+
+	//
+	// 4. 发送玩家
+	//
+	SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
+}
+
+//
 // 登陆
 //
 void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
@@ -218,11 +252,23 @@ void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 	//
 	int err = ERR_NONE;
 
-	if (err == ERR_NONE) err = clientLogin.version() == GAME_SERVER_VERSION ? ERR_NONE : ERR_VERSION_INVALID;
-	if (err == ERR_NONE) err = pPlayer->GetFlags() == PLAYER_FLAGS_NONE ? ERR_NONE : ERR_PLAYER_STATE_LOGIN;
-	if (err == ERR_NONE) err = Login(pPlayer, clientLogin.guid()) == TRUE ? ERR_NONE : ERR_PLAYER_INVALID_GUID;
-	if (err == ERR_NONE) serverLogin.set_guid(clientLogin.guid());
+	if (clientLogin.version() != GAME_SERVER_VERSION) {
+		err = ERR_VERSION_INVALID; goto ERR;
+	}
 
+	if (pPlayer->GetFlags() != PLAYER_FLAGS_NONE) {
+		err = ERR_PLAYER_STATE_LOGIN; goto ERR;
+	}
+
+	if (Login(pPlayer, clientLogin.guid()) == FALSE) {
+		err = ERR_PLAYER_INVALID_GUID; goto ERR;
+	}
+
+	serverLogin.set_guid(pPlayer->guid);
+
+	goto NEXT;
+ERR:
+NEXT:
 	serverLogin.set_err(err);
 
 	//
@@ -235,48 +281,6 @@ void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 	//
 	SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
 }
-
-//
-// 设置标识
-//
-/*
-void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
-{
-	::Client::Flags clientFlags;
-	::Server::Flags serverFlags;
-
-	BYTE buffer[PACK_BUFFER_SIZE];
-	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
-
-	//
-	// 1. 解析消息
-	//
-	if (Parser(&pPlayer->recvBuffer, &clientFlags, size) == FALSE) {
-		return;
-	}
-
-	//
-	// 2. 设置标识
-	//
-	int err = ERR_NONE;
-
-	if (err == ERR_NONE) err = pPlayer->IsLogin() == TRUE ? ERR_NONE : ERR_PLAYER_STATE_LOGIN;
-	if (err == ERR_NONE) pPlayer->SetFlags(clientFlags.flags());
-	if (err == ERR_NONE) serverFlags.set_flags(clientFlags.flags());
-
-	serverFlags.set_err(err);
-
-	//
-	// 3. 序列化消息
-	//
-	Serializer(&writeBuffer, &serverFlags, ::Server::SERVER_MSG::FLAGS);
-
-	//
-	// 4. 发送玩家
-	//
-	SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
-}
-*/
 
 //
 // 创建游戏
@@ -300,14 +304,22 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 	// 2. 创建游戏
 	//
 	int err = ERR_NONE;
-	CGame *pGame = GetNextGame();
-	
-	if (err == ERR_NONE) err = pGame ? ERR_NONE : ERR_SERVER_FULL;
-	if (err == ERR_NONE) pPlayer->GetFlags() == PLAYER_FLAGS_LOGIN ? ERR_NONE : ERR_PLAYER_STATE_LOGIN;
-	if (err == ERR_NONE) pGame->SetGame(clientCreateGame.password().c_str(), clientCreateGame.mode(), clientCreateGame.map(), clientCreateGame.maxplayers());
-	if (err == ERR_NONE) err = pGame->AddPlayer(pPlayer, clientCreateGame.password().c_str(), TRUE);
-	if (err != ERR_NONE) ReleaseGame(pGame);
 
+	if (pPlayer->GetFlags() != PLAYER_FLAGS_LOGIN) {
+		err = ERR_PLAYER_STATE_LOGIN; goto ERR;
+	}
+
+	if (CGame *pGame = GetNextGame()) {
+		pGame->SetGame(clientCreateGame.password().c_str(), clientCreateGame.mode(), clientCreateGame.map(), clientCreateGame.maxplayers());
+		pGame->AddPlayer(pPlayer, clientCreateGame.password().c_str(), TRUE);
+	}
+	else {
+		err = ERR_SERVER_FULL; goto ERR;
+	}
+
+	goto NEXT;
+ERR:
+NEXT:
 	serverCreateGame.set_err(err);
 
 	//
@@ -391,10 +403,19 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 	//
 	int err = ERR_NONE;
 
-	if (err == ERR_NONE) pPlayer->GetFlags() == PLAYER_FLAGS_LOGIN ? ERR_NONE : ERR_PLAYER_STATE_LOGIN;
-	if (err == ERR_NONE) err = clientEnterGame.gameid() >= 0 && clientEnterGame.gameid() < m_maxGames ? ERR_NONE : ERR_GAME_INVALID_ID;
-	if (err == ERR_NONE) err = m_games[clientEnterGame.gameid()]->AddPlayer(pPlayer, clientEnterGame.password().c_str(), FALSE);
+	if (pPlayer->GetFlags() != PLAYER_FLAGS_LOGIN) {
+		err = ERR_PLAYER_STATE_LOGIN; goto ERR;
+	}
 
+	if (clientEnterGame.gameid() < 0 || clientEnterGame.gameid() >= m_maxGames) {
+		err = ERR_GAME_INVALID_ID; goto ERR;
+	}
+
+	err = m_games[clientEnterGame.gameid()]->AddPlayer(pPlayer, clientEnterGame.password().c_str(), FALSE);
+
+	goto NEXT;
+ERR:
+NEXT:
 	serverEnterGame.set_err(err);
 	serverEnterGame.set_guid(pPlayer->guid);
 
@@ -462,6 +483,7 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	}
 }
 
+/*
 //
 // 修改游戏密码
 //
@@ -500,6 +522,7 @@ void CGameServer::OnModifyGamePassword(CPlayer *pPlayer, WORD size)
 	//
 	SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
 }
+*/
 
 //
 // 发送指定玩家

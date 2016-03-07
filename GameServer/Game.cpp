@@ -116,6 +116,7 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 	//
 	// 3. ÉèÖÃÍæ¼Ò×´Ì¬
 	//
+	pPlayer->SetFlags(PLAYER_FLAGS_LOGIN);
 	pPlayer->EnableFlag(PLAYER_FLAGS_WAITING);
 
 	//
@@ -165,7 +166,7 @@ int CGame::DelPlayer(CPlayer *pPlayer)
 	//
 	// 3. ÉèÖÃÍæ¼Ò×´Ì¬
 	//
-	pPlayer->DisableFlag(PLAYER_FLAGS_WAITING);
+	pPlayer->SetFlags(PLAYER_FLAGS_LOGIN);
 
 	//
 	// 4. ¼ÇÂ¼Íæ¼Ò

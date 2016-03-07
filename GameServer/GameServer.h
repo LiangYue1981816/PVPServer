@@ -174,13 +174,13 @@ protected:
 
 	virtual void OnHeartReset(CPlayer *pPlayer);                                                   // 重置心跳
 	virtual void OnHeart(CPlayer *pPlayer, WORD size);                                             // 心跳
+	virtual void OnFlags(CPlayer *pPlayer, WORD size);                                             // 标识
 	virtual void OnLogin(CPlayer *pPlayer, WORD size);                                             // 登陆
-//	virtual void OnFlags(CPlayer *pPlayer, WORD size);                                             // 设置标识
 	virtual void OnCreateGame(CPlayer *pPlayer, WORD size);                                        // 创建游戏
 	virtual void OnDestroyGame(CPlayer *pPlayer, WORD size);                                       // 销毁游戏
 	virtual void OnEnterGame(CPlayer *pPlayer, WORD size);                                         // 进入游戏
 	virtual void OnExitGame(CPlayer *pPlayer, WORD size);                                          // 退出游戏
-	virtual void OnModifyGamePassword(CPlayer *pPlayer, WORD size);                                // 修改游戏密码
+//	virtual void OnModifyGamePassword(CPlayer *pPlayer, WORD size);                                // 修改游戏密码
 	virtual void OnSendToPlayer(CPlayer *pPlayer, WORD size);                                      // 发送指定玩家
 	virtual void OnSendToPlayerAll(CPlayer *pPlayer, WORD size);                                   // 发送所有玩家
 

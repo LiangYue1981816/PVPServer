@@ -315,6 +315,11 @@ BOOL CGameServer::Login(CPlayer *pPlayer, DWORD guid)
 	pPlayer->guid = guid;
 	m_guidmap[guid] = pPlayer->id;
 
+	//
+	// 3. 设置玩家标识
+	//
+	pPlayer->SetFlags(PLAYER_FLAGS_LOGIN);
+
 	return TRUE;
 }
 
@@ -334,6 +339,11 @@ BOOL CGameServer::Logout(CPlayer *pPlayer)
 	//
 	pPlayer->guid = 0xffffffff;
 	m_guidmap.erase(itPlayer);
+
+	//
+	// 3. 设置玩家标识
+	//
+	pPlayer->SetFlags(PLAYER_FLAGS_NONE);
 
 	return TRUE;
 }
