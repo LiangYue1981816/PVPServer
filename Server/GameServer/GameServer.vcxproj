@@ -163,8 +163,8 @@
     <ClInclude Include="..\Common\CacheBuffer.h" />
     <ClInclude Include="..\Common\Common.h" />
     <ClInclude Include="..\Common\Event.h" />
+    <ClInclude Include="..\Common\IOCP.h" />
     <ClInclude Include="..\Common\Serializer.h" />
-    <ClInclude Include="..\IOCPServer\IOCP.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="GameServer.h" />
   </ItemGroup>
@@ -174,8 +174,8 @@
     <ClCompile Include="..\Common\CacheBuffer.cpp" />
     <ClCompile Include="..\Common\Common.cpp" />
     <ClCompile Include="..\Common\Event.cpp" />
+    <ClCompile Include="..\Common\IOCP.cpp" />
     <ClCompile Include="..\Common\Serializer.cpp" />
-    <ClCompile Include="..\IOCPServer\IOCP.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="GameServerUpdate.cpp" />
