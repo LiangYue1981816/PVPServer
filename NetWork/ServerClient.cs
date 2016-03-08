@@ -134,10 +134,13 @@ public class ServerClient : NetClient
 
     private void SendProto(Client.REQUEST_MSG msg, global::ProtoBuf.IExtensible proto)
     {
-        Package package = new Package();
-        package.buffer = ProtoHelper.ToArray((short)msg, proto);
-        package.size = (ushort)package.buffer.Length;
-        Send(package);
+        if (IsValid())
+        {
+            Package package = new Package();
+            package.buffer = ProtoHelper.ToArray((short)msg, proto);
+            package.size = (ushort)package.buffer.Length;
+            Send(package);
+        }
     }
 
 
