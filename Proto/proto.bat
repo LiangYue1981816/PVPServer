@@ -6,4 +6,6 @@ for %%i in (*.proto) do (
 	%PROTOCSHARP% -i:%%i -o:.\csharp\%%i.cs
 )
 
+copy .\cpp\*.* ..\Server\Proto /y
+
 pause

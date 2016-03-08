@@ -85,7 +85,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_SERVER_;WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../pthread-win32/;../ProtoBuf/include;../../Proto/cpp;../Common;../IOCPServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -102,7 +102,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_SERVER_;WIN32;__LP64__;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../pthread-win32/;../ProtoBuf/include;../../Proto/cpp;../Common;../IOCPServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -121,7 +121,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_SERVER_;WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../pthread-win32/;../ProtoBuf/include;../../Proto/cpp;../Common;../IOCPServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -142,7 +142,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_SERVER_;WIN32;__LP64__;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../pthread-win32/;../ProtoBuf/include;../../Proto/cpp;../Common;../IOCPServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -158,8 +158,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Proto\cpp\Client.pb.h" />
-    <ClInclude Include="..\..\Proto\cpp\Server.pb.h" />
     <ClInclude Include="..\Common\CacheBuffer.h" />
     <ClInclude Include="..\Common\Common.h" />
     <ClInclude Include="..\Common\Event.h" />
@@ -169,8 +167,6 @@
     <ClInclude Include="GameServer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Proto\cpp\Client.pb.cc" />
-    <ClCompile Include="..\..\Proto\cpp\Server.pb.cc" />
     <ClCompile Include="..\Common\CacheBuffer.cpp" />
     <ClCompile Include="..\Common\Common.cpp" />
     <ClCompile Include="..\Common\Event.cpp" />
