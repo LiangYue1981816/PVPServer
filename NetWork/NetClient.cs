@@ -146,14 +146,14 @@ public class NetClient
                     //
                     // 2.1.2. Parse package, package.buffer = [proto, buffer]
                     //
-                    int proto = BitConverter.ToUInt16(package.buffer, 0);
+                    short msg = BitConverter.ToInt16(package.buffer, 0);
                     byte[] buffer = new byte[package.buffer.Length - 2];
                     Array.Copy(package.buffer, 2, buffer, 0, buffer.Length);
 
                     //
                     // 2.1.3. Process
                     //
-                    ProcessProto(proto, buffer);
+                    ProcessProto(msg, buffer);
                 }
             }
             mMutexRecv.ReleaseMutex();
@@ -173,7 +173,7 @@ public class NetClient
         ResumeThread();
     }
 
-    public virtual void ProcessProto(int proto, byte[] buffer)
+    public virtual void ProcessProto(short msg, byte[] buffer)
     {
 
     }

@@ -66,54 +66,54 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 					m_dwRecvDataSize += sizeof(fullSize) + fullSize;
 
 					switch (msg) {
-					case Client::SERVER_MSG::HEART:
+					case Client::REQUEST_MSG::HEART:
 						OnHeart(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::SERVER_MSG::FLAGS:
+					case Client::REQUEST_MSG::FLAGS:
 						OnFlags(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::SERVER_MSG::LOGIN:
+					case Client::REQUEST_MSG::LOGIN:
 						OnLogin(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::SERVER_MSG::CREATE_GAME:
+					case Client::REQUEST_MSG::CREATE_GAME:
 						OnCreateGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::SERVER_MSG::DESTROY_GAME:
+					case Client::REQUEST_MSG::DESTROY_GAME:
 						OnDestroyGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::SERVER_MSG::ENTER_GAME:
+					case Client::REQUEST_MSG::ENTER_GAME:
 						OnEnterGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::SERVER_MSG::EXIT_GAME:
+					case Client::REQUEST_MSG::EXIT_GAME:
 						OnExitGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
 						/*
-					case Client::SERVER_MSG::MODIFY_GAME_PASSWORD:
+					case Client::REQUEST_MSG::MODIFY_GAME_PASSWORD:
 						OnModifyGamePassword(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 						*/
 
-					case Client::SERVER_MSG::SEND_TO_PLAYER:
+					case Client::REQUEST_MSG::SEND_TO_PLAYER:
 						OnSendToPlayer(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::SERVER_MSG::SEND_TO_PLAYER_ALL:
+					case Client::REQUEST_MSG::SEND_TO_PLAYER_ALL:
 						OnSendToPlayerAll(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
@@ -187,7 +187,7 @@ void CGameServer::OnHeart(CPlayer *pPlayer, WORD size)
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &responseHeart, ::Server::SERVER_MSG::HEART);
+	Serializer(&writeBuffer, &responseHeart, ::Server::RESPONSE_MSG::HEART);
 
 	//
 	// 4. 发送玩家
@@ -221,7 +221,7 @@ void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &responseFlags, ::Server::SERVER_MSG::FLAGS);
+	Serializer(&writeBuffer, &responseFlags, ::Server::RESPONSE_MSG::FLAGS);
 
 	//
 	// 4. 发送玩家
@@ -274,7 +274,7 @@ NEXT:
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &responseLogin, ::Server::SERVER_MSG::LOGIN);
+	Serializer(&writeBuffer, &responseLogin, ::Server::RESPONSE_MSG::LOGIN);
 
 	//
 	// 4. 发送玩家
@@ -325,7 +325,7 @@ NEXT:
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &responseCreateGame, ::Server::SERVER_MSG::CREATE_GAME);
+	Serializer(&writeBuffer, &responseCreateGame, ::Server::RESPONSE_MSG::CREATE_GAME);
 
 	//
 	// 4. 发送玩家
@@ -360,7 +360,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &responseDestroyGame, ::Server::SERVER_MSG::DESTROY_GAME);
+	Serializer(&writeBuffer, &responseDestroyGame, ::Server::RESPONSE_MSG::DESTROY_GAME);
 
 	//
 	// 4. 发送玩家
@@ -422,7 +422,7 @@ NEXT:
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &responseEnterGame, ::Server::SERVER_MSG::ENTER_GAME);
+	Serializer(&writeBuffer, &responseEnterGame, ::Server::RESPONSE_MSG::ENTER_GAME);
 
 	//
 	// 4. 发送玩家
@@ -463,7 +463,7 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &responseExitGame, ::Server::SERVER_MSG::EXIT_GAME);
+	Serializer(&writeBuffer, &responseExitGame, ::Server::RESPONSE_MSG::EXIT_GAME);
 
 	//
 	// 4. 发送玩家
@@ -515,7 +515,7 @@ void CGameServer::OnModifyGamePassword(CPlayer *pPlayer, WORD size)
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &serverModifyGamePassword, ::Server::SERVER_MSG::MODIFY_GAME_PASSWORD);
+	Serializer(&writeBuffer, &serverModifyGamePassword, ::Server::RESPONSE_MSG::MODIFY_GAME_PASSWORD);
 
 	//
 	// 4. 发送玩家
@@ -554,7 +554,7 @@ void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD size)
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &responseSendToPlayer, ::Server::SERVER_MSG::SEND_TO_PLAYER);
+	Serializer(&writeBuffer, &responseSendToPlayer, ::Server::RESPONSE_MSG::SEND_TO_PLAYER);
 
 	//
 	// 4. 发送目标玩家
@@ -593,7 +593,7 @@ void CGameServer::OnSendToPlayerAll(CPlayer *pPlayer, WORD size)
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &responseSendToPlayer, ::Server::SERVER_MSG::SEND_TO_PLAYER);
+	Serializer(&writeBuffer, &responseSendToPlayer, ::Server::RESPONSE_MSG::SEND_TO_PLAYER);
 
 	//
 	// 4. 发送所有玩家

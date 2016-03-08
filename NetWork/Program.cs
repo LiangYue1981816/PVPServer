@@ -9,7 +9,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        Client.Heart heart = new Client.Heart();
-        heart.timestamp = 100;
+
     }
 }

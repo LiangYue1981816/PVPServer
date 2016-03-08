@@ -174,8 +174,8 @@ namespace Server
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-    [global::ProtoBuf.ProtoContract(Name=@"SERVER_MSG")]
-    public enum SERVER_MSG
+    [global::ProtoBuf.ProtoContract(Name=@"RESPONSE_MSG")]
+    public enum RESPONSE_MSG
     {
             
       [global::ProtoBuf.ProtoEnum(Name=@"HEART", Value=0)]

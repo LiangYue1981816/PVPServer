@@ -7,7 +7,7 @@ public static class ProtoHelper
     //
     // To bytes
     //
-    static public byte[] ToArray(Int16 message, global::ProtoBuf.IExtensible proto)
+    static public byte[] ToArray(short message, global::ProtoBuf.IExtensible proto)
     {
         MemoryStream memStream = new MemoryStream();
         ProtoBuf.Serializer.Serialize(memStream, proto);
