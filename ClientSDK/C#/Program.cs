@@ -68,7 +68,7 @@ class Program
     {
         while (true)
         {
-            Thread.Sleep(10);
+            Thread.Sleep(1);
             client.Update();
         }
     }
