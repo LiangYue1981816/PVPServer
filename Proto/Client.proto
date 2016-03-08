@@ -1,0 +1,72 @@
+option optimize_for = SPEED;
+package Client;
+
+enum REQUEST_MSG
+{
+	HEART = 0;
+	FLAGS = 1;
+	LOGIN = 2;
+	CREATE_GAME = 3;
+	DESTROY_GAME = 4;
+	ENTER_GAME = 5;
+	EXIT_GAME = 6;
+	MODIFY_GAME_PASSWORD = 7;
+	SEND_TO_PLAYER = 8;
+	SEND_TO_PLAYER_ALL = 9;
+}
+
+message Heart
+{
+	required int32 timestamp = 1;
+}
+
+message Flags
+{
+}
+
+message Login
+{
+	required int32 guid = 1;
+	required int32 version = 2;
+}
+
+message CreateGame
+{
+	required string password = 1;
+	required int32 map = 2;
+	required int32 mode = 3;
+	required int32 maxPlayers = 4;
+}
+
+message DestroyGame
+{
+}
+
+message EnterGame
+{
+	required int32 gameid = 1;
+	required string password = 2;
+}
+
+message ExitGame
+{
+}
+
+//message ModifyGamePassword
+//{
+//	required string password = 1;
+//}
+
+message SendToPlayer
+{
+	required int32 guid = 1;
+	required int32 size = 2;
+	required bytes data = 3;
+}
+
+message SendToPlayerAll
+{
+	required int32 filter = 1;
+	required int32 size = 2;
+	required bytes data = 3;
+}

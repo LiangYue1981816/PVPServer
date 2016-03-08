@@ -1,0 +1,64 @@
+option optimize_for = SPEED;
+package Server;
+
+enum RESPONSE_MSG
+{
+	HEART = 0;
+	FLAGS = 1;
+	LOGIN = 2;
+	CREATE_GAME = 3;
+	DESTROY_GAME = 4;
+	ENTER_GAME = 5;
+	EXIT_GAME = 6;
+	MODIFY_GAME_PASSWORD = 7;
+	SEND_TO_PLAYER = 8;
+}
+
+message Heart
+{
+	required int32 timestamp = 1;
+}
+
+message Flags
+{
+	required int32 flags = 1;
+}
+
+message Login
+{
+	required int32 err = 1;
+	required int32 guid = 2;
+}
+
+message CreateGame
+{
+	required int32 err = 1;
+}
+
+message DestroyGame
+{
+	required int32 err = 1;
+}
+
+message EnterGame
+{
+	required int32 err = 1;
+	required int32 guid = 2;
+}
+
+message ExitGame
+{
+	required int32 err = 1;
+	required int32 guid = 2;
+}
+
+//message ModifyGamePassword
+//{
+//	required int32 err = 1;
+//}
+
+message SendToPlayer
+{
+	required int32 size = 1;
+	required bytes data = 2;
+}
