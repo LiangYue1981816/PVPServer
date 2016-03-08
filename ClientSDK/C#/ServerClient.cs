@@ -16,6 +16,8 @@ public partial class ServerClient : NetClient
     private Client.SendToPlayer mRequestSendToPlayer = new Client.SendToPlayer();
     private Client.SendToPlayerAll mRequestSendToPlayerAll = new Client.SendToPlayerAll();
 
+    private int mPing = 0;
+
     public override bool Connect(string ip, int port)
     {
         if (base.Connect(ip, port))
@@ -45,13 +47,18 @@ public partial class ServerClient : NetClient
         return false;
     }
 
+    public int GetPing()
+    {
+        return mPing;
+    }
+
     private void SendProto(Client.REQUEST_MSG msg, global::ProtoBuf.IExtensible proto)
     {
-        if (IsValid())
+        if (IsConnected())
         {
             Package package = new Package();
             package.buffer = ProtoHelper.ToArray((short)msg, proto);
-            package.size = (ushort)package.buffer.Length;
+            package.size = (short)package.buffer.Length;
             Send(package);
         }
     }

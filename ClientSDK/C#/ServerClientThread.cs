@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 
 public partial class ServerClient : NetClient
 {
@@ -9,10 +8,10 @@ public partial class ServerClient : NetClient
         {
             mEventHeart.WaitOne();
 
-            if (IsValid())
+            if (IsConnected())
             {
                 Thread.Sleep(1000);
-                RequestHeart(DateTime.Now.Millisecond);
+                RequestHeart();
                 continue;
             }
 
