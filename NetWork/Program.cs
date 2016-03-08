@@ -3,13 +3,18 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 class Program
 {
+    static Thread mThread = null;
+    static ServerClient client = new ServerClient();
+
     static void Main(string[] args)
     {
-        ServerClient client = new ServerClient();
+        mThread = new Thread(Update);
+        mThread.Start();
 
         while (true) {
             Console.WriteLine("[0] Connect");
@@ -56,6 +61,15 @@ class Program
             {
 
             }
+        }
+    }
+
+    static private void Update()
+    {
+        while (true)
+        {
+            Thread.Sleep(10);
+            client.Update();
         }
     }
 }
