@@ -54,6 +54,12 @@
     <ClInclude Include="..\Common\IOCP.h">
       <Filter>Common\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Proto\Client.pb.h">
+      <Filter>Proto\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Proto\Server.pb.h">
+      <Filter>Proto\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\CacheBuffer.cpp">
@@ -83,6 +89,12 @@
     </ClCompile>
     <ClCompile Include="..\Common\IOCP.cpp">
       <Filter>Common\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Proto\Client.pb.cc">
+      <Filter>Proto\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Proto\Server.pb.cc">
+      <Filter>Proto\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -68,15 +68,21 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\Bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\Bin\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\Bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\Bin\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -163,6 +169,8 @@
     <ClInclude Include="..\Common\Event.h" />
     <ClInclude Include="..\Common\IOCP.h" />
     <ClInclude Include="..\Common\Serializer.h" />
+    <ClInclude Include="..\Proto\Client.pb.h" />
+    <ClInclude Include="..\Proto\Server.pb.h" />
     <ClInclude Include="Error.h" />
     <ClInclude Include="GameServer.h" />
   </ItemGroup>
@@ -172,6 +180,8 @@
     <ClCompile Include="..\Common\Event.cpp" />
     <ClCompile Include="..\Common\IOCP.cpp" />
     <ClCompile Include="..\Common\Serializer.cpp" />
+    <ClCompile Include="..\Proto\Client.pb.cc" />
+    <ClCompile Include="..\Proto\Server.pb.cc" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="GameServerUpdate.cpp" />
