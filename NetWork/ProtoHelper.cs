@@ -7,15 +7,15 @@ public static class ProtoHelper
     //
     // To bytes
     //
-    public byte[] ToArray(Int16 message, global::ProtoBuf.IExtensible proto)
+    static public byte[] ToArray(Int16 message, global::ProtoBuf.IExtensible proto)
     {
         MemoryStream memStream = new MemoryStream();
         ProtoBuf.Serializer.Serialize(memStream, proto);
 
         byte[] msg = BitConverter.GetBytes(message);
-        byte[] buffer = new byte[2 + memStream.Length];
-        Array.Copy(msg, 0, buffer, 0, 2);
-        Array.Copy(memStream.ToArray(), 0, buffer, 2, memStream.Length);
+        byte[] buffer = new byte[msg.Length + memStream.Length];
+        Array.Copy(msg, 0, buffer, 0, msg.Length);
+        Array.Copy(memStream.ToArray(), 0, buffer, msg.Length, memStream.Length);
 
         return buffer;
     }

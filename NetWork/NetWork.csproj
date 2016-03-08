@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameClient.cs" />
-    <Compile Include="IClient.cs" />
     <Compile Include="NetClient.cs" />
     <Compile Include="Package.cs" />
     <Compile Include="Program.cs" />
@@ -135,8 +134,10 @@
     <Compile Include="ProtoBuffer\ServiceModel\XmlProtoSerializer.cs" />
     <Compile Include="ProtoBuffer\SubItemToken.cs" />
     <Compile Include="ProtoBuffer\WireType.cs" />
+    <Compile Include="ProtoHelper.cs" />
     <Compile Include="Proto\Client.proto.cs" />
     <Compile Include="Proto\Server.proto.cs" />
+    <Compile Include="ServerClient.cs" />
     <Compile Include="SocketHelper.cs" />
   </ItemGroup>
   <ItemGroup>

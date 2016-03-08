@@ -166,8 +166,8 @@ void CGameServer::OnHeartReset(CPlayer *pPlayer)
 //
 void CGameServer::OnHeart(CPlayer *pPlayer, WORD size)
 {
-	::Client::Heart clientHeart;
-	::Server::Heart serverHeart;
+	::Client::Heart requestHeart;
+	::Server::Heart responseHeart;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
 	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
@@ -175,19 +175,19 @@ void CGameServer::OnHeart(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &clientHeart, size) == FALSE) {
+	if (Parser(&pPlayer->recvBuffer, &requestHeart, size) == FALSE) {
 		return;
 	}
 
 	//
 	// 2. 心跳
 	//
-	serverHeart.set_timestamp(clientHeart.timestamp());
+	responseHeart.set_timestamp(requestHeart.timestamp());
 
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &serverHeart, ::Server::SERVER_MSG::HEART);
+	Serializer(&writeBuffer, &responseHeart, ::Server::SERVER_MSG::HEART);
 
 	//
 	// 4. 发送玩家
@@ -200,8 +200,8 @@ void CGameServer::OnHeart(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
 {
-	::Client::Flags clientFlags;
-	::Server::Flags serverFlags;
+	::Client::Flags requestFlags;
+	::Server::Flags responseFlags;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
 	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
@@ -209,19 +209,19 @@ void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &clientFlags, size) == FALSE) {
+	if (Parser(&pPlayer->recvBuffer, &requestFlags, size) == FALSE) {
 		return;
 	}
 
 	//
 	// 2. 标识
 	//
-	serverFlags.set_flags(pPlayer->GetFlags());
+	responseFlags.set_flags(pPlayer->GetFlags());
 
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &serverFlags, ::Server::SERVER_MSG::FLAGS);
+	Serializer(&writeBuffer, &responseFlags, ::Server::SERVER_MSG::FLAGS);
 
 	//
 	// 4. 发送玩家
@@ -234,8 +234,8 @@ void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 {
-	::Client::Login clientLogin;
-	::Server::Login serverLogin;
+	::Client::Login requestLogin;
+	::Server::Login responseLogin;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
 	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
@@ -243,7 +243,7 @@ void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &clientLogin, size) == FALSE) {
+	if (Parser(&pPlayer->recvBuffer, &requestLogin, size) == FALSE) {
 		return;
 	}
 
@@ -252,7 +252,7 @@ void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 	//
 	int err = ERR_NONE;
 
-	if (clientLogin.version() != GAME_SERVER_VERSION) {
+	if (requestLogin.version() != GAME_SERVER_VERSION) {
 		err = ERR_VERSION_INVALID; goto ERR;
 	}
 
@@ -260,21 +260,21 @@ void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 		err = ERR_PLAYER_STATE_LOGIN; goto ERR;
 	}
 
-	if (Login(pPlayer, clientLogin.guid()) == FALSE) {
+	if (Login(pPlayer, requestLogin.guid()) == FALSE) {
 		err = ERR_PLAYER_INVALID_GUID; goto ERR;
 	}
 
-	serverLogin.set_guid(pPlayer->guid);
+	responseLogin.set_guid(pPlayer->guid);
 
 	goto NEXT;
 ERR:
 NEXT:
-	serverLogin.set_err(err);
+	responseLogin.set_err(err);
 
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &serverLogin, ::Server::SERVER_MSG::LOGIN);
+	Serializer(&writeBuffer, &responseLogin, ::Server::SERVER_MSG::LOGIN);
 
 	//
 	// 4. 发送玩家
@@ -287,8 +287,8 @@ NEXT:
 //
 void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 {
-	::Client::CreateGame clientCreateGame;
-	::Server::CreateGame serverCreateGame;
+	::Client::CreateGame requestCreateGame;
+	::Server::CreateGame responseCreateGame;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
 	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
@@ -296,7 +296,7 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &clientCreateGame, size) == FALSE) {
+	if (Parser(&pPlayer->recvBuffer, &requestCreateGame, size) == FALSE) {
 		return;
 	}
 
@@ -310,8 +310,8 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 	}
 
 	if (CGame *pGame = GetNextGame()) {
-		pGame->SetGame(clientCreateGame.password().c_str(), clientCreateGame.mode(), clientCreateGame.map(), clientCreateGame.maxplayers());
-		pGame->AddPlayer(pPlayer, clientCreateGame.password().c_str(), TRUE);
+		pGame->SetGame(requestCreateGame.password().c_str(), requestCreateGame.mode(), requestCreateGame.map(), requestCreateGame.maxplayers());
+		pGame->AddPlayer(pPlayer, requestCreateGame.password().c_str(), TRUE);
 	}
 	else {
 		err = ERR_SERVER_FULL; goto ERR;
@@ -320,12 +320,12 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 	goto NEXT;
 ERR:
 NEXT:
-	serverCreateGame.set_err(err);
+	responseCreateGame.set_err(err);
 
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &serverCreateGame, ::Server::SERVER_MSG::CREATE_GAME);
+	Serializer(&writeBuffer, &responseCreateGame, ::Server::SERVER_MSG::CREATE_GAME);
 
 	//
 	// 4. 发送玩家
@@ -338,8 +338,8 @@ NEXT:
 //
 void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 {
-	::Client::DestroyGame clientDestroyGame;
-	::Server::DestroyGame serverDestroyGame;
+	::Client::DestroyGame requestDestroyGame;
+	::Server::DestroyGame responseDestroyGame;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
 	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
@@ -347,7 +347,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &clientDestroyGame, size) == FALSE) {
+	if (Parser(&pPlayer->recvBuffer, &requestDestroyGame, size) == FALSE) {
 		return;
 	}
 
@@ -355,12 +355,12 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	// 2. 销毁检查
 	//
 	int err = pPlayer->pGame ? ERR_NONE : ERR_PLAYER_OUT_GAME;
-	serverDestroyGame.set_err(err);
+	responseDestroyGame.set_err(err);
 
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &serverDestroyGame, ::Server::SERVER_MSG::DESTROY_GAME);
+	Serializer(&writeBuffer, &responseDestroyGame, ::Server::SERVER_MSG::DESTROY_GAME);
 
 	//
 	// 4. 发送玩家
@@ -385,8 +385,8 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 {
-	::Client::EnterGame clientEnterGame;
-	::Server::EnterGame serverEnterGame;
+	::Client::EnterGame requestEnterGame;
+	::Server::EnterGame responseEnterGame;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
 	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
@@ -394,7 +394,7 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &clientEnterGame, size) == FALSE) {
+	if (Parser(&pPlayer->recvBuffer, &requestEnterGame, size) == FALSE) {
 		return;
 	}
 
@@ -407,22 +407,22 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 		err = ERR_PLAYER_STATE_LOGIN; goto ERR;
 	}
 
-	if (clientEnterGame.gameid() < 0 || clientEnterGame.gameid() >= m_maxGames) {
+	if (requestEnterGame.gameid() < 0 || requestEnterGame.gameid() >= m_maxGames) {
 		err = ERR_GAME_INVALID_ID; goto ERR;
 	}
 
-	err = m_games[clientEnterGame.gameid()]->AddPlayer(pPlayer, clientEnterGame.password().c_str(), FALSE);
+	err = m_games[requestEnterGame.gameid()]->AddPlayer(pPlayer, requestEnterGame.password().c_str(), FALSE);
 
 	goto NEXT;
 ERR:
 NEXT:
-	serverEnterGame.set_err(err);
-	serverEnterGame.set_guid(pPlayer->guid);
+	responseEnterGame.set_err(err);
+	responseEnterGame.set_guid(pPlayer->guid);
 
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &serverEnterGame, ::Server::SERVER_MSG::ENTER_GAME);
+	Serializer(&writeBuffer, &responseEnterGame, ::Server::SERVER_MSG::ENTER_GAME);
 
 	//
 	// 4. 发送玩家
@@ -440,8 +440,8 @@ NEXT:
 //
 void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 {
-	::Client::ExitGame clientExitGame;
-	::Server::ExitGame serverExitGame;
+	::Client::ExitGame requestExitGame;
+	::Server::ExitGame responseExitGame;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
 	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
@@ -449,7 +449,7 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &clientExitGame, size) == FALSE) {
+	if (Parser(&pPlayer->recvBuffer, &requestExitGame, size) == FALSE) {
 		return;
 	}
 
@@ -457,13 +457,13 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	// 2. 退出游戏
 	//
 	int err = pPlayer->pGame ? ERR_NONE : ERR_PLAYER_OUT_GAME;
-	serverExitGame.set_err(err);
-	serverExitGame.set_guid(pPlayer->guid);
+	responseExitGame.set_err(err);
+	responseExitGame.set_guid(pPlayer->guid);
 
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &serverExitGame, ::Server::SERVER_MSG::EXIT_GAME);
+	Serializer(&writeBuffer, &responseExitGame, ::Server::SERVER_MSG::EXIT_GAME);
 
 	//
 	// 4. 发送玩家
@@ -529,8 +529,8 @@ void CGameServer::OnModifyGamePassword(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD size)
 {
-	::Client::SendToPlayer clientSendToPlayer;
-	::Server::SendToPlayer serverSendToPlayer;
+	::Client::SendToPlayer requestSendToPlayer;
+	::Server::SendToPlayer responseSendToPlayer;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
 	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
@@ -538,23 +538,23 @@ void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &clientSendToPlayer, size) == FALSE) {
+	if (Parser(&pPlayer->recvBuffer, &requestSendToPlayer, size) == FALSE) {
 		return;
 	}
 
 	//
 	// 2. 查找目标玩家
 	//
-	CPlayer *pTarget = QueryPlayer(clientSendToPlayer.guid());
+	CPlayer *pTarget = QueryPlayer(requestSendToPlayer.guid());
 	if (pTarget == NULL) return;
 
-	serverSendToPlayer.set_size(clientSendToPlayer.size());
-	serverSendToPlayer.set_data(clientSendToPlayer.data().c_str(), clientSendToPlayer.size());
+	responseSendToPlayer.set_size(requestSendToPlayer.size());
+	responseSendToPlayer.set_data(requestSendToPlayer.data().c_str(), requestSendToPlayer.size());
 
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &serverSendToPlayer, ::Server::SERVER_MSG::SEND_TO_PLAYER);
+	Serializer(&writeBuffer, &responseSendToPlayer, ::Server::SERVER_MSG::SEND_TO_PLAYER);
 
 	//
 	// 4. 发送目标玩家
@@ -567,8 +567,8 @@ void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnSendToPlayerAll(CPlayer *pPlayer, WORD size)
 {
-	::Client::SendToPlayerAll clientSendToPlayerAll;
-	::Server::SendToPlayer serverSendToPlayer;
+	::Client::SendToPlayerAll requestSendToPlayerAll;
+	::Server::SendToPlayer responseSendToPlayer;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
 	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
@@ -576,7 +576,7 @@ void CGameServer::OnSendToPlayerAll(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &clientSendToPlayerAll, size) == FALSE) {
+	if (Parser(&pPlayer->recvBuffer, &requestSendToPlayerAll, size) == FALSE) {
 		return;
 	}
 
@@ -587,16 +587,16 @@ void CGameServer::OnSendToPlayerAll(CPlayer *pPlayer, WORD size)
 		return;
 	}
 
-	serverSendToPlayer.set_size(clientSendToPlayerAll.size());
-	serverSendToPlayer.set_data(clientSendToPlayerAll.data().c_str(), clientSendToPlayerAll.size());
+	responseSendToPlayer.set_size(requestSendToPlayerAll.size());
+	responseSendToPlayer.set_data(requestSendToPlayerAll.data().c_str(), requestSendToPlayerAll.size());
 
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &serverSendToPlayer, ::Server::SERVER_MSG::SEND_TO_PLAYER);
+	Serializer(&writeBuffer, &responseSendToPlayer, ::Server::SERVER_MSG::SEND_TO_PLAYER);
 
 	//
 	// 4. 发送所有玩家
 	//
-	SendToPlayerAll(pPlayer->pGame, pPlayer, buffer, writeBuffer.GetActiveBufferSize(), clientSendToPlayerAll.filter());
+	SendToPlayerAll(pPlayer->pGame, pPlayer, buffer, writeBuffer.GetActiveBufferSize(), requestSendToPlayerAll.filter());
 }
