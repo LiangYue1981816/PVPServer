@@ -7,6 +7,7 @@
 
     public virtual void ResponseFlags(byte[] buffer)
     {
-
+        Server.Flags responseFlags = ProtoHelper.ToProto<Server.Flags>(buffer);
+        mFlags = responseFlags.flags;
     }
 }

@@ -274,12 +274,12 @@ class Login : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required int32 guid = 1;
+  // required uint32 guid = 1;
   inline bool has_guid() const;
   inline void clear_guid();
   static const int kGuidFieldNumber = 1;
-  inline ::google::protobuf::int32 guid() const;
-  inline void set_guid(::google::protobuf::int32 value);
+  inline ::google::protobuf::uint32 guid() const;
+  inline void set_guid(::google::protobuf::uint32 value);
 
   // required int32 version = 2;
   inline bool has_version() const;
@@ -299,7 +299,7 @@ class Login : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::int32 guid_;
+  ::google::protobuf::uint32 guid_;
   ::google::protobuf::int32 version_;
   friend void  protobuf_AddDesc_Client_2eproto();
   friend void protobuf_AssignDesc_Client_2eproto();
@@ -709,12 +709,12 @@ class SendToPlayer : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required int32 guid = 1;
+  // required uint32 guid = 1;
   inline bool has_guid() const;
   inline void clear_guid();
   static const int kGuidFieldNumber = 1;
-  inline ::google::protobuf::int32 guid() const;
-  inline void set_guid(::google::protobuf::int32 value);
+  inline ::google::protobuf::uint32 guid() const;
+  inline void set_guid(::google::protobuf::uint32 value);
 
   // required int32 size = 2;
   inline bool has_size() const;
@@ -748,7 +748,7 @@ class SendToPlayer : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::int32 guid_;
+  ::google::protobuf::uint32 guid_;
   ::google::protobuf::int32 size_;
   ::std::string* data_;
   friend void  protobuf_AddDesc_Client_2eproto();
@@ -901,7 +901,7 @@ inline void Heart::set_timestamp(::google::protobuf::int32 value) {
 
 // Login
 
-// required int32 guid = 1;
+// required uint32 guid = 1;
 inline bool Login::has_guid() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -912,14 +912,14 @@ inline void Login::clear_has_guid() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void Login::clear_guid() {
-  guid_ = 0;
+  guid_ = 0u;
   clear_has_guid();
 }
-inline ::google::protobuf::int32 Login::guid() const {
+inline ::google::protobuf::uint32 Login::guid() const {
   // @@protoc_insertion_point(field_get:Client.Login.guid)
   return guid_;
 }
-inline void Login::set_guid(::google::protobuf::int32 value) {
+inline void Login::set_guid(::google::protobuf::uint32 value) {
   set_has_guid();
   guid_ = value;
   // @@protoc_insertion_point(field_set:Client.Login.guid)
@@ -1217,7 +1217,7 @@ inline void EnterGame::set_allocated_password(::std::string* password) {
 
 // SendToPlayer
 
-// required int32 guid = 1;
+// required uint32 guid = 1;
 inline bool SendToPlayer::has_guid() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1228,14 +1228,14 @@ inline void SendToPlayer::clear_has_guid() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void SendToPlayer::clear_guid() {
-  guid_ = 0;
+  guid_ = 0u;
   clear_has_guid();
 }
-inline ::google::protobuf::int32 SendToPlayer::guid() const {
+inline ::google::protobuf::uint32 SendToPlayer::guid() const {
   // @@protoc_insertion_point(field_get:Client.SendToPlayer.guid)
   return guid_;
 }
-inline void SendToPlayer::set_guid(::google::protobuf::int32 value) {
+inline void SendToPlayer::set_guid(::google::protobuf::uint32 value) {
   set_has_guid();
   guid_ = value;
   // @@protoc_insertion_point(field_set:Client.SendToPlayer.guid)

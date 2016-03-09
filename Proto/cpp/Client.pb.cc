@@ -264,12 +264,12 @@ void protobuf_AddDesc_Client_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\014Client.proto\022\006Client\"\032\n\005Heart\022\021\n\ttimes"
     "tamp\030\001 \002(\005\"\007\n\005Flags\"&\n\005Login\022\014\n\004guid\030\001 \002"
-    "(\005\022\017\n\007version\030\002 \002(\005\"M\n\nCreateGame\022\020\n\010pas"
+    "(\r\022\017\n\007version\030\002 \002(\005\"M\n\nCreateGame\022\020\n\010pas"
     "sword\030\001 \002(\t\022\013\n\003map\030\002 \002(\005\022\014\n\004mode\030\003 \002(\005\022\022"
     "\n\nmaxPlayers\030\004 \002(\005\"\r\n\013DestroyGame\"-\n\tEnt"
     "erGame\022\016\n\006gameid\030\001 \002(\005\022\020\n\010password\030\002 \002(\t"
     "\"\n\n\010ExitGame\"8\n\014SendToPlayer\022\014\n\004guid\030\001 \002"
-    "(\005\022\014\n\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014\"=\n\017SendTo"
+    "(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014\"=\n\017SendTo"
     "PlayerAll\022\016\n\006filter\030\001 \002(\005\022\014\n\004size\030\002 \002(\005\022"
     "\014\n\004data\030\003 \002(\014*\266\001\n\013REQUEST_MSG\022\t\n\005HEART\020\000"
     "\022\t\n\005FLAGS\020\001\022\t\n\005LOGIN\020\002\022\017\n\013CREATE_GAME\020\003\022"
@@ -751,7 +751,7 @@ Login::Login(const Login& from)
 
 void Login::SharedCtor() {
   _cached_size_ = 0;
-  guid_ = 0;
+  guid_ = 0u;
   version_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -817,11 +817,11 @@ bool Login::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required int32 guid = 1;
+      // required uint32 guid = 1;
       case 1: {
         if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &guid_)));
           set_has_guid();
         } else {
@@ -871,9 +871,9 @@ failure:
 void Login::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:Client.Login)
-  // required int32 guid = 1;
+  // required uint32 guid = 1;
   if (has_guid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->guid(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->guid(), output);
   }
 
   // required int32 version = 2;
@@ -891,9 +891,9 @@ void Login::SerializeWithCachedSizes(
 ::google::protobuf::uint8* Login::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:Client.Login)
-  // required int32 guid = 1;
+  // required uint32 guid = 1;
   if (has_guid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->guid(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->guid(), target);
   }
 
   // required int32 version = 2;
@@ -913,10 +913,10 @@ int Login::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required int32 guid = 1;
+    // required uint32 guid = 1;
     if (has_guid()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->guid());
     }
 
@@ -2036,7 +2036,7 @@ SendToPlayer::SendToPlayer(const SendToPlayer& from)
 void SendToPlayer::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  guid_ = 0;
+  guid_ = 0u;
   size_ = 0;
   data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -2113,11 +2113,11 @@ bool SendToPlayer::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required int32 guid = 1;
+      // required uint32 guid = 1;
       case 1: {
         if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &guid_)));
           set_has_guid();
         } else {
@@ -2180,9 +2180,9 @@ failure:
 void SendToPlayer::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:Client.SendToPlayer)
-  // required int32 guid = 1;
+  // required uint32 guid = 1;
   if (has_guid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->guid(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->guid(), output);
   }
 
   // required int32 size = 2;
@@ -2206,9 +2206,9 @@ void SendToPlayer::SerializeWithCachedSizes(
 ::google::protobuf::uint8* SendToPlayer::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:Client.SendToPlayer)
-  // required int32 guid = 1;
+  // required uint32 guid = 1;
   if (has_guid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->guid(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->guid(), target);
   }
 
   // required int32 size = 2;
@@ -2235,10 +2235,10 @@ int SendToPlayer::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required int32 guid = 1;
+    // required uint32 guid = 1;
     if (has_guid()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->guid());
     }
 

@@ -3,8 +3,6 @@ using System.Threading;
 
 public partial class ServerClient : NetClient
 {
-    private const int mVersion = 0x00010000;
-
     private Thread mThreadHeart = null;
     private ManualResetEvent mEventHeart = null;
 
@@ -19,8 +17,8 @@ public partial class ServerClient : NetClient
     private Client.SendToPlayerAll mRequestSendToPlayerAll = new Client.SendToPlayerAll();
 
     private int mPing = 0;
-    private int mGUID = 0;
-    private int mFlags = 0; 
+    private uint mGUID = 0;
+    private uint mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_NONE;
 
     public override bool Connect(string ip, int port)
     {
@@ -40,6 +38,8 @@ public partial class ServerClient : NetClient
 
     public override bool Disconnect()
     {
+        ClearFlags();
+
         if (base.Disconnect())
         {
             mThreadHeart.Abort();
@@ -56,17 +56,57 @@ public partial class ServerClient : NetClient
         return mPing;
     }
 
-    public int GetGUID()
+    public uint GetGUID()
     {
         return mGUID;
     }
 
-    public int GetFlags()
+    public uint GetFlags()
     {
         return mFlags;
     }
 
-    private void SendProto(Client.REQUEST_MSG msg, global::ProtoBuf.IExtensible proto)
+    public bool IsLogin()
+    {
+        return IsEnable(FlagsCode.Code.PLAYER_FLAGS_LOGIN);
+    }
+
+    public bool IsWaiting()
+    {
+        return IsEnable(FlagsCode.Code.PLAYER_FLAGS_WAITING);
+    }
+
+    public bool IsReady()
+    {
+        return IsEnable(FlagsCode.Code.PLAYER_FLAGS_READY);
+    }
+
+    public bool IsGaming()
+    {
+        return IsEnable(FlagsCode.Code.PLAYER_FLAGS_GAMING);
+    }
+
+    protected bool IsEnable(FlagsCode.Code code)
+    {
+        return (mFlags & ((uint)code)) != 0 ? true : false;
+    }
+
+    protected void ClearFlags()
+    {
+        mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_NONE;
+    }
+
+    protected void SetEnable(FlagsCode.Code code)
+    {
+        mFlags = mFlags | ((uint)code);
+    }
+
+    protected void SetDisable(FlagsCode.Code code)
+    {
+        mFlags = mFlags & ~((uint)code);
+    }
+
+    protected void SendProto(Client.REQUEST_MSG msg, global::ProtoBuf.IExtensible proto)
     {
         if (IsConnected())
         {

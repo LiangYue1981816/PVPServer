@@ -32,9 +32,9 @@ namespace Server
   {
     public Flags() {}
     
-    private int _flags;
+    private uint _flags;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"flags", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int flags
+    public uint flags
     {
       get { return _flags; }
       set { _flags = value; }
@@ -56,10 +56,10 @@ namespace Server
       get { return _err; }
       set { _err = value; }
     }
-    private int _guid = default(int);
+    private uint _guid = default(uint);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int guid
+    [global::System.ComponentModel.DefaultValue(default(uint))]
+    public uint guid
     {
       get { return _guid; }
       set { _guid = value; }
@@ -115,10 +115,10 @@ namespace Server
       get { return _err; }
       set { _err = value; }
     }
-    private int _guid = default(int);
+    private uint _guid = default(uint);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int guid
+    [global::System.ComponentModel.DefaultValue(default(uint))]
+    public uint guid
     {
       get { return _guid; }
       set { _guid = value; }
@@ -140,10 +140,10 @@ namespace Server
       get { return _err; }
       set { _err = value; }
     }
-    private int _guid = default(int);
+    private uint _guid = default(uint);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int guid
+    [global::System.ComponentModel.DefaultValue(default(uint))]
+    public uint guid
     {
       get { return _guid; }
       set { _guid = value; }

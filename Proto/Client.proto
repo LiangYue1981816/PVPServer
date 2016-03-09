@@ -26,7 +26,7 @@ message Flags
 
 message Login
 {
-	required int32 guid = 1;
+	required uint32 guid = 1;
 	required int32 version = 2;
 }
 
@@ -59,7 +59,7 @@ message ExitGame
 
 message SendToPlayer
 {
-	required int32 guid = 1;
+	required uint32 guid = 1;
 	required int32 size = 2;
 	required bytes data = 3;
 }

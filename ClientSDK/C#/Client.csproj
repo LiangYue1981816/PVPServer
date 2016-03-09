@@ -138,7 +138,10 @@
     <Compile Include="ProtoBuffer\WireType.cs" />
     <Compile Include="ProtoHelper.cs" />
     <Compile Include="Proto\Client.proto.cs" />
+    <Compile Include="Proto\Error.proto.cs" />
+    <Compile Include="Proto\Flags.proto.cs" />
     <Compile Include="Proto\Server.proto.cs" />
+    <Compile Include="Proto\Version.proto.cs" />
     <Compile Include="ServerClient.cs" />
     <Compile Include="ServerClientProcessProto.cs" />
     <Compile Include="ServerClientRequestCreateGame.cs" />

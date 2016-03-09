@@ -170,7 +170,10 @@
     <ClInclude Include="..\Common\IOCP.h" />
     <ClInclude Include="..\Common\Serializer.h" />
     <ClInclude Include="..\Proto\Client.pb.h" />
+    <ClInclude Include="..\Proto\Error.pb.h" />
+    <ClInclude Include="..\Proto\Flags.pb.h" />
     <ClInclude Include="..\Proto\Server.pb.h" />
+    <ClInclude Include="..\Proto\Version.pb.h" />
     <ClInclude Include="GameServer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -180,7 +183,10 @@
     <ClCompile Include="..\Common\IOCP.cpp" />
     <ClCompile Include="..\Common\Serializer.cpp" />
     <ClCompile Include="..\Proto\Client.pb.cc" />
+    <ClCompile Include="..\Proto\Error.pb.cc" />
+    <ClCompile Include="..\Proto\Flags.pb.cc" />
     <ClCompile Include="..\Proto\Server.pb.cc" />
+    <ClCompile Include="..\Proto\Version.pb.cc" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="GameServerUpdate.cpp" />

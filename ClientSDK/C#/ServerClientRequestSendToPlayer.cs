@@ -1,6 +1,6 @@
 ﻿public partial class ServerClient : NetClient
 {
-    public virtual void RequestSendToPlayer(int guid, int size, byte[] data)
+    public virtual void RequestSendToPlayer(uint guid, int size, byte[] data)
     {
         mRequestSendToPlayer.guid = guid;
         mRequestSendToPlayer.size = size;

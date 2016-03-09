@@ -42,9 +42,9 @@ namespace Client
   {
     public Login() {}
     
-    private int _guid;
+    private uint _guid;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int guid
+    public uint guid
     {
       get { return _guid; }
       set { _guid = value; }
@@ -148,9 +148,9 @@ namespace Client
   {
     public SendToPlayer() {}
     
-    private int _guid;
+    private uint _guid;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int guid
+    public uint guid
     {
       get { return _guid; }
       set { _guid = value; }

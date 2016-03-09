@@ -57,6 +57,15 @@
     <ClInclude Include="..\Proto\Server.pb.h">
       <Filter>Proto\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Proto\Error.pb.h">
+      <Filter>Proto\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Proto\Flags.pb.h">
+      <Filter>Proto\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Proto\Version.pb.h">
+      <Filter>Proto\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\CacheBuffer.cpp">
@@ -91,6 +100,15 @@
       <Filter>Proto\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Proto\Server.pb.cc">
+      <Filter>Proto\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Proto\Error.pb.cc">
+      <Filter>Proto\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Proto\Flags.pb.cc">
+      <Filter>Proto\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Proto\Version.pb.cc">
       <Filter>Proto\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
