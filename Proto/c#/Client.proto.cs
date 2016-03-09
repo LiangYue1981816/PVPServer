@@ -114,9 +114,9 @@ namespace Client
   {
     public EnterGame() {}
     
-    private int _gameid;
+    private uint _gameid;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int gameid
+    public uint gameid
     {
       get { return _gameid; }
       set { _gameid = value; }

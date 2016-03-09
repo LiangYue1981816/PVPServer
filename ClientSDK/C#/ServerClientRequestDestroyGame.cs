@@ -13,7 +13,10 @@
 
         if (mErrorCode == ErrorCode.Code.ERR_NONE)
         {
-            SetDisable(FlagsCode.Code.PLAYER_FLAGS_WAITING);
+            mGameID = 0xffffffff;
+            DisableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
+            DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
+            DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
         }
     }
 }

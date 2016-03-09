@@ -16,7 +16,10 @@
         if (mErrorCode == ErrorCode.Code.ERR_NONE)
         {
             mGUID = responseLogin.guid;
-            mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_LOGIN;
+            EnableFlag(FlagsCode.Code.PLAYER_FLAGS_LOGIN);
+            DisableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
+            DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
+            DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
         }
     }
 }

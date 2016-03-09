@@ -1,6 +1,6 @@
 ﻿public partial class ServerClient : NetClient
 {
-    public virtual void RequestEnterGame(string password, int gameid)
+    public virtual void RequestEnterGame(string password, uint gameid)
     {
         mRequestEnterGame.password = password;
         mRequestEnterGame.gameid = gameid;
@@ -15,7 +15,14 @@
 
         if (mErrorCode == ErrorCode.Code.ERR_NONE)
         {
-            if (mGUID != responseEnterGame.guid)
+            if (mGUID == responseEnterGame.guid)
+            {
+                mGameID = responseEnterGame.gameid;
+                EnableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
+                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
+                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
+            }
+            else
             {
                 mPlayers.Add(responseEnterGame.guid);
             }

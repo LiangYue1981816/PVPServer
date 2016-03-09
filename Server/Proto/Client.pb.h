@@ -546,12 +546,12 @@ class EnterGame : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required int32 gameid = 1;
+  // required uint32 gameid = 1;
   inline bool has_gameid() const;
   inline void clear_gameid();
   static const int kGameidFieldNumber = 1;
-  inline ::google::protobuf::int32 gameid() const;
-  inline void set_gameid(::google::protobuf::int32 value);
+  inline ::google::protobuf::uint32 gameid() const;
+  inline void set_gameid(::google::protobuf::uint32 value);
 
   // required string password = 2;
   inline bool has_password() const;
@@ -577,7 +577,7 @@ class EnterGame : public ::google::protobuf::Message {
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::std::string* password_;
-  ::google::protobuf::int32 gameid_;
+  ::google::protobuf::uint32 gameid_;
   friend void  protobuf_AddDesc_Client_2eproto();
   friend void protobuf_AssignDesc_Client_2eproto();
   friend void protobuf_ShutdownFile_Client_2eproto();
@@ -1109,7 +1109,7 @@ inline void CreateGame::set_maxplayers(::google::protobuf::int32 value) {
 
 // EnterGame
 
-// required int32 gameid = 1;
+// required uint32 gameid = 1;
 inline bool EnterGame::has_gameid() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1120,14 +1120,14 @@ inline void EnterGame::clear_has_gameid() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void EnterGame::clear_gameid() {
-  gameid_ = 0;
+  gameid_ = 0u;
   clear_has_gameid();
 }
-inline ::google::protobuf::int32 EnterGame::gameid() const {
+inline ::google::protobuf::uint32 EnterGame::gameid() const {
   // @@protoc_insertion_point(field_get:Client.EnterGame.gameid)
   return gameid_;
 }
-inline void EnterGame::set_gameid(::google::protobuf::int32 value) {
+inline void EnterGame::set_gameid(::google::protobuf::uint32 value) {
   set_has_gameid();
   gameid_ = value;
   // @@protoc_insertion_point(field_set:Client.EnterGame.gameid)

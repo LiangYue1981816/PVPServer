@@ -21,8 +21,10 @@ public partial class ServerClient : NetClient
     private Client.SendToPlayerAll mRequestSendToPlayerAll = new Client.SendToPlayerAll();
 
     private int mPing = 0;
-    private uint mGUID = 0;
+    private uint mGUID = 0xffffffff;
+    private uint mGameID = 0xffffffff;
     private uint mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_NONE;
+
     private List<uint> mPlayers = new List<uint>();
 
     public override bool Connect(string ip, int port)
@@ -43,7 +45,9 @@ public partial class ServerClient : NetClient
 
     public override bool Disconnect()
     {
-        ClearFlags();
+        mGUID = 0xffffffff;
+        mGameID = 0xffffffff;
+        mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_NONE;
 
         if (base.Disconnect())
         {
@@ -69,6 +73,11 @@ public partial class ServerClient : NetClient
     public uint GetGUID()
     {
         return mGUID;
+    }
+
+    public uint GetGameID()
+    {
+        return mGameID;
     }
 
     public uint GetFlags()
@@ -106,12 +115,12 @@ public partial class ServerClient : NetClient
         mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_NONE;
     }
 
-    protected void SetEnable(FlagsCode.Code code)
+    protected void EnableFlag(FlagsCode.Code code)
     {
         mFlags = mFlags | ((uint)code);
     }
 
-    protected void SetDisable(FlagsCode.Code code)
+    protected void DisableFlag(FlagsCode.Code code)
     {
         mFlags = mFlags & ~((uint)code);
     }

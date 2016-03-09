@@ -412,7 +412,7 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 		err = ErrorCode::Code::ERR_PLAYER_FLAGS_INGAME; goto ERR;
 	}
 
-	if (requestEnterGame.gameid() < 0 || requestEnterGame.gameid() >= m_maxGames) {
+	if (requestEnterGame.gameid() < 0 || requestEnterGame.gameid() >= (DWORD)m_maxGames) {
 		err = ErrorCode::Code::ERR_GAME_INVALID_ID; goto ERR;
 	}
 

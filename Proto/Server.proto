@@ -34,7 +34,7 @@ message Login
 message CreateGame
 {
 	required ErrorCode.Code err = 1;
-	optional int32 gameid = 2;
+	optional uint32 gameid = 2;
 }
 
 message DestroyGame
@@ -46,7 +46,7 @@ message EnterGame
 {
 	required ErrorCode.Code err = 1;
 	optional uint32 guid = 2;
-	optional int32 gameid = 3;
+	optional uint32 gameid = 3;
 }
 
 message ExitGame

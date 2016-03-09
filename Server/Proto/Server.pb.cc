@@ -245,10 +245,10 @@ void protobuf_AddDesc_Server_2eproto() {
     "eart\022\021\n\ttimestamp\030\001 \002(\005\"\026\n\005Flags\022\r\n\005flag"
     "s\030\001 \002(\r\"3\n\005Login\022\034\n\003err\030\001 \002(\0162\017.ErrorCod"
     "e.Code\022\014\n\004guid\030\002 \001(\r\":\n\nCreateGame\022\034\n\003er"
-    "r\030\001 \002(\0162\017.ErrorCode.Code\022\016\n\006gameid\030\002 \001(\005"
+    "r\030\001 \002(\0162\017.ErrorCode.Code\022\016\n\006gameid\030\002 \001(\r"
     "\"+\n\013DestroyGame\022\034\n\003err\030\001 \002(\0162\017.ErrorCode"
     ".Code\"G\n\tEnterGame\022\034\n\003err\030\001 \002(\0162\017.ErrorC"
-    "ode.Code\022\014\n\004guid\030\002 \001(\r\022\016\n\006gameid\030\003 \001(\005\"6"
+    "ode.Code\022\014\n\004guid\030\002 \001(\r\022\016\n\006gameid\030\003 \001(\r\"6"
     "\n\010ExitGame\022\034\n\003err\030\001 \002(\0162\017.ErrorCode.Code"
     "\022\014\n\004guid\030\002 \001(\r\"*\n\014SendToPlayer\022\014\n\004size\030\001"
     " \002(\005\022\014\n\004data\030\002 \002(\014*\205\001\n\014RESPONSE_MSG\022\t\n\005H"
@@ -1056,7 +1056,7 @@ CreateGame::CreateGame(const CreateGame& from)
 void CreateGame::SharedCtor() {
   _cached_size_ = 0;
   err_ = 0;
-  gameid_ = 0;
+  gameid_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1140,12 +1140,12 @@ bool CreateGame::MergePartialFromCodedStream(
         break;
       }
 
-      // optional int32 gameid = 2;
+      // optional uint32 gameid = 2;
       case 2: {
         if (tag == 16) {
          parse_gameid:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &gameid_)));
           set_has_gameid();
         } else {
@@ -1186,9 +1186,9 @@ void CreateGame::SerializeWithCachedSizes(
       1, this->err(), output);
   }
 
-  // optional int32 gameid = 2;
+  // optional uint32 gameid = 2;
   if (has_gameid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->gameid(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->gameid(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -1207,9 +1207,9 @@ void CreateGame::SerializeWithCachedSizes(
       1, this->err(), target);
   }
 
-  // optional int32 gameid = 2;
+  // optional uint32 gameid = 2;
   if (has_gameid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->gameid(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->gameid(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1230,10 +1230,10 @@ int CreateGame::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->err());
     }
 
-    // optional int32 gameid = 2;
+    // optional uint32 gameid = 2;
     if (has_gameid()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->gameid());
     }
 
@@ -1568,7 +1568,7 @@ void EnterGame::SharedCtor() {
   _cached_size_ = 0;
   err_ = 0;
   guid_ = 0u;
-  gameid_ = 0;
+  gameid_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1667,12 +1667,12 @@ bool EnterGame::MergePartialFromCodedStream(
         break;
       }
 
-      // optional int32 gameid = 3;
+      // optional uint32 gameid = 3;
       case 3: {
         if (tag == 24) {
          parse_gameid:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &gameid_)));
           set_has_gameid();
         } else {
@@ -1718,9 +1718,9 @@ void EnterGame::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->guid(), output);
   }
 
-  // optional int32 gameid = 3;
+  // optional uint32 gameid = 3;
   if (has_gameid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->gameid(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(3, this->gameid(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -1744,9 +1744,9 @@ void EnterGame::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->guid(), target);
   }
 
-  // optional int32 gameid = 3;
+  // optional uint32 gameid = 3;
   if (has_gameid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->gameid(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(3, this->gameid(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1774,10 +1774,10 @@ int EnterGame::ByteSize() const {
           this->guid());
     }
 
-    // optional int32 gameid = 3;
+    // optional uint32 gameid = 3;
     if (has_gameid()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->gameid());
     }
 

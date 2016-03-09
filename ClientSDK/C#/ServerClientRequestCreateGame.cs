@@ -17,7 +17,10 @@
 
         if (mErrorCode == ErrorCode.Code.ERR_NONE)
         {
-            SetEnable(FlagsCode.Code.PLAYER_FLAGS_WAITING);
+            mGameID = responseCreateGame.gameid;
+            EnableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
+            DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
+            DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
         }
     }
 }

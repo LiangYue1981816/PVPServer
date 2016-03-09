@@ -378,12 +378,12 @@ class CreateGame : public ::google::protobuf::Message {
   inline ::ErrorCode::Code err() const;
   inline void set_err(::ErrorCode::Code value);
 
-  // optional int32 gameid = 2;
+  // optional uint32 gameid = 2;
   inline bool has_gameid() const;
   inline void clear_gameid();
   static const int kGameidFieldNumber = 2;
-  inline ::google::protobuf::int32 gameid() const;
-  inline void set_gameid(::google::protobuf::int32 value);
+  inline ::google::protobuf::uint32 gameid() const;
+  inline void set_gameid(::google::protobuf::uint32 value);
 
   // @@protoc_insertion_point(class_scope:Server.CreateGame)
  private:
@@ -397,7 +397,7 @@ class CreateGame : public ::google::protobuf::Message {
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   int err_;
-  ::google::protobuf::int32 gameid_;
+  ::google::protobuf::uint32 gameid_;
   friend void  protobuf_AddDesc_Server_2eproto();
   friend void protobuf_AssignDesc_Server_2eproto();
   friend void protobuf_ShutdownFile_Server_2eproto();
@@ -553,12 +553,12 @@ class EnterGame : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 guid() const;
   inline void set_guid(::google::protobuf::uint32 value);
 
-  // optional int32 gameid = 3;
+  // optional uint32 gameid = 3;
   inline bool has_gameid() const;
   inline void clear_gameid();
   static const int kGameidFieldNumber = 3;
-  inline ::google::protobuf::int32 gameid() const;
-  inline void set_gameid(::google::protobuf::int32 value);
+  inline ::google::protobuf::uint32 gameid() const;
+  inline void set_gameid(::google::protobuf::uint32 value);
 
   // @@protoc_insertion_point(class_scope:Server.EnterGame)
  private:
@@ -575,7 +575,7 @@ class EnterGame : public ::google::protobuf::Message {
   mutable int _cached_size_;
   int err_;
   ::google::protobuf::uint32 guid_;
-  ::google::protobuf::int32 gameid_;
+  ::google::protobuf::uint32 gameid_;
   friend void  protobuf_AddDesc_Server_2eproto();
   friend void protobuf_AssignDesc_Server_2eproto();
   friend void protobuf_ShutdownFile_Server_2eproto();
@@ -907,7 +907,7 @@ inline void CreateGame::set_err(::ErrorCode::Code value) {
   // @@protoc_insertion_point(field_set:Server.CreateGame.err)
 }
 
-// optional int32 gameid = 2;
+// optional uint32 gameid = 2;
 inline bool CreateGame::has_gameid() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -918,14 +918,14 @@ inline void CreateGame::clear_has_gameid() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void CreateGame::clear_gameid() {
-  gameid_ = 0;
+  gameid_ = 0u;
   clear_has_gameid();
 }
-inline ::google::protobuf::int32 CreateGame::gameid() const {
+inline ::google::protobuf::uint32 CreateGame::gameid() const {
   // @@protoc_insertion_point(field_get:Server.CreateGame.gameid)
   return gameid_;
 }
-inline void CreateGame::set_gameid(::google::protobuf::int32 value) {
+inline void CreateGame::set_gameid(::google::protobuf::uint32 value) {
   set_has_gameid();
   gameid_ = value;
   // @@protoc_insertion_point(field_set:Server.CreateGame.gameid)
@@ -1013,7 +1013,7 @@ inline void EnterGame::set_guid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:Server.EnterGame.guid)
 }
 
-// optional int32 gameid = 3;
+// optional uint32 gameid = 3;
 inline bool EnterGame::has_gameid() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -1024,14 +1024,14 @@ inline void EnterGame::clear_has_gameid() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void EnterGame::clear_gameid() {
-  gameid_ = 0;
+  gameid_ = 0u;
   clear_has_gameid();
 }
-inline ::google::protobuf::int32 EnterGame::gameid() const {
+inline ::google::protobuf::uint32 EnterGame::gameid() const {
   // @@protoc_insertion_point(field_get:Server.EnterGame.gameid)
   return gameid_;
 }
-inline void EnterGame::set_gameid(::google::protobuf::int32 value) {
+inline void EnterGame::set_gameid(::google::protobuf::uint32 value) {
   set_has_gameid();
   gameid_ = value;
   // @@protoc_insertion_point(field_set:Server.EnterGame.gameid)

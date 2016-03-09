@@ -82,10 +82,10 @@ namespace Server
       get { return _err; }
       set { _err = value; }
     }
-    private int _gameid = default(int);
+    private uint _gameid = default(uint);
     [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int gameid
+    [global::System.ComponentModel.DefaultValue(default(uint))]
+    public uint gameid
     {
       get { return _gameid; }
       set { _gameid = value; }
@@ -132,10 +132,10 @@ namespace Server
       get { return _guid; }
       set { _guid = value; }
     }
-    private int _gameid = default(int);
+    private uint _gameid = default(uint);
     [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    [global::System.ComponentModel.DefaultValue(default(int))]
-    public int gameid
+    [global::System.ComponentModel.DefaultValue(default(uint))]
+    public uint gameid
     {
       get { return _gameid; }
       set { _gameid = value; }

@@ -44,7 +44,7 @@ message DestroyGame
 
 message EnterGame
 {
-	required int32 gameid = 1;
+	required uint32 gameid = 1;
 	required string password = 2;
 }
 

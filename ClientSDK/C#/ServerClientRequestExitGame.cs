@@ -13,11 +13,20 @@
 
         if (mErrorCode == ErrorCode.Code.ERR_NONE)
         {
-            int index = mPlayers.IndexOf(responseExitGame.guid);
-
-            if (index >= 0)
+            if (mGUID == responseExitGame.guid)
             {
-                mPlayers.RemoveAt(index);
+                mGameID = 0xffffffff;
+                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
+                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
+                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
+            }
+            else
+            {
+                int index = 0;
+                while ((index = mPlayers.IndexOf(responseExitGame.guid)) >= 0)
+                {
+                    mPlayers.RemoveAt(index);
+                }
             }
         }
     }
