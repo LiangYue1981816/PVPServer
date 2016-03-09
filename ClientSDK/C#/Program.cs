@@ -43,19 +43,19 @@ class Program
             }
             if (input == "3")
             {
-
+                client.RequestCreateGame("fuck", 1, 2, 10);
             }
             if (input == "4")
             {
-
+                client.RequestDestroyGame();
             }
             if (input == "5")
             {
-
+                client.RequestEnterGame("you", 0);
             }
             if (input == "6")
             {
-
+                client.RequestExitGame();
             }
             if (input == "7")
             {
@@ -70,6 +70,8 @@ class Program
         {
             Thread.Sleep(1);
             client.Update();
+
+            Console.Title = client.GetPing().ToString();
         }
     }
 }

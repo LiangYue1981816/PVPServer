@@ -11,10 +11,14 @@
 
         mErrorCode = responseExitGame.err;
 
-        if (mErrorCode != ErrorCode.Code.ERR_NONE)
+        if (mErrorCode == ErrorCode.Code.ERR_NONE)
         {
             int index = mPlayers.IndexOf(responseExitGame.guid);
-            mPlayers.RemoveAt(index);
+
+            if (index >= 0)
+            {
+                mPlayers.RemoveAt(index);
+            }
         }
     }
 }
