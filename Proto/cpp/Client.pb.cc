@@ -270,7 +270,7 @@ void protobuf_AddDesc_Client_2eproto() {
     "erGame\022\016\n\006gameid\030\001 \002(\r\022\020\n\010password\030\002 \002(\t"
     "\"\n\n\010ExitGame\"8\n\014SendToPlayer\022\014\n\004guid\030\001 \002"
     "(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014\"=\n\017SendTo"
-    "PlayerAll\022\016\n\006filter\030\001 \002(\005\022\014\n\004size\030\002 \002(\005\022"
+    "PlayerAll\022\016\n\006filter\030\001 \002(\r\022\014\n\004size\030\002 \002(\005\022"
     "\014\n\004data\030\003 \002(\014*\266\001\n\013REQUEST_MSG\022\t\n\005HEART\020\000"
     "\022\t\n\005FLAGS\020\001\022\t\n\005LOGIN\020\002\022\017\n\013CREATE_GAME\020\003\022"
     "\020\n\014DESTROY_GAME\020\004\022\016\n\nENTER_GAME\020\005\022\r\n\tEXI"
@@ -2361,7 +2361,7 @@ SendToPlayerAll::SendToPlayerAll(const SendToPlayerAll& from)
 void SendToPlayerAll::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  filter_ = 0;
+  filter_ = 0u;
   size_ = 0;
   data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -2438,11 +2438,11 @@ bool SendToPlayerAll::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required int32 filter = 1;
+      // required uint32 filter = 1;
       case 1: {
         if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
                  input, &filter_)));
           set_has_filter();
         } else {
@@ -2505,9 +2505,9 @@ failure:
 void SendToPlayerAll::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:Client.SendToPlayerAll)
-  // required int32 filter = 1;
+  // required uint32 filter = 1;
   if (has_filter()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->filter(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->filter(), output);
   }
 
   // required int32 size = 2;
@@ -2531,9 +2531,9 @@ void SendToPlayerAll::SerializeWithCachedSizes(
 ::google::protobuf::uint8* SendToPlayerAll::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:Client.SendToPlayerAll)
-  // required int32 filter = 1;
+  // required uint32 filter = 1;
   if (has_filter()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->filter(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->filter(), target);
   }
 
   // required int32 size = 2;
@@ -2560,10 +2560,10 @@ int SendToPlayerAll::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required int32 filter = 1;
+    // required uint32 filter = 1;
     if (has_filter()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->filter());
     }
 

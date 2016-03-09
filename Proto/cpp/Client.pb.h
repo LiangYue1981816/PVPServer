@@ -813,12 +813,12 @@ class SendToPlayerAll : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required int32 filter = 1;
+  // required uint32 filter = 1;
   inline bool has_filter() const;
   inline void clear_filter();
   static const int kFilterFieldNumber = 1;
-  inline ::google::protobuf::int32 filter() const;
-  inline void set_filter(::google::protobuf::int32 value);
+  inline ::google::protobuf::uint32 filter() const;
+  inline void set_filter(::google::protobuf::uint32 value);
 
   // required int32 size = 2;
   inline bool has_size() const;
@@ -852,7 +852,7 @@ class SendToPlayerAll : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::int32 filter_;
+  ::google::protobuf::uint32 filter_;
   ::google::protobuf::int32 size_;
   ::std::string* data_;
   friend void  protobuf_AddDesc_Client_2eproto();
@@ -1345,7 +1345,7 @@ inline void SendToPlayer::set_allocated_data(::std::string* data) {
 
 // SendToPlayerAll
 
-// required int32 filter = 1;
+// required uint32 filter = 1;
 inline bool SendToPlayerAll::has_filter() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1356,14 +1356,14 @@ inline void SendToPlayerAll::clear_has_filter() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline void SendToPlayerAll::clear_filter() {
-  filter_ = 0;
+  filter_ = 0u;
   clear_has_filter();
 }
-inline ::google::protobuf::int32 SendToPlayerAll::filter() const {
+inline ::google::protobuf::uint32 SendToPlayerAll::filter() const {
   // @@protoc_insertion_point(field_get:Client.SendToPlayerAll.filter)
   return filter_;
 }
-inline void SendToPlayerAll::set_filter(::google::protobuf::int32 value) {
+inline void SendToPlayerAll::set_filter(::google::protobuf::uint32 value) {
   set_has_filter();
   filter_ = value;
   // @@protoc_insertion_point(field_set:Client.SendToPlayerAll.filter)

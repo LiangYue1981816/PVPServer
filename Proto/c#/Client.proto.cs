@@ -179,9 +179,9 @@ namespace Client
   {
     public SendToPlayerAll() {}
     
-    private int _filter;
+    private uint _filter;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"filter", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int filter
+    public uint filter
     {
       get { return _filter; }
       set { _filter = value; }
