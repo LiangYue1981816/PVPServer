@@ -27,7 +27,7 @@ message Flags
 message Login
 {
 	required int32 err = 1;
-	required int32 guid = 2;
+	optional int32 guid = 2;
 }
 
 message CreateGame
@@ -43,13 +43,13 @@ message DestroyGame
 message EnterGame
 {
 	required int32 err = 1;
-	required int32 guid = 2;
+	optional int32 guid = 2;
 }
 
 message ExitGame
 {
 	required int32 err = 1;
-	required int32 guid = 2;
+	optional int32 guid = 2;
 }
 
 //message ModifyGamePassword

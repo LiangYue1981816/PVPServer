@@ -2,13 +2,18 @@
 {
     public virtual void RequestLogin(int guid)
     {
-        mRequestLogin.version = 0x00010000;
+        mRequestLogin.version = mVersion;
         mRequestLogin.guid = guid;
         SendProto(Client.REQUEST_MSG.LOGIN, mRequestLogin);
     }
 
     public virtual void ResponseLogin(byte[] buffer)
     {
+        Server.Login responseLogin = ProtoHelper.ToProto<Server.Login>(buffer);
 
+        if (responseLogin.err == (int)ErrorCode.ERR_NONE)
+        {
+            mGUID = responseLogin.guid;
+        }
     }
 }

@@ -289,7 +289,7 @@ class Login : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 err() const;
   inline void set_err(::google::protobuf::int32 value);
 
-  // required int32 guid = 2;
+  // optional int32 guid = 2;
   inline bool has_guid() const;
   inline void clear_guid();
   static const int kGuidFieldNumber = 2;
@@ -536,7 +536,7 @@ class EnterGame : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 err() const;
   inline void set_err(::google::protobuf::int32 value);
 
-  // required int32 guid = 2;
+  // optional int32 guid = 2;
   inline bool has_guid() const;
   inline void clear_guid();
   static const int kGuidFieldNumber = 2;
@@ -625,7 +625,7 @@ class ExitGame : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 err() const;
   inline void set_err(::google::protobuf::int32 value);
 
-  // required int32 guid = 2;
+  // optional int32 guid = 2;
   inline bool has_guid() const;
   inline void clear_guid();
   static const int kGuidFieldNumber = 2;
@@ -833,7 +833,7 @@ inline void Login::set_err(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:Server.Login.err)
 }
 
-// required int32 guid = 2;
+// optional int32 guid = 2;
 inline bool Login::has_guid() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -941,7 +941,7 @@ inline void EnterGame::set_err(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:Server.EnterGame.err)
 }
 
-// required int32 guid = 2;
+// optional int32 guid = 2;
 inline bool EnterGame::has_guid() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -993,7 +993,7 @@ inline void ExitGame::set_err(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:Server.ExitGame.err)
 }
 
-// required int32 guid = 2;
+// optional int32 guid = 2;
 inline bool ExitGame::has_guid() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }

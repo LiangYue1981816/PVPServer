@@ -3,6 +3,8 @@ using System.Threading;
 
 public partial class ServerClient : NetClient
 {
+    private const int mVersion = 0x00010000;
+
     private Thread mThreadHeart = null;
     private ManualResetEvent mEventHeart = null;
 
@@ -17,6 +19,7 @@ public partial class ServerClient : NetClient
     private Client.SendToPlayerAll mRequestSendToPlayerAll = new Client.SendToPlayerAll();
 
     private int mPing = 0;
+    private int mGUID = 0;
 
     public override bool Connect(string ip, int port)
     {

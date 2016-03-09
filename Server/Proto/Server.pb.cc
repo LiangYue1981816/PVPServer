@@ -240,11 +240,11 @@ void protobuf_AddDesc_Server_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\014Server.proto\022\006Server\"\032\n\005Heart\022\021\n\ttimes"
     "tamp\030\001 \002(\005\"\026\n\005Flags\022\r\n\005flags\030\001 \002(\005\"\"\n\005Lo"
-    "gin\022\013\n\003err\030\001 \002(\005\022\014\n\004guid\030\002 \002(\005\"\031\n\nCreate"
+    "gin\022\013\n\003err\030\001 \002(\005\022\014\n\004guid\030\002 \001(\005\"\031\n\nCreate"
     "Game\022\013\n\003err\030\001 \002(\005\"\032\n\013DestroyGame\022\013\n\003err\030"
     "\001 \002(\005\"&\n\tEnterGame\022\013\n\003err\030\001 \002(\005\022\014\n\004guid\030"
-    "\002 \002(\005\"%\n\010ExitGame\022\013\n\003err\030\001 \002(\005\022\014\n\004guid\030\002"
-    " \002(\005\"*\n\014SendToPlayer\022\014\n\004size\030\001 \002(\005\022\014\n\004da"
+    "\002 \001(\005\"%\n\010ExitGame\022\013\n\003err\030\001 \002(\005\022\014\n\004guid\030\002"
+    " \001(\005\"*\n\014SendToPlayer\022\014\n\004size\030\001 \002(\005\022\014\n\004da"
     "ta\030\002 \002(\014*\237\001\n\014RESPONSE_MSG\022\t\n\005HEART\020\000\022\t\n\005"
     "FLAGS\020\001\022\t\n\005LOGIN\020\002\022\017\n\013CREATE_GAME\020\003\022\020\n\014D"
     "ESTROY_GAME\020\004\022\016\n\nENTER_GAME\020\005\022\r\n\tEXIT_GA"
@@ -850,7 +850,7 @@ bool Login::MergePartialFromCodedStream(
         break;
       }
 
-      // required int32 guid = 2;
+      // optional int32 guid = 2;
       case 2: {
         if (tag == 16) {
          parse_guid:
@@ -895,7 +895,7 @@ void Login::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->err(), output);
   }
 
-  // required int32 guid = 2;
+  // optional int32 guid = 2;
   if (has_guid()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->guid(), output);
   }
@@ -915,7 +915,7 @@ void Login::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->err(), target);
   }
 
-  // required int32 guid = 2;
+  // optional int32 guid = 2;
   if (has_guid()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->guid(), target);
   }
@@ -939,7 +939,7 @@ int Login::ByteSize() const {
           this->err());
     }
 
-    // required int32 guid = 2;
+    // optional int32 guid = 2;
     if (has_guid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
@@ -996,7 +996,7 @@ void Login::CopyFrom(const Login& from) {
 }
 
 bool Login::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
   return true;
 }
@@ -1571,7 +1571,7 @@ bool EnterGame::MergePartialFromCodedStream(
         break;
       }
 
-      // required int32 guid = 2;
+      // optional int32 guid = 2;
       case 2: {
         if (tag == 16) {
          parse_guid:
@@ -1616,7 +1616,7 @@ void EnterGame::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->err(), output);
   }
 
-  // required int32 guid = 2;
+  // optional int32 guid = 2;
   if (has_guid()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->guid(), output);
   }
@@ -1636,7 +1636,7 @@ void EnterGame::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->err(), target);
   }
 
-  // required int32 guid = 2;
+  // optional int32 guid = 2;
   if (has_guid()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->guid(), target);
   }
@@ -1660,7 +1660,7 @@ int EnterGame::ByteSize() const {
           this->err());
     }
 
-    // required int32 guid = 2;
+    // optional int32 guid = 2;
     if (has_guid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
@@ -1717,7 +1717,7 @@ void EnterGame::CopyFrom(const EnterGame& from) {
 }
 
 bool EnterGame::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
   return true;
 }
@@ -1846,7 +1846,7 @@ bool ExitGame::MergePartialFromCodedStream(
         break;
       }
 
-      // required int32 guid = 2;
+      // optional int32 guid = 2;
       case 2: {
         if (tag == 16) {
          parse_guid:
@@ -1891,7 +1891,7 @@ void ExitGame::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->err(), output);
   }
 
-  // required int32 guid = 2;
+  // optional int32 guid = 2;
   if (has_guid()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->guid(), output);
   }
@@ -1911,7 +1911,7 @@ void ExitGame::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->err(), target);
   }
 
-  // required int32 guid = 2;
+  // optional int32 guid = 2;
   if (has_guid()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->guid(), target);
   }
@@ -1935,7 +1935,7 @@ int ExitGame::ByteSize() const {
           this->err());
     }
 
-    // required int32 guid = 2;
+    // optional int32 guid = 2;
     if (has_guid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
@@ -1992,7 +1992,7 @@ void ExitGame::CopyFrom(const ExitGame& from) {
 }
 
 bool ExitGame::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
   return true;
 }

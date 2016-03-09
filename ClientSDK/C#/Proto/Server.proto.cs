@@ -56,8 +56,9 @@ namespace Server
       get { return _err; }
       set { _err = value; }
     }
-    private int _guid;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _guid = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
     public int guid
     {
       get { return _guid; }
@@ -114,8 +115,9 @@ namespace Server
       get { return _err; }
       set { _err = value; }
     }
-    private int _guid;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _guid = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
     public int guid
     {
       get { return _guid; }
@@ -138,8 +140,9 @@ namespace Server
       get { return _err; }
       set { _err = value; }
     }
-    private int _guid;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _guid = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
     public int guid
     {
       get { return _guid; }
