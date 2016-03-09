@@ -38,13 +38,11 @@ enum Code {
   PLAYER_FLAGS_LOGIN = 1,
   PLAYER_FLAGS_WAITING = 2,
   PLAYER_FLAGS_READY = 4,
-  PLAYER_FLAGS_GAMING = 8,
-  PLAYER_FLAGS_DEAD = 65536,
-  PLAYER_FLAGS_RESPAWN = 131072
+  PLAYER_FLAGS_GAMING = 8
 };
 bool Code_IsValid(int value);
 const Code Code_MIN = PLAYER_FLAGS_NONE;
-const Code Code_MAX = PLAYER_FLAGS_RESPAWN;
+const Code Code_MAX = PLAYER_FLAGS_GAMING;
 const int Code_ARRAYSIZE = Code_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* Code_descriptor();

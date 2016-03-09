@@ -2,14 +2,15 @@
 
 
 CGame::CGame(CGameServer *s)
-	: pServer(s)
+	: id(0xffffffff)
+
+	, pServer(s)
+	, pActivePlayer(NULL)
 
 	, m_mode(-1)
 	, m_mapid(-1)
 	, m_maxPlayers(0)
 	, m_numPlayers(0)
-
-	, pActivePlayer(NULL)
 
 	, pNext(NULL)
 	, pNextActive(NULL)
@@ -78,8 +79,8 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 		return ErrorCode::Code::ERR_PLAYER_INVALID;
 	}
 
-	if (pPlayer->IsWaiting() == TRUE) {
-		return ErrorCode::Code::ERR_PLAYER_IN_GAME;
+	if (pPlayer->pGame != NULL) {
+		return ErrorCode::Code::ERR_PLAYER_FLAGS_INGAME;
 	}
 
 	if (IsFull() == TRUE) {
@@ -116,7 +117,6 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 	//
 	// 3. ÉèÖÃÍæ¼Ò×´Ì¬
 	//
-	pPlayer->SetFlags(FlagsCode::Code::PLAYER_FLAGS_LOGIN);
 	pPlayer->EnableFlag(FlagsCode::Code::PLAYER_FLAGS_WAITING);
 
 	//
@@ -140,7 +140,7 @@ int CGame::DelPlayer(CPlayer *pPlayer)
 	}
 
 	if (pPlayer->pGame != this) {
-		return ErrorCode::Code::ERR_PLAYER_OUT_GAME;
+		return ErrorCode::Code::ERR_PLAYER_FLAGS_NOT_INGAME;
 	}
 
 	//

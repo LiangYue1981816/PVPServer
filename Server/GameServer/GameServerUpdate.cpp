@@ -101,13 +101,6 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 						OnHeartReset(pPlayer);
 						break;
 
-						/*
-					case Client::REQUEST_MSG::MODIFY_GAME_PASSWORD:
-						OnModifyGamePassword(pPlayer, bodySize);
-						OnHeartReset(pPlayer);
-						break;
-						*/
-
 					case Client::REQUEST_MSG::SEND_TO_PLAYER:
 						OnSendToPlayer(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
@@ -257,7 +250,7 @@ void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 	}
 
 	if (pPlayer->GetFlags() != FlagsCode::Code::PLAYER_FLAGS_NONE) {
-		err = ErrorCode::Code::ERR_PLAYER_STATE_LOGIN; goto ERR;
+		err = ErrorCode::Code::ERR_PLAYER_FLAGS_NOT_NONE; goto ERR;
 	}
 
 	if (Login(pPlayer, requestLogin.guid()) == FALSE) {
@@ -303,19 +296,27 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 创建游戏
 	//
+	CGame *pGame = NULL;
 	ErrorCode::Code err = ErrorCode::Code::ERR_NONE;
 
 	if (pPlayer->GetFlags() != FlagsCode::Code::PLAYER_FLAGS_LOGIN) {
-		err = ErrorCode::Code::ERR_PLAYER_STATE_LOGIN; goto ERR;
+		err = ErrorCode::Code::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
 	}
 
-	if (CGame *pGame = GetNextGame()) {
-		pGame->SetGame(requestCreateGame.password().c_str(), requestCreateGame.mode(), requestCreateGame.map(), requestCreateGame.maxplayers());
-		pGame->AddPlayer(pPlayer, requestCreateGame.password().c_str(), TRUE);
+	if (pPlayer->pGame != NULL) {
+		err = ErrorCode::Code::ERR_PLAYER_FLAGS_INGAME; goto ERR;
 	}
-	else {
+
+	pGame = GetNextGame();
+
+	if (pGame == NULL) {
 		err = ErrorCode::Code::ERR_SERVER_FULL; goto ERR;
 	}
+
+	pGame->SetGame(requestCreateGame.password().c_str(), requestCreateGame.mode(), requestCreateGame.map(), requestCreateGame.maxplayers());
+	pGame->AddPlayer(pPlayer, requestCreateGame.password().c_str(), TRUE);
+
+	responseCreateGame.set_gameid(pGame->id);
 
 	goto NEXT;
 ERR:
@@ -354,7 +355,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 销毁检查
 	//
-	ErrorCode::Code err = pPlayer->pGame ? ErrorCode::Code::ERR_NONE : ErrorCode::Code::ERR_PLAYER_OUT_GAME;
+	ErrorCode::Code err = pPlayer->pGame ? ErrorCode::Code::ERR_NONE : ErrorCode::Code::ERR_PLAYER_FLAGS_NOT_INGAME;
 	responseDestroyGame.set_err(err);
 
 	//
@@ -404,7 +405,11 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 	ErrorCode::Code err = ErrorCode::Code::ERR_NONE;
 
 	if (pPlayer->GetFlags() != FlagsCode::Code::PLAYER_FLAGS_LOGIN) {
-		err = ErrorCode::Code::ERR_PLAYER_STATE_LOGIN; goto ERR;
+		err = ErrorCode::Code::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
+	}
+
+	if (pPlayer->pGame != NULL) {
+		err = ErrorCode::Code::ERR_PLAYER_FLAGS_INGAME; goto ERR;
 	}
 
 	if (requestEnterGame.gameid() < 0 || requestEnterGame.gameid() >= m_maxGames) {
@@ -412,12 +417,15 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 	}
 
 	err = (ErrorCode::Code)m_games[requestEnterGame.gameid()]->AddPlayer(pPlayer, requestEnterGame.password().c_str(), FALSE);
+	if (err != ErrorCode::Code::ERR_NONE) goto ERR;
+
+	responseEnterGame.set_gameid(pPlayer->pGame->id);
+	responseEnterGame.set_guid(pPlayer->guid);
 
 	goto NEXT;
 ERR:
 NEXT:
 	responseEnterGame.set_err(err);
-	responseEnterGame.set_guid(pPlayer->guid);
 
 	//
 	// 3. 序列化消息
@@ -456,7 +464,7 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 退出游戏
 	//
-	ErrorCode::Code err = pPlayer->pGame ? ErrorCode::Code::ERR_NONE : ErrorCode::Code::ERR_PLAYER_OUT_GAME;
+	ErrorCode::Code err = pPlayer->pGame ? ErrorCode::Code::ERR_NONE : ErrorCode::Code::ERR_PLAYER_FLAGS_NOT_INGAME;
 	responseExitGame.set_err(err);
 	responseExitGame.set_guid(pPlayer->guid);
 
@@ -482,47 +490,6 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 		pPlayer->pGame->DelPlayer(pPlayer);
 	}
 }
-
-/*
-//
-// 修改游戏密码
-//
-void CGameServer::OnModifyGamePassword(CPlayer *pPlayer, WORD size)
-{
-	::Client::ModifyGamePassword clientModifyGamePassword;
-	::Server::ModifyGamePassword serverModifyGamePassword;
-
-	BYTE buffer[PACK_BUFFER_SIZE];
-	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
-
-	//
-	// 1. 解析消息
-	//
-	if (Parser(&pPlayer->recvBuffer, &clientModifyGamePassword, size) == FALSE) {
-		return;
-	}
-
-	//
-	// 2. 修改游戏密码
-	//
-	int err = ERR_NONE;
-
-	if (err == ERR_NONE) err = pPlayer->pGame ? ERR_NONE : ERR_PLAYER_OUT_GAME;
-	if (err == ERR_NONE) pPlayer->pGame->SetGame(clientModifyGamePassword.password().c_str(), pPlayer->pGame->GetMode(), pPlayer->pGame->GetMapID(), pPlayer->pGame->GetMaxPlayers());
-
-	serverModifyGamePassword.set_err(err);
-
-	//
-	// 3. 序列化消息
-	//
-	Serializer(&writeBuffer, &serverModifyGamePassword, ::Server::RESPONSE_MSG::MODIFY_GAME_PASSWORD);
-
-	//
-	// 4. 发送玩家
-	//
-	SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
-}
-*/
 
 //
 // 发送指定玩家

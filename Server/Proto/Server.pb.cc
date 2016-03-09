@@ -102,8 +102,9 @@ void protobuf_AssignDesc_Server_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Login));
   CreateGame_descriptor_ = file->message_type(3);
-  static const int CreateGame_offsets_[1] = {
+  static const int CreateGame_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CreateGame, err_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CreateGame, gameid_),
   };
   CreateGame_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -132,9 +133,10 @@ void protobuf_AssignDesc_Server_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(DestroyGame));
   EnterGame_descriptor_ = file->message_type(5);
-  static const int EnterGame_offsets_[2] = {
+  static const int EnterGame_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EnterGame, err_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EnterGame, guid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EnterGame, gameid_),
   };
   EnterGame_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -242,17 +244,17 @@ void protobuf_AddDesc_Server_2eproto() {
     "\n\014Server.proto\022\006Server\032\013Error.proto\"\032\n\005H"
     "eart\022\021\n\ttimestamp\030\001 \002(\005\"\026\n\005Flags\022\r\n\005flag"
     "s\030\001 \002(\r\"3\n\005Login\022\034\n\003err\030\001 \002(\0162\017.ErrorCod"
-    "e.Code\022\014\n\004guid\030\002 \001(\r\"*\n\nCreateGame\022\034\n\003er"
-    "r\030\001 \002(\0162\017.ErrorCode.Code\"+\n\013DestroyGame\022"
-    "\034\n\003err\030\001 \002(\0162\017.ErrorCode.Code\"7\n\tEnterGa"
-    "me\022\034\n\003err\030\001 \002(\0162\017.ErrorCode.Code\022\014\n\004guid"
-    "\030\002 \001(\r\"6\n\010ExitGame\022\034\n\003err\030\001 \002(\0162\017.ErrorC"
-    "ode.Code\022\014\n\004guid\030\002 \001(\r\"*\n\014SendToPlayer\022\014"
-    "\n\004size\030\001 \002(\005\022\014\n\004data\030\002 \002(\014*\237\001\n\014RESPONSE_"
-    "MSG\022\t\n\005HEART\020\000\022\t\n\005FLAGS\020\001\022\t\n\005LOGIN\020\002\022\017\n\013"
-    "CREATE_GAME\020\003\022\020\n\014DESTROY_GAME\020\004\022\016\n\nENTER"
-    "_GAME\020\005\022\r\n\tEXIT_GAME\020\006\022\030\n\024MODIFY_GAME_PA"
-    "SSWORD\020\007\022\022\n\016SEND_TO_PLAYER\020\010B\002H\001", 552);
+    "e.Code\022\014\n\004guid\030\002 \001(\r\":\n\nCreateGame\022\034\n\003er"
+    "r\030\001 \002(\0162\017.ErrorCode.Code\022\016\n\006gameid\030\002 \001(\005"
+    "\"+\n\013DestroyGame\022\034\n\003err\030\001 \002(\0162\017.ErrorCode"
+    ".Code\"G\n\tEnterGame\022\034\n\003err\030\001 \002(\0162\017.ErrorC"
+    "ode.Code\022\014\n\004guid\030\002 \001(\r\022\016\n\006gameid\030\003 \001(\005\"6"
+    "\n\010ExitGame\022\034\n\003err\030\001 \002(\0162\017.ErrorCode.Code"
+    "\022\014\n\004guid\030\002 \001(\r\"*\n\014SendToPlayer\022\014\n\004size\030\001"
+    " \002(\005\022\014\n\004data\030\002 \002(\014*\205\001\n\014RESPONSE_MSG\022\t\n\005H"
+    "EART\020\000\022\t\n\005FLAGS\020\001\022\t\n\005LOGIN\020\002\022\017\n\013CREATE_G"
+    "AME\020\003\022\020\n\014DESTROY_GAME\020\004\022\016\n\nENTER_GAME\020\005\022"
+    "\r\n\tEXIT_GAME\020\006\022\022\n\016SEND_TO_PLAYER\020\007B\002H\001", 558);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Server.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -294,7 +296,6 @@ bool RESPONSE_MSG_IsValid(int value) {
     case 5:
     case 6:
     case 7:
-    case 8:
       return true;
     default:
       return false;
@@ -1033,6 +1034,7 @@ void Login::Swap(Login* other) {
 
 #ifndef _MSC_VER
 const int CreateGame::kErrFieldNumber;
+const int CreateGame::kGameidFieldNumber;
 #endif  // !_MSC_VER
 
 CreateGame::CreateGame()
@@ -1054,6 +1056,7 @@ CreateGame::CreateGame(const CreateGame& from)
 void CreateGame::SharedCtor() {
   _cached_size_ = 0;
   err_ = 0;
+  gameid_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1089,7 +1092,21 @@ CreateGame* CreateGame::New() const {
 }
 
 void CreateGame::Clear() {
-  err_ = 0;
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<CreateGame*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  ZR_(err_, gameid_);
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -1116,6 +1133,21 @@ bool CreateGame::MergePartialFromCodedStream(
           } else {
             mutable_unknown_fields()->AddVarint(1, value);
           }
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_gameid;
+        break;
+      }
+
+      // optional int32 gameid = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_gameid:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &gameid_)));
+          set_has_gameid();
         } else {
           goto handle_unusual;
         }
@@ -1154,6 +1186,11 @@ void CreateGame::SerializeWithCachedSizes(
       1, this->err(), output);
   }
 
+  // optional int32 gameid = 2;
+  if (has_gameid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->gameid(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1168,6 +1205,11 @@ void CreateGame::SerializeWithCachedSizes(
   if (has_err()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->err(), target);
+  }
+
+  // optional int32 gameid = 2;
+  if (has_gameid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->gameid(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1186,6 +1228,13 @@ int CreateGame::ByteSize() const {
     if (has_err()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->err());
+    }
+
+    // optional int32 gameid = 2;
+    if (has_gameid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->gameid());
     }
 
   }
@@ -1218,6 +1267,9 @@ void CreateGame::MergeFrom(const CreateGame& from) {
     if (from.has_err()) {
       set_err(from.err());
     }
+    if (from.has_gameid()) {
+      set_gameid(from.gameid());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -1243,6 +1295,7 @@ bool CreateGame::IsInitialized() const {
 void CreateGame::Swap(CreateGame* other) {
   if (other != this) {
     std::swap(err_, other->err_);
+    std::swap(gameid_, other->gameid_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -1492,6 +1545,7 @@ void DestroyGame::Swap(DestroyGame* other) {
 #ifndef _MSC_VER
 const int EnterGame::kErrFieldNumber;
 const int EnterGame::kGuidFieldNumber;
+const int EnterGame::kGameidFieldNumber;
 #endif  // !_MSC_VER
 
 EnterGame::EnterGame()
@@ -1514,6 +1568,7 @@ void EnterGame::SharedCtor() {
   _cached_size_ = 0;
   err_ = 0;
   guid_ = 0u;
+  gameid_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1559,7 +1614,7 @@ void EnterGame::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  ZR_(err_, guid_);
+  ZR_(err_, gameid_);
 
 #undef OFFSET_OF_FIELD_
 #undef ZR_
@@ -1608,6 +1663,21 @@ bool EnterGame::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(24)) goto parse_gameid;
+        break;
+      }
+
+      // optional int32 gameid = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_gameid:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &gameid_)));
+          set_has_gameid();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1648,6 +1718,11 @@ void EnterGame::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->guid(), output);
   }
 
+  // optional int32 gameid = 3;
+  if (has_gameid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->gameid(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1667,6 +1742,11 @@ void EnterGame::SerializeWithCachedSizes(
   // optional uint32 guid = 2;
   if (has_guid()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->guid(), target);
+  }
+
+  // optional int32 gameid = 3;
+  if (has_gameid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->gameid(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1692,6 +1772,13 @@ int EnterGame::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->guid());
+    }
+
+    // optional int32 gameid = 3;
+    if (has_gameid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->gameid());
     }
 
   }
@@ -1727,6 +1814,9 @@ void EnterGame::MergeFrom(const EnterGame& from) {
     if (from.has_guid()) {
       set_guid(from.guid());
     }
+    if (from.has_gameid()) {
+      set_gameid(from.gameid());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -1753,6 +1843,7 @@ void EnterGame::Swap(EnterGame* other) {
   if (other != this) {
     std::swap(err_, other->err_);
     std::swap(guid_, other->guid_);
+    std::swap(gameid_, other->gameid_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

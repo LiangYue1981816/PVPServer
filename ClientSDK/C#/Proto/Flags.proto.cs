@@ -27,13 +27,7 @@ namespace FlagsCode
       PLAYER_FLAGS_READY = 4,
             
       [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_GAMING", Value=8)]
-      PLAYER_FLAGS_GAMING = 8,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_DEAD", Value=65536)]
-      PLAYER_FLAGS_DEAD = 65536,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_RESPAWN", Value=131072)]
-      PLAYER_FLAGS_RESPAWN = 131072
+      PLAYER_FLAGS_GAMING = 8
     }
   
 }

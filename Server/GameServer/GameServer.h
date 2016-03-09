@@ -89,6 +89,9 @@ public:
 
 
 	// 属性
+public:
+	DWORD id;                                                                                      // id
+
 private:
 	CHAR m_szPassword[16];                                                                         // 游戏密码
 
@@ -169,7 +172,6 @@ protected:
 	virtual void OnDestroyGame(CPlayer *pPlayer, WORD size);                                       // 销毁游戏
 	virtual void OnEnterGame(CPlayer *pPlayer, WORD size);                                         // 进入游戏
 	virtual void OnExitGame(CPlayer *pPlayer, WORD size);                                          // 退出游戏
-//	virtual void OnModifyGamePassword(CPlayer *pPlayer, WORD size);                                // 修改游戏密码
 	virtual void OnSendToPlayer(CPlayer *pPlayer, WORD size);                                      // 发送指定玩家
 	virtual void OnSendToPlayerAll(CPlayer *pPlayer, WORD size);                                   // 发送所有玩家
 

@@ -82,6 +82,14 @@ namespace Server
       get { return _err; }
       set { _err = value; }
     }
+    private int _gameid = default(int);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gameid
+    {
+      get { return _gameid; }
+      set { _gameid = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -123,6 +131,14 @@ namespace Server
     {
       get { return _guid; }
       set { _guid = value; }
+    }
+    private int _gameid = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
+    public int gameid
+    {
+      get { return _gameid; }
+      set { _gameid = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
@@ -203,11 +219,8 @@ namespace Server
       [global::ProtoBuf.ProtoEnum(Name=@"EXIT_GAME", Value=6)]
       EXIT_GAME = 6,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"MODIFY_GAME_PASSWORD", Value=7)]
-      MODIFY_GAME_PASSWORD = 7,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=8)]
-      SEND_TO_PLAYER = 8
+      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=7)]
+      SEND_TO_PLAYER = 7
     }
   
 }

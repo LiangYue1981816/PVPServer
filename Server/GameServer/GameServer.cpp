@@ -102,6 +102,7 @@ BOOL CGameServer::AllocGames(int maxGames)
 	//
 	for (int indexGame = 0; indexGame < m_maxGames; indexGame++) {
 		m_games[indexGame] = new CGame(this);
+		m_games[indexGame]->id = indexGame;
 	}
 
 	for (int indexGame = 0; indexGame < m_maxGames - 1; indexGame++) {

@@ -58,12 +58,10 @@ void protobuf_AddDesc_Flags_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\013Flags.proto\022\tFlagsCode*\265\001\n\004Code\022\025\n\021PLA"
+    "\n\013Flags.proto\022\tFlagsCode*\200\001\n\004Code\022\025\n\021PLA"
     "YER_FLAGS_NONE\020\000\022\026\n\022PLAYER_FLAGS_LOGIN\020\001"
     "\022\030\n\024PLAYER_FLAGS_WAITING\020\002\022\026\n\022PLAYER_FLA"
-    "GS_READY\020\004\022\027\n\023PLAYER_FLAGS_GAMING\020\010\022\027\n\021P"
-    "LAYER_FLAGS_DEAD\020\200\200\004\022\032\n\024PLAYER_FLAGS_RES"
-    "PAWN\020\200\200\010B\002H\001", 212);
+    "GS_READY\020\004\022\027\n\023PLAYER_FLAGS_GAMING\020\010B\002H\001", 159);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Flags.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_Flags_2eproto);
@@ -86,8 +84,6 @@ bool Code_IsValid(int value) {
     case 2:
     case 4:
     case 8:
-    case 65536:
-    case 131072:
       return true;
     default:
       return false;
