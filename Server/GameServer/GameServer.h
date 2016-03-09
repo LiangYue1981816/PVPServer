@@ -5,23 +5,12 @@
 #include <vector>
 #include <string>
 #include "IOCP.h"
-#include "Error.h"
 #include "Serializer.h"
+#include "Flags.pb.h"
+#include "Error.pb.h"
 #include "Client.pb.h"
 #include "Server.pb.h"
-
-
-#define GAME_SERVER_VERSION            0x00010000
-
-
-#define PLAYER_FLAGS_NONE              0x00000000
-#define PLAYER_FLAGS_LOGIN             0x00000001
-#define PLAYER_FLAGS_WAITING           0x00000002
-#define PLAYER_FLAGS_READY             0x00000004
-#define PLAYER_FLAGS_GAMING            0x00000008
-
-#define PLAYER_FLAGS_DEAD              0x00010000
-#define PLAYER_FLAGS_RESPAWN           0x00020000
+#include "Version.pb.h"
 
 
 //

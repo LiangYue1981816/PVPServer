@@ -6,7 +6,7 @@
 //
 void CGameServer::OnConnect(CIOContext *pIOContext, SOCKET acceptSocket)
 {
-	((CPlayer *)pIOContext)->SetFlags(PLAYER_FLAGS_NONE);
+	((CPlayer *)pIOContext)->SetFlags(FlagsCode::Code::PLAYER_FLAGS_NONE);
 	CIOCPServer::OnConnect(pIOContext, acceptSocket);
 }
 
@@ -250,18 +250,18 @@ void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 玩家登陆
 	//
-	int err = ERR_NONE;
+	int err = ErrorCode::Code::ERR_NONE;
 
-	if (requestLogin.version() != GAME_SERVER_VERSION) {
-		err = ERR_VERSION_INVALID; goto ERR;
+	if (requestLogin.version() != VersionCode::Code::VERSION) {
+		err = ErrorCode::Code::ERR_VERSION_INVALID; goto ERR;
 	}
 
-	if (pPlayer->GetFlags() != PLAYER_FLAGS_NONE) {
-		err = ERR_PLAYER_STATE_LOGIN; goto ERR;
+	if (pPlayer->GetFlags() != FlagsCode::Code::PLAYER_FLAGS_NONE) {
+		err = ErrorCode::Code::ERR_PLAYER_STATE_LOGIN; goto ERR;
 	}
 
 	if (Login(pPlayer, requestLogin.guid()) == FALSE) {
-		err = ERR_PLAYER_INVALID_GUID; goto ERR;
+		err = ErrorCode::Code::ERR_PLAYER_INVALID_GUID; goto ERR;
 	}
 
 	responseLogin.set_guid(pPlayer->guid);
@@ -303,10 +303,10 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 创建游戏
 	//
-	int err = ERR_NONE;
+	int err = ErrorCode::Code::ERR_NONE;
 
-	if (pPlayer->GetFlags() != PLAYER_FLAGS_LOGIN) {
-		err = ERR_PLAYER_STATE_LOGIN; goto ERR;
+	if (pPlayer->GetFlags() != FlagsCode::Code::PLAYER_FLAGS_LOGIN) {
+		err = ErrorCode::Code::ERR_PLAYER_STATE_LOGIN; goto ERR;
 	}
 
 	if (CGame *pGame = GetNextGame()) {
@@ -314,7 +314,7 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 		pGame->AddPlayer(pPlayer, requestCreateGame.password().c_str(), TRUE);
 	}
 	else {
-		err = ERR_SERVER_FULL; goto ERR;
+		err = ErrorCode::Code::ERR_SERVER_FULL; goto ERR;
 	}
 
 	goto NEXT;
@@ -354,7 +354,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 销毁检查
 	//
-	int err = pPlayer->pGame ? ERR_NONE : ERR_PLAYER_OUT_GAME;
+	int err = pPlayer->pGame ? ErrorCode::Code::ERR_NONE : ErrorCode::Code::ERR_PLAYER_OUT_GAME;
 	responseDestroyGame.set_err(err);
 
 	//
@@ -365,7 +365,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 4. 发送玩家
 	//
-	if (err == ERR_NONE) {
+	if (err == ErrorCode::Code::ERR_NONE) {
 		SendToPlayerAll(pPlayer->pGame, NULL, buffer, writeBuffer.GetActiveBufferSize());
 	}
 	else {
@@ -375,7 +375,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 5. 销毁游戏
 	//
-	if (err == ERR_NONE) {
+	if (err == ErrorCode::Code::ERR_NONE) {
 		ReleaseGame(pPlayer->pGame);
 	}
 }
@@ -401,14 +401,14 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 进入游戏
 	//
-	int err = ERR_NONE;
+	int err = ErrorCode::Code::ERR_NONE;
 
-	if (pPlayer->GetFlags() != PLAYER_FLAGS_LOGIN) {
-		err = ERR_PLAYER_STATE_LOGIN; goto ERR;
+	if (pPlayer->GetFlags() != FlagsCode::Code::PLAYER_FLAGS_LOGIN) {
+		err = ErrorCode::Code::ERR_PLAYER_STATE_LOGIN; goto ERR;
 	}
 
 	if (requestEnterGame.gameid() < 0 || requestEnterGame.gameid() >= m_maxGames) {
-		err = ERR_GAME_INVALID_ID; goto ERR;
+		err = ErrorCode::Code::ERR_GAME_INVALID_ID; goto ERR;
 	}
 
 	err = m_games[requestEnterGame.gameid()]->AddPlayer(pPlayer, requestEnterGame.password().c_str(), FALSE);
@@ -427,7 +427,7 @@ NEXT:
 	//
 	// 4. 发送玩家
 	//
-	if (err == ERR_NONE) {
+	if (err == ErrorCode::Code::ERR_NONE) {
 		SendToPlayerAll(pPlayer->pGame, NULL, buffer, writeBuffer.GetActiveBufferSize());
 	}
 	else {
@@ -456,7 +456,7 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 退出游戏
 	//
-	int err = pPlayer->pGame ? ERR_NONE : ERR_PLAYER_OUT_GAME;
+	int err = pPlayer->pGame ? ErrorCode::Code::ERR_NONE : ErrorCode::Code::ERR_PLAYER_OUT_GAME;
 	responseExitGame.set_err(err);
 	responseExitGame.set_guid(pPlayer->guid);
 
@@ -468,7 +468,7 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	//
 	// 4. 发送玩家
 	//
-	if (err == ERR_NONE) {
+	if (err == ErrorCode::Code::ERR_NONE) {
 		SendToPlayerAll(pPlayer->pGame, NULL, buffer, writeBuffer.GetActiveBufferSize());
 	}
 	else {
@@ -478,7 +478,7 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	//
 	// 5. 退出游戏
 	//
-	if (err == ERR_NONE) {
+	if (err == ErrorCode::Code::ERR_NONE) {
 		pPlayer->pGame->DelPlayer(pPlayer);
 	}
 }

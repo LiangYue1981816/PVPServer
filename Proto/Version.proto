@@ -1,0 +1,7 @@
+option optimize_for = SPEED;
+package VersionCode;
+
+enum Code
+{
+	VERSION = 0x00010000;
+}

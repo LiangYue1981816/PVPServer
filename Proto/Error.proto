@@ -1,0 +1,27 @@
+option optimize_for = SPEED;
+package ErrorCode;
+
+enum Code
+{
+	ERR_NONE = 0;                                                                                  // 无错误
+
+	ERR_VERSION_INVALID = 1;                                                                       // 无效版本
+
+	ERR_PLAYER_INVALID = 1000;                                                                     // 玩家无效
+	ERR_PLAYER_INVALID_ID = 1001;                                                                  // 玩家无效ID
+	ERR_PLAYER_INVALID_GUID = 1002;                                                                // 玩家无效GUID
+	ERR_PLAYER_STATE_LOGIN = 1003;                                                                 // 玩家已经登陆
+	ERR_PLAYER_IN_GAME = 1004;                                                                     // 玩家已经在会话中
+	ERR_PLAYER_OUT_GAME = 1005;                                                                    // 玩家没有在会话中
+
+	ERR_GAME_INVALID = 2000;                                                                       // 游戏无效
+	ERR_GAME_INVALID_ID = 2001;                                                                    // 游戏无效ID
+	ERR_GAME_USING = 2002;                                                                         // 游戏中
+	ERR_GAME_EMPTY = 2003;                                                                         // 游戏空
+	ERR_GAME_FULL = 2004;                                                                          // 游戏满
+	ERR_GAME_PASSWORD = 2005;                                                                      // 会话密码错误
+
+	ERR_SERVER_FULL = 3000;                                                                        // 服务器满
+
+	ERR_GAMEPLAY_INVALID_MODE = 4000;                                                              // 无效游戏模式
+}

@@ -75,28 +75,28 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 	// 1. 参数安全检查
 	//
 	if (pPlayer == NULL) {
-		return ERR_PLAYER_INVALID;
+		return ErrorCode::Code::ERR_PLAYER_INVALID;
 	}
 
 	if (pPlayer->IsWaiting() == TRUE) {
-		return ERR_PLAYER_IN_GAME;
+		return ErrorCode::Code::ERR_PLAYER_IN_GAME;
 	}
 
 	if (IsFull() == TRUE) {
-		return ERR_GAME_FULL;
+		return ErrorCode::Code::ERR_GAME_FULL;
 	}
 
 	if (IsEmpty() == FALSE && bCreater == TRUE) {
-		return ERR_GAME_USING;
+		return ErrorCode::Code::ERR_GAME_USING;
 	}
 
 	if (IsEmpty() == TRUE && bCreater == FALSE) {
-		return ERR_GAME_EMPTY;
+		return ErrorCode::Code::ERR_GAME_EMPTY;
 	}
 
 	if (password == NULL ||
 		strncmp(password, m_szPassword, sizeof(m_szPassword))) {
-		return ERR_GAME_PASSWORD;
+		return ErrorCode::Code::ERR_GAME_PASSWORD;
 	}
 
 	//
@@ -116,15 +116,15 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 	//
 	// 3. 设置玩家状态
 	//
-	pPlayer->SetFlags(PLAYER_FLAGS_LOGIN);
-	pPlayer->EnableFlag(PLAYER_FLAGS_WAITING);
+	pPlayer->SetFlags(FlagsCode::Code::PLAYER_FLAGS_LOGIN);
+	pPlayer->EnableFlag(FlagsCode::Code::PLAYER_FLAGS_WAITING);
 
 	//
 	// 4. 记录玩家
 	//
 	m_numPlayers++;
 
-	return ERR_NONE;
+	return ErrorCode::Code::ERR_NONE;
 }
 
 //
@@ -136,11 +136,11 @@ int CGame::DelPlayer(CPlayer *pPlayer)
 	// 1. 参数安全检查
 	//
 	if (pPlayer == NULL) {
-		return ERR_PLAYER_INVALID;
+		return ErrorCode::Code::ERR_PLAYER_INVALID;
 	}
 
 	if (pPlayer->pGame != this) {
-		return ERR_PLAYER_OUT_GAME;
+		return ErrorCode::Code::ERR_PLAYER_OUT_GAME;
 	}
 
 	//
@@ -166,14 +166,14 @@ int CGame::DelPlayer(CPlayer *pPlayer)
 	//
 	// 3. 设置玩家状态
 	//
-	pPlayer->SetFlags(PLAYER_FLAGS_LOGIN);
+	pPlayer->SetFlags(FlagsCode::Code::PLAYER_FLAGS_LOGIN);
 
 	//
 	// 4. 记录玩家
 	//
 	m_numPlayers--;
 
-	return ERR_NONE;
+	return ErrorCode::Code::ERR_NONE;
 }
 
 //

@@ -318,7 +318,7 @@ BOOL CGameServer::Login(CPlayer *pPlayer, DWORD guid)
 	//
 	// 3. 设置玩家标识
 	//
-	pPlayer->SetFlags(PLAYER_FLAGS_LOGIN);
+	pPlayer->SetFlags(FlagsCode::Code::PLAYER_FLAGS_LOGIN);
 
 	return TRUE;
 }
@@ -343,7 +343,7 @@ BOOL CGameServer::Logout(CPlayer *pPlayer)
 	//
 	// 3. 设置玩家标识
 	//
-	pPlayer->SetFlags(PLAYER_FLAGS_NONE);
+	pPlayer->SetFlags(FlagsCode::Code::PLAYER_FLAGS_NONE);
 
 	return TRUE;
 }

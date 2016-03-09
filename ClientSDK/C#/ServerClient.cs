@@ -20,6 +20,7 @@ public partial class ServerClient : NetClient
 
     private int mPing = 0;
     private int mGUID = 0;
+    private int mFlags = 0; 
 
     public override bool Connect(string ip, int port)
     {
@@ -53,6 +54,16 @@ public partial class ServerClient : NetClient
     public int GetPing()
     {
         return mPing;
+    }
+
+    public int GetGUID()
+    {
+        return mGUID;
+    }
+
+    public int GetFlags()
+    {
+        return mFlags;
     }
 
     private void SendProto(Client.REQUEST_MSG msg, global::ProtoBuf.IExtensible proto)
