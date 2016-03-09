@@ -8,7 +8,7 @@
         SendProto(Client.REQUEST_MSG.SEND_TO_PLAYER, mRequestSendToPlayer);
     }
 
-    public virtual void RequestSendToPlayerAll(int filter, int size, byte[] data)
+    public virtual void RequestSendToPlayerAll(uint filter, int size, byte[] data)
     {
         mRequestSendToPlayerAll.filter = filter;
         mRequestSendToPlayerAll.size = size;

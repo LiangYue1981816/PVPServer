@@ -75,7 +75,10 @@ class Program
             }
             if (input == "7")
             {
-
+                Console.WriteLine("Input");
+                string text = Console.ReadLine();
+                byte[] data = System.Text.Encoding.Default.GetBytes(text);
+                client.RequestSendToPlayerAll(0xffffffff, data.Length, data);
             }
         }
     }
