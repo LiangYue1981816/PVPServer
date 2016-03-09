@@ -75,7 +75,16 @@ class Program
             }
             if (input == "7")
             {
-                Console.WriteLine("Input");
+                Console.WriteLine("Input guid");
+                string guid = Console.ReadLine();
+                Console.WriteLine("Input text");
+                string text = Console.ReadLine();
+                byte[] data = System.Text.Encoding.Default.GetBytes(text);
+                client.RequestSendToPlayer(UInt32.Parse(guid), data.Length, data);
+            }
+            if (input == "8")
+            {
+                Console.WriteLine("Input text");
                 string text = Console.ReadLine();
                 byte[] data = System.Text.Encoding.Default.GetBytes(text);
                 client.RequestSendToPlayerAll(0xffffffff, data.Length, data);

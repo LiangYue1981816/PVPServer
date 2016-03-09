@@ -1,4 +1,6 @@
-﻿public partial class ServerClient : NetClient
+﻿using System;
+
+public partial class ServerClient : NetClient
 {
     public virtual void RequestSendToPlayer(uint guid, int size, byte[] data)
     {
@@ -19,6 +21,9 @@
     public virtual void ResponseSendToPlayer(byte[] buffer)
     {
         Server.SendToPlayer responseSendToPlayer = ProtoHelper.ToProto<Server.SendToPlayer>(buffer);
+
+        string text = System.Text.Encoding.Default.GetString(responseSendToPlayer.data);
+        Console.WriteLine(text);
 
         if (onResponseSendToPlayer != null)
         {
