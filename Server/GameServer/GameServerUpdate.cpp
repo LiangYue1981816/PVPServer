@@ -366,7 +366,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 4. 发送玩家
 	//
-	if (err == ErrorCode::Code::ERR_NONE) {
+	if (pPlayer->pGame) {
 		SendToPlayerAll(pPlayer->pGame, NULL, buffer, writeBuffer.GetActiveBufferSize());
 	}
 	else {
@@ -376,7 +376,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 5. 销毁游戏
 	//
-	if (err == ErrorCode::Code::ERR_NONE) {
+	if (pPlayer->pGame) {
 		ReleaseGame(pPlayer->pGame);
 	}
 }
@@ -435,7 +435,7 @@ NEXT:
 	//
 	// 4. 发送玩家
 	//
-	if (err == ErrorCode::Code::ERR_NONE) {
+	if (pPlayer->pGame) {
 		SendToPlayerAll(pPlayer->pGame, NULL, buffer, writeBuffer.GetActiveBufferSize());
 	}
 	else {
@@ -476,7 +476,7 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	//
 	// 4. 发送玩家
 	//
-	if (err == ErrorCode::Code::ERR_NONE) {
+	if (pPlayer->pGame) {
 		SendToPlayerAll(pPlayer->pGame, NULL, buffer, writeBuffer.GetActiveBufferSize());
 	}
 	else {
@@ -486,8 +486,12 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	//
 	// 5. 退出游戏
 	//
-	if (err == ErrorCode::Code::ERR_NONE) {
-		pPlayer->pGame->DelPlayer(pPlayer);
+	if (CGame *pGame = pPlayer->pGame) {
+		pGame->DelPlayer(pPlayer);
+
+		if (pGame->IsEmpty()) {
+			ReleaseGame(pGame);
+		}
 	}
 }
 

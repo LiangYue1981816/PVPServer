@@ -5,6 +5,13 @@ using System.Collections.Generic;
 
 public partial class ServerClient : NetClient
 {
+    public delegate void OnResponseLogin();
+    public delegate void OnResponseCreateGame();
+    public delegate void OnResponseDestroyGame();
+    public delegate void OnResposneEnterGame();
+    public delegate void OnResponseExitGame();
+    public delegate void OnResponseSendToPlayer();
+
     private ErrorCode.Code mErrorCode = ErrorCode.Code.ERR_NONE;
 
     private Thread mThreadHeart = null;
@@ -26,6 +33,13 @@ public partial class ServerClient : NetClient
     private uint mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_NONE;
 
     private List<uint> mPlayers = new List<uint>();
+
+    private OnResponseLogin onResponseLogin = null;
+    private OnResponseCreateGame onResponseCreateGame = null;
+    private OnResponseDestroyGame onResponseDestroyGame = null;
+    private OnResposneEnterGame onResposneEnterGame = null;
+    private OnResponseExitGame onResponseExitGame = null;
+    private OnResponseSendToPlayer onResponseSendToPlayer = null;
 
     public override bool Connect(string ip, int port)
     {

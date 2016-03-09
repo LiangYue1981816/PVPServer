@@ -26,6 +26,11 @@
             {
                 mPlayers.Add(responseEnterGame.guid);
             }
+
+            if (onResposneEnterGame != null)
+            {
+                onResposneEnterGame();
+            }
         }
     }
 }

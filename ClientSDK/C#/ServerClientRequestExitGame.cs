@@ -28,6 +28,11 @@
                     mPlayers.RemoveAt(index);
                 }
             }
+
+            if (onResponseExitGame != null)
+            {
+                onResponseExitGame();
+            }
         }
     }
 }

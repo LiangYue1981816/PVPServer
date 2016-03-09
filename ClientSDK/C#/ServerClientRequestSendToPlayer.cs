@@ -19,5 +19,10 @@
     public virtual void ResponseSendToPlayer(byte[] buffer)
     {
         Server.SendToPlayer responseSendToPlayer = ProtoHelper.ToProto<Server.SendToPlayer>(buffer);
+
+        if (onResponseSendToPlayer != null)
+        {
+            onResponseSendToPlayer();
+        }
     }
 }

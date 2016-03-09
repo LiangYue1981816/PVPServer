@@ -273,13 +273,18 @@ CGame* CGameServer::GetNextGame(void)
 void CGameServer::ReleaseGame(CGame *pGame)
 {
 	//
-	// 1. 建立空闲链表
+	// 1. 清空玩家
+	//
+	pGame->Clear();
+
+	//
+	// 2. 建立空闲链表
 	//
 	pGame->pNext = m_pFreeGame;
 	m_pFreeGame = pGame;
 
 	//
-	// 2. 建立活动链表
+	// 3. 建立活动链表
 	//
 	if (pGame->pPrevActive) {
 		pGame->pPrevActive->pNextActive = pGame->pNextActive;
@@ -294,7 +299,7 @@ void CGameServer::ReleaseGame(CGame *pGame)
 	}
 
 	//
-	// 3. 记录游戏数
+	// 4. 记录游戏数
 	//
 	m_curGames--;
 }

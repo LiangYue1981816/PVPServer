@@ -21,6 +21,11 @@
             EnableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
             DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
             DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
+
+            if (onResponseCreateGame != null)
+            {
+                onResponseCreateGame();
+            }
         }
     }
 }
