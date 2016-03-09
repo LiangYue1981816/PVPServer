@@ -49,11 +49,13 @@ class Program
             }
             if (input == "2")
             {
-                client.RequestLogin(1);
+                client.RequestLogin((uint)DateTime.Now.Millisecond);
             }
             if (input == "3")
             {
-                client.RequestCreateGame("fuck", 1, 2, 10);
+                Console.WriteLine("Input password");
+                string password = Console.ReadLine();
+                client.RequestCreateGame(password, 1, 2, 10);
             }
             if (input == "4")
             {
@@ -61,7 +63,11 @@ class Program
             }
             if (input == "5")
             {
-                client.RequestEnterGame("you", 0);
+                Console.WriteLine("Input gameid");
+                string gameid = Console.ReadLine();
+                Console.WriteLine("Input password");
+                string password = Console.ReadLine();
+                client.RequestEnterGame(password, UInt32.Parse(gameid));
             }
             if (input == "6")
             {

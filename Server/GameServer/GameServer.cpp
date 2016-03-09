@@ -390,7 +390,7 @@ void CGameServer::SendToPlayerAll(CGame *pGame, CPlayer *pIgnore, BYTE *pBuffer,
 						SendToPlayer(pPlayer, pBuffer, size);
 					}
 				}
-			} while (pPlayer->pNextPlayer);
+			} while (pPlayer = pPlayer->pNextPlayer);
 		}
 	}
 }
