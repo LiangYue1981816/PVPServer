@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: Server.proto
+// Note: requires additional types generated from: Error.proto
 namespace Server
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Heart")]
@@ -49,9 +50,9 @@ namespace Server
   {
     public Login() {}
     
-    private int _err;
+    private ErrorCode.Code _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int err
+    public ErrorCode.Code err
     {
       get { return _err; }
       set { _err = value; }
@@ -74,9 +75,9 @@ namespace Server
   {
     public CreateGame() {}
     
-    private int _err;
+    private ErrorCode.Code _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int err
+    public ErrorCode.Code err
     {
       get { return _err; }
       set { _err = value; }
@@ -91,9 +92,9 @@ namespace Server
   {
     public DestroyGame() {}
     
-    private int _err;
+    private ErrorCode.Code _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int err
+    public ErrorCode.Code err
     {
       get { return _err; }
       set { _err = value; }
@@ -108,9 +109,9 @@ namespace Server
   {
     public EnterGame() {}
     
-    private int _err;
+    private ErrorCode.Code _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int err
+    public ErrorCode.Code err
     {
       get { return _err; }
       set { _err = value; }
@@ -133,9 +134,9 @@ namespace Server
   {
     public ExitGame() {}
     
-    private int _err;
+    private ErrorCode.Code _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int err
+    public ErrorCode.Code err
     {
       get { return _err; }
       set { _err = value; }

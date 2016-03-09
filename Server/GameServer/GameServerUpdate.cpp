@@ -250,7 +250,7 @@ void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 玩家登陆
 	//
-	int err = ErrorCode::Code::ERR_NONE;
+	ErrorCode::Code err = ErrorCode::Code::ERR_NONE;
 
 	if (requestLogin.version() != VersionCode::Code::VERSION) {
 		err = ErrorCode::Code::ERR_VERSION_INVALID; goto ERR;
@@ -303,7 +303,7 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 创建游戏
 	//
-	int err = ErrorCode::Code::ERR_NONE;
+	ErrorCode::Code err = ErrorCode::Code::ERR_NONE;
 
 	if (pPlayer->GetFlags() != FlagsCode::Code::PLAYER_FLAGS_LOGIN) {
 		err = ErrorCode::Code::ERR_PLAYER_STATE_LOGIN; goto ERR;
@@ -354,7 +354,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 销毁检查
 	//
-	int err = pPlayer->pGame ? ErrorCode::Code::ERR_NONE : ErrorCode::Code::ERR_PLAYER_OUT_GAME;
+	ErrorCode::Code err = pPlayer->pGame ? ErrorCode::Code::ERR_NONE : ErrorCode::Code::ERR_PLAYER_OUT_GAME;
 	responseDestroyGame.set_err(err);
 
 	//
@@ -401,7 +401,7 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 进入游戏
 	//
-	int err = ErrorCode::Code::ERR_NONE;
+	ErrorCode::Code err = ErrorCode::Code::ERR_NONE;
 
 	if (pPlayer->GetFlags() != FlagsCode::Code::PLAYER_FLAGS_LOGIN) {
 		err = ErrorCode::Code::ERR_PLAYER_STATE_LOGIN; goto ERR;
@@ -411,7 +411,7 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 		err = ErrorCode::Code::ERR_GAME_INVALID_ID; goto ERR;
 	}
 
-	err = m_games[requestEnterGame.gameid()]->AddPlayer(pPlayer, requestEnterGame.password().c_str(), FALSE);
+	err = (ErrorCode::Code)m_games[requestEnterGame.gameid()]->AddPlayer(pPlayer, requestEnterGame.password().c_str(), FALSE);
 
 	goto NEXT;
 ERR:
@@ -456,7 +456,7 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 退出游戏
 	//
-	int err = pPlayer->pGame ? ErrorCode::Code::ERR_NONE : ErrorCode::Code::ERR_PLAYER_OUT_GAME;
+	ErrorCode::Code err = pPlayer->pGame ? ErrorCode::Code::ERR_NONE : ErrorCode::Code::ERR_PLAYER_OUT_GAME;
 	responseExitGame.set_err(err);
 	responseExitGame.set_guid(pPlayer->guid);
 

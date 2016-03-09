@@ -1,3 +1,5 @@
+import "Error.proto";
+
 option optimize_for = SPEED;
 package Server;
 
@@ -26,35 +28,35 @@ message Flags
 
 message Login
 {
-	required int32 err = 1;
+	required ErrorCode.Code err = 1;
 	optional uint32 guid = 2;
 }
 
 message CreateGame
 {
-	required int32 err = 1;
+	required ErrorCode.Code err = 1;
 }
 
 message DestroyGame
 {
-	required int32 err = 1;
+	required ErrorCode.Code err = 1;
 }
 
 message EnterGame
 {
-	required int32 err = 1;
+	required ErrorCode.Code err = 1;
 	optional uint32 guid = 2;
 }
 
 message ExitGame
 {
-	required int32 err = 1;
+	required ErrorCode.Code err = 1;
 	optional uint32 guid = 2;
 }
 
 //message ModifyGamePassword
 //{
-//	required int32 err = 1;
+//	required ErrorCode.Code err = 1;
 //}
 
 message SendToPlayer

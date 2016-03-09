@@ -11,7 +11,9 @@
     {
         Server.Login responseLogin = ProtoHelper.ToProto<Server.Login>(buffer);
 
-        if (responseLogin.err == (int)ErrorCode.Code.ERR_NONE)
+        mErrorCode = responseLogin.err;
+
+        if (mErrorCode == ErrorCode.Code.ERR_NONE)
         {
             mGUID = responseLogin.guid;
             mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_LOGIN;

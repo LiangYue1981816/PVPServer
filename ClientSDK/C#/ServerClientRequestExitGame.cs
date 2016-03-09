@@ -7,6 +7,14 @@
 
     public virtual void ResponseExitGame(byte[] buffer)
     {
+        Server.ExitGame responseExitGame = ProtoHelper.ToProto<Server.ExitGame>(buffer);
 
+        mErrorCode = responseExitGame.err;
+
+        if (mErrorCode != ErrorCode.Code.ERR_NONE)
+        {
+            int index = mPlayers.IndexOf(responseExitGame.guid);
+            mPlayers.RemoveAt(index);
+        }
     }
 }

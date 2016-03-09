@@ -9,6 +9,16 @@
 
     public virtual void ResponseEnterGame(byte[] buffer)
     {
+        Server.EnterGame responseEnterGame = ProtoHelper.ToProto<Server.EnterGame>(buffer);
 
+        mErrorCode = responseEnterGame.err;
+
+        if (mErrorCode == ErrorCode.Code.ERR_NONE)
+        {
+            if (mGUID != responseEnterGame.guid)
+            {
+                mPlayers.Add(responseEnterGame.guid);
+            }
+        }
     }
 }

@@ -12,8 +12,10 @@
     public virtual void ResponseCreateGame(byte[] buffer)
     {
         Server.CreateGame responseCreateGame = ProtoHelper.ToProto<Server.CreateGame>(buffer);
-        
-        if (responseCreateGame.err == ErrorCode.Code.ERR_NONE)
+
+        mErrorCode = responseCreateGame.err;
+
+        if (mErrorCode == ErrorCode.Code.ERR_NONE)
         {
             SetEnable(FlagsCode.Code.PLAYER_FLAGS_WAITING);
         }

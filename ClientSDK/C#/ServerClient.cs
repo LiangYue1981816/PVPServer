@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Threading;
+using System.Collections;
+using System.Collections.Generic;
 
 public partial class ServerClient : NetClient
 {
+    private ErrorCode.Code mErrorCode = ErrorCode.Code.ERR_NONE;
+
     private Thread mThreadHeart = null;
     private ManualResetEvent mEventHeart = null;
 
@@ -19,6 +23,7 @@ public partial class ServerClient : NetClient
     private int mPing = 0;
     private uint mGUID = 0;
     private uint mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_NONE;
+    private List<uint> mPlayers = new List<uint>();
 
     public override bool Connect(string ip, int port)
     {
@@ -49,6 +54,11 @@ public partial class ServerClient : NetClient
         }
 
         return false;
+    }
+
+    public ErrorCode.Code GetLastError()
+    {
+        return mErrorCode;
     }
 
     public int GetPing()

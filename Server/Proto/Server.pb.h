@@ -25,6 +25,7 @@
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
+#include "Error.pb.h"
 // @@protoc_insertion_point(includes)
 
 namespace Server {
@@ -282,12 +283,12 @@ class Login : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required int32 err = 1;
+  // required .ErrorCode.Code err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::google::protobuf::int32 err() const;
-  inline void set_err(::google::protobuf::int32 value);
+  inline ::ErrorCode::Code err() const;
+  inline void set_err(::ErrorCode::Code value);
 
   // optional uint32 guid = 2;
   inline bool has_guid() const;
@@ -307,7 +308,7 @@ class Login : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::int32 err_;
+  int err_;
   ::google::protobuf::uint32 guid_;
   friend void  protobuf_AddDesc_Server_2eproto();
   friend void protobuf_AssignDesc_Server_2eproto();
@@ -371,12 +372,12 @@ class CreateGame : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required int32 err = 1;
+  // required .ErrorCode.Code err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::google::protobuf::int32 err() const;
-  inline void set_err(::google::protobuf::int32 value);
+  inline ::ErrorCode::Code err() const;
+  inline void set_err(::ErrorCode::Code value);
 
   // @@protoc_insertion_point(class_scope:Server.CreateGame)
  private:
@@ -387,7 +388,7 @@ class CreateGame : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::int32 err_;
+  int err_;
   friend void  protobuf_AddDesc_Server_2eproto();
   friend void protobuf_AssignDesc_Server_2eproto();
   friend void protobuf_ShutdownFile_Server_2eproto();
@@ -450,12 +451,12 @@ class DestroyGame : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required int32 err = 1;
+  // required .ErrorCode.Code err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::google::protobuf::int32 err() const;
-  inline void set_err(::google::protobuf::int32 value);
+  inline ::ErrorCode::Code err() const;
+  inline void set_err(::ErrorCode::Code value);
 
   // @@protoc_insertion_point(class_scope:Server.DestroyGame)
  private:
@@ -466,7 +467,7 @@ class DestroyGame : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::int32 err_;
+  int err_;
   friend void  protobuf_AddDesc_Server_2eproto();
   friend void protobuf_AssignDesc_Server_2eproto();
   friend void protobuf_ShutdownFile_Server_2eproto();
@@ -529,12 +530,12 @@ class EnterGame : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required int32 err = 1;
+  // required .ErrorCode.Code err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::google::protobuf::int32 err() const;
-  inline void set_err(::google::protobuf::int32 value);
+  inline ::ErrorCode::Code err() const;
+  inline void set_err(::ErrorCode::Code value);
 
   // optional uint32 guid = 2;
   inline bool has_guid() const;
@@ -554,7 +555,7 @@ class EnterGame : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::int32 err_;
+  int err_;
   ::google::protobuf::uint32 guid_;
   friend void  protobuf_AddDesc_Server_2eproto();
   friend void protobuf_AssignDesc_Server_2eproto();
@@ -618,12 +619,12 @@ class ExitGame : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required int32 err = 1;
+  // required .ErrorCode.Code err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::google::protobuf::int32 err() const;
-  inline void set_err(::google::protobuf::int32 value);
+  inline ::ErrorCode::Code err() const;
+  inline void set_err(::ErrorCode::Code value);
 
   // optional uint32 guid = 2;
   inline bool has_guid() const;
@@ -643,7 +644,7 @@ class ExitGame : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::int32 err_;
+  int err_;
   ::google::protobuf::uint32 guid_;
   friend void  protobuf_AddDesc_Server_2eproto();
   friend void protobuf_AssignDesc_Server_2eproto();
@@ -809,7 +810,7 @@ inline void Flags::set_flags(::google::protobuf::uint32 value) {
 
 // Login
 
-// required int32 err = 1;
+// required .ErrorCode.Code err = 1;
 inline bool Login::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -823,11 +824,12 @@ inline void Login::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::google::protobuf::int32 Login::err() const {
+inline ::ErrorCode::Code Login::err() const {
   // @@protoc_insertion_point(field_get:Server.Login.err)
-  return err_;
+  return static_cast< ::ErrorCode::Code >(err_);
 }
-inline void Login::set_err(::google::protobuf::int32 value) {
+inline void Login::set_err(::ErrorCode::Code value) {
+  assert(::ErrorCode::Code_IsValid(value));
   set_has_err();
   err_ = value;
   // @@protoc_insertion_point(field_set:Server.Login.err)
@@ -861,7 +863,7 @@ inline void Login::set_guid(::google::protobuf::uint32 value) {
 
 // CreateGame
 
-// required int32 err = 1;
+// required .ErrorCode.Code err = 1;
 inline bool CreateGame::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -875,11 +877,12 @@ inline void CreateGame::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::google::protobuf::int32 CreateGame::err() const {
+inline ::ErrorCode::Code CreateGame::err() const {
   // @@protoc_insertion_point(field_get:Server.CreateGame.err)
-  return err_;
+  return static_cast< ::ErrorCode::Code >(err_);
 }
-inline void CreateGame::set_err(::google::protobuf::int32 value) {
+inline void CreateGame::set_err(::ErrorCode::Code value) {
+  assert(::ErrorCode::Code_IsValid(value));
   set_has_err();
   err_ = value;
   // @@protoc_insertion_point(field_set:Server.CreateGame.err)
@@ -889,7 +892,7 @@ inline void CreateGame::set_err(::google::protobuf::int32 value) {
 
 // DestroyGame
 
-// required int32 err = 1;
+// required .ErrorCode.Code err = 1;
 inline bool DestroyGame::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -903,11 +906,12 @@ inline void DestroyGame::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::google::protobuf::int32 DestroyGame::err() const {
+inline ::ErrorCode::Code DestroyGame::err() const {
   // @@protoc_insertion_point(field_get:Server.DestroyGame.err)
-  return err_;
+  return static_cast< ::ErrorCode::Code >(err_);
 }
-inline void DestroyGame::set_err(::google::protobuf::int32 value) {
+inline void DestroyGame::set_err(::ErrorCode::Code value) {
+  assert(::ErrorCode::Code_IsValid(value));
   set_has_err();
   err_ = value;
   // @@protoc_insertion_point(field_set:Server.DestroyGame.err)
@@ -917,7 +921,7 @@ inline void DestroyGame::set_err(::google::protobuf::int32 value) {
 
 // EnterGame
 
-// required int32 err = 1;
+// required .ErrorCode.Code err = 1;
 inline bool EnterGame::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -931,11 +935,12 @@ inline void EnterGame::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::google::protobuf::int32 EnterGame::err() const {
+inline ::ErrorCode::Code EnterGame::err() const {
   // @@protoc_insertion_point(field_get:Server.EnterGame.err)
-  return err_;
+  return static_cast< ::ErrorCode::Code >(err_);
 }
-inline void EnterGame::set_err(::google::protobuf::int32 value) {
+inline void EnterGame::set_err(::ErrorCode::Code value) {
+  assert(::ErrorCode::Code_IsValid(value));
   set_has_err();
   err_ = value;
   // @@protoc_insertion_point(field_set:Server.EnterGame.err)
@@ -969,7 +974,7 @@ inline void EnterGame::set_guid(::google::protobuf::uint32 value) {
 
 // ExitGame
 
-// required int32 err = 1;
+// required .ErrorCode.Code err = 1;
 inline bool ExitGame::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -983,11 +988,12 @@ inline void ExitGame::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::google::protobuf::int32 ExitGame::err() const {
+inline ::ErrorCode::Code ExitGame::err() const {
   // @@protoc_insertion_point(field_get:Server.ExitGame.err)
-  return err_;
+  return static_cast< ::ErrorCode::Code >(err_);
 }
-inline void ExitGame::set_err(::google::protobuf::int32 value) {
+inline void ExitGame::set_err(::ErrorCode::Code value) {
+  assert(::ErrorCode::Code_IsValid(value));
   set_has_err();
   err_ = value;
   // @@protoc_insertion_point(field_set:Server.ExitGame.err)
