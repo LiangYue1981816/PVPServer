@@ -17,12 +17,14 @@ class Program
         mThread.Start();
 
         while (true) {
+            Console.Clear();
             Console.WriteLine("GUID: " + client.GetGUID().ToString());
             Console.WriteLine("GameID: " + client.GetGameID().ToString());
             Console.WriteLine("IsLogin: " + client.IsLogin().ToString());
             Console.WriteLine("IsWaiting: " + client.IsWaiting().ToString());
             Console.WriteLine("IsReady: " + client.IsReady().ToString());
             Console.WriteLine("IsGaming: " + client.IsGaming().ToString());
+            Console.WriteLine("Error: " + client.GetLastError().ToString());
             Console.WriteLine("");
 
             Console.WriteLine("[0] Connect");

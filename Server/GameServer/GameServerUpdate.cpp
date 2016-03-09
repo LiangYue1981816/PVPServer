@@ -299,12 +299,12 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 	CGame *pGame = NULL;
 	ErrorCode::Code err = ErrorCode::Code::ERR_NONE;
 
-	if (pPlayer->GetFlags() != FlagsCode::Code::PLAYER_FLAGS_LOGIN) {
-		err = ErrorCode::Code::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
-	}
-
 	if (pPlayer->pGame != NULL) {
 		err = ErrorCode::Code::ERR_PLAYER_FLAGS_INGAME; goto ERR;
+	}
+
+	if (pPlayer->GetFlags() != FlagsCode::Code::PLAYER_FLAGS_LOGIN) {
+		err = ErrorCode::Code::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
 	}
 
 	pGame = GetNextGame();
@@ -404,12 +404,12 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 	//
 	ErrorCode::Code err = ErrorCode::Code::ERR_NONE;
 
-	if (pPlayer->GetFlags() != FlagsCode::Code::PLAYER_FLAGS_LOGIN) {
-		err = ErrorCode::Code::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
-	}
-
 	if (pPlayer->pGame != NULL) {
 		err = ErrorCode::Code::ERR_PLAYER_FLAGS_INGAME; goto ERR;
+	}
+
+	if (pPlayer->GetFlags() != FlagsCode::Code::PLAYER_FLAGS_LOGIN) {
+		err = ErrorCode::Code::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
 	}
 
 	if (requestEnterGame.gameid() < 0 || requestEnterGame.gameid() >= (DWORD)m_maxGames) {
