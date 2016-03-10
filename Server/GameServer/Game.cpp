@@ -109,7 +109,7 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 	pPlayer->pNextPlayer = pActivePlayer;
 
 	if (pActivePlayer) {
-		pActivePlayer->pPrevActive = pPlayer;
+		pActivePlayer->pPrevPlayer = pPlayer;
 	}
 
 	pActivePlayer = pPlayer;
