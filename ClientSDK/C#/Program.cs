@@ -3,26 +3,27 @@ using System.Threading;
 
 class Program
 {
-    static string mTestString = "It takes a strong man to save himself, and a great man to save another. —— The Shawshank Redemption";
+    static Thread mThreadUpdate = null;
+    static ServerClient mClient = new ServerClient();
     static ServerClient[] mClients = new ServerClient[10];
+    static string mTestString = "It takes a strong man to save himself, and a great man to save another. —— The Shawshank Redemption";
 
     static void Main(string[] args)
     {
-        for (int index = 0; index < mClients.Length; index++)
-        {
-            mClients[index] = new ServerClient();
-            mClients[index].onResponseSendToPlayer = OnResponseSendToPlayer;
-        }
+        mClient.onResponseSendToPlayer = OnResponseSendToPlayerOutput;
+
+        mThreadUpdate = new Thread(ThreadUpdate);
+        mThreadUpdate.Start();
 
         while (true) {
             Console.Clear();
-            Console.WriteLine("GUID: " + mClients[0].GetGUID().ToString());
-            Console.WriteLine("GameID: " + mClients[0].GetGameID().ToString());
-            Console.WriteLine("IsLogin: " + mClients[0].IsLogin().ToString());
-            Console.WriteLine("IsWaiting: " + mClients[0].IsWaiting().ToString());
-            Console.WriteLine("IsReady: " + mClients[0].IsReady().ToString());
-            Console.WriteLine("IsGaming: " + mClients[0].IsGaming().ToString());
-            Console.WriteLine("Error: " + mClients[0].GetLastError().ToString());
+            Console.WriteLine("GUID: " + mClient.GetGUID().ToString());
+            Console.WriteLine("GameID: " + mClient.GetGameID().ToString());
+            Console.WriteLine("IsLogin: " + mClient.IsLogin().ToString());
+            Console.WriteLine("IsWaiting: " + mClient.IsWaiting().ToString());
+            Console.WriteLine("IsReady: " + mClient.IsReady().ToString());
+            Console.WriteLine("IsGaming: " + mClient.IsGaming().ToString());
+            Console.WriteLine("Error: " + mClient.GetLastError().ToString());
             Console.WriteLine("");
 
             Console.WriteLine("[0] AutoTest");
@@ -36,11 +37,17 @@ class Program
             Console.WriteLine("[8] SendToPlayer");
             Console.WriteLine("[9] SendToPlayerAll");
 
-            string input = Console.ReadLine();
+            string input = "0";// Console.ReadLine();
 
             if (input == "0")
             {
                 Console.Clear();
+
+                for (int index = 0; index < mClients.Length; index++)
+                {
+                    mClients[index] = new ServerClient();
+                    mClients[index].onResponseSendToPlayer = OnResponseSendToPlayer;
+                }
 
                 while (true)
                 {
@@ -49,13 +56,17 @@ class Program
                     bool bCreateGame = true;
                     bool bEnterGame = true;
 
-
+                    //
+                    // Update
+                    //
                     for (int index = 0; index < mClients.Length; index++)
                     {
                         mClients[index].Update();
                     }
 
-
+                    //
+                    // Connect
+                    //
                     for (int index = 0; index < mClients.Length; index++)
                     {
                         if (mClients[index].IsConnected() == false)
@@ -69,7 +80,9 @@ class Program
                         continue;
                     }
 
-                    
+                    //
+                    // Login
+                    //
                     for (int index = 0; index < mClients.Length; index++)
                     {
                         if (mClients[index].IsLogin() == false)
@@ -83,10 +96,12 @@ class Program
                         continue;
                     }
 
-                    
+                    //
+                    // Create game
+                    //
                     if (mClients[0].IsWaiting() == false)
                     {
-                        mClients[0].RequestCreateGame("GoD", 1, 2, 10);
+                        mClients[0].RequestCreateGame("", 1, 2, 11);
                         bCreateGame = false;
                     }
                     if (bCreateGame == false)
@@ -94,12 +109,14 @@ class Program
                         continue;
                     }
 
-
+                    //
+                    // Enter game
+                    //
                     for (int index = 1; index < mClients.Length; index++)
                     {
                         if (mClients[index].IsWaiting() == false)
                         {
-                            mClients[index].RequestEnterGame("GoD", mClients[0].GetGameID());
+                            mClients[index].RequestEnterGame("", mClients[0].GetGameID());
                             bEnterGame = false;
                         }
                     }
@@ -108,37 +125,42 @@ class Program
                         continue;
                     }
 
-
+                    //
+                    // Transfer
+                    //
                     for (int index = 0; index < mClients.Length; index++)
                     {
                         byte[] data = System.Text.Encoding.Default.GetBytes(mTestString);
                         mClients[index].RequestSendToPlayerAll(0xffffffff, data.Length, data);
                     }
 
+                    //
+                    // Sleep
+                    //
                     Thread.Sleep(33);
                 }
             }
             if (input == "1")
             {
-                mClients[0].Connect("127.0.0.1", 10000);
+                mClient.Connect("127.0.0.1", 10000);
             }
             if (input == "2")
             {
-                mClients[0].RequestFlags();
+                mClient.RequestFlags();
             }
             if (input == "3")
             {
-                mClients[0].RequestLogin((uint)DateTime.Now.Millisecond);
+                mClient.RequestLogin((uint)DateTime.Now.Millisecond);
             }
             if (input == "4")
             {
                 Console.WriteLine("Input password");
                 string password = Console.ReadLine();
-                mClients[0].RequestCreateGame(password, 1, 2, 10);
+                mClient.RequestCreateGame(password, 1, 2, 10);
             }
             if (input == "5")
             {
-                mClients[0].RequestDestroyGame();
+                mClient.RequestDestroyGame();
             }
             if (input == "6")
             {
@@ -146,11 +168,11 @@ class Program
                 string gameid = Console.ReadLine();
                 Console.WriteLine("Input password");
                 string password = Console.ReadLine();
-                mClients[0].RequestEnterGame(password, UInt32.Parse(gameid));
+                mClient.RequestEnterGame(password, UInt32.Parse(gameid));
             }
             if (input == "7")
             {
-                mClients[0].RequestExitGame();
+                mClient.RequestExitGame();
             }
             if (input == "8")
             {
@@ -159,14 +181,14 @@ class Program
                 Console.WriteLine("Input text");
                 string text = Console.ReadLine();
                 byte[] data = System.Text.Encoding.Default.GetBytes(text);
-                mClients[0].RequestSendToPlayer(UInt32.Parse(guid), data.Length, data);
+                mClient.RequestSendToPlayer(UInt32.Parse(guid), data.Length, data);
             }
             if (input == "9")
             {
                 Console.WriteLine("Input text");
                 string text = Console.ReadLine();
                 byte[] data = System.Text.Encoding.Default.GetBytes(text);
-                mClients[0].RequestSendToPlayerAll(0xffffffff, data.Length, data);
+                mClient.RequestSendToPlayerAll(0xffffffff, data.Length, data);
             }
         }
     }
@@ -177,6 +199,22 @@ class Program
         if (mTestString.GetHashCode() != strData.GetHashCode())
         {
             Console.WriteLine("Transfer fail: " + strData);
+        }
+    }
+
+    static void OnResponseSendToPlayerOutput(int size, byte[] data)
+    {
+        string strData = System.Text.Encoding.Default.GetString(data);
+        Console.WriteLine("Transfer: " + strData);
+    }
+
+    static void ThreadUpdate()
+    {
+        while (true)
+        {
+            Thread.Sleep(33);
+            mClient.Update();
+            Console.Title = mClient.GetPing().ToString();
         }
     }
 }
