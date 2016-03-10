@@ -75,7 +75,9 @@
     <Compile Include="ProtoBuffer\Meta\ValueMember.cs" />
     <Compile Include="ProtoBuffer\NetObjectCache.cs" />
     <Compile Include="ProtoBuffer\PrefixStyle.cs" />
-    <Compile Include="ProtoBuffer\Properties\AssemblyInfo.cs" />
+    <Compile Include="ProtoBuffer\Properties\AssemblyInfo.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="ProtoBuffer\ProtoContractAttribute.cs" />
     <Compile Include="ProtoBuffer\ProtoConverterAttribute.cs" />
     <Compile Include="ProtoBuffer\ProtoEnumAttribute.cs" />

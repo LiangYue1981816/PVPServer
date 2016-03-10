@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Sockets;
-using System.Threading;
 
 public partial class NetClient
 {
@@ -71,6 +66,5 @@ public partial class NetClient
 
     public virtual void ProcessProto(short msg, byte[] buffer)
     {
-
     }
 }

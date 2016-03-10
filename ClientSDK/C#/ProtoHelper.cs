@@ -1,13 +1,12 @@
 ﻿using System;
 using System.IO;
-using ProtoBuf;
 
 public static class ProtoHelper
 {
     //
     // To bytes
     //
-    static public byte[] ToArray(short message, global::ProtoBuf.IExtensible proto)
+    public static byte[] ToArray(short message, global::ProtoBuf.IExtensible proto)
     {
         MemoryStream memStream = new MemoryStream();
         ProtoBuf.Serializer.Serialize(memStream, proto);
@@ -23,7 +22,7 @@ public static class ProtoHelper
     //
     // To proto
     //
-    static public T ToProto<T>(byte[] buffer)
+    public static T ToProto<T>(byte[] buffer)
     {
         MemoryStream memStream = new MemoryStream(buffer);
         return ProtoBuf.Serializer.Deserialize<T>(memStream);

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Collections;
+﻿using System.Threading;
 using System.Collections.Generic;
 
 public partial class ServerClient : NetClient
