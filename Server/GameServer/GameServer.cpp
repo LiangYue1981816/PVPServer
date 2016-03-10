@@ -400,7 +400,19 @@ void CGameServer::SendToPlayerAll(CGame *pGame, CPlayer *pIgnore, BYTE *pBuffer,
 //
 void CGameServer::Monitor(void)
 {
+	//
+	// 1. 清屏幕
+	//
+	system("cls");
 
+	//
+	// 2. 显示服务器状态
+	//
+	printf("Recv Data = %dB (%2.2fMb/s)\n", m_dwRecvDataSize, 8.0f*m_dwRecvDataSize / 1024.0f / 1024.0f);
+	printf("Send Data = %dB (%2.2fMb/s)\n", m_dwSendDataSize, 8.0f*m_dwSendDataSize / 1024.0f / 1024.0f);
+	printf("Update Time = %dms\n", m_dwUpdateTime);
+	printf("Run Time = %2.2d:%2.2d:%2.2d\n", m_dwRuntimeTotal / 3600, m_dwRuntimeTotal / 60 - (m_dwRuntimeTotal / 3600) * 60, m_dwRuntimeTotal - (m_dwRuntimeTotal / 60) * 60);
+	printf("Games = %d/%d, Players = %d/%d\n", m_curGames, m_maxGames, m_curContexts, m_maxContexts);
 }
 
 //
