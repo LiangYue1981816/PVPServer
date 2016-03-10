@@ -22,12 +22,9 @@ public partial class ServerClient : NetClient
     {
         Server.SendToPlayer responseSendToPlayer = ProtoHelper.ToProto<Server.SendToPlayer>(buffer);
 
-        string text = System.Text.Encoding.Default.GetString(responseSendToPlayer.data);
-        Console.WriteLine(text);
-
         if (onResponseSendToPlayer != null)
         {
-            onResponseSendToPlayer();
+            onResponseSendToPlayer(responseSendToPlayer.size, responseSendToPlayer.data);
         }
     }
 }

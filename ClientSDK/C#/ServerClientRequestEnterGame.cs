@@ -24,12 +24,15 @@
             }
             else
             {
-                mPlayers.Add(responseEnterGame.guid);
+                if (mPlayers.IndexOf(responseEnterGame.guid) < 0)
+                {
+                    mPlayers.Add(responseEnterGame.guid);
+                }
             }
 
             if (onResposneEnterGame != null)
             {
-                onResposneEnterGame();
+                onResposneEnterGame(responseEnterGame.guid);
             }
         }
     }

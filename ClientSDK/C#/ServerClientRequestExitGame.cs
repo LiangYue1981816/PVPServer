@@ -31,7 +31,7 @@
 
             if (onResponseExitGame != null)
             {
-                onResponseExitGame();
+                onResponseExitGame(responseExitGame.guid);
             }
         }
     }

@@ -6,9 +6,9 @@ public partial class ServerClient : NetClient
     public delegate void OnResponseLogin();
     public delegate void OnResponseCreateGame();
     public delegate void OnResponseDestroyGame();
-    public delegate void OnResposneEnterGame();
-    public delegate void OnResponseExitGame();
-    public delegate void OnResponseSendToPlayer();
+    public delegate void OnResposneEnterGame(uint guid);
+    public delegate void OnResponseExitGame(uint guid);
+    public delegate void OnResponseSendToPlayer(int size, byte[] data);
 
     private ErrorCode.Code mErrorCode = ErrorCode.Code.ERR_NONE;
 
