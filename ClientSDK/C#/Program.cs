@@ -5,7 +5,7 @@ class Program
 {
     static Thread mThreadUpdate = null;
     static ServerClient mClient = new ServerClient();
-    static ServerClient[] mClients = new ServerClient[10];
+    static ServerClient[][] mClients = new ServerClient[40][];
     static string mTestString = "It takes a strong man to save himself, and a great man to save another. —— The Shawshank Redemption";
 
     static void Main(string[] args)
@@ -37,16 +37,21 @@ class Program
             Console.WriteLine("[8] SendToPlayer");
             Console.WriteLine("[9] SendToPlayerAll");
 
-            string input = "0";// Console.ReadLine();
+            string input = Console.ReadLine();
 
             if (input == "0")
             {
                 Console.Clear();
 
-                for (int index = 0; index < mClients.Length; index++)
+                for (int indexGroup = 0; indexGroup < mClients.Length; indexGroup++)
                 {
-                    mClients[index] = new ServerClient();
-                    mClients[index].onResponseSendToPlayer = OnResponseSendToPlayer;
+                    mClients[indexGroup] = new ServerClient[10];
+
+                    for (int index = 0; index < mClients[indexGroup].Length; index++)
+                    {
+                        mClients[indexGroup][index] = new ServerClient();
+                        mClients[indexGroup][index].onResponseSendToPlayer = OnResponseSendToPlayer;
+                    }
                 }
 
                 while (true)
@@ -59,20 +64,26 @@ class Program
                     //
                     // Update
                     //
-                    for (int index = 0; index < mClients.Length; index++)
+                    for (int indexGroup = 0; indexGroup < mClients.Length; indexGroup++)
                     {
-                        mClients[index].Update();
+                        for (int index = 0; index < mClients[indexGroup].Length; index++)
+                        {
+                            mClients[indexGroup][index].Update();
+                        }
                     }
 
                     //
                     // Connect
                     //
-                    for (int index = 0; index < mClients.Length; index++)
+                    for (int indexGroup = 0; indexGroup < mClients.Length; indexGroup++)
                     {
-                        if (mClients[index].IsConnected() == false)
+                        for (int index = 0; index < mClients[indexGroup].Length; index++)
                         {
-                            mClients[index].Connect("127.0.0.1", 10000);
-                            bConnected = false;
+                            if (mClients[indexGroup][index].IsConnected() == false)
+                            {
+                                mClients[indexGroup][index].Connect("127.0.0.1", 10000);
+                                bConnected = false;
+                            }
                         }
                     }
                     if (bConnected == false)
@@ -83,12 +94,15 @@ class Program
                     //
                     // Login
                     //
-                    for (int index = 0; index < mClients.Length; index++)
+                    for (int indexGroup = 0; indexGroup < mClients.Length; indexGroup++)
                     {
-                        if (mClients[index].IsLogin() == false)
+                        for (int index = 0; index < mClients[indexGroup].Length; index++)
                         {
-                            mClients[index].RequestLogin((uint)DateTime.Now.Millisecond);
-                            bLogin = false;
+                            if (mClients[indexGroup][index].IsLogin() == false)
+                            {
+                                mClients[indexGroup][index].RequestLogin((uint)DateTime.Now.Millisecond);
+                                bLogin = false;
+                            }
                         }
                     }
                     if (bLogin == false)
@@ -99,10 +113,13 @@ class Program
                     //
                     // Create game
                     //
-                    if (mClients[0].IsWaiting() == false)
+                    for (int indexGroup = 0; indexGroup < mClients.Length; indexGroup++)
                     {
-                        mClients[0].RequestCreateGame("", 1, 2, 11);
-                        bCreateGame = false;
+                        if (mClients[indexGroup][0].IsWaiting() == false)
+                        {
+                            mClients[indexGroup][0].RequestCreateGame("", 1, 2, 11);
+                            bCreateGame = false;
+                        }
                     }
                     if (bCreateGame == false)
                     {
@@ -112,12 +129,15 @@ class Program
                     //
                     // Enter game
                     //
-                    for (int index = 1; index < mClients.Length; index++)
+                    for (int indexGroup = 0; indexGroup < mClients.Length; indexGroup++)
                     {
-                        if (mClients[index].IsWaiting() == false)
+                        for (int index = 1; index < mClients[indexGroup].Length; index++)
                         {
-                            mClients[index].RequestEnterGame("", mClients[0].GetGameID());
-                            bEnterGame = false;
+                            if (mClients[indexGroup][index].IsWaiting() == false)
+                            {
+                                mClients[indexGroup][index].RequestEnterGame("", mClients[indexGroup][0].GetGameID());
+                                bEnterGame = false;
+                            }
                         }
                     }
                     if (bEnterGame == false)
@@ -128,10 +148,13 @@ class Program
                     //
                     // Transfer
                     //
-                    for (int index = 0; index < mClients.Length; index++)
+                    for (int indexGroup = 0; indexGroup < mClients.Length; indexGroup++)
                     {
-                        byte[] data = System.Text.Encoding.Default.GetBytes(mTestString);
-                        mClients[index].RequestSendToPlayerAll(0xffffffff, data.Length, data);
+                        for (int index = 0; index < mClients[indexGroup].Length; index++)
+                        {
+                            byte[] data = System.Text.Encoding.Default.GetBytes(mTestString);
+                            mClients[indexGroup][index].RequestSendToPlayerAll(0xffffffff, data.Length, data);
+                        }
                     }
 
                     //
