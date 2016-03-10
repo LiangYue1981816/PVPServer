@@ -9,8 +9,20 @@ public partial class ServerClient : NetClient
     public delegate void OnResposneEnterGame(uint guid);
     public delegate void OnResponseExitGame(uint guid);
     public delegate void OnResponseSendToPlayer(int size, byte[] data);
+    public OnResponseLogin onResponseLogin = null;
+    public OnResponseCreateGame onResponseCreateGame = null;
+    public OnResponseDestroyGame onResponseDestroyGame = null;
+    public OnResposneEnterGame onResposneEnterGame = null;
+    public OnResponseExitGame onResponseExitGame = null;
+    public OnResponseSendToPlayer onResponseSendToPlayer = null;
 
     private ErrorCode.Code mErrorCode = ErrorCode.Code.ERR_NONE;
+
+    private int mPing = 0;
+    private uint mGUID = 0xffffffff;
+    private uint mGameID = 0xffffffff;
+    private uint mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_NONE;
+    private List<uint> mPlayers = new List<uint>();
 
     private Thread mThreadHeart = null;
     private ManualResetEvent mEventHeart = null;
@@ -24,20 +36,6 @@ public partial class ServerClient : NetClient
     private Client.ExitGame mRequestExitGame = new Client.ExitGame();
     private Client.SendToPlayer mRequestSendToPlayer = new Client.SendToPlayer();
     private Client.SendToPlayerAll mRequestSendToPlayerAll = new Client.SendToPlayerAll();
-
-    private int mPing = 0;
-    private uint mGUID = 0xffffffff;
-    private uint mGameID = 0xffffffff;
-    private uint mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_NONE;
-
-    private List<uint> mPlayers = new List<uint>();
-
-    private OnResponseLogin onResponseLogin = null;
-    private OnResponseCreateGame onResponseCreateGame = null;
-    private OnResponseDestroyGame onResponseDestroyGame = null;
-    private OnResposneEnterGame onResposneEnterGame = null;
-    private OnResponseExitGame onResponseExitGame = null;
-    private OnResponseSendToPlayer onResponseSendToPlayer = null;
 
     public override bool Connect(string ip, int port)
     {
