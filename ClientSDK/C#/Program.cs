@@ -3,9 +3,12 @@ using System.Threading;
 
 class Program
 {
+    static string ip = "10.230.97.20";
+    static int port = 10000;
+
     static Thread mThreadUpdate = null;
     static ServerClient mClient = new ServerClient();
-    static ServerClient[][] mClients = new ServerClient[40][];
+    static ServerClient[][] mClients = new ServerClient[10][];
     static string mTestString = "It takes a strong man to save himself, and a great man to save another. —— The Shawshank Redemption";
 
     static void Main(string[] args)
@@ -81,7 +84,7 @@ class Program
                         {
                             if (mClients[indexGroup][index].IsConnected() == false)
                             {
-                                mClients[indexGroup][index].Connect("127.0.0.1", 10000);
+                                mClients[indexGroup][index].Connect(ip, port);
                                 bConnected = false;
                             }
                         }
@@ -100,7 +103,7 @@ class Program
                         {
                             if (mClients[indexGroup][index].IsLogin() == false)
                             {
-                                mClients[indexGroup][index].RequestLogin((uint)DateTime.Now.Millisecond);
+                                mClients[indexGroup][index].RequestLogin((uint)(DateTime.Now.Millisecond + DateTime.Now.Second * 1000));
                                 bLogin = false;
                             }
                         }
@@ -165,7 +168,7 @@ class Program
             }
             if (input == "1")
             {
-                mClient.Connect("127.0.0.1", 10000);
+                mClient.Connect(ip, port);
             }
             if (input == "2")
             {
@@ -173,7 +176,7 @@ class Program
             }
             if (input == "3")
             {
-                mClient.RequestLogin((uint)DateTime.Now.Millisecond);
+                mClient.RequestLogin((uint)(DateTime.Now.Millisecond + DateTime.Now.Second * 1000));
             }
             if (input == "4")
             {

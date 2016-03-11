@@ -228,7 +228,7 @@ void CIOContext::OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 void CIOContext::OnSendNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 {
 	DWORD dataSize;
-	BYTE dataBuffer[PACK_BUFFER_SIZE];
+	BYTE dataBuffer[SEND_BUFFER_SIZE];
 
 	dataSize = sendBuffer.PopData(dataBuffer, sendBuffer.GetActiveBufferSize());
 	Send(dataBuffer, dataSize);

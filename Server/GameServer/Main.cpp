@@ -7,7 +7,7 @@
 void main()
 {
 	CGameServer server;
-	server.Start("127.0.0.1", 10000, MAX_GAMES, MAX_GAME_PLAYERS, 1000, "", 100000);
+	server.Start("10.230.97.20", 10000, MAX_GAMES, MAX_GAME_PLAYERS, 10, "", 100000);
 	getch();
 	server.Stop();
 }
