@@ -84,6 +84,7 @@ class Program
                         {
                             if (mClients[indexGroup][index].IsConnected() == false)
                             {
+                                Thread.Sleep(1);
                                 mClients[indexGroup][index].Connect(ip, port);
                                 bConnected = false;
                             }
@@ -103,6 +104,7 @@ class Program
                         {
                             if (mClients[indexGroup][index].IsLogin() == false)
                             {
+                                Thread.Sleep(1);
                                 mClients[indexGroup][index].RequestLogin((uint)(DateTime.Now.Millisecond + DateTime.Now.Second * 1000));
                                 bLogin = false;
                             }
@@ -138,6 +140,7 @@ class Program
                         {
                             if (mClients[indexGroup][index].IsWaiting() == false)
                             {
+                                Thread.Sleep(1);
                                 mClients[indexGroup][index].RequestEnterGame("", mClients[indexGroup][0].GetGameID());
                                 bEnterGame = false;
                             }
