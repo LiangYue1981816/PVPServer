@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Collections.Generic;
 
 public partial class ServerClient : NetClient
@@ -137,12 +138,18 @@ public partial class ServerClient : NetClient
 
     protected void SendProto(Client.REQUEST_MSG msg, global::ProtoBuf.IExtensible proto)
     {
-        if (IsConnected())
+        try
         {
-            Package package = new Package();
-            package.buffer = ProtoHelper.ToArray((short)msg, proto);
-            package.size = (short)package.buffer.Length;
-            Send(package);
+            if (IsConnected())
+            {
+                Package package = new Package();
+                package.buffer = ProtoHelper.ToArray((short)msg, proto);
+                package.size = (short)package.buffer.Length;
+                Send(package);
+            }
+        }
+        catch (Exception)
+        {
         }
     }
 }

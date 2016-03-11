@@ -1,4 +1,6 @@
-﻿public partial class ServerClient : NetClient
+﻿using System;
+
+public partial class ServerClient : NetClient
 {
     public virtual void RequestCreateGame(string password, int mode, int map, int maxPlayers)
     {
@@ -11,21 +13,27 @@
 
     public virtual void ResponseCreateGame(byte[] buffer)
     {
-        Server.CreateGame responseCreateGame = ProtoHelper.ToProto<Server.CreateGame>(buffer);
-
-        mErrorCode = responseCreateGame.err;
-
-        if (mErrorCode == ErrorCode.Code.ERR_NONE)
+        try
         {
-            mGameID = responseCreateGame.gameid;
-            EnableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
-            DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
-            DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
+            Server.CreateGame responseCreateGame = ProtoHelper.ToProto<Server.CreateGame>(buffer);
 
-            if (onResponseCreateGame != null)
+            mErrorCode = responseCreateGame.err;
+
+            if (mErrorCode == ErrorCode.Code.ERR_NONE)
             {
-                onResponseCreateGame();
+                mGameID = responseCreateGame.gameid;
+                EnableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
+                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
+                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
+
+                if (onResponseCreateGame != null)
+                {
+                    onResponseCreateGame();
+                }
             }
+        }
+        catch(Exception)
+        {
         }
     }
 }

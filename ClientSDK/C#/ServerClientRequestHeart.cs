@@ -10,9 +10,15 @@ public partial class ServerClient : NetClient
 
     public virtual void ResponseHeart(byte[] buffer)
     {
-        Server.Heart responseHeart = ProtoHelper.ToProto<Server.Heart>(buffer);
+        try
+        {
+            Server.Heart responseHeart = ProtoHelper.ToProto<Server.Heart>(buffer);
 
-        int timestamp = (int)(DateTime.Now.Ticks / 10000);
-        mPing = timestamp - responseHeart.timestamp;
+            int timestamp = (int)(DateTime.Now.Ticks / 10000);
+            mPing = timestamp - responseHeart.timestamp;
+        }
+        catch (Exception)
+        {
+        }
     }
 }

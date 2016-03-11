@@ -20,11 +20,17 @@ public partial class ServerClient : NetClient
 
     public virtual void ResponseSendToPlayer(byte[] buffer)
     {
-        Server.SendToPlayer responseSendToPlayer = ProtoHelper.ToProto<Server.SendToPlayer>(buffer);
-
-        if (onResponseSendToPlayer != null)
+        try
         {
-            onResponseSendToPlayer(responseSendToPlayer.size, responseSendToPlayer.data);
+            Server.SendToPlayer responseSendToPlayer = ProtoHelper.ToProto<Server.SendToPlayer>(buffer);
+
+            if (onResponseSendToPlayer != null)
+            {
+                onResponseSendToPlayer(responseSendToPlayer.size, responseSendToPlayer.data);
+            }
+        }
+        catch (Exception)
+        {
         }
     }
 }

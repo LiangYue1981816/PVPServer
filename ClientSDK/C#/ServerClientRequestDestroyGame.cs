@@ -1,4 +1,6 @@
-﻿public partial class ServerClient : NetClient
+﻿using System;
+
+public partial class ServerClient : NetClient
 {
     public virtual void RequestDestroyGame()
     {
@@ -7,21 +9,27 @@
 
     public virtual void ResponseDestroyGame(byte[] buffer)
     {
-        Server.DestroyGame responseDestroyGame = ProtoHelper.ToProto<Server.DestroyGame>(buffer);
-
-        mErrorCode = responseDestroyGame.err;
-
-        if (mErrorCode == ErrorCode.Code.ERR_NONE)
+        try
         {
-            mGameID = 0xffffffff;
-            DisableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
-            DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
-            DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
+            Server.DestroyGame responseDestroyGame = ProtoHelper.ToProto<Server.DestroyGame>(buffer);
 
-            if (onResponseDestroyGame != null)
+            mErrorCode = responseDestroyGame.err;
+
+            if (mErrorCode == ErrorCode.Code.ERR_NONE)
             {
-                onResponseDestroyGame();
+                mGameID = 0xffffffff;
+                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
+                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
+                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
+
+                if (onResponseDestroyGame != null)
+                {
+                    onResponseDestroyGame();
+                }
             }
+        }
+        catch (Exception)
+        {
         }
     }
 }
