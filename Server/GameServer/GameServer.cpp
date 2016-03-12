@@ -38,7 +38,7 @@ BOOL CGameServer::Start(const char *ip, int port, int maxGames, int maxPlayers, 
 	//
 	// 1. 保存超时设置
 	//
-	m_timeOut = max(1000, timeOut);
+	m_timeOut = max(5, timeOut);
 
 	//
 	// 2. 保存入口服务器地址
