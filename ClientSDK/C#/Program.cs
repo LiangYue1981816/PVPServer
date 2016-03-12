@@ -3,7 +3,7 @@ using System.Threading;
 
 class Program
 {
-    static string ip = "10.230.97.20";
+    static string ip = "122.10.82.74";
     static int port = 10000;
 
     static Thread mThreadUpdate = null;
@@ -92,6 +92,7 @@ class Program
                     }
                     if (bConnected == false)
                     {
+                        Console.WriteLine("Connect...");
                         continue;
                     }
 
@@ -112,6 +113,7 @@ class Program
                     }
                     if (bLogin == false)
                     {
+                        Console.WriteLine("Login...");
                         continue;
                     }
 
@@ -128,6 +130,7 @@ class Program
                     }
                     if (bCreateGame == false)
                     {
+                        Console.WriteLine("CreateGame...");
                         continue;
                     }
 
@@ -148,6 +151,7 @@ class Program
                     }
                     if (bEnterGame == false)
                     {
+                        Console.WriteLine("EnterGame...");
                         continue;
                     }
 
