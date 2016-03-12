@@ -9,7 +9,7 @@ class Program
     static Thread mThreadUpdate = null;
     static ServerClient mClient = new ServerClient();
     static ServerClient[][] mClients = new ServerClient[10][];
-    static string mTestString = "It takes a strong man to save himself, and a great man to save another. —— The Shawshank Redemption";
+    static string mTestString = "A great man to save another.";
 
     static void Main(string[] args)
     {
