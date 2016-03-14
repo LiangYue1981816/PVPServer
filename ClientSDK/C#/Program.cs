@@ -3,7 +3,7 @@ using System.Threading;
 
 class Program
 {
-    static string ip = "122.10.82.74";
+    static string ip = "10.230.72.33";
     static int port = 10000;
 
     static Thread mThreadUpdate = null;
