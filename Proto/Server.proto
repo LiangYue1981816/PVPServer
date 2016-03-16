@@ -34,6 +34,7 @@ message Login
 
 message Host
 {
+	required uint32 guid = 1;
 }
 
 message CreateGame

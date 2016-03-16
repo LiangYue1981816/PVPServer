@@ -373,13 +373,23 @@ class Host : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
+  // required uint32 guid = 1;
+  inline bool has_guid() const;
+  inline void clear_guid();
+  static const int kGuidFieldNumber = 1;
+  inline ::google::protobuf::uint32 guid() const;
+  inline void set_guid(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:Server.Host)
  private:
+  inline void set_has_guid();
+  inline void clear_has_guid();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
+  ::google::protobuf::uint32 guid_;
   friend void  protobuf_AddDesc_Server_2eproto();
   friend void protobuf_AssignDesc_Server_2eproto();
   friend void protobuf_ShutdownFile_Server_2eproto();
@@ -952,6 +962,30 @@ inline void Login::set_guid(::google::protobuf::uint32 value) {
 // -------------------------------------------------------------------
 
 // Host
+
+// required uint32 guid = 1;
+inline bool Host::has_guid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Host::set_has_guid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Host::clear_has_guid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void Host::clear_guid() {
+  guid_ = 0u;
+  clear_has_guid();
+}
+inline ::google::protobuf::uint32 Host::guid() const {
+  // @@protoc_insertion_point(field_get:Server.Host.guid)
+  return guid_;
+}
+inline void Host::set_guid(::google::protobuf::uint32 value) {
+  set_has_guid();
+  guid_ = value;
+  // @@protoc_insertion_point(field_set:Server.Host.guid)
+}
 
 // -------------------------------------------------------------------
 

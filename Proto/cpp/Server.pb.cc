@@ -106,6 +106,7 @@ void protobuf_AssignDesc_Server_2eproto() {
       sizeof(Login));
   Host_descriptor_ = file->message_type(3);
   static const int Host_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Host, guid_),
   };
   Host_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -265,18 +266,18 @@ void protobuf_AddDesc_Server_2eproto() {
     "\n\014Server.proto\022\006Server\032\013Error.proto\"\032\n\005H"
     "eart\022\021\n\ttimestamp\030\001 \002(\005\"\026\n\005Flags\022\r\n\005flag"
     "s\030\001 \002(\r\"3\n\005Login\022\034\n\003err\030\001 \002(\0162\017.ErrorCod"
-    "e.Code\022\014\n\004guid\030\002 \001(\r\"\006\n\004Host\":\n\nCreateGa"
-    "me\022\034\n\003err\030\001 \002(\0162\017.ErrorCode.Code\022\016\n\006game"
-    "id\030\002 \001(\r\"+\n\013DestroyGame\022\034\n\003err\030\001 \002(\0162\017.E"
-    "rrorCode.Code\"G\n\tEnterGame\022\034\n\003err\030\001 \002(\0162"
-    "\017.ErrorCode.Code\022\014\n\004guid\030\002 \001(\r\022\016\n\006gameid"
-    "\030\003 \001(\r\"6\n\010ExitGame\022\034\n\003err\030\001 \002(\0162\017.ErrorC"
-    "ode.Code\022\014\n\004guid\030\002 \001(\r\"*\n\014SendToPlayer\022\014"
-    "\n\004size\030\001 \002(\005\022\014\n\004data\030\002 \002(\014*\217\001\n\014RESPONSE_"
-    "MSG\022\t\n\005HEART\020\000\022\t\n\005FLAGS\020\001\022\t\n\005LOGIN\020\002\022\010\n\004"
-    "HOST\020\003\022\017\n\013CREATE_GAME\020\004\022\020\n\014DESTROY_GAME\020"
-    "\005\022\016\n\nENTER_GAME\020\006\022\r\n\tEXIT_GAME\020\007\022\022\n\016SEND"
-    "_TO_PLAYER\020\010B\002H\001", 576);
+    "e.Code\022\014\n\004guid\030\002 \001(\r\"\024\n\004Host\022\014\n\004guid\030\001 \002"
+    "(\r\":\n\nCreateGame\022\034\n\003err\030\001 \002(\0162\017.ErrorCod"
+    "e.Code\022\016\n\006gameid\030\002 \001(\r\"+\n\013DestroyGame\022\034\n"
+    "\003err\030\001 \002(\0162\017.ErrorCode.Code\"G\n\tEnterGame"
+    "\022\034\n\003err\030\001 \002(\0162\017.ErrorCode.Code\022\014\n\004guid\030\002"
+    " \001(\r\022\016\n\006gameid\030\003 \001(\r\"6\n\010ExitGame\022\034\n\003err\030"
+    "\001 \002(\0162\017.ErrorCode.Code\022\014\n\004guid\030\002 \001(\r\"*\n\014"
+    "SendToPlayer\022\014\n\004size\030\001 \002(\005\022\014\n\004data\030\002 \002(\014"
+    "*\217\001\n\014RESPONSE_MSG\022\t\n\005HEART\020\000\022\t\n\005FLAGS\020\001\022"
+    "\t\n\005LOGIN\020\002\022\010\n\004HOST\020\003\022\017\n\013CREATE_GAME\020\004\022\020\n"
+    "\014DESTROY_GAME\020\005\022\016\n\nENTER_GAME\020\006\022\r\n\tEXIT_"
+    "GAME\020\007\022\022\n\016SEND_TO_PLAYER\020\010B\002H\001", 590);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Server.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -1058,6 +1059,7 @@ void Login::Swap(Login* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int Host::kGuidFieldNumber;
 #endif  // !_MSC_VER
 
 Host::Host()
@@ -1078,6 +1080,7 @@ Host::Host(const Host& from)
 
 void Host::SharedCtor() {
   _cached_size_ = 0;
+  guid_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1113,6 +1116,7 @@ Host* Host::New() const {
 }
 
 void Host::Clear() {
+  guid_ = 0u;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -1126,14 +1130,33 @@ bool Host::MergePartialFromCodedStream(
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0 ||
-        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-      goto success;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required uint32 guid = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &guid_)));
+          set_has_guid();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
     }
-    DO_(::google::protobuf::internal::WireFormat::SkipField(
-          input, tag, mutable_unknown_fields()));
   }
 success:
   // @@protoc_insertion_point(parse_success:Server.Host)
@@ -1147,6 +1170,11 @@ failure:
 void Host::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:Server.Host)
+  // required uint32 guid = 1;
+  if (has_guid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->guid(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1157,6 +1185,11 @@ void Host::SerializeWithCachedSizes(
 ::google::protobuf::uint8* Host::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:Server.Host)
+  // required uint32 guid = 1;
+  if (has_guid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->guid(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -1168,6 +1201,15 @@ void Host::SerializeWithCachedSizes(
 int Host::ByteSize() const {
   int total_size = 0;
 
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required uint32 guid = 1;
+    if (has_guid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->guid());
+    }
+
+  }
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -1193,6 +1235,11 @@ void Host::MergeFrom(const ::google::protobuf::Message& from) {
 
 void Host::MergeFrom(const Host& from) {
   GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_guid()) {
+      set_guid(from.guid());
+    }
+  }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
@@ -1209,12 +1256,15 @@ void Host::CopyFrom(const Host& from) {
 }
 
 bool Host::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
   return true;
 }
 
 void Host::Swap(Host* other) {
   if (other != this) {
+    std::swap(guid_, other->guid_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
