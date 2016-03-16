@@ -19,7 +19,8 @@ public partial class ServerClient : NetClient
             {
                 if (mGUID == responseExitGame.guid)
                 {
-                    mGameID = 0xffffffff;
+                    mGameID = 0xcccccccc;
+                    mHostGUID = 0xcccccccc;
                     DisableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
                     DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
                     DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);

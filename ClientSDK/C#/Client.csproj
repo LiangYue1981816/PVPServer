@@ -152,6 +152,7 @@
     <Compile Include="ServerClientRequestExitGame.cs" />
     <Compile Include="ServerClientRequestFlags.cs" />
     <Compile Include="ServerClientRequestHeart.cs" />
+    <Compile Include="ServerClientRequestHost.cs" />
     <Compile Include="ServerClientRequestLogin.cs" />
     <Compile Include="ServerClientRequestSendToPlayer.cs" />
     <Compile Include="ServerClientThread.cs" />

@@ -16,6 +16,10 @@
                 ResponseLogin(buffer);
                 break;
 
+            case (short)Server.RESPONSE_MSG.HOST:
+                ResponseHost(buffer);
+                break;
+
             case (short)Server.RESPONSE_MSG.CREATE_GAME:
                 ResponseCreateGame(buffer);
                 break;

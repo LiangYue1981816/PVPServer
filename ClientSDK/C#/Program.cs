@@ -3,7 +3,7 @@ using System.Threading;
 
 class Program
 {
-    static string ip = "10.230.72.33";
+    static string ip = "127.0.0.1";
     static int port = 10000;
 
     static Thread mThreadUpdate = null;
@@ -22,6 +22,7 @@ class Program
             Console.Clear();
             Console.WriteLine("GUID: " + mClient.GetGUID().ToString());
             Console.WriteLine("GameID: " + mClient.GetGameID().ToString());
+            Console.WriteLine("IsHost: " + mClient.IsHost().ToString());
             Console.WriteLine("IsLogin: " + mClient.IsLogin().ToString());
             Console.WriteLine("IsWaiting: " + mClient.IsWaiting().ToString());
             Console.WriteLine("IsReady: " + mClient.IsReady().ToString());

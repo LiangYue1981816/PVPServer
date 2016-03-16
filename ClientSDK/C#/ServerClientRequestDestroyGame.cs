@@ -17,7 +17,8 @@ public partial class ServerClient : NetClient
 
             if (mErrorCode == ErrorCode.Code.ERR_NONE)
             {
-                mGameID = 0xffffffff;
+                mGameID = 0xcccccccc;
+                mHostGUID = 0xcccccccc;
                 DisableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
                 DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
                 DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);

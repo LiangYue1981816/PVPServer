@@ -4,12 +4,14 @@ using System.Collections.Generic;
 
 public partial class ServerClient : NetClient
 {
+    public delegate void OnResponseHost(uint guid);
     public delegate void OnResponseLogin();
     public delegate void OnResponseCreateGame();
     public delegate void OnResponseDestroyGame();
     public delegate void OnResposneEnterGame(uint guid);
     public delegate void OnResponseExitGame(uint guid);
     public delegate void OnResponseSendToPlayer(int size, byte[] data);
+    public OnResponseHost onResponseHost = null;
     public OnResponseLogin onResponseLogin = null;
     public OnResponseCreateGame onResponseCreateGame = null;
     public OnResponseDestroyGame onResponseDestroyGame = null;
@@ -21,7 +23,8 @@ public partial class ServerClient : NetClient
 
     private int mPing = 0;
     private uint mGUID = 0xffffffff;
-    private uint mGameID = 0xffffffff;
+    private uint mHostGUID = 0xcccccccc;
+    private uint mGameID = 0xcccccccc;
     private uint mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_NONE;
     private List<uint> mPlayers = new List<uint>();
 
@@ -57,7 +60,8 @@ public partial class ServerClient : NetClient
     public override bool Disconnect()
     {
         mGUID = 0xffffffff;
-        mGameID = 0xffffffff;
+        mHostGUID = 0xcccccccc;
+        mGameID = 0xcccccccc;
         mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_NONE;
 
         if (base.Disconnect())
@@ -94,6 +98,11 @@ public partial class ServerClient : NetClient
     public uint GetFlags()
     {
         return mFlags;
+    }
+
+    public bool IsHost()
+    {
+        return mGUID == mHostGUID;
     }
 
     public bool IsLogin()
