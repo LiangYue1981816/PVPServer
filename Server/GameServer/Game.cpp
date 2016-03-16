@@ -117,7 +117,6 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 	//
 	// 3. 设置玩家状态
 	//
-	pPlayer->SetHost(bCreater);
 	pPlayer->EnableFlag(FlagsCode::Code::PLAYER_FLAGS_WAITING);
 
 	//
@@ -173,13 +172,6 @@ int CGame::DelPlayer(CPlayer *pPlayer)
 	// 4. 记录玩家
 	//
 	m_numPlayers--;
-
-	//
-	// 5. 切换房主
-	//
-	if (pActivePlayer && pPlayer->IsHost()) {
-		pActivePlayer->SetHost(TRUE);
-	}
 
 	return ErrorCode::Code::ERR_NONE;
 }

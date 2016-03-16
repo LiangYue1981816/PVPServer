@@ -5,7 +5,6 @@ CPlayer::CPlayer(CGameServer *s)
 	: pServer(s)
 	, pGame(NULL)
 
-	, m_bHost(FALSE)
 	, m_dwFlags(0x00000000)
 
 	, pNextPlayer(NULL)
@@ -17,22 +16,6 @@ CPlayer::CPlayer(CGameServer *s)
 CPlayer::~CPlayer(void)
 {
 
-}
-
-//
-// 设置主机
-//
-VOID CPlayer::SetHost(BOOL bHost)
-{
-	m_bHost = bHost;
-}
-
-//
-// 主机状态
-//
-BOOL CPlayer::IsHost(void) const
-{
-	return m_bHost;
 }
 
 //
