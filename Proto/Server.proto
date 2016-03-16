@@ -8,11 +8,12 @@ enum RESPONSE_MSG
 	HEART = 0;
 	FLAGS = 1;
 	LOGIN = 2;
-	CREATE_GAME = 3;
-	DESTROY_GAME = 4;
-	ENTER_GAME = 5;
-	EXIT_GAME = 6;
-	SEND_TO_PLAYER = 7;
+	HOST = 3;
+	CREATE_GAME = 4;
+	DESTROY_GAME = 5;
+	ENTER_GAME = 6;
+	EXIT_GAME = 7;
+	SEND_TO_PLAYER = 8;
 }
 
 message Heart
@@ -29,6 +30,10 @@ message Login
 {
 	required ErrorCode.Code err = 1;
 	optional uint32 guid = 2;
+}
+
+message Host
+{
 }
 
 message CreateGame

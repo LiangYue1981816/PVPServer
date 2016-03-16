@@ -38,6 +38,7 @@ void protobuf_ShutdownFile_Server_2eproto();
 class Heart;
 class Flags;
 class Login;
+class Host;
 class CreateGame;
 class DestroyGame;
 class EnterGame;
@@ -48,11 +49,12 @@ enum RESPONSE_MSG {
   HEART = 0,
   FLAGS = 1,
   LOGIN = 2,
-  CREATE_GAME = 3,
-  DESTROY_GAME = 4,
-  ENTER_GAME = 5,
-  EXIT_GAME = 6,
-  SEND_TO_PLAYER = 7
+  HOST = 3,
+  CREATE_GAME = 4,
+  DESTROY_GAME = 5,
+  ENTER_GAME = 6,
+  EXIT_GAME = 7,
+  SEND_TO_PLAYER = 8
 };
 bool RESPONSE_MSG_IsValid(int value);
 const RESPONSE_MSG RESPONSE_MSG_MIN = HEART;
@@ -315,6 +317,75 @@ class Login : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static Login* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class Host : public ::google::protobuf::Message {
+ public:
+  Host();
+  virtual ~Host();
+
+  Host(const Host& from);
+
+  inline Host& operator=(const Host& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Host& default_instance();
+
+  void Swap(Host* other);
+
+  // implements Message ----------------------------------------------
+
+  Host* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Host& from);
+  void MergeFrom(const Host& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:Server.Host)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_Server_2eproto();
+  friend void protobuf_AssignDesc_Server_2eproto();
+  friend void protobuf_ShutdownFile_Server_2eproto();
+
+  void InitAsDefaultInstance();
+  static Host* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -877,6 +948,10 @@ inline void Login::set_guid(::google::protobuf::uint32 value) {
   guid_ = value;
   // @@protoc_insertion_point(field_set:Server.Login.guid)
 }
+
+// -------------------------------------------------------------------
+
+// Host
 
 // -------------------------------------------------------------------
 

@@ -29,6 +29,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* Login_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Login_reflection_ = NULL;
+const ::google::protobuf::Descriptor* Host_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Host_reflection_ = NULL;
 const ::google::protobuf::Descriptor* CreateGame_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   CreateGame_reflection_ = NULL;
@@ -101,7 +104,21 @@ void protobuf_AssignDesc_Server_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Login));
-  CreateGame_descriptor_ = file->message_type(3);
+  Host_descriptor_ = file->message_type(3);
+  static const int Host_offsets_[1] = {
+  };
+  Host_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      Host_descriptor_,
+      Host::default_instance_,
+      Host_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Host, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Host, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(Host));
+  CreateGame_descriptor_ = file->message_type(4);
   static const int CreateGame_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CreateGame, err_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CreateGame, gameid_),
@@ -117,7 +134,7 @@ void protobuf_AssignDesc_Server_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CreateGame));
-  DestroyGame_descriptor_ = file->message_type(4);
+  DestroyGame_descriptor_ = file->message_type(5);
   static const int DestroyGame_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(DestroyGame, err_),
   };
@@ -132,7 +149,7 @@ void protobuf_AssignDesc_Server_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(DestroyGame));
-  EnterGame_descriptor_ = file->message_type(5);
+  EnterGame_descriptor_ = file->message_type(6);
   static const int EnterGame_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EnterGame, err_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EnterGame, guid_),
@@ -149,7 +166,7 @@ void protobuf_AssignDesc_Server_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(EnterGame));
-  ExitGame_descriptor_ = file->message_type(6);
+  ExitGame_descriptor_ = file->message_type(7);
   static const int ExitGame_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExitGame, err_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ExitGame, guid_),
@@ -165,7 +182,7 @@ void protobuf_AssignDesc_Server_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ExitGame));
-  SendToPlayer_descriptor_ = file->message_type(7);
+  SendToPlayer_descriptor_ = file->message_type(8);
   static const int SendToPlayer_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, size_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, data_),
@@ -201,6 +218,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     Login_descriptor_, &Login::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    Host_descriptor_, &Host::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     CreateGame_descriptor_, &CreateGame::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     DestroyGame_descriptor_, &DestroyGame::default_instance());
@@ -221,6 +240,8 @@ void protobuf_ShutdownFile_Server_2eproto() {
   delete Flags_reflection_;
   delete Login::default_instance_;
   delete Login_reflection_;
+  delete Host::default_instance_;
+  delete Host_reflection_;
   delete CreateGame::default_instance_;
   delete CreateGame_reflection_;
   delete DestroyGame::default_instance_;
@@ -244,22 +265,24 @@ void protobuf_AddDesc_Server_2eproto() {
     "\n\014Server.proto\022\006Server\032\013Error.proto\"\032\n\005H"
     "eart\022\021\n\ttimestamp\030\001 \002(\005\"\026\n\005Flags\022\r\n\005flag"
     "s\030\001 \002(\r\"3\n\005Login\022\034\n\003err\030\001 \002(\0162\017.ErrorCod"
-    "e.Code\022\014\n\004guid\030\002 \001(\r\":\n\nCreateGame\022\034\n\003er"
-    "r\030\001 \002(\0162\017.ErrorCode.Code\022\016\n\006gameid\030\002 \001(\r"
-    "\"+\n\013DestroyGame\022\034\n\003err\030\001 \002(\0162\017.ErrorCode"
-    ".Code\"G\n\tEnterGame\022\034\n\003err\030\001 \002(\0162\017.ErrorC"
-    "ode.Code\022\014\n\004guid\030\002 \001(\r\022\016\n\006gameid\030\003 \001(\r\"6"
-    "\n\010ExitGame\022\034\n\003err\030\001 \002(\0162\017.ErrorCode.Code"
-    "\022\014\n\004guid\030\002 \001(\r\"*\n\014SendToPlayer\022\014\n\004size\030\001"
-    " \002(\005\022\014\n\004data\030\002 \002(\014*\205\001\n\014RESPONSE_MSG\022\t\n\005H"
-    "EART\020\000\022\t\n\005FLAGS\020\001\022\t\n\005LOGIN\020\002\022\017\n\013CREATE_G"
-    "AME\020\003\022\020\n\014DESTROY_GAME\020\004\022\016\n\nENTER_GAME\020\005\022"
-    "\r\n\tEXIT_GAME\020\006\022\022\n\016SEND_TO_PLAYER\020\007B\002H\001", 558);
+    "e.Code\022\014\n\004guid\030\002 \001(\r\"\006\n\004Host\":\n\nCreateGa"
+    "me\022\034\n\003err\030\001 \002(\0162\017.ErrorCode.Code\022\016\n\006game"
+    "id\030\002 \001(\r\"+\n\013DestroyGame\022\034\n\003err\030\001 \002(\0162\017.E"
+    "rrorCode.Code\"G\n\tEnterGame\022\034\n\003err\030\001 \002(\0162"
+    "\017.ErrorCode.Code\022\014\n\004guid\030\002 \001(\r\022\016\n\006gameid"
+    "\030\003 \001(\r\"6\n\010ExitGame\022\034\n\003err\030\001 \002(\0162\017.ErrorC"
+    "ode.Code\022\014\n\004guid\030\002 \001(\r\"*\n\014SendToPlayer\022\014"
+    "\n\004size\030\001 \002(\005\022\014\n\004data\030\002 \002(\014*\217\001\n\014RESPONSE_"
+    "MSG\022\t\n\005HEART\020\000\022\t\n\005FLAGS\020\001\022\t\n\005LOGIN\020\002\022\010\n\004"
+    "HOST\020\003\022\017\n\013CREATE_GAME\020\004\022\020\n\014DESTROY_GAME\020"
+    "\005\022\016\n\nENTER_GAME\020\006\022\r\n\tEXIT_GAME\020\007\022\022\n\016SEND"
+    "_TO_PLAYER\020\010B\002H\001", 576);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Server.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
   Flags::default_instance_ = new Flags();
   Login::default_instance_ = new Login();
+  Host::default_instance_ = new Host();
   CreateGame::default_instance_ = new CreateGame();
   DestroyGame::default_instance_ = new DestroyGame();
   EnterGame::default_instance_ = new EnterGame();
@@ -268,6 +291,7 @@ void protobuf_AddDesc_Server_2eproto() {
   Heart::default_instance_->InitAsDefaultInstance();
   Flags::default_instance_->InitAsDefaultInstance();
   Login::default_instance_->InitAsDefaultInstance();
+  Host::default_instance_->InitAsDefaultInstance();
   CreateGame::default_instance_->InitAsDefaultInstance();
   DestroyGame::default_instance_->InitAsDefaultInstance();
   EnterGame::default_instance_->InitAsDefaultInstance();
@@ -296,6 +320,7 @@ bool RESPONSE_MSG_IsValid(int value) {
     case 5:
     case 6:
     case 7:
+    case 8:
       return true;
     default:
       return false;
@@ -1026,6 +1051,180 @@ void Login::Swap(Login* other) {
   ::google::protobuf::Metadata metadata;
   metadata.descriptor = Login_descriptor_;
   metadata.reflection = Login_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+#endif  // !_MSC_VER
+
+Host::Host()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:Server.Host)
+}
+
+void Host::InitAsDefaultInstance() {
+}
+
+Host::Host(const Host& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:Server.Host)
+}
+
+void Host::SharedCtor() {
+  _cached_size_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+Host::~Host() {
+  // @@protoc_insertion_point(destructor:Server.Host)
+  SharedDtor();
+}
+
+void Host::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void Host::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* Host::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return Host_descriptor_;
+}
+
+const Host& Host::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Server_2eproto();
+  return *default_instance_;
+}
+
+Host* Host::default_instance_ = NULL;
+
+Host* Host::New() const {
+  return new Host;
+}
+
+void Host::Clear() {
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool Host::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:Server.Host)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+  handle_unusual:
+    if (tag == 0 ||
+        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+      goto success;
+    }
+    DO_(::google::protobuf::internal::WireFormat::SkipField(
+          input, tag, mutable_unknown_fields()));
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Server.Host)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Server.Host)
+  return false;
+#undef DO_
+}
+
+void Host::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Server.Host)
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:Server.Host)
+}
+
+::google::protobuf::uint8* Host::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:Server.Host)
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:Server.Host)
+  return target;
+}
+
+int Host::ByteSize() const {
+  int total_size = 0;
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Host::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const Host* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const Host*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void Host::MergeFrom(const Host& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void Host::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Host::CopyFrom(const Host& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Host::IsInitialized() const {
+
+  return true;
+}
+
+void Host::Swap(Host* other) {
+  if (other != this) {
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata Host::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Host_descriptor_;
+  metadata.reflection = Host_reflection_;
   return metadata;
 }
 

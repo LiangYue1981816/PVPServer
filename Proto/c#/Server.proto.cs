@@ -70,6 +70,16 @@ namespace Server
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Host")]
+  public partial class Host : global::ProtoBuf.IExtensible
+  {
+    public Host() {}
+    
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"CreateGame")]
   public partial class CreateGame : global::ProtoBuf.IExtensible
   {
@@ -207,20 +217,23 @@ namespace Server
       [global::ProtoBuf.ProtoEnum(Name=@"LOGIN", Value=2)]
       LOGIN = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"CREATE_GAME", Value=3)]
-      CREATE_GAME = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"HOST", Value=3)]
+      HOST = 3,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"DESTROY_GAME", Value=4)]
-      DESTROY_GAME = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"CREATE_GAME", Value=4)]
+      CREATE_GAME = 4,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ENTER_GAME", Value=5)]
-      ENTER_GAME = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"DESTROY_GAME", Value=5)]
+      DESTROY_GAME = 5,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"EXIT_GAME", Value=6)]
-      EXIT_GAME = 6,
+      [global::ProtoBuf.ProtoEnum(Name=@"ENTER_GAME", Value=6)]
+      ENTER_GAME = 6,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=7)]
-      SEND_TO_PLAYER = 7
+      [global::ProtoBuf.ProtoEnum(Name=@"EXIT_GAME", Value=7)]
+      EXIT_GAME = 7,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=8)]
+      SEND_TO_PLAYER = 8
     }
   
 }
