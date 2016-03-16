@@ -368,7 +368,7 @@ CPlayer* CGameServer::QueryPlayer(DWORD guid)
 //
 void CGameServer::SendToPlayer(CPlayer *pPlayer, BYTE *pBuffer, size_t size)
 {
-	if (pPlayer && pBuffer && size > 0) {
+	if (pPlayer && pPlayer->IsAlive() && pBuffer && size > 0) {
 		pPlayer->sendBuffer.Lock();
 		pPlayer->sendBuffer.PushData(pBuffer, size);
 		pPlayer->sendBuffer.Unlock();
