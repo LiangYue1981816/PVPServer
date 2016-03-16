@@ -30,6 +30,8 @@ CGame::~CGame(void)
 //
 void CGame::SetGame(const char *password, int mode, int mapid, int maxPlayers)
 {
+	m_dwHostGUID = 0xffffffff;
+
 	m_mode = mode;
 	m_mapid = mapid;
 	m_maxPlayers = maxPlayers;

@@ -332,6 +332,13 @@ NEXT:
 	// 4. 发送玩家
 	//
 	SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
+
+	//
+	// 5. 发送玩家主机
+	//
+	if (err == ErrorCode::Code::ERR_NONE) {
+		Host(pPlayer);
+	}
 }
 
 //
@@ -441,6 +448,13 @@ NEXT:
 	else {
 		SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
 	}
+
+	//
+	// 5. 发送玩家主机
+	//
+	if (err == ErrorCode::Code::ERR_NONE) {
+		Host(pPlayer);
+	}
 }
 
 //
@@ -487,10 +501,15 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	// 5. 退出游戏
 	//
 	if (CGame *pGame = pPlayer->pGame) {
+		DWORD dwLastHostGUID = pGame->GetHostGUID();
+
 		pGame->DelPlayer(pPlayer);
 
 		if (pGame->IsEmpty()) {
 			ReleaseGame(pGame);
+		}
+		else if (dwLastHostGUID != pGame->GetHostGUID()) {
+			Host(pGame);
 		}
 	}
 }
