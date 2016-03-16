@@ -81,8 +81,10 @@ public:
 
 	virtual void Clear(void);                                                                      // 清空玩家
 
-	virtual BOOL IsFull(void);                                                                     // 房间满判断
-	virtual BOOL IsEmpty(void);                                                                    // 房间空判断
+	virtual BOOL IsFull(void) const;                                                               // 房间满判断
+	virtual BOOL IsEmpty(void) const;                                                              // 房间空判断
+
+	virtual DWORD GetHostGUID(void) const;                                                         // 获得主机玩家GUID
 
 public:
 	virtual void Update(float deltaTime);                                                          // 更新
@@ -99,6 +101,9 @@ private:
 	int m_mapid;                                                                                   // 游戏地图
 	int m_maxPlayers;                                                                              // 最大玩家数
 	int m_numPlayers;                                                                              // 当前玩家数
+
+private:
+	DWORD m_dwHostGUID;                                                                            // 主机玩家GUID
 
 public:
 	CGameServer *pServer;                                                                          // 服务器指针

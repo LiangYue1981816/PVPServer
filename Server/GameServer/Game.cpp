@@ -11,6 +11,7 @@ CGame::CGame(CGameServer *s)
 	, m_mapid(-1)
 	, m_maxPlayers(0)
 	, m_numPlayers(0)
+	, m_dwHostGUID(0xffffffff)
 
 	, pNext(NULL)
 	, pNextActive(NULL)
@@ -124,6 +125,13 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 	//
 	m_numPlayers++;
 
+	//
+	// 5. 设置主机
+	//
+	if (bCreater) {
+		m_dwHostGUID = pPlayer->guid;
+	}
+
 	return ErrorCode::Code::ERR_NONE;
 }
 
@@ -173,6 +181,13 @@ int CGame::DelPlayer(CPlayer *pPlayer)
 	//
 	m_numPlayers--;
 
+	//
+	// 5. 设置主机
+	//
+	if (m_dwHostGUID == pPlayer->guid && pActivePlayer) {
+		m_dwHostGUID = pActivePlayer->guid;
+	}
+
 	return ErrorCode::Code::ERR_NONE;
 }
 
@@ -189,7 +204,7 @@ void CGame::Clear(void)
 //
 // 房间满判断
 //
-BOOL CGame::IsFull(void)
+BOOL CGame::IsFull(void) const
 {
 	return m_numPlayers == m_maxPlayers ? TRUE : FALSE;
 }
@@ -197,9 +212,17 @@ BOOL CGame::IsFull(void)
 //
 // 房间空判断
 //
-BOOL CGame::IsEmpty(void)
+BOOL CGame::IsEmpty(void) const
 {
 	return m_numPlayers == 0 ? TRUE : FALSE;
+}
+
+//
+// 获得主机玩家GUID
+//
+DWORD CGame::GetHostGUID(void) const
+{
+	return m_dwHostGUID;
 }
 
 //
