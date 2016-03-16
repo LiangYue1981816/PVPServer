@@ -174,6 +174,13 @@ int CGame::DelPlayer(CPlayer *pPlayer)
 	//
 	m_numPlayers--;
 
+	//
+	// 5. ÇÐ»»·¿Ö÷
+	//
+	if (pActivePlayer && pPlayer->IsHost()) {
+		pActivePlayer->SetHost(TRUE);
+	}
+
 	return ErrorCode::Code::ERR_NONE;
 }
 
