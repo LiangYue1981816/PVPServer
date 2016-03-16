@@ -117,6 +117,7 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 	//
 	// 3. ÉèÖÃÍæ¼Ò×´Ì¬
 	//
+	pPlayer->SetHost(bCreater);
 	pPlayer->EnableFlag(FlagsCode::Code::PLAYER_FLAGS_WAITING);
 
 	//
