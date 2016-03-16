@@ -271,11 +271,11 @@ void protobuf_AddDesc_Client_2eproto() {
     "\"\n\n\010ExitGame\"8\n\014SendToPlayer\022\014\n\004guid\030\001 \002"
     "(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014\"=\n\017SendTo"
     "PlayerAll\022\016\n\006filter\030\001 \002(\r\022\014\n\004size\030\002 \002(\005\022"
-    "\014\n\004data\030\003 \002(\014*\246\001\n\013REQUEST_MSG\022\t\n\005HEART\020\000"
-    "\022\t\n\005FLAGS\020\001\022\t\n\005LOGIN\020\002\022\010\n\004HOST\020\003\022\017\n\013CREA"
-    "TE_GAME\020\004\022\020\n\014DESTROY_GAME\020\005\022\016\n\nENTER_GAM"
-    "E\020\006\022\r\n\tEXIT_GAME\020\007\022\022\n\016SEND_TO_PLAYER\020\010\022\026"
-    "\n\022SEND_TO_PLAYER_ALL\020\tB\002H\001", 546);
+    "\014\n\004data\030\003 \002(\014*\234\001\n\013REQUEST_MSG\022\t\n\005HEART\020\000"
+    "\022\t\n\005FLAGS\020\001\022\t\n\005LOGIN\020\002\022\017\n\013CREATE_GAME\020\003\022"
+    "\020\n\014DESTROY_GAME\020\004\022\016\n\nENTER_GAME\020\005\022\r\n\tEXI"
+    "T_GAME\020\006\022\022\n\016SEND_TO_PLAYER\020\007\022\026\n\022SEND_TO_"
+    "PLAYER_ALL\020\010B\002H\001", 536);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Client.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -320,7 +320,6 @@ bool REQUEST_MSG_IsValid(int value) {
     case 6:
     case 7:
     case 8:
-    case 9:
       return true;
     default:
       return false;
