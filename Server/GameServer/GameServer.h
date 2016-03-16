@@ -28,6 +28,9 @@ public:
 
 	// 方法
 public:
+	virtual VOID SetHost(BOOL bHost);                                                              // 设置主机
+	virtual BOOL IsHost(void) const;                                                               // 主机状态
+
 	virtual VOID SetFlags(DWORD dwFlags);                                                          // 设置标识
 	virtual VOID ClearFlags(void);                                                                 // 清空标识
 
@@ -44,6 +47,7 @@ public:
 
 	// 属性
 private:
+	BOOL m_bHost;                                                                                  // 主机
 	DWORD m_dwFlags;                                                                               // 标识
 
 public:
