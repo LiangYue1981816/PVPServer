@@ -137,7 +137,7 @@ protected:
 	// ÊôÐÔ
 protected:
 	int m_port;                                                                                    // ¶Ë¿Ú
-	char m_ip[16];                                                                                 // IP
+	char m_ip[256];                                                                                // IP
 
 protected:
 	SOCKET m_listenSocket;                                                                         // ¼àÌýSOCKET
