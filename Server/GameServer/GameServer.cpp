@@ -315,19 +315,26 @@ void CGameServer::ReleaseGame(CGame *pGame)
 BOOL CGameServer::Login(CPlayer *pPlayer, DWORD guid)
 {
 	//
-	// 1. 查找注册玩家
+	// 1. 检查玩家
+	//
+	if (pPlayer->IsLogin()) {
+		return FALSE;
+	}
+
+	//
+	// 2. 查找注册玩家
 	//
 	GUIDMAP::const_iterator itPlayer = m_guidmap.find(guid);
 	if (itPlayer != m_guidmap.end()) return FALSE;
 
 	//
-	// 2. 注册玩家
+	// 3. 注册玩家
 	//
 	pPlayer->guid = guid;
 	m_guidmap[guid] = pPlayer->id;
 
 	//
-	// 3. 设置玩家标识
+	// 4. 设置玩家标识
 	//
 	pPlayer->SetFlags(FlagsCode::Code::PLAYER_FLAGS_LOGIN);
 
@@ -340,19 +347,26 @@ BOOL CGameServer::Login(CPlayer *pPlayer, DWORD guid)
 BOOL CGameServer::Logout(CPlayer *pPlayer)
 {
 	//
-	// 1. 查找注册玩家
+	// 1. 检查玩家
+	//
+	if (pPlayer->IsLogin() == FALSE) {
+		return FALSE;
+	}
+
+	//
+	// 2. 查找注册玩家
 	//
 	GUIDMAP::const_iterator itPlayer = m_guidmap.find(pPlayer->guid);
 	if (itPlayer == m_guidmap.end()) return FALSE;
 
 	//
-	// 2. 注销玩家
+	// 3. 注销玩家
 	//
 	pPlayer->guid = 0xffffffff;
 	m_guidmap.erase(itPlayer);
 
 	//
-	// 3. 设置玩家标识
+	// 4. 设置玩家标识
 	//
 	pPlayer->SetFlags(FlagsCode::Code::PLAYER_FLAGS_NONE);
 
