@@ -49,16 +49,21 @@ BOOL CGameServer::Start(const char *ip, int port, int maxGames, int maxPlayers, 
 	//
 	// 3. Æô¶¯·þÎñÆ÷
 	//
-	if (AllocGames(maxGames) == FALSE) return FALSE;
-	if (AllocPlayers(maxGames * maxPlayers) == FALSE) return FALSE;
-	if (Listen(ip, port) == FALSE) return FALSE;
-	if (CreateIOCP() == FALSE) return FALSE;
-	if (CreateShutdownEvent() == FALSE) return FALSE;
-	if (CreateListenThread() == FALSE) return FALSE;
-	if (CreateTransferThreads() == FALSE) return FALSE;
-	if (CreateReportThread() == FALSE) return FALSE;
-	if (CreateUpdateThread() == FALSE) return FALSE;
+	if (AllocGames(maxGames) == FALSE) goto ERR;
+	if (AllocPlayers(maxGames * maxPlayers) == FALSE) goto ERR;
+	if (Listen(ip, port) == FALSE) goto ERR;
+	if (CreateIOCP() == FALSE) goto ERR;
+	if (CreateShutdownEvent() == FALSE) goto ERR;
+	if (CreateListenThread() == FALSE) goto ERR;
+	if (CreateTransferThreads() == FALSE) goto ERR;
+	if (CreateReportThread() == FALSE) goto ERR;
+	if (CreateUpdateThread() == FALSE) goto ERR;
 
+	goto RET;
+ERR:
+	WriteLog("Start fail err = %d", WSAGetLastError());
+	return FALSE;
+RET:
 	return TRUE;
 }
 
