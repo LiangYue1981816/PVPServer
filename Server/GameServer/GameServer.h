@@ -211,7 +211,7 @@ protected:
 
 protected:
 	int m_nRootServerPort;                                                                         // 入口服务器端口
-	char m_szRootServerIP[16];                                                                     // 入口服务器IP
+	char m_szRootServerIP[256];                                                                    // 入口服务器IP
 
 protected:
 	DWORD m_dwUpdateCount;                                                                         // 更新次数

@@ -65,7 +65,7 @@ public:
 
 	// 属性
 public:
-	char ip[16];                                                                                   // 客户端ip地址
+	char ip[256];                                                                                  // 客户端ip地址
 	DWORD dwHeartTime;                                                                             // 心跳时间
 
 public:
