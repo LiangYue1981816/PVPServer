@@ -463,7 +463,10 @@ BOOL CIOCPServer::Listen(const char *ip, int port)
 	// 2. 绑定并开始监听
 	//
 	bind(m_listenSocket, (PSOCKADDR)&serverAddress, sizeof(serverAddress));
+	if (WSAGetLastError() != NO_ERROR) return FALSE;
+
 	listen(m_listenSocket, SOMAXCONN);
+	if (WSAGetLastError() != NO_ERROR) return FALSE;
 
 	//
 	// 3. 保存地址
