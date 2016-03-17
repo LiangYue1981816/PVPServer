@@ -53,16 +53,9 @@ typedef unsigned int                   DWORD;    // 4BYTE
 #endif
 
 
-#ifdef _SERVER_
-#define PACK_BUFFER_SIZE               8*1024
-#define RECV_BUFFER_SIZE               32*1024
+#define PACK_BUFFER_SIZE               4*1024
+#define RECV_BUFFER_SIZE               16*1024
 #define SEND_BUFFER_SIZE               16*1024
-#else
-#define MAX_BUFFER_SIZE                4*1024
-#define PACK_BUFFER_SIZE               8*1024
-#define RECV_BUFFER_SIZE               32*1024
-#define SEND_BUFFER_SIZE               16*1024
-#endif
 
 #define MAX_GAMES                      500
 #define MAX_GAME_PLAYERS               16
