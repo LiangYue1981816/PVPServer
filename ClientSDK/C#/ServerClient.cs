@@ -130,11 +130,6 @@ public partial class ServerClient : NetClient
         return (mFlags & ((uint)code)) != 0 ? true : false;
     }
 
-    protected void ClearFlags()
-    {
-        mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_NONE;
-    }
-
     protected void EnableFlag(FlagsCode.Code code)
     {
         mFlags = mFlags | ((uint)code);
