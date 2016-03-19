@@ -169,9 +169,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="..\Common\CacheBuffer.h" />
     <ClInclude Include="..\Common\Common.h" />
     <ClInclude Include="..\Common\Event.h" />
