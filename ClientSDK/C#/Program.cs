@@ -4,7 +4,7 @@ using System.Threading;
 class Program
 {
     static string ip = "127.0.0.1";
-    static int port = 10000;
+    static int port = 20000;
 
     static Thread mThreadUpdate = null;
     static ServerClient mClient = new ServerClient();
