@@ -336,7 +336,7 @@ BOOL CGameServer::Login(CPlayer *pPlayer, DWORD guid)
 	//
 	// 4. 设置玩家标识
 	//
-	pPlayer->SetFlags(FlagsCode::Code::PLAYER_FLAGS_LOGIN);
+	pPlayer->SetFlags(GameServer::FLAGS_CODE::PLAYER_FLAGS_LOGIN);
 
 	return TRUE;
 }
@@ -368,7 +368,7 @@ BOOL CGameServer::Logout(CPlayer *pPlayer)
 	//
 	// 4. 设置玩家标识
 	//
-	pPlayer->SetFlags(FlagsCode::Code::PLAYER_FLAGS_NONE);
+	pPlayer->SetFlags(GameServer::FLAGS_CODE::PLAYER_FLAGS_NONE);
 
 	return TRUE;
 }
@@ -420,7 +420,7 @@ void CGameServer::SendToPlayerAll(CGame *pGame, CPlayer *pIgnore, BYTE *pBuffer,
 void CGameServer::Host(CPlayer *pPlayer)
 {
 	if (pPlayer->pGame) {
-		::Server::Host responseHost;
+		::GameServer::Host responseHost;
 
 		BYTE buffer[PACK_BUFFER_SIZE];
 		CCacheBuffer writeBuffer(sizeof(buffer), buffer);
@@ -433,7 +433,7 @@ void CGameServer::Host(CPlayer *pPlayer)
 		//
 		// 2. 序列化消息
 		//
-		Serializer(&writeBuffer, &responseHost, ::Server::RESPONSE_MSG::HOST);
+		Serializer(&writeBuffer, &responseHost, ::GameServer::RESPONSE_MSG::HOST);
 
 		//
 		// 3. 发送玩家
@@ -448,7 +448,7 @@ void CGameServer::Host(CPlayer *pPlayer)
 void CGameServer::Host(CGame *pGame)
 {
 	if (pGame) {
-		::Server::Host responseHost;
+		::GameServer::Host responseHost;
 
 		BYTE buffer[PACK_BUFFER_SIZE];
 		CCacheBuffer writeBuffer(sizeof(buffer), buffer);
@@ -461,7 +461,7 @@ void CGameServer::Host(CGame *pGame)
 		//
 		// 2. 序列化消息
 		//
-		Serializer(&writeBuffer, &responseHost, ::Server::RESPONSE_MSG::HOST);
+		Serializer(&writeBuffer, &responseHost, ::GameServer::RESPONSE_MSG::HOST);
 
 		//
 		// 3. 发送玩家

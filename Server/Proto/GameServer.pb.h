@@ -25,7 +25,6 @@
 #include <google/protobuf/extension_set.h>
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
-#include "Error.pb.h"
 // @@protoc_insertion_point(includes)
 
 namespace GameServer {
@@ -45,6 +44,80 @@ class EnterGame;
 class ExitGame;
 class SendToPlayer;
 
+enum VERSION_NUMBER {
+  VERSION = 65536
+};
+bool VERSION_NUMBER_IsValid(int value);
+const VERSION_NUMBER VERSION_NUMBER_MIN = VERSION;
+const VERSION_NUMBER VERSION_NUMBER_MAX = VERSION;
+const int VERSION_NUMBER_ARRAYSIZE = VERSION_NUMBER_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* VERSION_NUMBER_descriptor();
+inline const ::std::string& VERSION_NUMBER_Name(VERSION_NUMBER value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    VERSION_NUMBER_descriptor(), value);
+}
+inline bool VERSION_NUMBER_Parse(
+    const ::std::string& name, VERSION_NUMBER* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<VERSION_NUMBER>(
+    VERSION_NUMBER_descriptor(), name, value);
+}
+enum FLAGS_CODE {
+  PLAYER_FLAGS_NONE = 0,
+  PLAYER_FLAGS_LOGIN = 1,
+  PLAYER_FLAGS_WAITING = 2,
+  PLAYER_FLAGS_READY = 4,
+  PLAYER_FLAGS_GAMING = 8
+};
+bool FLAGS_CODE_IsValid(int value);
+const FLAGS_CODE FLAGS_CODE_MIN = PLAYER_FLAGS_NONE;
+const FLAGS_CODE FLAGS_CODE_MAX = PLAYER_FLAGS_GAMING;
+const int FLAGS_CODE_ARRAYSIZE = FLAGS_CODE_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* FLAGS_CODE_descriptor();
+inline const ::std::string& FLAGS_CODE_Name(FLAGS_CODE value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    FLAGS_CODE_descriptor(), value);
+}
+inline bool FLAGS_CODE_Parse(
+    const ::std::string& name, FLAGS_CODE* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<FLAGS_CODE>(
+    FLAGS_CODE_descriptor(), name, value);
+}
+enum ERROR_CODE {
+  ERR_NONE = 0,
+  ERR_VERSION_INVALID = 1,
+  ERR_PLAYER_INVALID = 1000,
+  ERR_PLAYER_INVALID_ID = 1001,
+  ERR_PLAYER_INVALID_GUID = 1002,
+  ERR_PLAYER_FLAGS_NOT_NONE = 1003,
+  ERR_PLAYER_FLAGS_NOT_LOGIN = 1004,
+  ERR_PLAYER_FLAGS_NOT_INGAME = 1005,
+  ERR_PLAYER_FLAGS_INGAME = 1006,
+  ERR_GAME_INVALID = 2000,
+  ERR_GAME_INVALID_ID = 2001,
+  ERR_GAME_USING = 2002,
+  ERR_GAME_EMPTY = 2003,
+  ERR_GAME_FULL = 2004,
+  ERR_GAME_PASSWORD = 2005,
+  ERR_SERVER_FULL = 3000,
+  ERR_GAMEPLAY_INVALID_MODE = 4000
+};
+bool ERROR_CODE_IsValid(int value);
+const ERROR_CODE ERROR_CODE_MIN = ERR_NONE;
+const ERROR_CODE ERROR_CODE_MAX = ERR_GAMEPLAY_INVALID_MODE;
+const int ERROR_CODE_ARRAYSIZE = ERROR_CODE_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* ERROR_CODE_descriptor();
+inline const ::std::string& ERROR_CODE_Name(ERROR_CODE value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    ERROR_CODE_descriptor(), value);
+}
+inline bool ERROR_CODE_Parse(
+    const ::std::string& name, ERROR_CODE* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<ERROR_CODE>(
+    ERROR_CODE_descriptor(), name, value);
+}
 enum RESPONSE_MSG {
   HEART = 0,
   FLAGS = 1,
@@ -284,12 +357,12 @@ class Login : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::ErrorCode::Code err() const;
-  inline void set_err(::ErrorCode::Code value);
+  inline ::GameServer::ERROR_CODE err() const;
+  inline void set_err(::GameServer::ERROR_CODE value);
 
   // optional uint32 guid = 2;
   inline bool has_guid() const;
@@ -452,12 +525,12 @@ class CreateGame : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::ErrorCode::Code err() const;
-  inline void set_err(::ErrorCode::Code value);
+  inline ::GameServer::ERROR_CODE err() const;
+  inline void set_err(::GameServer::ERROR_CODE value);
 
   // optional uint32 gameid = 2;
   inline bool has_gameid() const;
@@ -541,12 +614,12 @@ class DestroyGame : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::ErrorCode::Code err() const;
-  inline void set_err(::ErrorCode::Code value);
+  inline ::GameServer::ERROR_CODE err() const;
+  inline void set_err(::GameServer::ERROR_CODE value);
 
   // @@protoc_insertion_point(class_scope:GameServer.DestroyGame)
  private:
@@ -620,12 +693,12 @@ class EnterGame : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::ErrorCode::Code err() const;
-  inline void set_err(::ErrorCode::Code value);
+  inline ::GameServer::ERROR_CODE err() const;
+  inline void set_err(::GameServer::ERROR_CODE value);
 
   // optional uint32 guid = 2;
   inline bool has_guid() const;
@@ -719,12 +792,12 @@ class ExitGame : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::ErrorCode::Code err() const;
-  inline void set_err(::ErrorCode::Code value);
+  inline ::GameServer::ERROR_CODE err() const;
+  inline void set_err(::GameServer::ERROR_CODE value);
 
   // optional uint32 guid = 2;
   inline bool has_guid() const;
@@ -910,7 +983,7 @@ inline void Flags::set_flags(::google::protobuf::uint32 value) {
 
 // Login
 
-// required .ErrorCode.Code err = 1;
+// required .GameServer.ERROR_CODE err = 1;
 inline bool Login::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -924,12 +997,12 @@ inline void Login::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::ErrorCode::Code Login::err() const {
+inline ::GameServer::ERROR_CODE Login::err() const {
   // @@protoc_insertion_point(field_get:GameServer.Login.err)
-  return static_cast< ::ErrorCode::Code >(err_);
+  return static_cast< ::GameServer::ERROR_CODE >(err_);
 }
-inline void Login::set_err(::ErrorCode::Code value) {
-  assert(::ErrorCode::Code_IsValid(value));
+inline void Login::set_err(::GameServer::ERROR_CODE value) {
+  assert(::GameServer::ERROR_CODE_IsValid(value));
   set_has_err();
   err_ = value;
   // @@protoc_insertion_point(field_set:GameServer.Login.err)
@@ -991,7 +1064,7 @@ inline void Host::set_guid(::google::protobuf::uint32 value) {
 
 // CreateGame
 
-// required .ErrorCode.Code err = 1;
+// required .GameServer.ERROR_CODE err = 1;
 inline bool CreateGame::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1005,12 +1078,12 @@ inline void CreateGame::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::ErrorCode::Code CreateGame::err() const {
+inline ::GameServer::ERROR_CODE CreateGame::err() const {
   // @@protoc_insertion_point(field_get:GameServer.CreateGame.err)
-  return static_cast< ::ErrorCode::Code >(err_);
+  return static_cast< ::GameServer::ERROR_CODE >(err_);
 }
-inline void CreateGame::set_err(::ErrorCode::Code value) {
-  assert(::ErrorCode::Code_IsValid(value));
+inline void CreateGame::set_err(::GameServer::ERROR_CODE value) {
+  assert(::GameServer::ERROR_CODE_IsValid(value));
   set_has_err();
   err_ = value;
   // @@protoc_insertion_point(field_set:GameServer.CreateGame.err)
@@ -1044,7 +1117,7 @@ inline void CreateGame::set_gameid(::google::protobuf::uint32 value) {
 
 // DestroyGame
 
-// required .ErrorCode.Code err = 1;
+// required .GameServer.ERROR_CODE err = 1;
 inline bool DestroyGame::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1058,12 +1131,12 @@ inline void DestroyGame::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::ErrorCode::Code DestroyGame::err() const {
+inline ::GameServer::ERROR_CODE DestroyGame::err() const {
   // @@protoc_insertion_point(field_get:GameServer.DestroyGame.err)
-  return static_cast< ::ErrorCode::Code >(err_);
+  return static_cast< ::GameServer::ERROR_CODE >(err_);
 }
-inline void DestroyGame::set_err(::ErrorCode::Code value) {
-  assert(::ErrorCode::Code_IsValid(value));
+inline void DestroyGame::set_err(::GameServer::ERROR_CODE value) {
+  assert(::GameServer::ERROR_CODE_IsValid(value));
   set_has_err();
   err_ = value;
   // @@protoc_insertion_point(field_set:GameServer.DestroyGame.err)
@@ -1073,7 +1146,7 @@ inline void DestroyGame::set_err(::ErrorCode::Code value) {
 
 // EnterGame
 
-// required .ErrorCode.Code err = 1;
+// required .GameServer.ERROR_CODE err = 1;
 inline bool EnterGame::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1087,12 +1160,12 @@ inline void EnterGame::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::ErrorCode::Code EnterGame::err() const {
+inline ::GameServer::ERROR_CODE EnterGame::err() const {
   // @@protoc_insertion_point(field_get:GameServer.EnterGame.err)
-  return static_cast< ::ErrorCode::Code >(err_);
+  return static_cast< ::GameServer::ERROR_CODE >(err_);
 }
-inline void EnterGame::set_err(::ErrorCode::Code value) {
-  assert(::ErrorCode::Code_IsValid(value));
+inline void EnterGame::set_err(::GameServer::ERROR_CODE value) {
+  assert(::GameServer::ERROR_CODE_IsValid(value));
   set_has_err();
   err_ = value;
   // @@protoc_insertion_point(field_set:GameServer.EnterGame.err)
@@ -1150,7 +1223,7 @@ inline void EnterGame::set_gameid(::google::protobuf::uint32 value) {
 
 // ExitGame
 
-// required .ErrorCode.Code err = 1;
+// required .GameServer.ERROR_CODE err = 1;
 inline bool ExitGame::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1164,12 +1237,12 @@ inline void ExitGame::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::ErrorCode::Code ExitGame::err() const {
+inline ::GameServer::ERROR_CODE ExitGame::err() const {
   // @@protoc_insertion_point(field_get:GameServer.ExitGame.err)
-  return static_cast< ::ErrorCode::Code >(err_);
+  return static_cast< ::GameServer::ERROR_CODE >(err_);
 }
-inline void ExitGame::set_err(::ErrorCode::Code value) {
-  assert(::ErrorCode::Code_IsValid(value));
+inline void ExitGame::set_err(::GameServer::ERROR_CODE value) {
+  assert(::GameServer::ERROR_CODE_IsValid(value));
   set_has_err();
   err_ = value;
   // @@protoc_insertion_point(field_set:GameServer.ExitGame.err)
@@ -1312,6 +1385,21 @@ inline void SendToPlayer::set_allocated_data(::std::string* data) {
 namespace google {
 namespace protobuf {
 
+template <> struct is_proto_enum< ::GameServer::VERSION_NUMBER> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::GameServer::VERSION_NUMBER>() {
+  return ::GameServer::VERSION_NUMBER_descriptor();
+}
+template <> struct is_proto_enum< ::GameServer::FLAGS_CODE> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::GameServer::FLAGS_CODE>() {
+  return ::GameServer::FLAGS_CODE_descriptor();
+}
+template <> struct is_proto_enum< ::GameServer::ERROR_CODE> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::GameServer::ERROR_CODE>() {
+  return ::GameServer::ERROR_CODE_descriptor();
+}
 template <> struct is_proto_enum< ::GameServer::RESPONSE_MSG> : ::google::protobuf::internal::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::GameServer::RESPONSE_MSG>() {

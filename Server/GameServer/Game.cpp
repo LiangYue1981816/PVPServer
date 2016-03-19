@@ -79,28 +79,28 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 	// 1. 参数安全检查
 	//
 	if (pPlayer == NULL) {
-		return ErrorCode::Code::ERR_PLAYER_INVALID;
+		return GameServer::ERROR_CODE::ERR_PLAYER_INVALID;
 	}
 
 	if (pPlayer->pGame != NULL) {
-		return ErrorCode::Code::ERR_PLAYER_FLAGS_INGAME;
+		return GameServer::ERROR_CODE::ERR_PLAYER_FLAGS_INGAME;
 	}
 
 	if (IsFull() == TRUE) {
-		return ErrorCode::Code::ERR_GAME_FULL;
+		return GameServer::ERROR_CODE::ERR_GAME_FULL;
 	}
 
 	if (IsEmpty() == FALSE && bCreater == TRUE) {
-		return ErrorCode::Code::ERR_GAME_USING;
+		return GameServer::ERROR_CODE::ERR_GAME_USING;
 	}
 
 	if (IsEmpty() == TRUE && bCreater == FALSE) {
-		return ErrorCode::Code::ERR_GAME_EMPTY;
+		return GameServer::ERROR_CODE::ERR_GAME_EMPTY;
 	}
 
 	if (password == NULL ||
 		strncmp(password, m_szPassword, sizeof(m_szPassword))) {
-		return ErrorCode::Code::ERR_GAME_PASSWORD;
+		return GameServer::ERROR_CODE::ERR_GAME_PASSWORD;
 	}
 
 	//
@@ -120,7 +120,7 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 	//
 	// 3. 设置玩家状态
 	//
-	pPlayer->EnableFlag(FlagsCode::Code::PLAYER_FLAGS_WAITING);
+	pPlayer->EnableFlag(GameServer::FLAGS_CODE::PLAYER_FLAGS_WAITING);
 
 	//
 	// 4. 记录玩家
@@ -134,7 +134,7 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 		m_dwHostGUID = pPlayer->guid;
 	}
 
-	return ErrorCode::Code::ERR_NONE;
+	return GameServer::ERROR_CODE::ERR_NONE;
 }
 
 //
@@ -146,11 +146,11 @@ int CGame::DelPlayer(CPlayer *pPlayer)
 	// 1. 参数安全检查
 	//
 	if (pPlayer == NULL) {
-		return ErrorCode::Code::ERR_PLAYER_INVALID;
+		return GameServer::ERROR_CODE::ERR_PLAYER_INVALID;
 	}
 
 	if (pPlayer->pGame != this) {
-		return ErrorCode::Code::ERR_PLAYER_FLAGS_NOT_INGAME;
+		return GameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_INGAME;
 	}
 
 	//
@@ -176,7 +176,7 @@ int CGame::DelPlayer(CPlayer *pPlayer)
 	//
 	// 3. 设置玩家状态
 	//
-	pPlayer->SetFlags(FlagsCode::Code::PLAYER_FLAGS_LOGIN);
+	pPlayer->SetFlags(GameServer::FLAGS_CODE::PLAYER_FLAGS_LOGIN);
 
 	//
 	// 4. 记录玩家
@@ -190,7 +190,7 @@ int CGame::DelPlayer(CPlayer *pPlayer)
 		m_dwHostGUID = pActivePlayer->guid;
 	}
 
-	return ErrorCode::Code::ERR_NONE;
+	return GameServer::ERROR_CODE::ERR_NONE;
 }
 
 //

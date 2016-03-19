@@ -11,19 +11,19 @@ public partial class ServerClient : NetClient
     {
         try
         {
-            Server.ExitGame responseExitGame = ProtoHelper.ToProto<Server.ExitGame>(buffer);
+            GameServer.ExitGame responseExitGame = ProtoHelper.ToProto<GameServer.ExitGame>(buffer);
 
             mErrorCode = responseExitGame.err;
 
-            if (mErrorCode == ErrorCode.Code.ERR_NONE)
+            if (mErrorCode == GameServer.ERROR_CODE.ERR_NONE)
             {
                 if (mGUID == responseExitGame.guid)
                 {
                     mGameID = 0xcccccccc;
                     mHostGUID = 0xcccccccc;
-                    DisableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
-                    DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
-                    DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
+                    DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
+                    DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
+                    DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_GAMING);
                 }
                 else
                 {

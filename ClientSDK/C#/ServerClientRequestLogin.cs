@@ -4,7 +4,7 @@ public partial class ServerClient : NetClient
 {
     public virtual void RequestLogin(uint guid)
     {
-        mRequestLogin.version = (int)VersionCode.Code.VERSION;
+        mRequestLogin.version = (int)GameServer.VERSION_NUMBER.VERSION;
         mRequestLogin.guid = guid;
         SendProto(Client.REQUEST_MSG.LOGIN, mRequestLogin);
     }
@@ -13,14 +13,14 @@ public partial class ServerClient : NetClient
     {
         try
         {
-            Server.Login responseLogin = ProtoHelper.ToProto<Server.Login>(buffer);
+            GameServer.Login responseLogin = ProtoHelper.ToProto<GameServer.Login>(buffer);
 
             mErrorCode = responseLogin.err;
 
-            if (mErrorCode == ErrorCode.Code.ERR_NONE)
+            if (mErrorCode == GameServer.ERROR_CODE.ERR_NONE)
             {
                 mGUID = responseLogin.guid;
-                mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_LOGIN;
+                mFlags = (uint)GameServer.FLAGS_CODE.PLAYER_FLAGS_LOGIN;
 
                 if (onResponseLogin != null)
                 {

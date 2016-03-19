@@ -1,7 +1,0 @@
-option optimize_for = SPEED;
-package GameServerVersion;
-
-enum Code
-{
-	VERSION = 0x00010000;
-}

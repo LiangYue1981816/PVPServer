@@ -47,6 +47,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* SendToPlayer_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   SendToPlayer_reflection_ = NULL;
+const ::google::protobuf::EnumDescriptor* VERSION_NUMBER_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* FLAGS_CODE_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* ERROR_CODE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* RESPONSE_MSG_descriptor_ = NULL;
 
 }  // namespace
@@ -199,7 +202,10 @@ void protobuf_AssignDesc_GameServer_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SendToPlayer));
-  RESPONSE_MSG_descriptor_ = file->enum_type(0);
+  VERSION_NUMBER_descriptor_ = file->enum_type(0);
+  FLAGS_CODE_descriptor_ = file->enum_type(1);
+  ERROR_CODE_descriptor_ = file->enum_type(2);
+  RESPONSE_MSG_descriptor_ = file->enum_type(3);
 }
 
 namespace {
@@ -261,23 +267,39 @@ void protobuf_AddDesc_GameServer_2eproto() {
   already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::ErrorCode::protobuf_AddDesc_Error_2eproto();
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\020GameServer.proto\022\nGameServer\032\013Error.pr"
-    "oto\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"\026\n\005Flags"
-    "\022\r\n\005flags\030\001 \002(\r\"3\n\005Login\022\034\n\003err\030\001 \002(\0162\017."
-    "ErrorCode.Code\022\014\n\004guid\030\002 \001(\r\"\024\n\004Host\022\014\n\004"
-    "guid\030\001 \002(\r\":\n\nCreateGame\022\034\n\003err\030\001 \002(\0162\017."
-    "ErrorCode.Code\022\016\n\006gameid\030\002 \001(\r\"+\n\013Destro"
-    "yGame\022\034\n\003err\030\001 \002(\0162\017.ErrorCode.Code\"G\n\tE"
-    "nterGame\022\034\n\003err\030\001 \002(\0162\017.ErrorCode.Code\022\014"
-    "\n\004guid\030\002 \001(\r\022\016\n\006gameid\030\003 \001(\r\"6\n\010ExitGame"
-    "\022\034\n\003err\030\001 \002(\0162\017.ErrorCode.Code\022\014\n\004guid\030\002"
-    " \001(\r\"*\n\014SendToPlayer\022\014\n\004size\030\001 \002(\005\022\014\n\004da"
-    "ta\030\002 \002(\014*\217\001\n\014RESPONSE_MSG\022\t\n\005HEART\020\000\022\t\n\005"
-    "FLAGS\020\001\022\t\n\005LOGIN\020\002\022\010\n\004HOST\020\003\022\017\n\013CREATE_G"
-    "AME\020\004\022\020\n\014DESTROY_GAME\020\005\022\016\n\nENTER_GAME\020\006\022"
-    "\r\n\tEXIT_GAME\020\007\022\022\n\016SEND_TO_PLAYER\020\010B\002H\001", 598);
+    "\n\020GameServer.proto\022\nGameServer\"\032\n\005Heart\022"
+    "\021\n\ttimestamp\030\001 \002(\005\"\026\n\005Flags\022\r\n\005flags\030\001 \002"
+    "(\r\":\n\005Login\022#\n\003err\030\001 \002(\0162\026.GameServer.ER"
+    "ROR_CODE\022\014\n\004guid\030\002 \001(\r\"\024\n\004Host\022\014\n\004guid\030\001"
+    " \002(\r\"A\n\nCreateGame\022#\n\003err\030\001 \002(\0162\026.GameSe"
+    "rver.ERROR_CODE\022\016\n\006gameid\030\002 \001(\r\"2\n\013Destr"
+    "oyGame\022#\n\003err\030\001 \002(\0162\026.GameServer.ERROR_C"
+    "ODE\"N\n\tEnterGame\022#\n\003err\030\001 \002(\0162\026.GameServ"
+    "er.ERROR_CODE\022\014\n\004guid\030\002 \001(\r\022\016\n\006gameid\030\003 "
+    "\001(\r\"=\n\010ExitGame\022#\n\003err\030\001 \002(\0162\026.GameServe"
+    "r.ERROR_CODE\022\014\n\004guid\030\002 \001(\r\"*\n\014SendToPlay"
+    "er\022\014\n\004size\030\001 \002(\005\022\014\n\004data\030\002 \002(\014*\037\n\016VERSIO"
+    "N_NUMBER\022\r\n\007VERSION\020\200\200\004*\206\001\n\nFLAGS_CODE\022\025"
+    "\n\021PLAYER_FLAGS_NONE\020\000\022\026\n\022PLAYER_FLAGS_LO"
+    "GIN\020\001\022\030\n\024PLAYER_FLAGS_WAITING\020\002\022\026\n\022PLAYE"
+    "R_FLAGS_READY\020\004\022\027\n\023PLAYER_FLAGS_GAMING\020\010"
+    "*\304\003\n\nERROR_CODE\022\014\n\010ERR_NONE\020\000\022\027\n\023ERR_VER"
+    "SION_INVALID\020\001\022\027\n\022ERR_PLAYER_INVALID\020\350\007\022"
+    "\032\n\025ERR_PLAYER_INVALID_ID\020\351\007\022\034\n\027ERR_PLAYE"
+    "R_INVALID_GUID\020\352\007\022\036\n\031ERR_PLAYER_FLAGS_NO"
+    "T_NONE\020\353\007\022\037\n\032ERR_PLAYER_FLAGS_NOT_LOGIN\020"
+    "\354\007\022 \n\033ERR_PLAYER_FLAGS_NOT_INGAME\020\355\007\022\034\n\027"
+    "ERR_PLAYER_FLAGS_INGAME\020\356\007\022\025\n\020ERR_GAME_I"
+    "NVALID\020\320\017\022\030\n\023ERR_GAME_INVALID_ID\020\321\017\022\023\n\016E"
+    "RR_GAME_USING\020\322\017\022\023\n\016ERR_GAME_EMPTY\020\323\017\022\022\n"
+    "\rERR_GAME_FULL\020\324\017\022\026\n\021ERR_GAME_PASSWORD\020\325"
+    "\017\022\024\n\017ERR_SERVER_FULL\020\270\027\022\036\n\031ERR_GAMEPLAY_"
+    "INVALID_MODE\020\240\037*\217\001\n\014RESPONSE_MSG\022\t\n\005HEAR"
+    "T\020\000\022\t\n\005FLAGS\020\001\022\t\n\005LOGIN\020\002\022\010\n\004HOST\020\003\022\017\n\013C"
+    "REATE_GAME\020\004\022\020\n\014DESTROY_GAME\020\005\022\016\n\nENTER_"
+    "GAME\020\006\022\r\n\tEXIT_GAME\020\007\022\022\n\016SEND_TO_PLAYER\020"
+    "\010B\002H\001", 1245);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "GameServer.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -307,6 +329,65 @@ struct StaticDescriptorInitializer_GameServer_2eproto {
     protobuf_AddDesc_GameServer_2eproto();
   }
 } static_descriptor_initializer_GameServer_2eproto_;
+const ::google::protobuf::EnumDescriptor* VERSION_NUMBER_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return VERSION_NUMBER_descriptor_;
+}
+bool VERSION_NUMBER_IsValid(int value) {
+  switch(value) {
+    case 65536:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* FLAGS_CODE_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return FLAGS_CODE_descriptor_;
+}
+bool FLAGS_CODE_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
+    case 4:
+    case 8:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* ERROR_CODE_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ERROR_CODE_descriptor_;
+}
+bool ERROR_CODE_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 1000:
+    case 1001:
+    case 1002:
+    case 1003:
+    case 1004:
+    case 1005:
+    case 1006:
+    case 2000:
+    case 2001:
+    case 2002:
+    case 2003:
+    case 2004:
+    case 2005:
+    case 3000:
+    case 4000:
+      return true;
+    default:
+      return false;
+  }
+}
+
 const ::google::protobuf::EnumDescriptor* RESPONSE_MSG_descriptor() {
   protobuf_AssignDescriptorsOnce();
   return RESPONSE_MSG_descriptor_;
@@ -866,15 +947,15 @@ bool Login::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .ErrorCode.Code err = 1;
+      // required .GameServer.ERROR_CODE err = 1;
       case 1: {
         if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::ErrorCode::Code_IsValid(value)) {
-            set_err(static_cast< ::ErrorCode::Code >(value));
+          if (::GameServer::ERROR_CODE_IsValid(value)) {
+            set_err(static_cast< ::GameServer::ERROR_CODE >(value));
           } else {
             mutable_unknown_fields()->AddVarint(1, value);
           }
@@ -925,7 +1006,7 @@ failure:
 void Login::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:GameServer.Login)
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   if (has_err()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->err(), output);
@@ -946,7 +1027,7 @@ void Login::SerializeWithCachedSizes(
 ::google::protobuf::uint8* Login::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:GameServer.Login)
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   if (has_err()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->err(), target);
@@ -969,7 +1050,7 @@ int Login::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .ErrorCode.Code err = 1;
+    // required .GameServer.ERROR_CODE err = 1;
     if (has_err()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->err());
@@ -1370,15 +1451,15 @@ bool CreateGame::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .ErrorCode.Code err = 1;
+      // required .GameServer.ERROR_CODE err = 1;
       case 1: {
         if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::ErrorCode::Code_IsValid(value)) {
-            set_err(static_cast< ::ErrorCode::Code >(value));
+          if (::GameServer::ERROR_CODE_IsValid(value)) {
+            set_err(static_cast< ::GameServer::ERROR_CODE >(value));
           } else {
             mutable_unknown_fields()->AddVarint(1, value);
           }
@@ -1429,7 +1510,7 @@ failure:
 void CreateGame::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:GameServer.CreateGame)
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   if (has_err()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->err(), output);
@@ -1450,7 +1531,7 @@ void CreateGame::SerializeWithCachedSizes(
 ::google::protobuf::uint8* CreateGame::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:GameServer.CreateGame)
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   if (has_err()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->err(), target);
@@ -1473,7 +1554,7 @@ int CreateGame::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .ErrorCode.Code err = 1;
+    // required .GameServer.ERROR_CODE err = 1;
     if (has_err()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->err());
@@ -1635,15 +1716,15 @@ bool DestroyGame::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .ErrorCode.Code err = 1;
+      // required .GameServer.ERROR_CODE err = 1;
       case 1: {
         if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::ErrorCode::Code_IsValid(value)) {
-            set_err(static_cast< ::ErrorCode::Code >(value));
+          if (::GameServer::ERROR_CODE_IsValid(value)) {
+            set_err(static_cast< ::GameServer::ERROR_CODE >(value));
           } else {
             mutable_unknown_fields()->AddVarint(1, value);
           }
@@ -1679,7 +1760,7 @@ failure:
 void DestroyGame::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:GameServer.DestroyGame)
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   if (has_err()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->err(), output);
@@ -1695,7 +1776,7 @@ void DestroyGame::SerializeWithCachedSizes(
 ::google::protobuf::uint8* DestroyGame::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:GameServer.DestroyGame)
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   if (has_err()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->err(), target);
@@ -1713,7 +1794,7 @@ int DestroyGame::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .ErrorCode.Code err = 1;
+    // required .GameServer.ERROR_CODE err = 1;
     if (has_err()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->err());
@@ -1882,15 +1963,15 @@ bool EnterGame::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .ErrorCode.Code err = 1;
+      // required .GameServer.ERROR_CODE err = 1;
       case 1: {
         if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::ErrorCode::Code_IsValid(value)) {
-            set_err(static_cast< ::ErrorCode::Code >(value));
+          if (::GameServer::ERROR_CODE_IsValid(value)) {
+            set_err(static_cast< ::GameServer::ERROR_CODE >(value));
           } else {
             mutable_unknown_fields()->AddVarint(1, value);
           }
@@ -1956,7 +2037,7 @@ failure:
 void EnterGame::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:GameServer.EnterGame)
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   if (has_err()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->err(), output);
@@ -1982,7 +2063,7 @@ void EnterGame::SerializeWithCachedSizes(
 ::google::protobuf::uint8* EnterGame::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:GameServer.EnterGame)
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   if (has_err()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->err(), target);
@@ -2010,7 +2091,7 @@ int EnterGame::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .ErrorCode.Code err = 1;
+    // required .GameServer.ERROR_CODE err = 1;
     if (has_err()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->err());
@@ -2199,15 +2280,15 @@ bool ExitGame::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required .ErrorCode.Code err = 1;
+      // required .GameServer.ERROR_CODE err = 1;
       case 1: {
         if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          if (::ErrorCode::Code_IsValid(value)) {
-            set_err(static_cast< ::ErrorCode::Code >(value));
+          if (::GameServer::ERROR_CODE_IsValid(value)) {
+            set_err(static_cast< ::GameServer::ERROR_CODE >(value));
           } else {
             mutable_unknown_fields()->AddVarint(1, value);
           }
@@ -2258,7 +2339,7 @@ failure:
 void ExitGame::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:GameServer.ExitGame)
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   if (has_err()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->err(), output);
@@ -2279,7 +2360,7 @@ void ExitGame::SerializeWithCachedSizes(
 ::google::protobuf::uint8* ExitGame::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:GameServer.ExitGame)
-  // required .ErrorCode.Code err = 1;
+  // required .GameServer.ERROR_CODE err = 1;
   if (has_err()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->err(), target);
@@ -2302,7 +2383,7 @@ int ExitGame::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required .ErrorCode.Code err = 1;
+    // required .GameServer.ERROR_CODE err = 1;
     if (has_err()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->err());

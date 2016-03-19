@@ -6,11 +6,8 @@
 #include <string>
 #include "IOCP.h"
 #include "Serializer.h"
-#include "Flags.pb.h"
-#include "Error.pb.h"
 #include "Client.pb.h"
-#include "Server.pb.h"
-#include "Version.pb.h"
+#include "GameServer.pb.h"
 
 
 //

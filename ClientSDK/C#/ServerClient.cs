@@ -19,13 +19,13 @@ public partial class ServerClient : NetClient
     public OnResponseExitGame onResponseExitGame = null;
     public OnResponseSendToPlayer onResponseSendToPlayer = null;
 
-    private ErrorCode.Code mErrorCode = ErrorCode.Code.ERR_NONE;
+    private GameServer.ERROR_CODE mErrorCode = GameServer.ERROR_CODE.ERR_NONE;
 
     private int mPing = 0;
     private uint mGUID = 0xffffffff;
     private uint mHostGUID = 0xcccccccc;
     private uint mGameID = 0xcccccccc;
-    private uint mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_NONE;
+    private uint mFlags = (uint)GameServer.FLAGS_CODE.PLAYER_FLAGS_NONE;
     private List<uint> mPlayers = new List<uint>();
 
     private Thread mThreadHeart = null;
@@ -62,7 +62,7 @@ public partial class ServerClient : NetClient
         mGUID = 0xffffffff;
         mHostGUID = 0xcccccccc;
         mGameID = 0xcccccccc;
-        mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_NONE;
+        mFlags = (uint)GameServer.FLAGS_CODE.PLAYER_FLAGS_NONE;
 
         if (base.Disconnect())
         {
@@ -75,7 +75,7 @@ public partial class ServerClient : NetClient
         return false;
     }
 
-    public ErrorCode.Code GetLastError()
+    public GameServer.ERROR_CODE GetLastError()
     {
         return mErrorCode;
     }
@@ -107,35 +107,35 @@ public partial class ServerClient : NetClient
 
     public bool IsLogin()
     {
-        return IsEnable(FlagsCode.Code.PLAYER_FLAGS_LOGIN);
+        return IsEnable(GameServer.FLAGS_CODE.PLAYER_FLAGS_LOGIN);
     }
 
     public bool IsWaiting()
     {
-        return IsEnable(FlagsCode.Code.PLAYER_FLAGS_WAITING);
+        return IsEnable(GameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
     }
 
     public bool IsReady()
     {
-        return IsEnable(FlagsCode.Code.PLAYER_FLAGS_READY);
+        return IsEnable(GameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
     }
 
     public bool IsGaming()
     {
-        return IsEnable(FlagsCode.Code.PLAYER_FLAGS_GAMING);
+        return IsEnable(GameServer.FLAGS_CODE.PLAYER_FLAGS_GAMING);
     }
 
-    protected bool IsEnable(FlagsCode.Code code)
+    protected bool IsEnable(GameServer.FLAGS_CODE code)
     {
         return (mFlags & ((uint)code)) != 0 ? true : false;
     }
 
-    protected void EnableFlag(FlagsCode.Code code)
+    protected void EnableFlag(GameServer.FLAGS_CODE code)
     {
         mFlags = mFlags | ((uint)code);
     }
 
-    protected void DisableFlag(FlagsCode.Code code)
+    protected void DisableFlag(GameServer.FLAGS_CODE code)
     {
         mFlags = mFlags & ~((uint)code);
     }

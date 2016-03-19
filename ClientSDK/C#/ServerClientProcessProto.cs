@@ -4,39 +4,39 @@
     {
         switch (msg)
         {
-            case (short)Server.RESPONSE_MSG.HEART:
+            case (short)GameServer.RESPONSE_MSG.HEART:
                 ResponseHeart(buffer);
                 break;
 
-            case (short)Server.RESPONSE_MSG.FLAGS:
+            case (short)GameServer.RESPONSE_MSG.FLAGS:
                 ResponseFlags(buffer);
                 break;
 
-            case (short)Server.RESPONSE_MSG.LOGIN:
+            case (short)GameServer.RESPONSE_MSG.LOGIN:
                 ResponseLogin(buffer);
                 break;
 
-            case (short)Server.RESPONSE_MSG.HOST:
+            case (short)GameServer.RESPONSE_MSG.HOST:
                 ResponseHost(buffer);
                 break;
 
-            case (short)Server.RESPONSE_MSG.CREATE_GAME:
+            case (short)GameServer.RESPONSE_MSG.CREATE_GAME:
                 ResponseCreateGame(buffer);
                 break;
 
-            case (short)Server.RESPONSE_MSG.DESTROY_GAME:
+            case (short)GameServer.RESPONSE_MSG.DESTROY_GAME:
                 ResponseDestroyGame(buffer);
                 break;
 
-            case (short)Server.RESPONSE_MSG.ENTER_GAME:
+            case (short)GameServer.RESPONSE_MSG.ENTER_GAME:
                 ResponseEnterGame(buffer);
                 break;
 
-            case (short)Server.RESPONSE_MSG.EXIT_GAME:
+            case (short)GameServer.RESPONSE_MSG.EXIT_GAME:
                 ResponseExitGame(buffer);
                 break;
 
-            case (short)Server.RESPONSE_MSG.SEND_TO_PLAYER:
+            case (short)GameServer.RESPONSE_MSG.SEND_TO_PLAYER:
                 ResponseSendToPlayer(buffer);
                 break;
         }

@@ -1,7 +1,45 @@
-import "Error.proto";
-
 option optimize_for = SPEED;
 package GameServer;
+
+enum VERSION_NUMBER
+{
+	VERSION = 0x00010000;
+}
+
+enum FLAGS_CODE
+{
+	PLAYER_FLAGS_NONE = 0x00000000;
+	PLAYER_FLAGS_LOGIN = 0x00000001;
+	PLAYER_FLAGS_WAITING = 0x00000002;
+	PLAYER_FLAGS_READY = 0x00000004;
+	PLAYER_FLAGS_GAMING = 0x00000008;
+}
+
+enum ERROR_CODE
+{
+	ERR_NONE = 0;
+
+	ERR_VERSION_INVALID = 1;
+
+	ERR_PLAYER_INVALID = 1000;
+	ERR_PLAYER_INVALID_ID = 1001;
+	ERR_PLAYER_INVALID_GUID = 1002;
+	ERR_PLAYER_FLAGS_NOT_NONE = 1003;
+	ERR_PLAYER_FLAGS_NOT_LOGIN = 1004;
+	ERR_PLAYER_FLAGS_NOT_INGAME = 1005;
+	ERR_PLAYER_FLAGS_INGAME = 1006;
+
+	ERR_GAME_INVALID = 2000;
+	ERR_GAME_INVALID_ID = 2001;
+	ERR_GAME_USING = 2002;
+	ERR_GAME_EMPTY = 2003;
+	ERR_GAME_FULL = 2004;
+	ERR_GAME_PASSWORD = 2005;
+
+	ERR_SERVER_FULL = 3000;
+
+	ERR_GAMEPLAY_INVALID_MODE = 4000;
+}
 
 enum RESPONSE_MSG
 {
@@ -28,7 +66,7 @@ message Flags
 
 message Login
 {
-	required ErrorCode.Code err = 1;
+	required ERROR_CODE err = 1;
 	optional uint32 guid = 2;
 }
 
@@ -39,25 +77,25 @@ message Host
 
 message CreateGame
 {
-	required ErrorCode.Code err = 1;
+	required ERROR_CODE err = 1;
 	optional uint32 gameid = 2;
 }
 
 message DestroyGame
 {
-	required ErrorCode.Code err = 1;
+	required ERROR_CODE err = 1;
 }
 
 message EnterGame
 {
-	required ErrorCode.Code err = 1;
+	required ERROR_CODE err = 1;
 	optional uint32 guid = 2;
 	optional uint32 gameid = 3;
 }
 
 message ExitGame
 {
-	required ErrorCode.Code err = 1;
+	required ERROR_CODE err = 1;
 	optional uint32 guid = 2;
 }
 

@@ -11,17 +11,17 @@ public partial class ServerClient : NetClient
     {
         try
         {
-            Server.DestroyGame responseDestroyGame = ProtoHelper.ToProto<Server.DestroyGame>(buffer);
+            GameServer.DestroyGame responseDestroyGame = ProtoHelper.ToProto<GameServer.DestroyGame>(buffer);
 
             mErrorCode = responseDestroyGame.err;
 
-            if (mErrorCode == ErrorCode.Code.ERR_NONE)
+            if (mErrorCode == GameServer.ERROR_CODE.ERR_NONE)
             {
                 mGameID = 0xcccccccc;
                 mHostGUID = 0xcccccccc;
-                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
-                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
-                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
+                DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
+                DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
+                DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_GAMING);
 
                 if (onResponseDestroyGame != null)
                 {

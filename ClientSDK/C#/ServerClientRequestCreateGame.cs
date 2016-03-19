@@ -15,16 +15,16 @@ public partial class ServerClient : NetClient
     {
         try
         {
-            Server.CreateGame responseCreateGame = ProtoHelper.ToProto<Server.CreateGame>(buffer);
+            GameServer.CreateGame responseCreateGame = ProtoHelper.ToProto<GameServer.CreateGame>(buffer);
 
             mErrorCode = responseCreateGame.err;
 
-            if (mErrorCode == ErrorCode.Code.ERR_NONE)
+            if (mErrorCode == GameServer.ERROR_CODE.ERR_NONE)
             {
                 mGameID = responseCreateGame.gameid;
-                EnableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
-                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
-                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
+                EnableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
+                DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
+                DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_GAMING);
 
                 if (onResponseCreateGame != null)
                 {

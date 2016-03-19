@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 // Generated from: GameServer.proto
-// Note: requires additional types generated from: Error.proto
 namespace GameServer
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Heart")]
@@ -50,9 +49,9 @@ namespace GameServer
   {
     public Login() {}
     
-    private ErrorCode.Code _err;
+    private GameServer.ERROR_CODE _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public ErrorCode.Code err
+    public GameServer.ERROR_CODE err
     {
       get { return _err; }
       set { _err = value; }
@@ -92,9 +91,9 @@ namespace GameServer
   {
     public CreateGame() {}
     
-    private ErrorCode.Code _err;
+    private GameServer.ERROR_CODE _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public ErrorCode.Code err
+    public GameServer.ERROR_CODE err
     {
       get { return _err; }
       set { _err = value; }
@@ -117,9 +116,9 @@ namespace GameServer
   {
     public DestroyGame() {}
     
-    private ErrorCode.Code _err;
+    private GameServer.ERROR_CODE _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public ErrorCode.Code err
+    public GameServer.ERROR_CODE err
     {
       get { return _err; }
       set { _err = value; }
@@ -134,9 +133,9 @@ namespace GameServer
   {
     public EnterGame() {}
     
-    private ErrorCode.Code _err;
+    private GameServer.ERROR_CODE _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public ErrorCode.Code err
+    public GameServer.ERROR_CODE err
     {
       get { return _err; }
       set { _err = value; }
@@ -167,9 +166,9 @@ namespace GameServer
   {
     public ExitGame() {}
     
-    private ErrorCode.Code _err;
+    private GameServer.ERROR_CODE _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public ErrorCode.Code err
+    public GameServer.ERROR_CODE err
     {
       get { return _err; }
       set { _err = value; }
@@ -210,6 +209,90 @@ namespace GameServer
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
+  
+    [global::ProtoBuf.ProtoContract(Name=@"VERSION_NUMBER")]
+    public enum VERSION_NUMBER
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"VERSION", Value=65536)]
+      VERSION = 65536
+    }
+  
+    [global::ProtoBuf.ProtoContract(Name=@"FLAGS_CODE")]
+    public enum FLAGS_CODE
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_NONE", Value=0)]
+      PLAYER_FLAGS_NONE = 0,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_LOGIN", Value=1)]
+      PLAYER_FLAGS_LOGIN = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_WAITING", Value=2)]
+      PLAYER_FLAGS_WAITING = 2,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_READY", Value=4)]
+      PLAYER_FLAGS_READY = 4,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_GAMING", Value=8)]
+      PLAYER_FLAGS_GAMING = 8
+    }
+  
+    [global::ProtoBuf.ProtoContract(Name=@"ERROR_CODE")]
+    public enum ERROR_CODE
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_NONE", Value=0)]
+      ERR_NONE = 0,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_VERSION_INVALID", Value=1)]
+      ERR_VERSION_INVALID = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_INVALID", Value=1000)]
+      ERR_PLAYER_INVALID = 1000,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_INVALID_ID", Value=1001)]
+      ERR_PLAYER_INVALID_ID = 1001,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_INVALID_GUID", Value=1002)]
+      ERR_PLAYER_INVALID_GUID = 1002,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_NOT_NONE", Value=1003)]
+      ERR_PLAYER_FLAGS_NOT_NONE = 1003,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_NOT_LOGIN", Value=1004)]
+      ERR_PLAYER_FLAGS_NOT_LOGIN = 1004,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_NOT_INGAME", Value=1005)]
+      ERR_PLAYER_FLAGS_NOT_INGAME = 1005,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_INGAME", Value=1006)]
+      ERR_PLAYER_FLAGS_INGAME = 1006,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_GAME_INVALID", Value=2000)]
+      ERR_GAME_INVALID = 2000,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_GAME_INVALID_ID", Value=2001)]
+      ERR_GAME_INVALID_ID = 2001,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_GAME_USING", Value=2002)]
+      ERR_GAME_USING = 2002,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_GAME_EMPTY", Value=2003)]
+      ERR_GAME_EMPTY = 2003,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_GAME_FULL", Value=2004)]
+      ERR_GAME_FULL = 2004,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_GAME_PASSWORD", Value=2005)]
+      ERR_GAME_PASSWORD = 2005,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_SERVER_FULL", Value=3000)]
+      ERR_SERVER_FULL = 3000,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_GAMEPLAY_INVALID_MODE", Value=4000)]
+      ERR_GAMEPLAY_INVALID_MODE = 4000
+    }
   
     [global::ProtoBuf.ProtoContract(Name=@"RESPONSE_MSG")]
     public enum RESPONSE_MSG

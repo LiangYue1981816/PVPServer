@@ -12,7 +12,7 @@ public partial class ServerClient : NetClient
     {
         try
         {
-            Server.Heart responseHeart = ProtoHelper.ToProto<Server.Heart>(buffer);
+            GameServer.Heart responseHeart = ProtoHelper.ToProto<GameServer.Heart>(buffer);
 
             int timestamp = (int)(DateTime.Now.Ticks / 10000);
             mPing = timestamp - responseHeart.timestamp;

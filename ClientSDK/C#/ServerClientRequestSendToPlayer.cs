@@ -22,7 +22,7 @@ public partial class ServerClient : NetClient
     {
         try
         {
-            Server.SendToPlayer responseSendToPlayer = ProtoHelper.ToProto<Server.SendToPlayer>(buffer);
+            GameServer.SendToPlayer responseSendToPlayer = ProtoHelper.ToProto<GameServer.SendToPlayer>(buffer);
 
             if (onResponseSendToPlayer != null)
             {

@@ -13,18 +13,18 @@ public partial class ServerClient : NetClient
     {
         try
         {
-            Server.EnterGame responseEnterGame = ProtoHelper.ToProto<Server.EnterGame>(buffer);
+            GameServer.EnterGame responseEnterGame = ProtoHelper.ToProto<GameServer.EnterGame>(buffer);
 
             mErrorCode = responseEnterGame.err;
 
-            if (mErrorCode == ErrorCode.Code.ERR_NONE)
+            if (mErrorCode == GameServer.ERROR_CODE.ERR_NONE)
             {
                 if (mGUID == responseEnterGame.guid)
                 {
                     mGameID = responseEnterGame.gameid;
-                    EnableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
-                    DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
-                    DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
+                    EnableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
+                    DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
+                    DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_GAMING);
                 }
                 else
                 {
