@@ -123,18 +123,19 @@ class Program
                     //
                     for (int indexGroup = 0; indexGroup < mClients.Length; indexGroup++)
                     {
-                        uint gameid = 0xffffffff;
+                        uint gameid = 0xcccccccc;
 
                         for (int index = 0; index < mClients[indexGroup].Length; index++)
                         {
-                            if (mClients[indexGroup][index].IsWaiting())
+                            if (mClients[indexGroup][index].IsWaiting() && 
+                                mClients[indexGroup][index].GetGameID() != 0xcccccccc)
                             {
                                 gameid = mClients[indexGroup][index].GetGameID();
                                 break;
                             }
                         }
 
-                        if (gameid == 0xffffffff)
+                        if (gameid == 0xcccccccc)
                         {
                             mClients[indexGroup][0].RequestCreateGame("", 1, 2, 10);
                             bCreateGame = false;
