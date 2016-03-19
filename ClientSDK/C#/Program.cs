@@ -119,36 +119,43 @@ class Program
                     }
 
                     //
-                    // Create game
+                    // Create/Enter game
                     //
                     for (int indexGroup = 0; indexGroup < mClients.Length; indexGroup++)
                     {
-                        if (mClients[indexGroup][0].IsWaiting() == false)
+                        uint gameid = 0xffffffff;
+
+                        for (int index = 0; index < mClients[indexGroup].Length; index++)
                         {
-                            mClients[indexGroup][0].RequestCreateGame("", 1, 2, 11);
+                            if (mClients[indexGroup][index].IsWaiting())
+                            {
+                                gameid = mClients[indexGroup][index].GetGameID();
+                                break;
+                            }
+                        }
+
+                        if (gameid == 0xffffffff)
+                        {
+                            mClients[indexGroup][0].RequestCreateGame("", 1, 2, 10);
                             bCreateGame = false;
+                        }
+                        else
+                        {
+                            for (int index = 0; index < mClients[indexGroup].Length; index++)
+                            {
+                                if (mClients[indexGroup][index].IsWaiting() == false)
+                                {
+                                    Thread.Sleep(1);
+                                    mClients[indexGroup][index].RequestEnterGame("", gameid);
+                                    bEnterGame = false;
+                                }
+                            }
                         }
                     }
                     if (bCreateGame == false)
                     {
                         Console.WriteLine("CreateGame...");
                         continue;
-                    }
-
-                    //
-                    // Enter game
-                    //
-                    for (int indexGroup = 0; indexGroup < mClients.Length; indexGroup++)
-                    {
-                        for (int index = 1; index < mClients[indexGroup].Length; index++)
-                        {
-                            if (mClients[indexGroup][index].IsWaiting() == false)
-                            {
-                                Thread.Sleep(1);
-                                mClients[indexGroup][index].RequestEnterGame("", mClients[indexGroup][0].GetGameID());
-                                bEnterGame = false;
-                            }
-                        }
                     }
                     if (bEnterGame == false)
                     {
