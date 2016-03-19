@@ -16,6 +16,12 @@
     <Filter Include="Proto">
       <UniqueIdentifier>{bcb66b3d-8940-4026-b49a-5e54ee420e20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GateServer\Header Files">
+      <UniqueIdentifier>{49527e13-9b87-4edd-92df-d4570dd2d5e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GateServer\Source Files">
+      <UniqueIdentifier>{1410858c-1725-4ea3-aba2-73bd9a76d1fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\CacheBuffer.h">
@@ -32,6 +38,9 @@
     </ClInclude>
     <ClInclude Include="..\Common\Serializer.h">
       <Filter>Common\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GateServer.h">
+      <Filter>GateServer\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -50,5 +59,9 @@
     <ClCompile Include="..\Common\Serializer.cpp">
       <Filter>Common\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GateServer.cpp">
+      <Filter>GateServer\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
 </Project>

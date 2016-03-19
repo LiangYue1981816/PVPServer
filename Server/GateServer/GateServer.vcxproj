@@ -162,6 +162,7 @@
     <ClInclude Include="..\Common\Event.h" />
     <ClInclude Include="..\Common\IOCP.h" />
     <ClInclude Include="..\Common\Serializer.h" />
+    <ClInclude Include="GateServer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\CacheBuffer.cpp" />
@@ -169,6 +170,8 @@
     <ClCompile Include="..\Common\Event.cpp" />
     <ClCompile Include="..\Common\IOCP.cpp" />
     <ClCompile Include="..\Common\Serializer.cpp" />
+    <ClCompile Include="GateServer.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
