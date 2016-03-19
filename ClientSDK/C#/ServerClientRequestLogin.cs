@@ -20,10 +20,7 @@ public partial class ServerClient : NetClient
             if (mErrorCode == ErrorCode.Code.ERR_NONE)
             {
                 mGUID = responseLogin.guid;
-                EnableFlag(FlagsCode.Code.PLAYER_FLAGS_LOGIN);
-                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_WAITING);
-                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_READY);
-                DisableFlag(FlagsCode.Code.PLAYER_FLAGS_GAMING);
+                mFlags = (uint)FlagsCode.Code.PLAYER_FLAGS_LOGIN;
 
                 if (onResponseLogin != null)
                 {
