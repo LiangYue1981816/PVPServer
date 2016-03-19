@@ -1,5 +1,5 @@
 option optimize_for = SPEED;
-package VersionCode;
+package GameServerVersion;
 
 enum Code
 {

@@ -7,8 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from: Version.proto
-namespace VersionCode
+// Generated from: GameServerVersion.proto
+namespace GameServerVersion
 {
     [global::ProtoBuf.ProtoContract(Name=@"Code")]
     public enum Code

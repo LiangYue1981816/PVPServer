@@ -7,9 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from: Server.proto
+// Generated from: GameServer.proto
 // Note: requires additional types generated from: Error.proto
-namespace Server
+namespace GameServer
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Heart")]
   public partial class Heart : global::ProtoBuf.IExtensible

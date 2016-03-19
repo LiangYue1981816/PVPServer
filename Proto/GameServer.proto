@@ -1,7 +1,7 @@
 import "Error.proto";
 
 option optimize_for = SPEED;
-package Server;
+package GameServer;
 
 enum RESPONSE_MSG
 {
