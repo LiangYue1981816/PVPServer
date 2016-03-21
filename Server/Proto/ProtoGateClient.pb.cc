@@ -16,7 +16,7 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 
-namespace GateClient {
+namespace ProtoGateClient {
 
 namespace {
 
@@ -101,10 +101,10 @@ void protobuf_AddDesc_ProtoGateClient_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\025ProtoGateClient.proto\022\nGateClient\"\032\n\005H"
-    "eart\022\021\n\ttimestamp\030\001 \002(\005\"\020\n\016GameServerLis"
-    "t*.\n\013REQUEST_MSG\022\t\n\005HEART\020\000\022\024\n\020GAME_SERV"
-    "ER_LIST\020\001B\002H\001", 133);
+    "\n\025ProtoGateClient.proto\022\017ProtoGateClient"
+    "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"\020\n\016GameServ"
+    "erList*.\n\013REQUEST_MSG\022\t\n\005HEART\020\000\022\024\n\020GAME"
+    "_SERVER_LIST\020\001B\002H\001", 138);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGateClient.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -144,7 +144,7 @@ const int Heart::kTimestampFieldNumber;
 Heart::Heart()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:GateClient.Heart)
+  // @@protoc_insertion_point(constructor:ProtoGateClient.Heart)
 }
 
 void Heart::InitAsDefaultInstance() {
@@ -154,7 +154,7 @@ Heart::Heart(const Heart& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:GateClient.Heart)
+  // @@protoc_insertion_point(copy_constructor:ProtoGateClient.Heart)
 }
 
 void Heart::SharedCtor() {
@@ -164,7 +164,7 @@ void Heart::SharedCtor() {
 }
 
 Heart::~Heart() {
-  // @@protoc_insertion_point(destructor:GateClient.Heart)
+  // @@protoc_insertion_point(destructor:ProtoGateClient.Heart)
   SharedDtor();
 }
 
@@ -204,7 +204,7 @@ bool Heart::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:GateClient.Heart)
+  // @@protoc_insertion_point(parse_start:ProtoGateClient.Heart)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -238,17 +238,17 @@ bool Heart::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:GateClient.Heart)
+  // @@protoc_insertion_point(parse_success:ProtoGateClient.Heart)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:GateClient.Heart)
+  // @@protoc_insertion_point(parse_failure:ProtoGateClient.Heart)
   return false;
 #undef DO_
 }
 
 void Heart::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:GateClient.Heart)
+  // @@protoc_insertion_point(serialize_start:ProtoGateClient.Heart)
   // required int32 timestamp = 1;
   if (has_timestamp()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->timestamp(), output);
@@ -258,12 +258,12 @@ void Heart::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:GateClient.Heart)
+  // @@protoc_insertion_point(serialize_end:ProtoGateClient.Heart)
 }
 
 ::google::protobuf::uint8* Heart::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:GateClient.Heart)
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGateClient.Heart)
   // required int32 timestamp = 1;
   if (has_timestamp()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->timestamp(), target);
@@ -273,7 +273,7 @@ void Heart::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:GateClient.Heart)
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGateClient.Heart)
   return target;
 }
 
@@ -366,7 +366,7 @@ void Heart::Swap(Heart* other) {
 GameServerList::GameServerList()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:GateClient.GameServerList)
+  // @@protoc_insertion_point(constructor:ProtoGateClient.GameServerList)
 }
 
 void GameServerList::InitAsDefaultInstance() {
@@ -376,7 +376,7 @@ GameServerList::GameServerList(const GameServerList& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:GateClient.GameServerList)
+  // @@protoc_insertion_point(copy_constructor:ProtoGateClient.GameServerList)
 }
 
 void GameServerList::SharedCtor() {
@@ -385,7 +385,7 @@ void GameServerList::SharedCtor() {
 }
 
 GameServerList::~GameServerList() {
-  // @@protoc_insertion_point(destructor:GateClient.GameServerList)
+  // @@protoc_insertion_point(destructor:ProtoGateClient.GameServerList)
   SharedDtor();
 }
 
@@ -424,7 +424,7 @@ bool GameServerList::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:GateClient.GameServerList)
+  // @@protoc_insertion_point(parse_start:ProtoGateClient.GameServerList)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -439,32 +439,32 @@ bool GameServerList::MergePartialFromCodedStream(
           input, tag, mutable_unknown_fields()));
   }
 success:
-  // @@protoc_insertion_point(parse_success:GateClient.GameServerList)
+  // @@protoc_insertion_point(parse_success:ProtoGateClient.GameServerList)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:GateClient.GameServerList)
+  // @@protoc_insertion_point(parse_failure:ProtoGateClient.GameServerList)
   return false;
 #undef DO_
 }
 
 void GameServerList::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:GateClient.GameServerList)
+  // @@protoc_insertion_point(serialize_start:ProtoGateClient.GameServerList)
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:GateClient.GameServerList)
+  // @@protoc_insertion_point(serialize_end:ProtoGateClient.GameServerList)
 }
 
 ::google::protobuf::uint8* GameServerList::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:GateClient.GameServerList)
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGateClient.GameServerList)
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:GateClient.GameServerList)
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGateClient.GameServerList)
   return target;
 }
 
@@ -534,6 +534,6 @@ void GameServerList::Swap(GameServerList* other) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace GateClient
+}  // namespace ProtoGateClient
 
 // @@protoc_insertion_point(global_scope)

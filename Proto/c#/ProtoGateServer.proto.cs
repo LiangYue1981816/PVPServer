@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: ProtoGateServer.proto
-namespace GateServer
+namespace ProtoGateServer
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Heart")]
   public partial class Heart : global::ProtoBuf.IExtensible
@@ -32,9 +32,9 @@ namespace GateServer
   {
     public GameServerList() {}
     
-    private readonly global::System.Collections.Generic.List<GateServer.GameServerList.GameServer> _servers = new global::System.Collections.Generic.List<GateServer.GameServerList.GameServer>();
+    private readonly global::System.Collections.Generic.List<ProtoGateServer.GameServerList.GameServer> _servers = new global::System.Collections.Generic.List<ProtoGateServer.GameServerList.GameServer>();
     [global::ProtoBuf.ProtoMember(1, Name=@"servers", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<GateServer.GameServerList.GameServer> servers
+    public global::System.Collections.Generic.List<ProtoGateServer.GameServerList.GameServer> servers
     {
       get { return _servers; }
     }
@@ -58,9 +58,9 @@ namespace GateServer
       get { return _port; }
       set { _port = value; }
     }
-    private readonly global::System.Collections.Generic.List<GateServer.GameServerList.GameServer.Game> _games = new global::System.Collections.Generic.List<GateServer.GameServerList.GameServer.Game>();
+    private readonly global::System.Collections.Generic.List<ProtoGateServer.GameServerList.GameServer.Game> _games = new global::System.Collections.Generic.List<ProtoGateServer.GameServerList.GameServer.Game>();
     [global::ProtoBuf.ProtoMember(3, Name=@"games", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<GateServer.GameServerList.GameServer.Game> games
+    public global::System.Collections.Generic.List<ProtoGateServer.GameServerList.GameServer.Game> games
     {
       get { return _games; }
     }

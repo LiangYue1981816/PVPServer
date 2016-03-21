@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: ProtoGameClient.proto
-namespace GameClient
+namespace ProtoGameClient
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Heart")]
   public partial class Heart : global::ProtoBuf.IExtensible

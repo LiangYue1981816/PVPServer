@@ -1,5 +1,5 @@
 option optimize_for = SPEED;
-package GateClient;
+package ProtoGateClient;
 
 enum REQUEST_MSG
 {

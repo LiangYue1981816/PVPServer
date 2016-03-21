@@ -27,7 +27,7 @@
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
-namespace GameServer {
+namespace ProtoGameServer {
 
 // Internal implementation detail -- do not call these.
 void  protobuf_AddDesc_ProtoGameServer_2eproto();
@@ -206,7 +206,7 @@ class Heart : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 timestamp() const;
   inline void set_timestamp(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:GameServer.Heart)
+  // @@protoc_insertion_point(class_scope:ProtoGameServer.Heart)
  private:
   inline void set_has_timestamp();
   inline void clear_has_timestamp();
@@ -285,7 +285,7 @@ class Flags : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 flags() const;
   inline void set_flags(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:GameServer.Flags)
+  // @@protoc_insertion_point(class_scope:ProtoGameServer.Flags)
  private:
   inline void set_has_flags();
   inline void clear_has_flags();
@@ -357,12 +357,12 @@ class Login : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required .GameServer.ERROR_CODE err = 1;
+  // required .ProtoGameServer.ERROR_CODE err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::GameServer::ERROR_CODE err() const;
-  inline void set_err(::GameServer::ERROR_CODE value);
+  inline ::ProtoGameServer::ERROR_CODE err() const;
+  inline void set_err(::ProtoGameServer::ERROR_CODE value);
 
   // optional uint32 guid = 2;
   inline bool has_guid() const;
@@ -371,7 +371,7 @@ class Login : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 guid() const;
   inline void set_guid(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:GameServer.Login)
+  // @@protoc_insertion_point(class_scope:ProtoGameServer.Login)
  private:
   inline void set_has_err();
   inline void clear_has_err();
@@ -453,7 +453,7 @@ class Host : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 guid() const;
   inline void set_guid(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:GameServer.Host)
+  // @@protoc_insertion_point(class_scope:ProtoGameServer.Host)
  private:
   inline void set_has_guid();
   inline void clear_has_guid();
@@ -525,12 +525,12 @@ class CreateGame : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required .GameServer.ERROR_CODE err = 1;
+  // required .ProtoGameServer.ERROR_CODE err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::GameServer::ERROR_CODE err() const;
-  inline void set_err(::GameServer::ERROR_CODE value);
+  inline ::ProtoGameServer::ERROR_CODE err() const;
+  inline void set_err(::ProtoGameServer::ERROR_CODE value);
 
   // optional uint32 gameid = 2;
   inline bool has_gameid() const;
@@ -539,7 +539,7 @@ class CreateGame : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 gameid() const;
   inline void set_gameid(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:GameServer.CreateGame)
+  // @@protoc_insertion_point(class_scope:ProtoGameServer.CreateGame)
  private:
   inline void set_has_err();
   inline void clear_has_err();
@@ -614,14 +614,14 @@ class DestroyGame : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required .GameServer.ERROR_CODE err = 1;
+  // required .ProtoGameServer.ERROR_CODE err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::GameServer::ERROR_CODE err() const;
-  inline void set_err(::GameServer::ERROR_CODE value);
+  inline ::ProtoGameServer::ERROR_CODE err() const;
+  inline void set_err(::ProtoGameServer::ERROR_CODE value);
 
-  // @@protoc_insertion_point(class_scope:GameServer.DestroyGame)
+  // @@protoc_insertion_point(class_scope:ProtoGameServer.DestroyGame)
  private:
   inline void set_has_err();
   inline void clear_has_err();
@@ -693,12 +693,12 @@ class EnterGame : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required .GameServer.ERROR_CODE err = 1;
+  // required .ProtoGameServer.ERROR_CODE err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::GameServer::ERROR_CODE err() const;
-  inline void set_err(::GameServer::ERROR_CODE value);
+  inline ::ProtoGameServer::ERROR_CODE err() const;
+  inline void set_err(::ProtoGameServer::ERROR_CODE value);
 
   // optional uint32 guid = 2;
   inline bool has_guid() const;
@@ -714,7 +714,7 @@ class EnterGame : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 gameid() const;
   inline void set_gameid(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:GameServer.EnterGame)
+  // @@protoc_insertion_point(class_scope:ProtoGameServer.EnterGame)
  private:
   inline void set_has_err();
   inline void clear_has_err();
@@ -792,12 +792,12 @@ class ExitGame : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required .GameServer.ERROR_CODE err = 1;
+  // required .ProtoGameServer.ERROR_CODE err = 1;
   inline bool has_err() const;
   inline void clear_err();
   static const int kErrFieldNumber = 1;
-  inline ::GameServer::ERROR_CODE err() const;
-  inline void set_err(::GameServer::ERROR_CODE value);
+  inline ::ProtoGameServer::ERROR_CODE err() const;
+  inline void set_err(::ProtoGameServer::ERROR_CODE value);
 
   // optional uint32 guid = 2;
   inline bool has_guid() const;
@@ -806,7 +806,7 @@ class ExitGame : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 guid() const;
   inline void set_guid(::google::protobuf::uint32 value);
 
-  // @@protoc_insertion_point(class_scope:GameServer.ExitGame)
+  // @@protoc_insertion_point(class_scope:ProtoGameServer.ExitGame)
  private:
   inline void set_has_err();
   inline void clear_has_err();
@@ -900,7 +900,7 @@ class SendToPlayer : public ::google::protobuf::Message {
   inline ::std::string* release_data();
   inline void set_allocated_data(::std::string* data);
 
-  // @@protoc_insertion_point(class_scope:GameServer.SendToPlayer)
+  // @@protoc_insertion_point(class_scope:ProtoGameServer.SendToPlayer)
  private:
   inline void set_has_size();
   inline void clear_has_size();
@@ -942,13 +942,13 @@ inline void Heart::clear_timestamp() {
   clear_has_timestamp();
 }
 inline ::google::protobuf::int32 Heart::timestamp() const {
-  // @@protoc_insertion_point(field_get:GameServer.Heart.timestamp)
+  // @@protoc_insertion_point(field_get:ProtoGameServer.Heart.timestamp)
   return timestamp_;
 }
 inline void Heart::set_timestamp(::google::protobuf::int32 value) {
   set_has_timestamp();
   timestamp_ = value;
-  // @@protoc_insertion_point(field_set:GameServer.Heart.timestamp)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.Heart.timestamp)
 }
 
 // -------------------------------------------------------------------
@@ -970,20 +970,20 @@ inline void Flags::clear_flags() {
   clear_has_flags();
 }
 inline ::google::protobuf::uint32 Flags::flags() const {
-  // @@protoc_insertion_point(field_get:GameServer.Flags.flags)
+  // @@protoc_insertion_point(field_get:ProtoGameServer.Flags.flags)
   return flags_;
 }
 inline void Flags::set_flags(::google::protobuf::uint32 value) {
   set_has_flags();
   flags_ = value;
-  // @@protoc_insertion_point(field_set:GameServer.Flags.flags)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.Flags.flags)
 }
 
 // -------------------------------------------------------------------
 
 // Login
 
-// required .GameServer.ERROR_CODE err = 1;
+// required .ProtoGameServer.ERROR_CODE err = 1;
 inline bool Login::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -997,15 +997,15 @@ inline void Login::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::GameServer::ERROR_CODE Login::err() const {
-  // @@protoc_insertion_point(field_get:GameServer.Login.err)
-  return static_cast< ::GameServer::ERROR_CODE >(err_);
+inline ::ProtoGameServer::ERROR_CODE Login::err() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.Login.err)
+  return static_cast< ::ProtoGameServer::ERROR_CODE >(err_);
 }
-inline void Login::set_err(::GameServer::ERROR_CODE value) {
-  assert(::GameServer::ERROR_CODE_IsValid(value));
+inline void Login::set_err(::ProtoGameServer::ERROR_CODE value) {
+  assert(::ProtoGameServer::ERROR_CODE_IsValid(value));
   set_has_err();
   err_ = value;
-  // @@protoc_insertion_point(field_set:GameServer.Login.err)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.Login.err)
 }
 
 // optional uint32 guid = 2;
@@ -1023,13 +1023,13 @@ inline void Login::clear_guid() {
   clear_has_guid();
 }
 inline ::google::protobuf::uint32 Login::guid() const {
-  // @@protoc_insertion_point(field_get:GameServer.Login.guid)
+  // @@protoc_insertion_point(field_get:ProtoGameServer.Login.guid)
   return guid_;
 }
 inline void Login::set_guid(::google::protobuf::uint32 value) {
   set_has_guid();
   guid_ = value;
-  // @@protoc_insertion_point(field_set:GameServer.Login.guid)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.Login.guid)
 }
 
 // -------------------------------------------------------------------
@@ -1051,20 +1051,20 @@ inline void Host::clear_guid() {
   clear_has_guid();
 }
 inline ::google::protobuf::uint32 Host::guid() const {
-  // @@protoc_insertion_point(field_get:GameServer.Host.guid)
+  // @@protoc_insertion_point(field_get:ProtoGameServer.Host.guid)
   return guid_;
 }
 inline void Host::set_guid(::google::protobuf::uint32 value) {
   set_has_guid();
   guid_ = value;
-  // @@protoc_insertion_point(field_set:GameServer.Host.guid)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.Host.guid)
 }
 
 // -------------------------------------------------------------------
 
 // CreateGame
 
-// required .GameServer.ERROR_CODE err = 1;
+// required .ProtoGameServer.ERROR_CODE err = 1;
 inline bool CreateGame::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1078,15 +1078,15 @@ inline void CreateGame::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::GameServer::ERROR_CODE CreateGame::err() const {
-  // @@protoc_insertion_point(field_get:GameServer.CreateGame.err)
-  return static_cast< ::GameServer::ERROR_CODE >(err_);
+inline ::ProtoGameServer::ERROR_CODE CreateGame::err() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.CreateGame.err)
+  return static_cast< ::ProtoGameServer::ERROR_CODE >(err_);
 }
-inline void CreateGame::set_err(::GameServer::ERROR_CODE value) {
-  assert(::GameServer::ERROR_CODE_IsValid(value));
+inline void CreateGame::set_err(::ProtoGameServer::ERROR_CODE value) {
+  assert(::ProtoGameServer::ERROR_CODE_IsValid(value));
   set_has_err();
   err_ = value;
-  // @@protoc_insertion_point(field_set:GameServer.CreateGame.err)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.CreateGame.err)
 }
 
 // optional uint32 gameid = 2;
@@ -1104,20 +1104,20 @@ inline void CreateGame::clear_gameid() {
   clear_has_gameid();
 }
 inline ::google::protobuf::uint32 CreateGame::gameid() const {
-  // @@protoc_insertion_point(field_get:GameServer.CreateGame.gameid)
+  // @@protoc_insertion_point(field_get:ProtoGameServer.CreateGame.gameid)
   return gameid_;
 }
 inline void CreateGame::set_gameid(::google::protobuf::uint32 value) {
   set_has_gameid();
   gameid_ = value;
-  // @@protoc_insertion_point(field_set:GameServer.CreateGame.gameid)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.CreateGame.gameid)
 }
 
 // -------------------------------------------------------------------
 
 // DestroyGame
 
-// required .GameServer.ERROR_CODE err = 1;
+// required .ProtoGameServer.ERROR_CODE err = 1;
 inline bool DestroyGame::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1131,22 +1131,22 @@ inline void DestroyGame::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::GameServer::ERROR_CODE DestroyGame::err() const {
-  // @@protoc_insertion_point(field_get:GameServer.DestroyGame.err)
-  return static_cast< ::GameServer::ERROR_CODE >(err_);
+inline ::ProtoGameServer::ERROR_CODE DestroyGame::err() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.DestroyGame.err)
+  return static_cast< ::ProtoGameServer::ERROR_CODE >(err_);
 }
-inline void DestroyGame::set_err(::GameServer::ERROR_CODE value) {
-  assert(::GameServer::ERROR_CODE_IsValid(value));
+inline void DestroyGame::set_err(::ProtoGameServer::ERROR_CODE value) {
+  assert(::ProtoGameServer::ERROR_CODE_IsValid(value));
   set_has_err();
   err_ = value;
-  // @@protoc_insertion_point(field_set:GameServer.DestroyGame.err)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.DestroyGame.err)
 }
 
 // -------------------------------------------------------------------
 
 // EnterGame
 
-// required .GameServer.ERROR_CODE err = 1;
+// required .ProtoGameServer.ERROR_CODE err = 1;
 inline bool EnterGame::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1160,15 +1160,15 @@ inline void EnterGame::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::GameServer::ERROR_CODE EnterGame::err() const {
-  // @@protoc_insertion_point(field_get:GameServer.EnterGame.err)
-  return static_cast< ::GameServer::ERROR_CODE >(err_);
+inline ::ProtoGameServer::ERROR_CODE EnterGame::err() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.EnterGame.err)
+  return static_cast< ::ProtoGameServer::ERROR_CODE >(err_);
 }
-inline void EnterGame::set_err(::GameServer::ERROR_CODE value) {
-  assert(::GameServer::ERROR_CODE_IsValid(value));
+inline void EnterGame::set_err(::ProtoGameServer::ERROR_CODE value) {
+  assert(::ProtoGameServer::ERROR_CODE_IsValid(value));
   set_has_err();
   err_ = value;
-  // @@protoc_insertion_point(field_set:GameServer.EnterGame.err)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.EnterGame.err)
 }
 
 // optional uint32 guid = 2;
@@ -1186,13 +1186,13 @@ inline void EnterGame::clear_guid() {
   clear_has_guid();
 }
 inline ::google::protobuf::uint32 EnterGame::guid() const {
-  // @@protoc_insertion_point(field_get:GameServer.EnterGame.guid)
+  // @@protoc_insertion_point(field_get:ProtoGameServer.EnterGame.guid)
   return guid_;
 }
 inline void EnterGame::set_guid(::google::protobuf::uint32 value) {
   set_has_guid();
   guid_ = value;
-  // @@protoc_insertion_point(field_set:GameServer.EnterGame.guid)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.EnterGame.guid)
 }
 
 // optional uint32 gameid = 3;
@@ -1210,20 +1210,20 @@ inline void EnterGame::clear_gameid() {
   clear_has_gameid();
 }
 inline ::google::protobuf::uint32 EnterGame::gameid() const {
-  // @@protoc_insertion_point(field_get:GameServer.EnterGame.gameid)
+  // @@protoc_insertion_point(field_get:ProtoGameServer.EnterGame.gameid)
   return gameid_;
 }
 inline void EnterGame::set_gameid(::google::protobuf::uint32 value) {
   set_has_gameid();
   gameid_ = value;
-  // @@protoc_insertion_point(field_set:GameServer.EnterGame.gameid)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.EnterGame.gameid)
 }
 
 // -------------------------------------------------------------------
 
 // ExitGame
 
-// required .GameServer.ERROR_CODE err = 1;
+// required .ProtoGameServer.ERROR_CODE err = 1;
 inline bool ExitGame::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1237,15 +1237,15 @@ inline void ExitGame::clear_err() {
   err_ = 0;
   clear_has_err();
 }
-inline ::GameServer::ERROR_CODE ExitGame::err() const {
-  // @@protoc_insertion_point(field_get:GameServer.ExitGame.err)
-  return static_cast< ::GameServer::ERROR_CODE >(err_);
+inline ::ProtoGameServer::ERROR_CODE ExitGame::err() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ExitGame.err)
+  return static_cast< ::ProtoGameServer::ERROR_CODE >(err_);
 }
-inline void ExitGame::set_err(::GameServer::ERROR_CODE value) {
-  assert(::GameServer::ERROR_CODE_IsValid(value));
+inline void ExitGame::set_err(::ProtoGameServer::ERROR_CODE value) {
+  assert(::ProtoGameServer::ERROR_CODE_IsValid(value));
   set_has_err();
   err_ = value;
-  // @@protoc_insertion_point(field_set:GameServer.ExitGame.err)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.ExitGame.err)
 }
 
 // optional uint32 guid = 2;
@@ -1263,13 +1263,13 @@ inline void ExitGame::clear_guid() {
   clear_has_guid();
 }
 inline ::google::protobuf::uint32 ExitGame::guid() const {
-  // @@protoc_insertion_point(field_get:GameServer.ExitGame.guid)
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ExitGame.guid)
   return guid_;
 }
 inline void ExitGame::set_guid(::google::protobuf::uint32 value) {
   set_has_guid();
   guid_ = value;
-  // @@protoc_insertion_point(field_set:GameServer.ExitGame.guid)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.ExitGame.guid)
 }
 
 // -------------------------------------------------------------------
@@ -1291,13 +1291,13 @@ inline void SendToPlayer::clear_size() {
   clear_has_size();
 }
 inline ::google::protobuf::int32 SendToPlayer::size() const {
-  // @@protoc_insertion_point(field_get:GameServer.SendToPlayer.size)
+  // @@protoc_insertion_point(field_get:ProtoGameServer.SendToPlayer.size)
   return size_;
 }
 inline void SendToPlayer::set_size(::google::protobuf::int32 value) {
   set_has_size();
   size_ = value;
-  // @@protoc_insertion_point(field_set:GameServer.SendToPlayer.size)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.SendToPlayer.size)
 }
 
 // required bytes data = 2;
@@ -1317,7 +1317,7 @@ inline void SendToPlayer::clear_data() {
   clear_has_data();
 }
 inline const ::std::string& SendToPlayer::data() const {
-  // @@protoc_insertion_point(field_get:GameServer.SendToPlayer.data)
+  // @@protoc_insertion_point(field_get:ProtoGameServer.SendToPlayer.data)
   return *data_;
 }
 inline void SendToPlayer::set_data(const ::std::string& value) {
@@ -1326,7 +1326,7 @@ inline void SendToPlayer::set_data(const ::std::string& value) {
     data_ = new ::std::string;
   }
   data_->assign(value);
-  // @@protoc_insertion_point(field_set:GameServer.SendToPlayer.data)
+  // @@protoc_insertion_point(field_set:ProtoGameServer.SendToPlayer.data)
 }
 inline void SendToPlayer::set_data(const char* value) {
   set_has_data();
@@ -1334,7 +1334,7 @@ inline void SendToPlayer::set_data(const char* value) {
     data_ = new ::std::string;
   }
   data_->assign(value);
-  // @@protoc_insertion_point(field_set_char:GameServer.SendToPlayer.data)
+  // @@protoc_insertion_point(field_set_char:ProtoGameServer.SendToPlayer.data)
 }
 inline void SendToPlayer::set_data(const void* value, size_t size) {
   set_has_data();
@@ -1342,14 +1342,14 @@ inline void SendToPlayer::set_data(const void* value, size_t size) {
     data_ = new ::std::string;
   }
   data_->assign(reinterpret_cast<const char*>(value), size);
-  // @@protoc_insertion_point(field_set_pointer:GameServer.SendToPlayer.data)
+  // @@protoc_insertion_point(field_set_pointer:ProtoGameServer.SendToPlayer.data)
 }
 inline ::std::string* SendToPlayer::mutable_data() {
   set_has_data();
   if (data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     data_ = new ::std::string;
   }
-  // @@protoc_insertion_point(field_mutable:GameServer.SendToPlayer.data)
+  // @@protoc_insertion_point(field_mutable:ProtoGameServer.SendToPlayer.data)
   return data_;
 }
 inline ::std::string* SendToPlayer::release_data() {
@@ -1373,37 +1373,37 @@ inline void SendToPlayer::set_allocated_data(::std::string* data) {
     clear_has_data();
     data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
-  // @@protoc_insertion_point(field_set_allocated:GameServer.SendToPlayer.data)
+  // @@protoc_insertion_point(field_set_allocated:ProtoGameServer.SendToPlayer.data)
 }
 
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace GameServer
+}  // namespace ProtoGameServer
 
 #ifndef SWIG
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::GameServer::VERSION_NUMBER> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::ProtoGameServer::VERSION_NUMBER> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::GameServer::VERSION_NUMBER>() {
-  return ::GameServer::VERSION_NUMBER_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ProtoGameServer::VERSION_NUMBER>() {
+  return ::ProtoGameServer::VERSION_NUMBER_descriptor();
 }
-template <> struct is_proto_enum< ::GameServer::FLAGS_CODE> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::ProtoGameServer::FLAGS_CODE> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::GameServer::FLAGS_CODE>() {
-  return ::GameServer::FLAGS_CODE_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ProtoGameServer::FLAGS_CODE>() {
+  return ::ProtoGameServer::FLAGS_CODE_descriptor();
 }
-template <> struct is_proto_enum< ::GameServer::ERROR_CODE> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::ProtoGameServer::ERROR_CODE> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::GameServer::ERROR_CODE>() {
-  return ::GameServer::ERROR_CODE_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ProtoGameServer::ERROR_CODE>() {
+  return ::ProtoGameServer::ERROR_CODE_descriptor();
 }
-template <> struct is_proto_enum< ::GameServer::RESPONSE_MSG> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::ProtoGameServer::RESPONSE_MSG> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::GameServer::RESPONSE_MSG>() {
-  return ::GameServer::RESPONSE_MSG_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ProtoGameServer::RESPONSE_MSG>() {
+  return ::ProtoGameServer::RESPONSE_MSG_descriptor();
 }
 
 }  // namespace google

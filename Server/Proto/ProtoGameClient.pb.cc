@@ -16,7 +16,7 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 
-namespace GameClient {
+namespace ProtoGameClient {
 
 namespace {
 
@@ -262,20 +262,20 @@ void protobuf_AddDesc_ProtoGameClient_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\025ProtoGameClient.proto\022\nGameClient\"\032\n\005H"
-    "eart\022\021\n\ttimestamp\030\001 \002(\005\"\007\n\005Flags\"&\n\005Logi"
-    "n\022\014\n\004guid\030\001 \002(\r\022\017\n\007version\030\002 \002(\005\"M\n\nCrea"
-    "teGame\022\020\n\010password\030\001 \002(\t\022\013\n\003map\030\002 \002(\005\022\014\n"
-    "\004mode\030\003 \002(\005\022\022\n\nmaxPlayers\030\004 \002(\005\"\r\n\013Destr"
-    "oyGame\"-\n\tEnterGame\022\016\n\006gameid\030\001 \002(\r\022\020\n\010p"
-    "assword\030\002 \002(\t\"\n\n\010ExitGame\"8\n\014SendToPlaye"
-    "r\022\014\n\004guid\030\001 \002(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data\030\003 "
-    "\002(\014\"=\n\017SendToPlayerAll\022\016\n\006filter\030\001 \002(\r\022\014"
-    "\n\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014*\234\001\n\013REQUEST_M"
-    "SG\022\t\n\005HEART\020\000\022\t\n\005FLAGS\020\001\022\t\n\005LOGIN\020\002\022\017\n\013C"
-    "REATE_GAME\020\003\022\020\n\014DESTROY_GAME\020\004\022\016\n\nENTER_"
-    "GAME\020\005\022\r\n\tEXIT_GAME\020\006\022\022\n\016SEND_TO_PLAYER\020"
-    "\007\022\026\n\022SEND_TO_PLAYER_ALL\020\010B\002H\001", 549);
+    "\n\025ProtoGameClient.proto\022\017ProtoGameClient"
+    "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"\007\n\005Flags\"&\n"
+    "\005Login\022\014\n\004guid\030\001 \002(\r\022\017\n\007version\030\002 \002(\005\"M\n"
+    "\nCreateGame\022\020\n\010password\030\001 \002(\t\022\013\n\003map\030\002 \002"
+    "(\005\022\014\n\004mode\030\003 \002(\005\022\022\n\nmaxPlayers\030\004 \002(\005\"\r\n\013"
+    "DestroyGame\"-\n\tEnterGame\022\016\n\006gameid\030\001 \002(\r"
+    "\022\020\n\010password\030\002 \002(\t\"\n\n\010ExitGame\"8\n\014SendTo"
+    "Player\022\014\n\004guid\030\001 \002(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004da"
+    "ta\030\003 \002(\014\"=\n\017SendToPlayerAll\022\016\n\006filter\030\001 "
+    "\002(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014*\234\001\n\013REQU"
+    "EST_MSG\022\t\n\005HEART\020\000\022\t\n\005FLAGS\020\001\022\t\n\005LOGIN\020\002"
+    "\022\017\n\013CREATE_GAME\020\003\022\020\n\014DESTROY_GAME\020\004\022\016\n\nE"
+    "NTER_GAME\020\005\022\r\n\tEXIT_GAME\020\006\022\022\n\016SEND_TO_PL"
+    "AYER\020\007\022\026\n\022SEND_TO_PLAYER_ALL\020\010B\002H\001", 554);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGameClient.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -336,7 +336,7 @@ const int Heart::kTimestampFieldNumber;
 Heart::Heart()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:GameClient.Heart)
+  // @@protoc_insertion_point(constructor:ProtoGameClient.Heart)
 }
 
 void Heart::InitAsDefaultInstance() {
@@ -346,7 +346,7 @@ Heart::Heart(const Heart& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:GameClient.Heart)
+  // @@protoc_insertion_point(copy_constructor:ProtoGameClient.Heart)
 }
 
 void Heart::SharedCtor() {
@@ -356,7 +356,7 @@ void Heart::SharedCtor() {
 }
 
 Heart::~Heart() {
-  // @@protoc_insertion_point(destructor:GameClient.Heart)
+  // @@protoc_insertion_point(destructor:ProtoGameClient.Heart)
   SharedDtor();
 }
 
@@ -396,7 +396,7 @@ bool Heart::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:GameClient.Heart)
+  // @@protoc_insertion_point(parse_start:ProtoGameClient.Heart)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -430,17 +430,17 @@ bool Heart::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:GameClient.Heart)
+  // @@protoc_insertion_point(parse_success:ProtoGameClient.Heart)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:GameClient.Heart)
+  // @@protoc_insertion_point(parse_failure:ProtoGameClient.Heart)
   return false;
 #undef DO_
 }
 
 void Heart::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:GameClient.Heart)
+  // @@protoc_insertion_point(serialize_start:ProtoGameClient.Heart)
   // required int32 timestamp = 1;
   if (has_timestamp()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->timestamp(), output);
@@ -450,12 +450,12 @@ void Heart::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:GameClient.Heart)
+  // @@protoc_insertion_point(serialize_end:ProtoGameClient.Heart)
 }
 
 ::google::protobuf::uint8* Heart::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:GameClient.Heart)
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGameClient.Heart)
   // required int32 timestamp = 1;
   if (has_timestamp()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->timestamp(), target);
@@ -465,7 +465,7 @@ void Heart::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:GameClient.Heart)
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGameClient.Heart)
   return target;
 }
 
@@ -558,7 +558,7 @@ void Heart::Swap(Heart* other) {
 Flags::Flags()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:GameClient.Flags)
+  // @@protoc_insertion_point(constructor:ProtoGameClient.Flags)
 }
 
 void Flags::InitAsDefaultInstance() {
@@ -568,7 +568,7 @@ Flags::Flags(const Flags& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:GameClient.Flags)
+  // @@protoc_insertion_point(copy_constructor:ProtoGameClient.Flags)
 }
 
 void Flags::SharedCtor() {
@@ -577,7 +577,7 @@ void Flags::SharedCtor() {
 }
 
 Flags::~Flags() {
-  // @@protoc_insertion_point(destructor:GameClient.Flags)
+  // @@protoc_insertion_point(destructor:ProtoGameClient.Flags)
   SharedDtor();
 }
 
@@ -616,7 +616,7 @@ bool Flags::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:GameClient.Flags)
+  // @@protoc_insertion_point(parse_start:ProtoGameClient.Flags)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -631,32 +631,32 @@ bool Flags::MergePartialFromCodedStream(
           input, tag, mutable_unknown_fields()));
   }
 success:
-  // @@protoc_insertion_point(parse_success:GameClient.Flags)
+  // @@protoc_insertion_point(parse_success:ProtoGameClient.Flags)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:GameClient.Flags)
+  // @@protoc_insertion_point(parse_failure:ProtoGameClient.Flags)
   return false;
 #undef DO_
 }
 
 void Flags::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:GameClient.Flags)
+  // @@protoc_insertion_point(serialize_start:ProtoGameClient.Flags)
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:GameClient.Flags)
+  // @@protoc_insertion_point(serialize_end:ProtoGameClient.Flags)
 }
 
 ::google::protobuf::uint8* Flags::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:GameClient.Flags)
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGameClient.Flags)
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:GameClient.Flags)
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGameClient.Flags)
   return target;
 }
 
@@ -734,7 +734,7 @@ const int Login::kVersionFieldNumber;
 Login::Login()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:GameClient.Login)
+  // @@protoc_insertion_point(constructor:ProtoGameClient.Login)
 }
 
 void Login::InitAsDefaultInstance() {
@@ -744,7 +744,7 @@ Login::Login(const Login& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:GameClient.Login)
+  // @@protoc_insertion_point(copy_constructor:ProtoGameClient.Login)
 }
 
 void Login::SharedCtor() {
@@ -755,7 +755,7 @@ void Login::SharedCtor() {
 }
 
 Login::~Login() {
-  // @@protoc_insertion_point(destructor:GameClient.Login)
+  // @@protoc_insertion_point(destructor:ProtoGameClient.Login)
   SharedDtor();
 }
 
@@ -809,7 +809,7 @@ bool Login::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:GameClient.Login)
+  // @@protoc_insertion_point(parse_start:ProtoGameClient.Login)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -858,17 +858,17 @@ bool Login::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:GameClient.Login)
+  // @@protoc_insertion_point(parse_success:ProtoGameClient.Login)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:GameClient.Login)
+  // @@protoc_insertion_point(parse_failure:ProtoGameClient.Login)
   return false;
 #undef DO_
 }
 
 void Login::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:GameClient.Login)
+  // @@protoc_insertion_point(serialize_start:ProtoGameClient.Login)
   // required uint32 guid = 1;
   if (has_guid()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->guid(), output);
@@ -883,12 +883,12 @@ void Login::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:GameClient.Login)
+  // @@protoc_insertion_point(serialize_end:ProtoGameClient.Login)
 }
 
 ::google::protobuf::uint8* Login::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:GameClient.Login)
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGameClient.Login)
   // required uint32 guid = 1;
   if (has_guid()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->guid(), target);
@@ -903,7 +903,7 @@ void Login::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:GameClient.Login)
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGameClient.Login)
   return target;
 }
 
@@ -1011,7 +1011,7 @@ const int CreateGame::kMaxPlayersFieldNumber;
 CreateGame::CreateGame()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:GameClient.CreateGame)
+  // @@protoc_insertion_point(constructor:ProtoGameClient.CreateGame)
 }
 
 void CreateGame::InitAsDefaultInstance() {
@@ -1021,7 +1021,7 @@ CreateGame::CreateGame(const CreateGame& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:GameClient.CreateGame)
+  // @@protoc_insertion_point(copy_constructor:ProtoGameClient.CreateGame)
 }
 
 void CreateGame::SharedCtor() {
@@ -1035,7 +1035,7 @@ void CreateGame::SharedCtor() {
 }
 
 CreateGame::~CreateGame() {
-  // @@protoc_insertion_point(destructor:GameClient.CreateGame)
+  // @@protoc_insertion_point(destructor:ProtoGameClient.CreateGame)
   SharedDtor();
 }
 
@@ -1099,7 +1099,7 @@ bool CreateGame::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:GameClient.CreateGame)
+  // @@protoc_insertion_point(parse_start:ProtoGameClient.CreateGame)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -1180,17 +1180,17 @@ bool CreateGame::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:GameClient.CreateGame)
+  // @@protoc_insertion_point(parse_success:ProtoGameClient.CreateGame)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:GameClient.CreateGame)
+  // @@protoc_insertion_point(parse_failure:ProtoGameClient.CreateGame)
   return false;
 #undef DO_
 }
 
 void CreateGame::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:GameClient.CreateGame)
+  // @@protoc_insertion_point(serialize_start:ProtoGameClient.CreateGame)
   // required string password = 1;
   if (has_password()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -1220,12 +1220,12 @@ void CreateGame::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:GameClient.CreateGame)
+  // @@protoc_insertion_point(serialize_end:ProtoGameClient.CreateGame)
 }
 
 ::google::protobuf::uint8* CreateGame::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:GameClient.CreateGame)
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGameClient.CreateGame)
   // required string password = 1;
   if (has_password()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -1256,7 +1256,7 @@ void CreateGame::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:GameClient.CreateGame)
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGameClient.CreateGame)
   return target;
 }
 
@@ -1382,7 +1382,7 @@ void CreateGame::Swap(CreateGame* other) {
 DestroyGame::DestroyGame()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:GameClient.DestroyGame)
+  // @@protoc_insertion_point(constructor:ProtoGameClient.DestroyGame)
 }
 
 void DestroyGame::InitAsDefaultInstance() {
@@ -1392,7 +1392,7 @@ DestroyGame::DestroyGame(const DestroyGame& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:GameClient.DestroyGame)
+  // @@protoc_insertion_point(copy_constructor:ProtoGameClient.DestroyGame)
 }
 
 void DestroyGame::SharedCtor() {
@@ -1401,7 +1401,7 @@ void DestroyGame::SharedCtor() {
 }
 
 DestroyGame::~DestroyGame() {
-  // @@protoc_insertion_point(destructor:GameClient.DestroyGame)
+  // @@protoc_insertion_point(destructor:ProtoGameClient.DestroyGame)
   SharedDtor();
 }
 
@@ -1440,7 +1440,7 @@ bool DestroyGame::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:GameClient.DestroyGame)
+  // @@protoc_insertion_point(parse_start:ProtoGameClient.DestroyGame)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -1455,32 +1455,32 @@ bool DestroyGame::MergePartialFromCodedStream(
           input, tag, mutable_unknown_fields()));
   }
 success:
-  // @@protoc_insertion_point(parse_success:GameClient.DestroyGame)
+  // @@protoc_insertion_point(parse_success:ProtoGameClient.DestroyGame)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:GameClient.DestroyGame)
+  // @@protoc_insertion_point(parse_failure:ProtoGameClient.DestroyGame)
   return false;
 #undef DO_
 }
 
 void DestroyGame::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:GameClient.DestroyGame)
+  // @@protoc_insertion_point(serialize_start:ProtoGameClient.DestroyGame)
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:GameClient.DestroyGame)
+  // @@protoc_insertion_point(serialize_end:ProtoGameClient.DestroyGame)
 }
 
 ::google::protobuf::uint8* DestroyGame::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:GameClient.DestroyGame)
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGameClient.DestroyGame)
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:GameClient.DestroyGame)
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGameClient.DestroyGame)
   return target;
 }
 
@@ -1558,7 +1558,7 @@ const int EnterGame::kPasswordFieldNumber;
 EnterGame::EnterGame()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:GameClient.EnterGame)
+  // @@protoc_insertion_point(constructor:ProtoGameClient.EnterGame)
 }
 
 void EnterGame::InitAsDefaultInstance() {
@@ -1568,7 +1568,7 @@ EnterGame::EnterGame(const EnterGame& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:GameClient.EnterGame)
+  // @@protoc_insertion_point(copy_constructor:ProtoGameClient.EnterGame)
 }
 
 void EnterGame::SharedCtor() {
@@ -1580,7 +1580,7 @@ void EnterGame::SharedCtor() {
 }
 
 EnterGame::~EnterGame() {
-  // @@protoc_insertion_point(destructor:GameClient.EnterGame)
+  // @@protoc_insertion_point(destructor:ProtoGameClient.EnterGame)
   SharedDtor();
 }
 
@@ -1630,7 +1630,7 @@ bool EnterGame::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:GameClient.EnterGame)
+  // @@protoc_insertion_point(parse_start:ProtoGameClient.EnterGame)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -1681,17 +1681,17 @@ bool EnterGame::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:GameClient.EnterGame)
+  // @@protoc_insertion_point(parse_success:ProtoGameClient.EnterGame)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:GameClient.EnterGame)
+  // @@protoc_insertion_point(parse_failure:ProtoGameClient.EnterGame)
   return false;
 #undef DO_
 }
 
 void EnterGame::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:GameClient.EnterGame)
+  // @@protoc_insertion_point(serialize_start:ProtoGameClient.EnterGame)
   // required uint32 gameid = 1;
   if (has_gameid()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->gameid(), output);
@@ -1711,12 +1711,12 @@ void EnterGame::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:GameClient.EnterGame)
+  // @@protoc_insertion_point(serialize_end:ProtoGameClient.EnterGame)
 }
 
 ::google::protobuf::uint8* EnterGame::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:GameClient.EnterGame)
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGameClient.EnterGame)
   // required uint32 gameid = 1;
   if (has_gameid()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->gameid(), target);
@@ -1737,7 +1737,7 @@ void EnterGame::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:GameClient.EnterGame)
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGameClient.EnterGame)
   return target;
 }
 
@@ -1841,7 +1841,7 @@ void EnterGame::Swap(EnterGame* other) {
 ExitGame::ExitGame()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:GameClient.ExitGame)
+  // @@protoc_insertion_point(constructor:ProtoGameClient.ExitGame)
 }
 
 void ExitGame::InitAsDefaultInstance() {
@@ -1851,7 +1851,7 @@ ExitGame::ExitGame(const ExitGame& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:GameClient.ExitGame)
+  // @@protoc_insertion_point(copy_constructor:ProtoGameClient.ExitGame)
 }
 
 void ExitGame::SharedCtor() {
@@ -1860,7 +1860,7 @@ void ExitGame::SharedCtor() {
 }
 
 ExitGame::~ExitGame() {
-  // @@protoc_insertion_point(destructor:GameClient.ExitGame)
+  // @@protoc_insertion_point(destructor:ProtoGameClient.ExitGame)
   SharedDtor();
 }
 
@@ -1899,7 +1899,7 @@ bool ExitGame::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:GameClient.ExitGame)
+  // @@protoc_insertion_point(parse_start:ProtoGameClient.ExitGame)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -1914,32 +1914,32 @@ bool ExitGame::MergePartialFromCodedStream(
           input, tag, mutable_unknown_fields()));
   }
 success:
-  // @@protoc_insertion_point(parse_success:GameClient.ExitGame)
+  // @@protoc_insertion_point(parse_success:ProtoGameClient.ExitGame)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:GameClient.ExitGame)
+  // @@protoc_insertion_point(parse_failure:ProtoGameClient.ExitGame)
   return false;
 #undef DO_
 }
 
 void ExitGame::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:GameClient.ExitGame)
+  // @@protoc_insertion_point(serialize_start:ProtoGameClient.ExitGame)
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:GameClient.ExitGame)
+  // @@protoc_insertion_point(serialize_end:ProtoGameClient.ExitGame)
 }
 
 ::google::protobuf::uint8* ExitGame::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:GameClient.ExitGame)
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGameClient.ExitGame)
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:GameClient.ExitGame)
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGameClient.ExitGame)
   return target;
 }
 
@@ -2018,7 +2018,7 @@ const int SendToPlayer::kDataFieldNumber;
 SendToPlayer::SendToPlayer()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:GameClient.SendToPlayer)
+  // @@protoc_insertion_point(constructor:ProtoGameClient.SendToPlayer)
 }
 
 void SendToPlayer::InitAsDefaultInstance() {
@@ -2028,7 +2028,7 @@ SendToPlayer::SendToPlayer(const SendToPlayer& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:GameClient.SendToPlayer)
+  // @@protoc_insertion_point(copy_constructor:ProtoGameClient.SendToPlayer)
 }
 
 void SendToPlayer::SharedCtor() {
@@ -2041,7 +2041,7 @@ void SendToPlayer::SharedCtor() {
 }
 
 SendToPlayer::~SendToPlayer() {
-  // @@protoc_insertion_point(destructor:GameClient.SendToPlayer)
+  // @@protoc_insertion_point(destructor:ProtoGameClient.SendToPlayer)
   SharedDtor();
 }
 
@@ -2105,7 +2105,7 @@ bool SendToPlayer::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:GameClient.SendToPlayer)
+  // @@protoc_insertion_point(parse_start:ProtoGameClient.SendToPlayer)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -2167,17 +2167,17 @@ bool SendToPlayer::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:GameClient.SendToPlayer)
+  // @@protoc_insertion_point(parse_success:ProtoGameClient.SendToPlayer)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:GameClient.SendToPlayer)
+  // @@protoc_insertion_point(parse_failure:ProtoGameClient.SendToPlayer)
   return false;
 #undef DO_
 }
 
 void SendToPlayer::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:GameClient.SendToPlayer)
+  // @@protoc_insertion_point(serialize_start:ProtoGameClient.SendToPlayer)
   // required uint32 guid = 1;
   if (has_guid()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->guid(), output);
@@ -2198,12 +2198,12 @@ void SendToPlayer::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:GameClient.SendToPlayer)
+  // @@protoc_insertion_point(serialize_end:ProtoGameClient.SendToPlayer)
 }
 
 ::google::protobuf::uint8* SendToPlayer::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:GameClient.SendToPlayer)
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGameClient.SendToPlayer)
   // required uint32 guid = 1;
   if (has_guid()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->guid(), target);
@@ -2225,7 +2225,7 @@ void SendToPlayer::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:GameClient.SendToPlayer)
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGameClient.SendToPlayer)
   return target;
 }
 
@@ -2343,7 +2343,7 @@ const int SendToPlayerAll::kDataFieldNumber;
 SendToPlayerAll::SendToPlayerAll()
   : ::google::protobuf::Message() {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:GameClient.SendToPlayerAll)
+  // @@protoc_insertion_point(constructor:ProtoGameClient.SendToPlayerAll)
 }
 
 void SendToPlayerAll::InitAsDefaultInstance() {
@@ -2353,7 +2353,7 @@ SendToPlayerAll::SendToPlayerAll(const SendToPlayerAll& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:GameClient.SendToPlayerAll)
+  // @@protoc_insertion_point(copy_constructor:ProtoGameClient.SendToPlayerAll)
 }
 
 void SendToPlayerAll::SharedCtor() {
@@ -2366,7 +2366,7 @@ void SendToPlayerAll::SharedCtor() {
 }
 
 SendToPlayerAll::~SendToPlayerAll() {
-  // @@protoc_insertion_point(destructor:GameClient.SendToPlayerAll)
+  // @@protoc_insertion_point(destructor:ProtoGameClient.SendToPlayerAll)
   SharedDtor();
 }
 
@@ -2430,7 +2430,7 @@ bool SendToPlayerAll::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:GameClient.SendToPlayerAll)
+  // @@protoc_insertion_point(parse_start:ProtoGameClient.SendToPlayerAll)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -2492,17 +2492,17 @@ bool SendToPlayerAll::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:GameClient.SendToPlayerAll)
+  // @@protoc_insertion_point(parse_success:ProtoGameClient.SendToPlayerAll)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:GameClient.SendToPlayerAll)
+  // @@protoc_insertion_point(parse_failure:ProtoGameClient.SendToPlayerAll)
   return false;
 #undef DO_
 }
 
 void SendToPlayerAll::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:GameClient.SendToPlayerAll)
+  // @@protoc_insertion_point(serialize_start:ProtoGameClient.SendToPlayerAll)
   // required uint32 filter = 1;
   if (has_filter()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->filter(), output);
@@ -2523,12 +2523,12 @@ void SendToPlayerAll::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
-  // @@protoc_insertion_point(serialize_end:GameClient.SendToPlayerAll)
+  // @@protoc_insertion_point(serialize_end:ProtoGameClient.SendToPlayerAll)
 }
 
 ::google::protobuf::uint8* SendToPlayerAll::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:GameClient.SendToPlayerAll)
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGameClient.SendToPlayerAll)
   // required uint32 filter = 1;
   if (has_filter()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->filter(), target);
@@ -2550,7 +2550,7 @@ void SendToPlayerAll::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:GameClient.SendToPlayerAll)
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGameClient.SendToPlayerAll)
   return target;
 }
 
@@ -2659,6 +2659,6 @@ void SendToPlayerAll::Swap(SendToPlayerAll* other) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace GameClient
+}  // namespace ProtoGameClient
 
 // @@protoc_insertion_point(global_scope)

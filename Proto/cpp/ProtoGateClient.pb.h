@@ -27,7 +27,7 @@
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
-namespace GateClient {
+namespace ProtoGateClient {
 
 // Internal implementation detail -- do not call these.
 void  protobuf_AddDesc_ProtoGateClient_2eproto();
@@ -118,7 +118,7 @@ class Heart : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 timestamp() const;
   inline void set_timestamp(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:GateClient.Heart)
+  // @@protoc_insertion_point(class_scope:ProtoGateClient.Heart)
  private:
   inline void set_has_timestamp();
   inline void clear_has_timestamp();
@@ -190,7 +190,7 @@ class GameServerList : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:GateClient.GameServerList)
+  // @@protoc_insertion_point(class_scope:ProtoGateClient.GameServerList)
  private:
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
@@ -226,13 +226,13 @@ inline void Heart::clear_timestamp() {
   clear_has_timestamp();
 }
 inline ::google::protobuf::int32 Heart::timestamp() const {
-  // @@protoc_insertion_point(field_get:GateClient.Heart.timestamp)
+  // @@protoc_insertion_point(field_get:ProtoGateClient.Heart.timestamp)
   return timestamp_;
 }
 inline void Heart::set_timestamp(::google::protobuf::int32 value) {
   set_has_timestamp();
   timestamp_ = value;
-  // @@protoc_insertion_point(field_set:GateClient.Heart.timestamp)
+  // @@protoc_insertion_point(field_set:ProtoGateClient.Heart.timestamp)
 }
 
 // -------------------------------------------------------------------
@@ -242,16 +242,16 @@ inline void Heart::set_timestamp(::google::protobuf::int32 value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace GateClient
+}  // namespace ProtoGateClient
 
 #ifndef SWIG
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::GateClient::REQUEST_MSG> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::ProtoGateClient::REQUEST_MSG> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::GateClient::REQUEST_MSG>() {
-  return ::GateClient::REQUEST_MSG_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ProtoGateClient::REQUEST_MSG>() {
+  return ::ProtoGateClient::REQUEST_MSG_descriptor();
 }
 
 }  // namespace google

@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: ProtoGameServer.proto
-namespace GameServer
+namespace ProtoGameServer
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Heart")]
   public partial class Heart : global::ProtoBuf.IExtensible
@@ -49,9 +49,9 @@ namespace GameServer
   {
     public Login() {}
     
-    private GameServer.ERROR_CODE _err;
+    private ProtoGameServer.ERROR_CODE _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public GameServer.ERROR_CODE err
+    public ProtoGameServer.ERROR_CODE err
     {
       get { return _err; }
       set { _err = value; }
@@ -91,9 +91,9 @@ namespace GameServer
   {
     public CreateGame() {}
     
-    private GameServer.ERROR_CODE _err;
+    private ProtoGameServer.ERROR_CODE _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public GameServer.ERROR_CODE err
+    public ProtoGameServer.ERROR_CODE err
     {
       get { return _err; }
       set { _err = value; }
@@ -116,9 +116,9 @@ namespace GameServer
   {
     public DestroyGame() {}
     
-    private GameServer.ERROR_CODE _err;
+    private ProtoGameServer.ERROR_CODE _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public GameServer.ERROR_CODE err
+    public ProtoGameServer.ERROR_CODE err
     {
       get { return _err; }
       set { _err = value; }
@@ -133,9 +133,9 @@ namespace GameServer
   {
     public EnterGame() {}
     
-    private GameServer.ERROR_CODE _err;
+    private ProtoGameServer.ERROR_CODE _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public GameServer.ERROR_CODE err
+    public ProtoGameServer.ERROR_CODE err
     {
       get { return _err; }
       set { _err = value; }
@@ -166,9 +166,9 @@ namespace GameServer
   {
     public ExitGame() {}
     
-    private GameServer.ERROR_CODE _err;
+    private ProtoGameServer.ERROR_CODE _err;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public GameServer.ERROR_CODE err
+    public ProtoGameServer.ERROR_CODE err
     {
       get { return _err; }
       set { _err = value; }
