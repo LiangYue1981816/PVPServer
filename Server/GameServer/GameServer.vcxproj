@@ -174,8 +174,10 @@
     <ClInclude Include="..\Common\Event.h" />
     <ClInclude Include="..\Common\IOCP.h" />
     <ClInclude Include="..\Common\Serializer.h" />
-    <ClInclude Include="..\Proto\Client.pb.h" />
+    <ClInclude Include="..\Proto\GameClient.pb.h" />
     <ClInclude Include="..\Proto\GameServer.pb.h" />
+    <ClInclude Include="..\Proto\GateClient.pb.h" />
+    <ClInclude Include="..\Proto\GateServer.pb.h" />
     <ClInclude Include="GameServer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -184,8 +186,10 @@
     <ClCompile Include="..\Common\Event.cpp" />
     <ClCompile Include="..\Common\IOCP.cpp" />
     <ClCompile Include="..\Common\Serializer.cpp" />
-    <ClCompile Include="..\Proto\Client.pb.cc" />
+    <ClCompile Include="..\Proto\GameClient.pb.cc" />
     <ClCompile Include="..\Proto\GameServer.pb.cc" />
+    <ClCompile Include="..\Proto\GateClient.pb.cc" />
+    <ClCompile Include="..\Proto\GateServer.pb.cc" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="GameServerUpdate.cpp" />

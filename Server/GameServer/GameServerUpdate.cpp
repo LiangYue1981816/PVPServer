@@ -66,47 +66,47 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 					m_dwRecvDataSize += sizeof(fullSize) + fullSize;
 
 					switch (msg) {
-					case Client::REQUEST_MSG::HEART:
+					case GameClient::REQUEST_MSG::HEART:
 						OnHeart(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::REQUEST_MSG::FLAGS:
+					case GameClient::REQUEST_MSG::FLAGS:
 						OnFlags(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::REQUEST_MSG::LOGIN:
+					case GameClient::REQUEST_MSG::LOGIN:
 						OnLogin(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::REQUEST_MSG::CREATE_GAME:
+					case GameClient::REQUEST_MSG::CREATE_GAME:
 						OnCreateGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::REQUEST_MSG::DESTROY_GAME:
+					case GameClient::REQUEST_MSG::DESTROY_GAME:
 						OnDestroyGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::REQUEST_MSG::ENTER_GAME:
+					case GameClient::REQUEST_MSG::ENTER_GAME:
 						OnEnterGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::REQUEST_MSG::EXIT_GAME:
+					case GameClient::REQUEST_MSG::EXIT_GAME:
 						OnExitGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::REQUEST_MSG::SEND_TO_PLAYER:
+					case GameClient::REQUEST_MSG::SEND_TO_PLAYER:
 						OnSendToPlayer(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case Client::REQUEST_MSG::SEND_TO_PLAYER_ALL:
+					case GameClient::REQUEST_MSG::SEND_TO_PLAYER_ALL:
 						OnSendToPlayerAll(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
@@ -159,7 +159,7 @@ void CGameServer::OnHeartReset(CPlayer *pPlayer)
 //
 void CGameServer::OnHeart(CPlayer *pPlayer, WORD size)
 {
-	::Client::Heart requestHeart;
+	::GameClient::Heart requestHeart;
 	::GameServer::Heart responseHeart;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -193,7 +193,7 @@ void CGameServer::OnHeart(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
 {
-	::Client::Flags requestFlags;
+	::GameClient::Flags requestFlags;
 	::GameServer::Flags responseFlags;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -227,7 +227,7 @@ void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 {
-	::Client::Login requestLogin;
+	::GameClient::Login requestLogin;
 	::GameServer::Login responseLogin;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -280,7 +280,7 @@ NEXT:
 //
 void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 {
-	::Client::CreateGame requestCreateGame;
+	::GameClient::CreateGame requestCreateGame;
 	::GameServer::CreateGame responseCreateGame;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -346,7 +346,7 @@ NEXT:
 //
 void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 {
-	::Client::DestroyGame requestDestroyGame;
+	::GameClient::DestroyGame requestDestroyGame;
 	::GameServer::DestroyGame responseDestroyGame;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -393,7 +393,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 {
-	::Client::EnterGame requestEnterGame;
+	::GameClient::EnterGame requestEnterGame;
 	::GameServer::EnterGame responseEnterGame;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -462,7 +462,7 @@ NEXT:
 //
 void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 {
-	::Client::ExitGame requestExitGame;
+	::GameClient::ExitGame requestExitGame;
 	::GameServer::ExitGame responseExitGame;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -519,7 +519,7 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD size)
 {
-	::Client::SendToPlayer requestSendToPlayer;
+	::GameClient::SendToPlayer requestSendToPlayer;
 	::GameServer::SendToPlayer responseSendToPlayer;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -557,7 +557,7 @@ void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnSendToPlayerAll(CPlayer *pPlayer, WORD size)
 {
-	::Client::SendToPlayerAll requestSendToPlayerAll;
+	::GameClient::SendToPlayerAll requestSendToPlayerAll;
 	::GameServer::SendToPlayer responseSendToPlayer;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
