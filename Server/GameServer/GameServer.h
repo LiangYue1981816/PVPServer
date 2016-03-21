@@ -183,7 +183,6 @@ protected:
 
 protected:
 	virtual void Monitor(void);                                                                    // 监控
-	virtual void Report(BYTE *buffer, CCacheBuffer *pCacheBuffer);                                 // 报告
 
 protected:
 	static DWORD WINAPI ReportThread(LPVOID lpParam);                                              // 汇报线程

@@ -491,28 +491,6 @@ void CGameServer::Monitor(void)
 }
 
 //
-// 报告
-//
-void CGameServer::Report(BYTE *buffer, CCacheBuffer *pCacheBuffer)
-{
-
-}
-
-//
-// 汇报线程
-//
-DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
-{
-	if (CGameServer *pServer = (CGameServer *)lpParam) {
-		while (WAIT_OBJECT_0 != WaitForSingleObject(pServer->m_hShutdownEvent, 0)) {
-			Sleep(1000);
-		}
-	}
-
-	return 0L;
-}
-
-//
 // 更新线程
 //
 DWORD WINAPI CGameServer::UpdateThread(LPVOID lpParam)
