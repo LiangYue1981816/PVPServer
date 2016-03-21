@@ -1,0 +1,40 @@
+option optimize_for = SPEED;
+package GateServer;
+
+enum VERSION_NUMBER
+{
+	VERSION = 0x00010000;
+}
+
+enum RESPONSE_MSG
+{
+	HEART = 0;
+	GAME_SERVER_LIST = 1;
+}
+
+message Heart
+{
+	required int32 timestamp = 1;
+}
+
+message GameServerList
+{
+	message GameServer
+	{
+		message Game
+		{
+			required bool private = 1;
+			required int32 gameid = 2;
+			required int32 mode = 3;
+			required int32 map = 4;
+			required int32 maxPlayers = 5;
+			repeated int32 playes = 6;
+		}
+		
+		required string ip = 1;
+		required int32 port = 2;
+		repeated Game games = 3;
+	}
+	
+	repeated GameServer servers = 1;
+}
