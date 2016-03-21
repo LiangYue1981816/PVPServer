@@ -66,47 +66,47 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 					m_dwRecvDataSize += sizeof(fullSize) + fullSize;
 
 					switch (msg) {
-					case GameClient::REQUEST_MSG::HEART:
+					case ProtoGameClient::REQUEST_MSG::HEART:
 						OnHeart(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GameClient::REQUEST_MSG::FLAGS:
+					case ProtoGameClient::REQUEST_MSG::FLAGS:
 						OnFlags(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GameClient::REQUEST_MSG::LOGIN:
+					case ProtoGameClient::REQUEST_MSG::LOGIN:
 						OnLogin(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GameClient::REQUEST_MSG::CREATE_GAME:
+					case ProtoGameClient::REQUEST_MSG::CREATE_GAME:
 						OnCreateGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GameClient::REQUEST_MSG::DESTROY_GAME:
+					case ProtoGameClient::REQUEST_MSG::DESTROY_GAME:
 						OnDestroyGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GameClient::REQUEST_MSG::ENTER_GAME:
+					case ProtoGameClient::REQUEST_MSG::ENTER_GAME:
 						OnEnterGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GameClient::REQUEST_MSG::EXIT_GAME:
+					case ProtoGameClient::REQUEST_MSG::EXIT_GAME:
 						OnExitGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GameClient::REQUEST_MSG::SEND_TO_PLAYER:
+					case ProtoGameClient::REQUEST_MSG::SEND_TO_PLAYER:
 						OnSendToPlayer(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
 
-					case GameClient::REQUEST_MSG::SEND_TO_PLAYER_ALL:
+					case ProtoGameClient::REQUEST_MSG::SEND_TO_PLAYER_ALL:
 						OnSendToPlayerAll(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
 						break;
@@ -159,7 +159,7 @@ void CGameServer::OnHeartReset(CPlayer *pPlayer)
 //
 void CGameServer::OnHeart(CPlayer *pPlayer, WORD size)
 {
-	::GameClient::Heart requestHeart;
+	ProtoGameClient::Heart requestHeart;
 	ProtoGameServer::Heart responseHeart;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -193,7 +193,7 @@ void CGameServer::OnHeart(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
 {
-	::GameClient::Flags requestFlags;
+	ProtoGameClient::Flags requestFlags;
 	ProtoGameServer::Flags responseFlags;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -227,7 +227,7 @@ void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 {
-	::GameClient::Login requestLogin;
+	ProtoGameClient::Login requestLogin;
 	ProtoGameServer::Login responseLogin;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -280,7 +280,7 @@ NEXT:
 //
 void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 {
-	::GameClient::CreateGame requestCreateGame;
+	ProtoGameClient::CreateGame requestCreateGame;
 	ProtoGameServer::CreateGame responseCreateGame;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -346,7 +346,7 @@ NEXT:
 //
 void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 {
-	::GameClient::DestroyGame requestDestroyGame;
+	ProtoGameClient::DestroyGame requestDestroyGame;
 	ProtoGameServer::DestroyGame responseDestroyGame;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -393,7 +393,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 {
-	::GameClient::EnterGame requestEnterGame;
+	ProtoGameClient::EnterGame requestEnterGame;
 	ProtoGameServer::EnterGame responseEnterGame;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -462,7 +462,7 @@ NEXT:
 //
 void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 {
-	::GameClient::ExitGame requestExitGame;
+	ProtoGameClient::ExitGame requestExitGame;
 	ProtoGameServer::ExitGame responseExitGame;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -519,7 +519,7 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD size)
 {
-	::GameClient::SendToPlayer requestSendToPlayer;
+	ProtoGameClient::SendToPlayer requestSendToPlayer;
 	ProtoGameServer::SendToPlayer responseSendToPlayer;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
@@ -557,7 +557,7 @@ void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD size)
 //
 void CGameServer::OnSendToPlayerAll(CPlayer *pPlayer, WORD size)
 {
-	::GameClient::SendToPlayerAll requestSendToPlayerAll;
+	ProtoGameClient::SendToPlayerAll requestSendToPlayerAll;
 	ProtoGameServer::SendToPlayer responseSendToPlayer;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
