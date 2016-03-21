@@ -7,7 +7,7 @@ public partial class ServerClient : NetClient
         mRequestSendToPlayer.guid = guid;
         mRequestSendToPlayer.size = size;
         mRequestSendToPlayer.data = data;
-        SendProto(Client.REQUEST_MSG.SEND_TO_PLAYER, mRequestSendToPlayer);
+        SendProto(ProtoGameClient.REQUEST_MSG.SEND_TO_PLAYER, mRequestSendToPlayer);
     }
 
     public virtual void RequestSendToPlayerAll(uint filter, int size, byte[] data)
@@ -15,14 +15,14 @@ public partial class ServerClient : NetClient
         mRequestSendToPlayerAll.filter = filter;
         mRequestSendToPlayerAll.size = size;
         mRequestSendToPlayerAll.data = data;
-        SendProto(Client.REQUEST_MSG.SEND_TO_PLAYER_ALL, mRequestSendToPlayerAll);
+        SendProto(ProtoGameClient.REQUEST_MSG.SEND_TO_PLAYER_ALL, mRequestSendToPlayerAll);
     }
 
     public virtual void ResponseSendToPlayer(byte[] buffer)
     {
         try
         {
-            GameServer.SendToPlayer responseSendToPlayer = ProtoHelper.ToProto<GameServer.SendToPlayer>(buffer);
+            ProtoGameServer.SendToPlayer responseSendToPlayer = ProtoHelper.ToProto<ProtoGameServer.SendToPlayer>(buffer);
 
             if (onResponseSendToPlayer != null)
             {

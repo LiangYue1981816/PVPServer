@@ -4,26 +4,26 @@ public partial class ServerClient : NetClient
 {
     public virtual void RequestExitGame()
     {
-        SendProto(Client.REQUEST_MSG.EXIT_GAME, mRequestExitGame);
+        SendProto(ProtoGameClient.REQUEST_MSG.EXIT_GAME, mRequestExitGame);
     }
 
     public virtual void ResponseExitGame(byte[] buffer)
     {
         try
         {
-            GameServer.ExitGame responseExitGame = ProtoHelper.ToProto<GameServer.ExitGame>(buffer);
+            ProtoGameServer.ExitGame responseExitGame = ProtoHelper.ToProto<ProtoGameServer.ExitGame>(buffer);
 
             mErrorCode = responseExitGame.err;
 
-            if (mErrorCode == GameServer.ERROR_CODE.ERR_NONE)
+            if (mErrorCode == ProtoGameServer.ERROR_CODE.ERR_NONE)
             {
                 if (mGUID == responseExitGame.guid)
                 {
                     mGameID = 0xcccccccc;
                     mHostGUID = 0xcccccccc;
-                    DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
-                    DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
-                    DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_GAMING);
+                    DisableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
+                    DisableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
+                    DisableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_GAMING);
                 }
                 else
                 {

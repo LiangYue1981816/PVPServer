@@ -19,27 +19,27 @@ public partial class ServerClient : NetClient
     public OnResponseExitGame onResponseExitGame = null;
     public OnResponseSendToPlayer onResponseSendToPlayer = null;
 
-    private GameServer.ERROR_CODE mErrorCode = GameServer.ERROR_CODE.ERR_NONE;
+    private ProtoGameServer.ERROR_CODE mErrorCode = ProtoGameServer.ERROR_CODE.ERR_NONE;
 
     private int mPing = 0;
     private uint mGUID = 0xffffffff;
     private uint mHostGUID = 0xcccccccc;
     private uint mGameID = 0xcccccccc;
-    private uint mFlags = (uint)GameServer.FLAGS_CODE.PLAYER_FLAGS_NONE;
+    private uint mFlags = (uint)ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_NONE;
     private List<uint> mPlayers = new List<uint>();
 
     private Thread mThreadHeart = null;
     private ManualResetEvent mEventHeart = null;
 
-    private Client.Heart mRequestHeart = new Client.Heart();
-    private Client.Flags mRequestFlags = new Client.Flags();
-    private Client.Login mRequestLogin = new Client.Login();
-    private Client.CreateGame mRequestCreateGame = new Client.CreateGame();
-    private Client.DestroyGame mRequestDestroyGame = new Client.DestroyGame();
-    private Client.EnterGame mRequestEnterGame = new Client.EnterGame();
-    private Client.ExitGame mRequestExitGame = new Client.ExitGame();
-    private Client.SendToPlayer mRequestSendToPlayer = new Client.SendToPlayer();
-    private Client.SendToPlayerAll mRequestSendToPlayerAll = new Client.SendToPlayerAll();
+    private ProtoGameClient.Heart mRequestHeart = new ProtoGameClient.Heart();
+    private ProtoGameClient.Flags mRequestFlags = new ProtoGameClient.Flags();
+    private ProtoGameClient.Login mRequestLogin = new ProtoGameClient.Login();
+    private ProtoGameClient.CreateGame mRequestCreateGame = new ProtoGameClient.CreateGame();
+    private ProtoGameClient.DestroyGame mRequestDestroyGame = new ProtoGameClient.DestroyGame();
+    private ProtoGameClient.EnterGame mRequestEnterGame = new ProtoGameClient.EnterGame();
+    private ProtoGameClient.ExitGame mRequestExitGame = new ProtoGameClient.ExitGame();
+    private ProtoGameClient.SendToPlayer mRequestSendToPlayer = new ProtoGameClient.SendToPlayer();
+    private ProtoGameClient.SendToPlayerAll mRequestSendToPlayerAll = new ProtoGameClient.SendToPlayerAll();
 
     public override bool Connect(string ip, int port)
     {
@@ -62,7 +62,7 @@ public partial class ServerClient : NetClient
         mGUID = 0xffffffff;
         mHostGUID = 0xcccccccc;
         mGameID = 0xcccccccc;
-        mFlags = (uint)GameServer.FLAGS_CODE.PLAYER_FLAGS_NONE;
+        mFlags = (uint)ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_NONE;
 
         if (base.Disconnect())
         {
@@ -75,7 +75,7 @@ public partial class ServerClient : NetClient
         return false;
     }
 
-    public GameServer.ERROR_CODE GetLastError()
+    public ProtoGameServer.ERROR_CODE GetLastError()
     {
         return mErrorCode;
     }
@@ -107,40 +107,40 @@ public partial class ServerClient : NetClient
 
     public bool IsLogin()
     {
-        return IsEnable(GameServer.FLAGS_CODE.PLAYER_FLAGS_LOGIN);
+        return IsEnable(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_LOGIN);
     }
 
     public bool IsWaiting()
     {
-        return IsEnable(GameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
+        return IsEnable(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
     }
 
     public bool IsReady()
     {
-        return IsEnable(GameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
+        return IsEnable(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
     }
 
     public bool IsGaming()
     {
-        return IsEnable(GameServer.FLAGS_CODE.PLAYER_FLAGS_GAMING);
+        return IsEnable(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_GAMING);
     }
 
-    protected bool IsEnable(GameServer.FLAGS_CODE code)
+    protected bool IsEnable(ProtoGameServer.FLAGS_CODE code)
     {
         return (mFlags & ((uint)code)) != 0 ? true : false;
     }
 
-    protected void EnableFlag(GameServer.FLAGS_CODE code)
+    protected void EnableFlag(ProtoGameServer.FLAGS_CODE code)
     {
         mFlags = mFlags | ((uint)code);
     }
 
-    protected void DisableFlag(GameServer.FLAGS_CODE code)
+    protected void DisableFlag(ProtoGameServer.FLAGS_CODE code)
     {
         mFlags = mFlags & ~((uint)code);
     }
 
-    protected void SendProto(Client.REQUEST_MSG msg, global::ProtoBuf.IExtensible proto)
+    protected void SendProto(ProtoGameClient.REQUEST_MSG msg, global::ProtoBuf.IExtensible proto)
     {
         try
         {

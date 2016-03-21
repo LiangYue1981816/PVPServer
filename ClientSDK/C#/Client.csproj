@@ -149,10 +149,10 @@
     <Compile Include="Source\ProtoBuffer\ServiceModel\XmlProtoSerializer.cs" />
     <Compile Include="Source\ProtoBuffer\SubItemToken.cs" />
     <Compile Include="Source\ProtoBuffer\WireType.cs" />
-    <Compile Include="Source\Proto\GameClient.proto.cs" />
-    <Compile Include="Source\Proto\GameServer.proto.cs" />
-    <Compile Include="Source\Proto\GateClient.proto.cs" />
-    <Compile Include="Source\Proto\GateServer.proto.cs" />
+    <Compile Include="Source\Proto\ProtoGameClient.proto.cs" />
+    <Compile Include="Source\Proto\ProtoGameServer.proto.cs" />
+    <Compile Include="Source\Proto\ProtoGateClient.proto.cs" />
+    <Compile Include="Source\Proto\ProtoGateServer.proto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

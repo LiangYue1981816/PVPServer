@@ -6,25 +6,25 @@ public partial class ServerClient : NetClient
     {
         mRequestEnterGame.password = password;
         mRequestEnterGame.gameid = gameid;
-        SendProto(Client.REQUEST_MSG.ENTER_GAME, mRequestEnterGame);
+        SendProto(ProtoGameClient.REQUEST_MSG.ENTER_GAME, mRequestEnterGame);
     }
 
     public virtual void ResponseEnterGame(byte[] buffer)
     {
         try
         {
-            GameServer.EnterGame responseEnterGame = ProtoHelper.ToProto<GameServer.EnterGame>(buffer);
+            ProtoGameServer.EnterGame responseEnterGame = ProtoHelper.ToProto<ProtoGameServer.EnterGame>(buffer);
 
             mErrorCode = responseEnterGame.err;
 
-            if (mErrorCode == GameServer.ERROR_CODE.ERR_NONE)
+            if (mErrorCode == ProtoGameServer.ERROR_CODE.ERR_NONE)
             {
                 if (mGUID == responseEnterGame.guid)
                 {
                     mGameID = responseEnterGame.gameid;
-                    EnableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
-                    DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
-                    DisableFlag(GameServer.FLAGS_CODE.PLAYER_FLAGS_GAMING);
+                    EnableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
+                    DisableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
+                    DisableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_GAMING);
                 }
                 else
                 {

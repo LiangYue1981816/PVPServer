@@ -6,7 +6,7 @@ public partial class ServerClient : NetClient
     {
         try
         {
-            GameServer.Host responseHost = ProtoHelper.ToProto<GameServer.Host>(buffer);
+            ProtoGameServer.Host responseHost = ProtoHelper.ToProto<ProtoGameServer.Host>(buffer);
 
             mHostGUID = responseHost.guid;
 
