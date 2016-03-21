@@ -1,0 +1,17 @@
+option optimize_for = SPEED;
+package GateClient;
+
+enum REQUEST_MSG
+{
+	HEART = 0;
+	GAME_SERVER_LIST = 1;
+}
+
+message Heart
+{
+	required int32 timestamp = 1;
+}
+
+message GameServerList
+{
+}
