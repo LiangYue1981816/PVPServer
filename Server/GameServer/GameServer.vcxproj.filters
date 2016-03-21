@@ -102,5 +102,8 @@
     <ClCompile Include="..\Proto\ProtoGateServer.pb.cc">
       <Filter>Proto\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameServerReport.cpp">
+      <Filter>GameServer\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
