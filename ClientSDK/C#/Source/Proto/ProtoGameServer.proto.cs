@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from: GameServer.proto
+// Generated from: ProtoGameServer.proto
 namespace GameServer
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Heart")]

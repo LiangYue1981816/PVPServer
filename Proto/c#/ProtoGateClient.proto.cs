@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from: GateClient.proto
+// Generated from: ProtoGateClient.proto
 namespace GateClient
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Heart")]
