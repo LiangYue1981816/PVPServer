@@ -6,8 +6,8 @@
 #include <string>
 #include "IOCP.h"
 #include "Serializer.h"
-#include "GameClient.pb.h"
-#include "GameServer.pb.h"
+#include "ProtoGameClient.pb.h"
+#include "ProtoGameServer.pb.h"
 
 
 //

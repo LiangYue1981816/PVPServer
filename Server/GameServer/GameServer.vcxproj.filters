@@ -48,16 +48,16 @@
     <ClInclude Include="..\Common\IOCP.h">
       <Filter>Common\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Proto\GameClient.pb.h">
+    <ClInclude Include="..\Proto\ProtoGameClient.pb.h">
       <Filter>Proto\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Proto\GameServer.pb.h">
+    <ClInclude Include="..\Proto\ProtoGameServer.pb.h">
       <Filter>Proto\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Proto\GateClient.pb.h">
+    <ClInclude Include="..\Proto\ProtoGateClient.pb.h">
       <Filter>Proto\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Proto\GateServer.pb.h">
+    <ClInclude Include="..\Proto\ProtoGateServer.pb.h">
       <Filter>Proto\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -90,16 +90,16 @@
     <ClCompile Include="..\Common\IOCP.cpp">
       <Filter>Common\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Proto\GameClient.pb.cc">
+    <ClCompile Include="..\Proto\ProtoGameClient.pb.cc">
       <Filter>Proto\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Proto\GameServer.pb.cc">
+    <ClCompile Include="..\Proto\ProtoGameServer.pb.cc">
       <Filter>Proto\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Proto\GateClient.pb.cc">
+    <ClCompile Include="..\Proto\ProtoGateClient.pb.cc">
       <Filter>Proto\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Proto\GateServer.pb.cc">
+    <ClCompile Include="..\Proto\ProtoGateServer.pb.cc">
       <Filter>Proto\Source Files</Filter>
     </ClCompile>
   </ItemGroup>

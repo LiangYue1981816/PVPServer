@@ -63,7 +63,7 @@ DWORD CPlayer::GetFlags(void) const
 //
 BOOL CPlayer::IsLogin(void) const
 {
-	return IS_ENABLE(m_dwFlags, GameServer::FLAGS_CODE::PLAYER_FLAGS_LOGIN);
+	return IS_ENABLE(m_dwFlags, ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_LOGIN);
 }
 
 //
@@ -71,7 +71,7 @@ BOOL CPlayer::IsLogin(void) const
 //
 BOOL CPlayer::IsReady(void) const
 {
-	return IS_ENABLE(m_dwFlags, GameServer::FLAGS_CODE::PLAYER_FLAGS_READY);
+	return IS_ENABLE(m_dwFlags, ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_READY);
 }
 
 //
@@ -79,7 +79,7 @@ BOOL CPlayer::IsReady(void) const
 //
 BOOL CPlayer::IsWaiting(void) const
 {
-	return IS_ENABLE(m_dwFlags, GameServer::FLAGS_CODE::PLAYER_FLAGS_WAITING);
+	return IS_ENABLE(m_dwFlags, ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_WAITING);
 }
 
 //
@@ -87,5 +87,5 @@ BOOL CPlayer::IsWaiting(void) const
 //
 BOOL CPlayer::IsGaming(void) const
 {
-	return IS_ENABLE(m_dwFlags, GameServer::FLAGS_CODE::PLAYER_FLAGS_GAMING);
+	return IS_ENABLE(m_dwFlags, ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_GAMING);
 }
