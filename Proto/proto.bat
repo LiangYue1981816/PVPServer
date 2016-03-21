@@ -6,7 +6,7 @@ for %%i in (*.proto) do (
 	%PROTOCSHARP% -i:%%i -o:.\c#\%%i.cs
 )
 
-copy .\c#\*.* ..\ClientSDK\C#\Proto /y
+copy .\c#\*.* ..\ClientSDK\C#\Source\Proto /y
 copy .\cpp\*.* ..\Server\Proto /y
 
 pause
