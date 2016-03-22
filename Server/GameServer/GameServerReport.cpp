@@ -39,7 +39,7 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 			//
 			// 2. 向网关服务器报告当前游戏列表
 			//
-			BYTE buffer[2 * PACK_BUFFER_SIZE];
+			static BYTE buffer[1024 * 1024];
 			CCacheBuffer writeBuffer(sizeof(buffer), buffer);
 
 			ProtoGameServer::GameList requestGameList;
