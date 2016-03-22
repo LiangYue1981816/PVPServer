@@ -21,8 +21,8 @@ CGameServer::CGameServer(void)
 	, m_dwRecvDataSize(0)
 	, m_dwSendDataSize(0)
 {
-	m_nRootServerPort = 0;
-	memset(m_szRootServerIP, 0, sizeof(m_szRootServerIP));
+	m_nGateServerPort = 0;
+	memset(m_szGateServerIP, 0, sizeof(m_szGateServerIP));
 }
 
 CGameServer::~CGameServer(void)
@@ -33,7 +33,7 @@ CGameServer::~CGameServer(void)
 //
 // 启动服务器
 //
-BOOL CGameServer::Start(const char *ip, int port, int maxGames, int maxPlayers, int timeOut, const char *rootip, int rootport)
+BOOL CGameServer::Start(const char *ip, int port, int maxGames, int maxPlayers, int timeOut, const char *gateip, int gateport)
 {
 	//
 	// 1. 保存超时设置
@@ -43,8 +43,8 @@ BOOL CGameServer::Start(const char *ip, int port, int maxGames, int maxPlayers, 
 	//
 	// 2. 保存入口服务器地址
 	//
-	m_nRootServerPort = rootport;
-	strcpy(m_szRootServerIP, rootip);
+	m_nGateServerPort = gateport;
+	strcpy(m_szGateServerIP, gateip);
 
 	//
 	// 3. 启动服务器
@@ -74,8 +74,8 @@ void CGameServer::Stop(void)
 {
 	m_timeOut = 0;
 
-	m_nRootServerPort = 0;
-	memset(m_szRootServerIP, 0, sizeof(m_szRootServerIP));
+	m_nGateServerPort = 0;
+	memset(m_szGateServerIP, 0, sizeof(m_szGateServerIP));
 
 	SetEvent(m_hShutdownEvent);
 

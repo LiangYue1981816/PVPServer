@@ -131,7 +131,7 @@ public:
 
 	// 方法
 public:
-	virtual BOOL Start(const char *ip, int port, int maxGames, int maxPlayers, int timeOut, const char *rootip, int rootport); // 启动服务器
+	virtual BOOL Start(const char *ip, int port, int maxGames, int maxPlayers, int timeOut, const char *gateip, int gateport); // 启动服务器
 	virtual void Stop(void);                                                                       // 停止服务器
 
 protected:
@@ -207,8 +207,8 @@ protected:
 	HANDLE m_hUpdateThread;                                                                        // 更新线程句柄
 
 protected:
-	int m_nRootServerPort;                                                                         // 入口服务器端口
-	char m_szRootServerIP[256];                                                                    // 入口服务器IP
+	int m_nGateServerPort;                                                                         // 网关服务器端口
+	char m_szGateServerIP[256];                                                                    // 网关服务器IP
 
 protected:
 	DWORD m_dwUpdateCount;                                                                         // 更新次数

@@ -26,8 +26,8 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 			if (sock == INVALID_SOCKET) {
 				sockaddr_in sockAddr;
 				sockAddr.sin_family = AF_INET;
-				sockAddr.sin_addr.s_addr = inet_addr(pServer->m_szRootServerIP);
-				sockAddr.sin_port = htons(pServer->m_nRootServerPort);
+				sockAddr.sin_addr.s_addr = inet_addr(pServer->m_szGateServerIP);
+				sockAddr.sin_port = htons(pServer->m_nGateServerPort);
 
 				sock = socket(AF_INET, SOCK_STREAM, 0);
 				if (sock == INVALID_SOCKET) goto RETRY;
