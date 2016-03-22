@@ -58,6 +58,11 @@
     <Compile Include="Source\GameClient\ServerClientRequestLogin.cs" />
     <Compile Include="Source\GameClient\ServerClientRequestSendToPlayer.cs" />
     <Compile Include="Source\GameClient\ServerClientThread.cs" />
+    <Compile Include="Source\GateClient\GateClient.cs" />
+    <Compile Include="Source\GateClient\GateClientProcessProto.cs" />
+    <Compile Include="Source\GateClient\GateClientRequestGameServerList.cs" />
+    <Compile Include="Source\GateClient\GateClientRequestHeart.cs" />
+    <Compile Include="Source\GateClient\GateClientThread.cs" />
     <Compile Include="Source\NetClient\NetClient.cs" />
     <Compile Include="Source\NetClient\NetClientThread.cs" />
     <Compile Include="Source\NetClient\NetClientUpdate.cs" />
@@ -162,7 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Source\GateClient\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
