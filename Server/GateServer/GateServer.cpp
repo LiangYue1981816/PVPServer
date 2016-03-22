@@ -156,6 +156,8 @@ void CGateServer::OnUpdateRecv(DWORD dwDeltaTime)
 					if (pContext->recvBuffer.PopData((BYTE *)&fullSize, sizeof(fullSize)) == FALSE) break;
 					if (pContext->recvBuffer.PopData((BYTE *)&msg, sizeof(msg)) == FALSE)  break;
 
+					m_dwRecvDataSize += sizeof(fullSize) + fullSize;
+
 					switch (msg) {
 					case ProtoGateClient::REQUEST_MSG::HEART:
 						OnHeart(pContext, bodySize);
