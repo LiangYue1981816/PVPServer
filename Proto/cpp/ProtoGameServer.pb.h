@@ -121,15 +121,15 @@ inline bool ERROR_CODE_Parse(
     ERROR_CODE_descriptor(), name, value);
 }
 enum RESPONSE_MSG {
-  HEART = 0,
-  FLAGS = 1,
-  LOGIN = 2,
-  HOST = 3,
-  CREATE_GAME = 4,
-  DESTROY_GAME = 5,
-  ENTER_GAME = 6,
-  EXIT_GAME = 7,
-  SEND_TO_PLAYER = 8
+  HEART = 1000,
+  FLAGS = 1001,
+  LOGIN = 1002,
+  HOST = 1003,
+  CREATE_GAME = 1004,
+  DESTROY_GAME = 1005,
+  ENTER_GAME = 1006,
+  EXIT_GAME = 1007,
+  SEND_TO_PLAYER = 1008
 };
 bool RESPONSE_MSG_IsValid(int value);
 const RESPONSE_MSG RESPONSE_MSG_MIN = HEART;
@@ -147,7 +147,7 @@ inline bool RESPONSE_MSG_Parse(
     RESPONSE_MSG_descriptor(), name, value);
 }
 enum REQUEST_MSG {
-  GAME_LIST = 1
+  GAME_LIST = 2000
 };
 bool REQUEST_MSG_IsValid(int value);
 const REQUEST_MSG REQUEST_MSG_MIN = GAME_LIST;

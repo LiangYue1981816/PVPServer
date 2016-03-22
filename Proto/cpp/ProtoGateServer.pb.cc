@@ -164,9 +164,9 @@ void protobuf_AddDesc_ProtoGateServer_2eproto() {
     "meServer.Game\032f\n\004Game\022\017\n\007private\030\001 \002(\010\022\016"
     "\n\006gameid\030\002 \002(\005\022\014\n\004mode\030\003 \002(\005\022\013\n\003map\030\004 \002("
     "\005\022\022\n\nmaxPlayers\030\005 \002(\005\022\016\n\006playes\030\006 \003(\005*\037\n"
-    "\016VERSION_NUMBER\022\r\n\007VERSION\020\200\200\004*/\n\014RESPON"
-    "SE_MSG\022\t\n\005HEART\020\000\022\024\n\020GAME_SERVER_LIST\020\001B"
-    "\002H\001", 443);
+    "\016VERSION_NUMBER\022\r\n\007VERSION\020\200\200\004*1\n\014RESPON"
+    "SE_MSG\022\n\n\005HEART\020\270\027\022\025\n\020GAME_SERVER_LIST\020\271"
+    "\027B\002H\001", 445);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGateServer.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -205,8 +205,8 @@ const ::google::protobuf::EnumDescriptor* RESPONSE_MSG_descriptor() {
 }
 bool RESPONSE_MSG_IsValid(int value) {
   switch(value) {
-    case 0:
-    case 1:
+    case 3000:
+    case 3001:
       return true;
     default:
       return false;

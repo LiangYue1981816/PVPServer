@@ -103,8 +103,8 @@ void protobuf_AddDesc_ProtoGateClient_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\025ProtoGateClient.proto\022\017ProtoGateClient"
     "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"\020\n\016GameServ"
-    "erList*.\n\013REQUEST_MSG\022\t\n\005HEART\020\000\022\024\n\020GAME"
-    "_SERVER_LIST\020\001B\002H\001", 138);
+    "erList*0\n\013REQUEST_MSG\022\n\n\005HEART\020\270\027\022\025\n\020GAM"
+    "E_SERVER_LIST\020\271\027B\002H\001", 140);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGateClient.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -126,8 +126,8 @@ const ::google::protobuf::EnumDescriptor* REQUEST_MSG_descriptor() {
 }
 bool REQUEST_MSG_IsValid(int value) {
   switch(value) {
-    case 0:
-    case 1:
+    case 3000:
+    case 3001:
       return true;
     default:
       return false;

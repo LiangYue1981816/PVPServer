@@ -58,8 +58,8 @@ inline bool VERSION_NUMBER_Parse(
     VERSION_NUMBER_descriptor(), name, value);
 }
 enum RESPONSE_MSG {
-  HEART = 0,
-  GAME_SERVER_LIST = 1
+  HEART = 3000,
+  GAME_SERVER_LIST = 3001
 };
 bool RESPONSE_MSG_IsValid(int value);
 const RESPONSE_MSG RESPONSE_MSG_MIN = HEART;

@@ -22,6 +22,12 @@
     <Filter Include="GateServer\Source Files">
       <UniqueIdentifier>{1410858c-1725-4ea3-aba2-73bd9a76d1fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Proto\Header Files">
+      <UniqueIdentifier>{c8e5ef31-c9aa-4959-a77e-689c005b1689}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Proto\Source Files">
+      <UniqueIdentifier>{7f8c9a54-df4d-4a4c-b219-95f0202fac14}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\CacheBuffer.h">
@@ -41,6 +47,18 @@
     </ClInclude>
     <ClInclude Include="GateServer.h">
       <Filter>GateServer\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Proto\ProtoGameClient.pb.h">
+      <Filter>Proto\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Proto\ProtoGameServer.pb.h">
+      <Filter>Proto\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Proto\ProtoGateClient.pb.h">
+      <Filter>Proto\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Proto\ProtoGateServer.pb.h">
+      <Filter>Proto\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -63,5 +81,17 @@
       <Filter>GateServer\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="..\Proto\ProtoGameClient.pb.cc">
+      <Filter>Proto\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Proto\ProtoGameServer.pb.cc">
+      <Filter>Proto\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Proto\ProtoGateClient.pb.cc">
+      <Filter>Proto\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Proto\ProtoGateServer.pb.cc">
+      <Filter>Proto\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -139,11 +139,11 @@ namespace ProtoGateServer
     public enum RESPONSE_MSG
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"HEART", Value=0)]
-      HEART = 0,
+      [global::ProtoBuf.ProtoEnum(Name=@"HEART", Value=3000)]
+      HEART = 3000,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"GAME_SERVER_LIST", Value=1)]
-      GAME_SERVER_LIST = 1
+      [global::ProtoBuf.ProtoEnum(Name=@"GAME_SERVER_LIST", Value=3001)]
+      GAME_SERVER_LIST = 3001
     }
   
 }

@@ -71,7 +71,7 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 			Serializer(&writeBuffer, &requestGameList, ProtoGameServer::REQUEST_MSG::GAME_LIST);
 
 			rcode = SendData(sock, (char *)buffer, writeBuffer.GetActiveBufferSize());
-			if (rcode != NO_ERROR) goto RETRY;
+			if (rcode < 0) goto RETRY;
 		}
 
 		if (sock != INVALID_SOCKET) {

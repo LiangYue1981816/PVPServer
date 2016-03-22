@@ -354,11 +354,11 @@ void protobuf_AddDesc_ProtoGameServer_2eproto() {
     "\017\022\023\n\016ERR_GAME_EMPTY\020\323\017\022\022\n\rERR_GAME_FULL\020"
     "\324\017\022\026\n\021ERR_GAME_PASSWORD\020\325\017\022\024\n\017ERR_SERVER"
     "_FULL\020\270\027\022\036\n\031ERR_GAMEPLAY_INVALID_MODE\020\240\037"
-    "*\217\001\n\014RESPONSE_MSG\022\t\n\005HEART\020\000\022\t\n\005FLAGS\020\001\022"
-    "\t\n\005LOGIN\020\002\022\010\n\004HOST\020\003\022\017\n\013CREATE_GAME\020\004\022\020\n"
-    "\014DESTROY_GAME\020\005\022\016\n\nENTER_GAME\020\006\022\r\n\tEXIT_"
-    "GAME\020\007\022\022\n\016SEND_TO_PLAYER\020\010*\034\n\013REQUEST_MS"
-    "G\022\r\n\tGAME_LIST\020\001B\002H\001", 1500);
+    "*\230\001\n\014RESPONSE_MSG\022\n\n\005HEART\020\350\007\022\n\n\005FLAGS\020\351"
+    "\007\022\n\n\005LOGIN\020\352\007\022\t\n\004HOST\020\353\007\022\020\n\013CREATE_GAME\020"
+    "\354\007\022\021\n\014DESTROY_GAME\020\355\007\022\017\n\nENTER_GAME\020\356\007\022\016"
+    "\n\tEXIT_GAME\020\357\007\022\023\n\016SEND_TO_PLAYER\020\360\007*\035\n\013R"
+    "EQUEST_MSG\022\016\n\tGAME_LIST\020\320\017B\002H\001", 1510);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGameServer.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -457,15 +457,15 @@ const ::google::protobuf::EnumDescriptor* RESPONSE_MSG_descriptor() {
 }
 bool RESPONSE_MSG_IsValid(int value) {
   switch(value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
+    case 1000:
+    case 1001:
+    case 1002:
+    case 1003:
+    case 1004:
+    case 1005:
+    case 1006:
+    case 1007:
+    case 1008:
       return true;
     default:
       return false;
@@ -478,7 +478,7 @@ const ::google::protobuf::EnumDescriptor* REQUEST_MSG_descriptor() {
 }
 bool REQUEST_MSG_IsValid(int value) {
   switch(value) {
-    case 1:
+    case 2000:
       return true;
     default:
       return false;

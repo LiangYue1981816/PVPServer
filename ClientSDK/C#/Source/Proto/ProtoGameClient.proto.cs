@@ -209,32 +209,32 @@ namespace ProtoGameClient
     public enum REQUEST_MSG
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"HEART", Value=0)]
-      HEART = 0,
+      [global::ProtoBuf.ProtoEnum(Name=@"HEART", Value=1000)]
+      HEART = 1000,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FLAGS", Value=1)]
-      FLAGS = 1,
+      [global::ProtoBuf.ProtoEnum(Name=@"FLAGS", Value=1001)]
+      FLAGS = 1001,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"LOGIN", Value=2)]
-      LOGIN = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"LOGIN", Value=1002)]
+      LOGIN = 1002,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"CREATE_GAME", Value=3)]
-      CREATE_GAME = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"CREATE_GAME", Value=1003)]
+      CREATE_GAME = 1003,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"DESTROY_GAME", Value=4)]
-      DESTROY_GAME = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"DESTROY_GAME", Value=1004)]
+      DESTROY_GAME = 1004,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ENTER_GAME", Value=5)]
-      ENTER_GAME = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"ENTER_GAME", Value=1005)]
+      ENTER_GAME = 1005,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"EXIT_GAME", Value=6)]
-      EXIT_GAME = 6,
+      [global::ProtoBuf.ProtoEnum(Name=@"EXIT_GAME", Value=1006)]
+      EXIT_GAME = 1006,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=7)]
-      SEND_TO_PLAYER = 7,
+      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=1007)]
+      SEND_TO_PLAYER = 1007,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER_ALL", Value=8)]
-      SEND_TO_PLAYER_ALL = 8
+      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER_ALL", Value=1008)]
+      SEND_TO_PLAYER_ALL = 1008
     }
   
 }

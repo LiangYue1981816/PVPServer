@@ -6,7 +6,7 @@
 void main()
 {
 	CGateServer server;
-	server.Start("127.0.0.1", 20000, 1000);
+	server.Start("127.0.0.1", 10000, 1000, 10);
 	getch();
 	server.Stop();
 }

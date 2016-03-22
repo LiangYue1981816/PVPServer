@@ -381,40 +381,40 @@ namespace ProtoGameServer
     public enum RESPONSE_MSG
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"HEART", Value=0)]
-      HEART = 0,
+      [global::ProtoBuf.ProtoEnum(Name=@"HEART", Value=1000)]
+      HEART = 1000,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"FLAGS", Value=1)]
-      FLAGS = 1,
+      [global::ProtoBuf.ProtoEnum(Name=@"FLAGS", Value=1001)]
+      FLAGS = 1001,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"LOGIN", Value=2)]
-      LOGIN = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"LOGIN", Value=1002)]
+      LOGIN = 1002,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"HOST", Value=3)]
-      HOST = 3,
+      [global::ProtoBuf.ProtoEnum(Name=@"HOST", Value=1003)]
+      HOST = 1003,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"CREATE_GAME", Value=4)]
-      CREATE_GAME = 4,
+      [global::ProtoBuf.ProtoEnum(Name=@"CREATE_GAME", Value=1004)]
+      CREATE_GAME = 1004,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"DESTROY_GAME", Value=5)]
-      DESTROY_GAME = 5,
+      [global::ProtoBuf.ProtoEnum(Name=@"DESTROY_GAME", Value=1005)]
+      DESTROY_GAME = 1005,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ENTER_GAME", Value=6)]
-      ENTER_GAME = 6,
+      [global::ProtoBuf.ProtoEnum(Name=@"ENTER_GAME", Value=1006)]
+      ENTER_GAME = 1006,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"EXIT_GAME", Value=7)]
-      EXIT_GAME = 7,
+      [global::ProtoBuf.ProtoEnum(Name=@"EXIT_GAME", Value=1007)]
+      EXIT_GAME = 1007,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=8)]
-      SEND_TO_PLAYER = 8
+      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=1008)]
+      SEND_TO_PLAYER = 1008
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"REQUEST_MSG")]
     public enum REQUEST_MSG
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"GAME_LIST", Value=1)]
-      GAME_LIST = 1
+      [global::ProtoBuf.ProtoEnum(Name=@"GAME_LIST", Value=2000)]
+      GAME_LIST = 2000
     }
   
 }

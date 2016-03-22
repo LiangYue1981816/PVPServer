@@ -38,8 +38,8 @@ class Heart;
 class GameServerList;
 
 enum REQUEST_MSG {
-  HEART = 0,
-  GAME_SERVER_LIST = 1
+  HEART = 3000,
+  GAME_SERVER_LIST = 3001
 };
 bool REQUEST_MSG_IsValid(int value);
 const REQUEST_MSG REQUEST_MSG_MIN = HEART;
