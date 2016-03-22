@@ -220,7 +220,7 @@ void CGateServer::OnHeart(CIOContext *pContext, WORD size)
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &responseHeart, ProtoGameServer::RESPONSE_MSG::HEART);
+	Serializer(&writeBuffer, &responseHeart, ProtoGateServer::RESPONSE_MSG::HEART);
 
 	//
 	// 4. 发送
@@ -273,7 +273,7 @@ void CGateServer::OnGameServerList(CIOContext *pContext, WORD size)
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &responseGameServerList, ProtoGameServer::RESPONSE_MSG::HEART);
+	Serializer(&writeBuffer, &responseGameServerList, ProtoGateServer::RESPONSE_MSG::GAME_SERVER_LIST);
 
 	//
 	// 4. 发送
