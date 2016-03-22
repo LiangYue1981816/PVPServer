@@ -39,7 +39,7 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 			//
 			// 2. 向网关服务器报告当前游戏列表
 			//
-			static BYTE buffer[1024 * 1024];
+			BYTE buffer[2 * PACK_BUFFER_SIZE];
 			CCacheBuffer writeBuffer(sizeof(buffer), buffer);
 
 			ProtoGameServer::GameList requestGameList;
@@ -51,6 +51,7 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 				if (CGame *pGame = pServer->m_pActiveGame) {
 					do {
 						if (ProtoGameServer::GameList_Game *pRequestGame = requestGameList.add_games()) {
+							pRequestGame->set_private_(pGame->IsPrivate() ? true : false);
 							pRequestGame->set_gameid(pGame->id);
 							pRequestGame->set_mode(pGame->GetMode());
 							pRequestGame->set_map(pGame->GetMapID());

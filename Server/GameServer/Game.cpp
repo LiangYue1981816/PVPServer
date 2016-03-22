@@ -39,6 +39,14 @@ void CGame::SetGame(const char *password, int mode, int mapid, int maxPlayers)
 }
 
 //
+// 获得游戏是否私有
+//
+BOOL CGame::IsPrivate(void) const
+{
+	return strlen(m_szPassword) > 0 ? TRUE : FALSE;
+}
+
+//
 // 获得游戏模式
 //
 int CGame::GetMode(void) const

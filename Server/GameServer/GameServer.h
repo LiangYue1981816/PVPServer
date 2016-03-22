@@ -67,6 +67,7 @@ public:
 public:
 	virtual void SetGame(const char *password, int mode, int mapid, int maxPlayers);               // 设置游戏
 
+	virtual BOOL IsPrivate(void) const;                                                            // 获得游戏是否私有
 	virtual int GetMode(void) const;                                                               // 获得游戏模式
 	virtual int GetMapID(void) const;                                                              // 获得游戏地图
 	virtual int GetPlayers(void) const;                                                            // 获得当前玩家数

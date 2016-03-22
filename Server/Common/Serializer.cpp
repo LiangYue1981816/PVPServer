@@ -3,16 +3,21 @@
 
 void Serializer(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD msg)
 {
-	WORD fullSize, bodySize;
-	BYTE body[PACK_BUFFER_SIZE];
+	try {
+		WORD fullSize, bodySize;
+		BYTE body[PACK_BUFFER_SIZE];
 
-	message->SerializeToArray(body, sizeof(body));
-	bodySize = message->ByteSize();
-	fullSize = sizeof(msg) + bodySize;
+		message->SerializeToArray(body, sizeof(body));
+		bodySize = message->ByteSize();
+		fullSize = sizeof(msg) + bodySize;
 
-	pBuffer->PushData((unsigned char *)&fullSize, sizeof(fullSize));
-	pBuffer->PushData((unsigned char *)&msg, sizeof(msg));
-	pBuffer->PushData(body, bodySize);
+		pBuffer->PushData((unsigned char *)&fullSize, sizeof(fullSize));
+		pBuffer->PushData((unsigned char *)&msg, sizeof(msg));
+		pBuffer->PushData(body, bodySize);
+	}
+	catch (std::exception e) {
+		printf(e.what());
+	}
 }
 
 BOOL Parser(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD size)
