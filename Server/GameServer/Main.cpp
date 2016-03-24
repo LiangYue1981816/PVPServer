@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include "GameServer.h"
 
+#define MAX_GAMES                      50
+#define MAX_GAME_PLAYERS               10
+
 void main()
 {
 	CGameServer server;

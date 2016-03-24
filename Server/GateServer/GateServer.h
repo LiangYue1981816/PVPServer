@@ -19,21 +19,13 @@ class CGateServer : public CIOCPServer
 	// 数据结构
 public:
 	typedef struct {
-		BOOL bPrivate;                                                                             // 游戏是否私有
-		int gameid;                                                                                // 游戏ID
-		int mapid;                                                                                 // 地图ID
-		int mode;                                                                                  // 模式
-		int maxPlayers;                                                                            // 最大玩家数
-		std::vector<int> players;                                                                  // 当前玩家
-	} Game;
-
-	typedef struct {
 		char ip[260];                                                                              // 游戏服务器IP
 		int port;                                                                                  // 游戏服务器端口
-		std::vector<Game> games;                                                                   // 游戏集合
-	} GameServer;
+		int maxGames;                                                                              // 游戏服务器最大游戏数
+		int curGames;                                                                              // 游戏服务器当前游戏数
+	} GameServerStatus;
 
-	typedef std::map<CIOContext*, GameServer> GameServerMap;                                       // 游戏服务器集合
+	typedef std::map<CIOContext*, GameServerStatus> GameServerMap;                                 // 游戏服务器集合
 
 
 	// 构造/析构函数
@@ -62,8 +54,8 @@ protected:
 
 	virtual void OnHeartReset(CIOContext *pContext);                                               // 重置心跳
 	virtual void OnHeart(CIOContext *pContext, WORD size);                                         // 心跳
-	virtual void OnGameServerList(CIOContext *pContext, WORD size);                                // 获得游戏服务器列表
-	virtual void OnGameList(CIOContext *pContext, WORD size);                                      // 游戏列表
+	virtual void OnListGameServer(CIOContext *pContext, WORD size);                                // 获得游戏服务器列表
+	virtual void OnGameServerStatus(CIOContext *pContext, WORD size);                              // 获得游戏服务器状态
 
 protected:
 	virtual void Monitor(void);                                                                    // 监控

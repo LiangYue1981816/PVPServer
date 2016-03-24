@@ -57,10 +57,6 @@ typedef unsigned int                   DWORD;    // 4BYTE
 #define RECV_BUFFER_SIZE               16*1024
 #define SEND_BUFFER_SIZE               16*1024
 
-#define MAX_GAMES                      500
-#define MAX_GAME_PLAYERS               16
-#define MAX_CONTEXTS                   (MAX_GAMES*MAX_GAME_PLAYERS)
-
 
 #define IS_ENABLE(flags, attrib)       ((flags) & (attrib) ? TRUE : FALSE)
 #define SET_ENABLE(flags, attrib)      ((flags) = (flags) |  (attrib))

@@ -164,13 +164,13 @@ void CGateServer::OnUpdateRecv(DWORD dwDeltaTime)
 						OnHeartReset(pContext);
 						break;
 
-					case ProtoGateClient::REQUEST_MSG::GAME_SERVER_LIST:
-						OnGameServerList(pContext, bodySize);
+					case ProtoGateClient::REQUEST_MSG::LIST_GAME_SERVER:
+						OnListGameServer(pContext, bodySize);
 						OnHeartReset(pContext);
 						break;
 
-					case ProtoGameServer::REQUEST_MSG::GAME_LIST:
-						OnGameList(pContext, bodySize);
+					case ProtoGameServer::REQUEST_MSG::SERVER_STATUS:
+						OnGameServerStatus(pContext, bodySize);
 						OnHeartReset(pContext);
 						break;
 					}
@@ -233,10 +233,10 @@ void CGateServer::OnHeart(CIOContext *pContext, WORD size)
 //
 // 获得游戏服务器列表
 //
-void CGateServer::OnGameServerList(CIOContext *pContext, WORD size)
+void CGateServer::OnListGameServer(CIOContext *pContext, WORD size)
 {
-	ProtoGateClient::GameServerList requestGameServerList;
-	ProtoGateServer::GameServerList responseGameServerList;
+	ProtoGateClient::ListGameServer requestListGameServer;
+	ProtoGateServer::ListGameServer responseListGameServer;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
 	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
@@ -244,38 +244,26 @@ void CGateServer::OnGameServerList(CIOContext *pContext, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pContext->recvBuffer, &requestGameServerList, size) == FALSE) {
+	if (Parser(&pContext->recvBuffer, &requestListGameServer, size) == FALSE) {
 		return;
 	}
 
 	//
-	// 2. 游戏服务器列表
+	// 2. 获得游戏服务器列表
 	//
 	for (GameServerMap::const_iterator itGameServer = m_gameServerMap.begin(); itGameServer != m_gameServerMap.end(); ++itGameServer) {
-		if (ProtoGateServer::GameServerList_GameServer *pGameServer = responseGameServerList.add_servers()) {
+		if (ProtoGateServer::ListGameServer_GameServer *pGameServer = responseListGameServer.add_servers()) {
 			pGameServer->set_ip(itGameServer->second.ip);
 			pGameServer->set_port(itGameServer->second.port);
-
-			for (std::vector<Game>::const_iterator itGame = itGameServer->second.games.begin(); itGame != itGameServer->second.games.end(); ++itGame) {
-				if (ProtoGateServer::GameServerList_GameServer_Game *pGame = pGameServer->add_games()) {
-					pGame->set_private_(itGame->bPrivate ? true : false);
-					pGame->set_gameid(itGame->gameid);
-					pGame->set_mode(itGame->mode);
-					pGame->set_map(itGame->mapid);
-					pGame->set_maxplayers(itGame->maxPlayers);
-					
-					for (std::vector<int>::const_iterator itPlayer = itGame->players.begin(); itPlayer != itGame->players.end(); ++itPlayer) {
-						pGame->add_playes(*itPlayer);
-					}
-				}
-			}
+			pGameServer->set_maxgames(itGameServer->second.maxGames);
+			pGameServer->set_curgames(itGameServer->second.curGames);
 		}
 	}
 
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &responseGameServerList, ProtoGateServer::RESPONSE_MSG::GAME_SERVER_LIST);
+	Serializer(&writeBuffer, &responseListGameServer, ProtoGateServer::RESPONSE_MSG::LIST_GAME_SERVER);
 
 	//
 	// 4. 发送
@@ -284,39 +272,26 @@ void CGateServer::OnGameServerList(CIOContext *pContext, WORD size)
 }
 
 //
-// 游戏列表
+// 获得游戏服务器状态
 //
-void CGateServer::OnGameList(CIOContext *pContext, WORD size)
+void CGateServer::OnGameServerStatus(CIOContext *pContext, WORD size)
 {
-	ProtoGameServer::GameList requestGameList;
+	ProtoGameServer::ServerStatus requestServerStatus;
 
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pContext->recvBuffer, &requestGameList, size) == FALSE) {
+	if (Parser(&pContext->recvBuffer, &requestServerStatus, size) == FALSE) {
 		return;
 	}
 
 	//
 	// 2. 更新游戏服务器列表
 	//
-	m_gameServerMap[pContext].games.clear();
-
-	strcpy(m_gameServerMap[pContext].ip, requestGameList.ip().c_str());
-	m_gameServerMap[pContext].port = requestGameList.port();
-
-	for (int indexGame = 0; indexGame < requestGameList.games_size(); indexGame++) {
-		Game game;
-		game.bPrivate = requestGameList.games(indexGame).private_() ? TRUE : FALSE;
-		game.gameid = requestGameList.games(indexGame).gameid();
-		game.mapid = requestGameList.games(indexGame).map();
-		game.mode = requestGameList.games(indexGame).mode();
-		game.maxPlayers = requestGameList.games(indexGame).maxplayers();
-		for (int indexPlayer = 0; indexPlayer < requestGameList.games(indexGame).playes_size(); indexPlayer++) {
-			game.players.push_back(requestGameList.games(indexGame).playes(indexPlayer));
-		}
-		m_gameServerMap[pContext].games.push_back(game);
-	}
+	strcpy(m_gameServerMap[pContext].ip, requestServerStatus.ip().c_str());
+	m_gameServerMap[pContext].port = requestServerStatus.port();
+	m_gameServerMap[pContext].maxGames = requestServerStatus.maxgames();
+	m_gameServerMap[pContext].curGames = requestServerStatus.curgames();
 }
 
 //

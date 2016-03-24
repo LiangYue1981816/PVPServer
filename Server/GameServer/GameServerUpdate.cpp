@@ -81,6 +81,11 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 						OnHeartReset(pPlayer);
 						break;
 
+					case ProtoGameClient::REQUEST_MSG::LIST_GAME:
+						OnListGame(pPlayer, bodySize);
+						OnHeartReset(pPlayer);
+						break;
+
 					case ProtoGameClient::REQUEST_MSG::CREATE_GAME:
 						OnCreateGame(pPlayer, bodySize);
 						OnHeartReset(pPlayer);
@@ -273,6 +278,62 @@ NEXT:
 	// 4. 发送玩家
 	//
 	SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
+}
+
+//
+// 获得游戏列表
+//
+void CGameServer::OnListGame(CPlayer *pPlayer, WORD size)
+{
+	ProtoGameClient::ListGame requestListGame;
+	ProtoGameServer::ListGame responseListGame;
+
+	BYTE buffer[PACK_BUFFER_SIZE];
+	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
+
+	//
+	// 1. 解析消息
+	//
+	if (Parser(&pPlayer->recvBuffer, &requestListGame, size) == FALSE) {
+		return;
+	}
+
+	//
+	// 2. 获得游戏列表
+	//
+	ProtoGameServer::ERROR_CODE err = ProtoGameServer::ERROR_CODE::ERR_NONE;
+
+	if (pPlayer->GetFlags() != ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_LOGIN) {
+		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
+	}
+
+	if (CGame *pGame = m_pActiveGame) {
+		do {
+			if (ProtoGameServer::ListGame_Game *pGameStatus = responseListGame.add_games()) {
+				pGameStatus->set_private_(pGame->IsPrivate() ? true : false);
+				pGameStatus->set_gameid(pGame->id);
+				pGameStatus->set_mode(pGame->GetMode());
+				pGameStatus->set_map(pGame->GetMapID());
+				pGameStatus->set_maxplayers(pGame->GetMaxPlayers());
+				pGameStatus->set_curplayers(pGame->GetCurPlayers());
+			}
+		} while (pGame = pGame->pNextActive);
+	}
+
+	goto NEXT;
+ERR:
+NEXT :
+	responseListGame.set_err(err);
+
+	 //
+	 // 3. 序列化消息
+	 //
+	 Serializer(&writeBuffer, &responseListGame, ProtoGameServer::RESPONSE_MSG::LIST_GAME);
+
+	 //
+	 // 4. 发送玩家
+	 //
+	 SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
 }
 
 //

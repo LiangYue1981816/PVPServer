@@ -70,7 +70,8 @@ public:
 	virtual BOOL IsPrivate(void) const;                                                            // 获得游戏是否私有
 	virtual int GetMode(void) const;                                                               // 获得游戏模式
 	virtual int GetMapID(void) const;                                                              // 获得游戏地图
-	virtual int GetPlayers(void) const;                                                            // 获得当前玩家数
+
+	virtual int GetCurPlayers(void) const;                                                         // 获得当前玩家数
 	virtual int GetMaxPlayers(void) const;                                                         // 获得最大玩家数
 
 public:
@@ -97,8 +98,9 @@ private:
 
 	int m_mode;                                                                                    // 游戏模式
 	int m_mapid;                                                                                   // 游戏地图
+
+	int m_curPlayers;                                                                              // 当前玩家数
 	int m_maxPlayers;                                                                              // 最大玩家数
-	int m_numPlayers;                                                                              // 当前玩家数
 
 private:
 	DWORD m_dwHostGUID;                                                                            // 主机玩家GUID
@@ -175,6 +177,7 @@ protected:
 	virtual void OnHeart(CPlayer *pPlayer, WORD size);                                             // 心跳
 	virtual void OnFlags(CPlayer *pPlayer, WORD size);                                             // 标识
 	virtual void OnLogin(CPlayer *pPlayer, WORD size);                                             // 登陆
+	virtual void OnListGame(CPlayer *pPlayer, WORD size);                                          // 获得游戏列表
 	virtual void OnCreateGame(CPlayer *pPlayer, WORD size);                                        // 创建游戏
 	virtual void OnDestroyGame(CPlayer *pPlayer, WORD size);                                       // 销毁游戏
 	virtual void OnEnterGame(CPlayer *pPlayer, WORD size);                                         // 进入游戏

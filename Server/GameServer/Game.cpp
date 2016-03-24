@@ -9,8 +9,10 @@ CGame::CGame(CGameServer *s)
 
 	, m_mode(-1)
 	, m_mapid(-1)
+
+	, m_curPlayers(0)
 	, m_maxPlayers(0)
-	, m_numPlayers(0)
+	
 	, m_dwHostGUID(0xffffffff)
 
 	, pNext(NULL)
@@ -65,9 +67,9 @@ int CGame::GetMapID(void) const
 //
 // 获得当前玩家数
 //
-int CGame::GetPlayers(void) const
+int CGame::GetCurPlayers(void) const
 {
-	return m_numPlayers;
+	return m_curPlayers;
 }
 
 //
@@ -133,7 +135,7 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 	//
 	// 4. 记录玩家
 	//
-	m_numPlayers++;
+	m_curPlayers++;
 
 	//
 	// 5. 设置主机
@@ -189,7 +191,7 @@ int CGame::DelPlayer(CPlayer *pPlayer)
 	//
 	// 4. 记录玩家
 	//
-	m_numPlayers--;
+	m_curPlayers--;
 
 	//
 	// 5. 设置主机
@@ -216,7 +218,7 @@ void CGame::Clear(void)
 //
 BOOL CGame::IsFull(void) const
 {
-	return m_numPlayers == m_maxPlayers ? TRUE : FALSE;
+	return m_curPlayers == m_maxPlayers ? TRUE : FALSE;
 }
 
 //
@@ -224,7 +226,7 @@ BOOL CGame::IsFull(void) const
 //
 BOOL CGame::IsEmpty(void) const
 {
-	return m_numPlayers == 0 ? TRUE : FALSE;
+	return m_curPlayers == 0 ? TRUE : FALSE;
 }
 
 //

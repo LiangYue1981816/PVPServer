@@ -41,34 +41,18 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 			//
 			BYTE buffer[1024 * 1024];
 			CCacheBuffer writeBuffer(sizeof(buffer), buffer);
-
-			ProtoGameServer::GameList requestGameList;
-			requestGameList.set_ip(pServer->m_ip);
-			requestGameList.set_port(pServer->m_port);
-
-			EnterCriticalSection(&pServer->m_sectionIOContext);
+			ProtoGameServer::ServerStatus requestServerStatus;
 			{
-				if (CGame *pGame = pServer->m_pActiveGame) {
-					do {
-						if (ProtoGameServer::GameList_Game *pRequestGame = requestGameList.add_games()) {
-							pRequestGame->set_private_(pGame->IsPrivate() ? true : false);
-							pRequestGame->set_gameid(pGame->id);
-							pRequestGame->set_mode(pGame->GetMode());
-							pRequestGame->set_map(pGame->GetMapID());
-							pRequestGame->set_maxplayers(pGame->GetMaxPlayers());
-
-							if (CPlayer *pPlayer = pGame->pActivePlayer) {
-								do {
-									pRequestGame->add_playes(pPlayer->guid);
-								} while (pPlayer = pPlayer->pNextPlayer);
-							}
-						}
-					} while (pGame = pGame->pNextActive);
+				EnterCriticalSection(&pServer->m_sectionIOContext);
+				{
+					requestServerStatus.set_ip(pServer->m_ip);
+					requestServerStatus.set_port(pServer->m_port);
+					requestServerStatus.set_maxgames(pServer->m_maxGames);
+					requestServerStatus.set_curgames(pServer->m_curGames);
 				}
+				LeaveCriticalSection(&pServer->m_sectionIOContext);
 			}
-			LeaveCriticalSection(&pServer->m_sectionIOContext);
-
-			Serializer(&writeBuffer, &requestGameList, ProtoGameServer::REQUEST_MSG::GAME_LIST);
+			Serializer(&writeBuffer, &requestServerStatus, ProtoGameServer::REQUEST_MSG::SERVER_STATUS);
 
 			rcode = SendData(sock, (char *)buffer, writeBuffer.GetActiveBufferSize());
 			if (rcode < 0) goto RETRY;
