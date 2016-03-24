@@ -90,7 +90,7 @@ void protobuf_AssignDesc_ProtoGateClient_2eproto() {
       sizeof(ListGameServer));
   SendToPlayer_descriptor_ = file->message_type(3);
   static const int SendToPlayer_offsets_[4] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, guid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, guids_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, size_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, data_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, players_),
@@ -152,11 +152,11 @@ void protobuf_AddDesc_ProtoGateClient_2eproto() {
     "\n\025ProtoGateClient.proto\022\017ProtoGateClient"
     "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"&\n\005Login\022\014\n"
     "\004guid\030\001 \002(\r\022\017\n\007version\030\002 \002(\005\"\020\n\016ListGame"
-    "Server\"I\n\014SendToPlayer\022\014\n\004guid\030\001 \002(\r\022\014\n\004"
-    "size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014\022\017\n\007players\030\004 \003("
-    "\005*Q\n\013REQUEST_MSG\022\n\n\005HEART\020\270\027\022\n\n\005LOGIN\020\271\027"
-    "\022\025\n\020LIST_GAME_SERVER\020\272\027\022\023\n\016SEND_TO_PLAYE"
-    "R\020\273\027B\002H\001", 288);
+    "Server\"J\n\014SendToPlayer\022\r\n\005guids\030\001 \003(\r\022\014\n"
+    "\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014\022\017\n\007players\030\004 \003"
+    "(\005*Q\n\013REQUEST_MSG\022\n\n\005HEART\020\270\027\022\n\n\005LOGIN\020\271"
+    "\027\022\025\n\020LIST_GAME_SERVER\020\272\027\022\023\n\016SEND_TO_PLAY"
+    "ER\020\273\027B\002H\001", 289);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGateClient.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -868,7 +868,7 @@ void ListGameServer::Swap(ListGameServer* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-const int SendToPlayer::kGuidFieldNumber;
+const int SendToPlayer::kGuidsFieldNumber;
 const int SendToPlayer::kSizeFieldNumber;
 const int SendToPlayer::kDataFieldNumber;
 const int SendToPlayer::kPlayersFieldNumber;
@@ -893,7 +893,6 @@ SendToPlayer::SendToPlayer(const SendToPlayer& from)
 void SendToPlayer::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  guid_ = 0u;
   size_ = 0;
   data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -934,28 +933,15 @@ SendToPlayer* SendToPlayer::New() const {
 }
 
 void SendToPlayer::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<SendToPlayer*>(16)->f) - \
-   reinterpret_cast<char*>(16))
-
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
-
-  if (_has_bits_[0 / 32] & 7) {
-    ZR_(guid_, size_);
+  if (_has_bits_[0 / 32] & 6) {
+    size_ = 0;
     if (has_data()) {
       if (data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         data_->clear();
       }
     }
   }
-
-#undef OFFSET_OF_FIELD_
-#undef ZR_
-
+  guids_.Clear();
   players_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -971,16 +957,21 @@ bool SendToPlayer::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 guid = 1;
+      // repeated uint32 guids = 1;
       case 1: {
         if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+         parse_guids:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
-                 input, &guid_)));
-          set_has_guid();
+                 1, 8, input, this->mutable_guids())));
+        } else if (tag == 10) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, this->mutable_guids())));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(8)) goto parse_guids;
         if (input->ExpectTag(16)) goto parse_size;
         break;
       }
@@ -1057,9 +1048,10 @@ failure:
 void SendToPlayer::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:ProtoGateClient.SendToPlayer)
-  // required uint32 guid = 1;
-  if (has_guid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->guid(), output);
+  // repeated uint32 guids = 1;
+  for (int i = 0; i < this->guids_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(
+      1, this->guids(i), output);
   }
 
   // required int32 size = 2;
@@ -1089,9 +1081,10 @@ void SendToPlayer::SerializeWithCachedSizes(
 ::google::protobuf::uint8* SendToPlayer::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:ProtoGateClient.SendToPlayer)
-  // required uint32 guid = 1;
-  if (has_guid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->guid(), target);
+  // repeated uint32 guids = 1;
+  for (int i = 0; i < this->guids_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteUInt32ToArray(1, this->guids(i), target);
   }
 
   // required int32 size = 2;
@@ -1123,14 +1116,7 @@ void SendToPlayer::SerializeWithCachedSizes(
 int SendToPlayer::ByteSize() const {
   int total_size = 0;
 
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 guid = 1;
-    if (has_guid()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
-          this->guid());
-    }
-
+  if (_has_bits_[1 / 32] & (0xffu << (1 % 32))) {
     // required int32 size = 2;
     if (has_size()) {
       total_size += 1 +
@@ -1146,6 +1132,16 @@ int SendToPlayer::ByteSize() const {
     }
 
   }
+  // repeated uint32 guids = 1;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->guids_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        UInt32Size(this->guids(i));
+    }
+    total_size += 1 * this->guids_size() + data_size;
+  }
+
   // repeated int32 players = 4;
   {
     int data_size = 0;
@@ -1181,11 +1177,9 @@ void SendToPlayer::MergeFrom(const ::google::protobuf::Message& from) {
 
 void SendToPlayer::MergeFrom(const SendToPlayer& from) {
   GOOGLE_CHECK_NE(&from, this);
+  guids_.MergeFrom(from.guids_);
   players_.MergeFrom(from.players_);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_guid()) {
-      set_guid(from.guid());
-    }
+  if (from._has_bits_[1 / 32] & (0xffu << (1 % 32))) {
     if (from.has_size()) {
       set_size(from.size());
     }
@@ -1209,14 +1203,14 @@ void SendToPlayer::CopyFrom(const SendToPlayer& from) {
 }
 
 bool SendToPlayer::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if ((_has_bits_[0] & 0x00000006) != 0x00000006) return false;
 
   return true;
 }
 
 void SendToPlayer::Swap(SendToPlayer* other) {
   if (other != this) {
-    std::swap(guid_, other->guid_);
+    guids_.Swap(&other->guids_);
     std::swap(size_, other->size_);
     std::swap(data_, other->data_);
     players_.Swap(&other->players_);

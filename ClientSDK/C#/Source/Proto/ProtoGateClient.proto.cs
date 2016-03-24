@@ -66,13 +66,13 @@ namespace ProtoGateClient
   {
     public SendToPlayer() {}
     
-    private uint _guid;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public uint guid
+    private readonly global::System.Collections.Generic.List<uint> _guids = new global::System.Collections.Generic.List<uint>();
+    [global::ProtoBuf.ProtoMember(1, Name=@"guids", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<uint> guids
     {
-      get { return _guid; }
-      set { _guid = value; }
+      get { return _guids; }
     }
+  
     private int _size;
     [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"size", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int size

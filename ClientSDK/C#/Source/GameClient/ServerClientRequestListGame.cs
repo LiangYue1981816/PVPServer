@@ -4,7 +4,7 @@ public partial class ServerClient : NetClient
 {
     public virtual void RequestListGame()
     {
-        SendProto(ProtoGameClient.REQUEST_MSG.LIST_GAME, mRequestList);
+        SendProto(ProtoGameClient.REQUEST_MSG.LIST_GAME, mRequestListGame);
     }
 
     public virtual void ResponseListGame(byte[] buffer)

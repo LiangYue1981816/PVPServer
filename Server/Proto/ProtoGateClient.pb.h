@@ -352,12 +352,17 @@ class SendToPlayer : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required uint32 guid = 1;
-  inline bool has_guid() const;
-  inline void clear_guid();
-  static const int kGuidFieldNumber = 1;
-  inline ::google::protobuf::uint32 guid() const;
-  inline void set_guid(::google::protobuf::uint32 value);
+  // repeated uint32 guids = 1;
+  inline int guids_size() const;
+  inline void clear_guids();
+  static const int kGuidsFieldNumber = 1;
+  inline ::google::protobuf::uint32 guids(int index) const;
+  inline void set_guids(int index, ::google::protobuf::uint32 value);
+  inline void add_guids(::google::protobuf::uint32 value);
+  inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+      guids() const;
+  inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+      mutable_guids();
 
   // required int32 size = 2;
   inline bool has_size() const;
@@ -392,8 +397,6 @@ class SendToPlayer : public ::google::protobuf::Message {
 
   // @@protoc_insertion_point(class_scope:ProtoGateClient.SendToPlayer)
  private:
-  inline void set_has_guid();
-  inline void clear_has_guid();
   inline void set_has_size();
   inline void clear_has_size();
   inline void set_has_data();
@@ -403,10 +406,10 @@ class SendToPlayer : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::uint32 guid_;
-  ::google::protobuf::int32 size_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > guids_;
   ::std::string* data_;
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 > players_;
+  ::google::protobuf::int32 size_;
   friend void  protobuf_AddDesc_ProtoGateClient_2eproto();
   friend void protobuf_AssignDesc_ProtoGateClient_2eproto();
   friend void protobuf_ShutdownFile_ProtoGateClient_2eproto();
@@ -505,28 +508,34 @@ inline void Login::set_version(::google::protobuf::int32 value) {
 
 // SendToPlayer
 
-// required uint32 guid = 1;
-inline bool SendToPlayer::has_guid() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
+// repeated uint32 guids = 1;
+inline int SendToPlayer::guids_size() const {
+  return guids_.size();
 }
-inline void SendToPlayer::set_has_guid() {
-  _has_bits_[0] |= 0x00000001u;
+inline void SendToPlayer::clear_guids() {
+  guids_.Clear();
 }
-inline void SendToPlayer::clear_has_guid() {
-  _has_bits_[0] &= ~0x00000001u;
+inline ::google::protobuf::uint32 SendToPlayer::guids(int index) const {
+  // @@protoc_insertion_point(field_get:ProtoGateClient.SendToPlayer.guids)
+  return guids_.Get(index);
 }
-inline void SendToPlayer::clear_guid() {
-  guid_ = 0u;
-  clear_has_guid();
+inline void SendToPlayer::set_guids(int index, ::google::protobuf::uint32 value) {
+  guids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:ProtoGateClient.SendToPlayer.guids)
 }
-inline ::google::protobuf::uint32 SendToPlayer::guid() const {
-  // @@protoc_insertion_point(field_get:ProtoGateClient.SendToPlayer.guid)
-  return guid_;
+inline void SendToPlayer::add_guids(::google::protobuf::uint32 value) {
+  guids_.Add(value);
+  // @@protoc_insertion_point(field_add:ProtoGateClient.SendToPlayer.guids)
 }
-inline void SendToPlayer::set_guid(::google::protobuf::uint32 value) {
-  set_has_guid();
-  guid_ = value;
-  // @@protoc_insertion_point(field_set:ProtoGateClient.SendToPlayer.guid)
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >&
+SendToPlayer::guids() const {
+  // @@protoc_insertion_point(field_list:ProtoGateClient.SendToPlayer.guids)
+  return guids_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::uint32 >*
+SendToPlayer::mutable_guids() {
+  // @@protoc_insertion_point(field_mutable_list:ProtoGateClient.SendToPlayer.guids)
+  return &guids_;
 }
 
 // required int32 size = 2;

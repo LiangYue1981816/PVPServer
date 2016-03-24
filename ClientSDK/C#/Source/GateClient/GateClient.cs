@@ -7,6 +7,7 @@ public partial class GateClient : NetClient
     public delegate void OnResponseLogin();
     public delegate void OnResponseListGameServer(ProtoGateServer.ListGameServer responseListGameServer);
     public delegate void OnResponseSendToPlayer(int size, byte[] data);
+
     public OnResponseLogin onResponseLogin = null;
     public OnResponseListGameServer onResponseListGameServer = null;
     public OnResponseSendToPlayer onResponseSendToPlayer = null;
@@ -21,7 +22,9 @@ public partial class GateClient : NetClient
     private ManualResetEvent mEventHeart = null;
 
     private ProtoGateClient.Heart mRequestHeart = new ProtoGateClient.Heart();
+    private ProtoGateClient.Login mRequestLogin = new ProtoGateClient.Login();
     private ProtoGateClient.ListGameServer mRequestListGameServer = new ProtoGateClient.ListGameServer();
+    private ProtoGateClient.SendToPlayer mRequestSendToPlayer = new ProtoGateClient.SendToPlayer();
 
     public override bool Connect(string ip, int port)
     {

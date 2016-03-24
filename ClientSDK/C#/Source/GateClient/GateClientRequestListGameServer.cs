@@ -13,9 +13,14 @@ public partial class GateClient : NetClient
         {
             ProtoGateServer.ListGameServer responseListGameServer = ProtoHelper.ToProto<ProtoGateServer.ListGameServer>(buffer);
 
-            if (onResponseListGameServer != null)
+            mErrorCode = responseListGameServer.err;
+
+            if (mErrorCode == ProtoGateServer.ERROR_CODE.ERR_NONE)
             {
-                onResponseListGameServer(responseListGameServer);
+                if (onResponseListGameServer != null)
+                {
+                    onResponseListGameServer(responseListGameServer);
+                }
             }
         }
         catch(Exception)
