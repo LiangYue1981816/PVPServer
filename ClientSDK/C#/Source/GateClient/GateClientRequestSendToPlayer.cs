@@ -4,10 +4,14 @@ public partial class GateClient : NetClient
 {
     public virtual void RequestSendToPlayer(uint[] guids, int size, byte[] data)
     {
-        for (int index = 0; index < guids.Length; index++)
+        if (guids != null)
         {
-            mRequestSendToPlayer.guids.Add(guids[index]);
+            for (int index = 0; index < guids.Length; index++)
+            {
+                mRequestSendToPlayer.guids.Add(guids[index]);
+            }
         }
+
         mRequestSendToPlayer.size = size;
         mRequestSendToPlayer.data = data;
         SendProto(ProtoGateClient.REQUEST_MSG.SEND_TO_PLAYER, mRequestSendToPlayer);

@@ -131,7 +131,7 @@ class Program
 
     static void GateServerLogin()
     {
-
+        mGateClient.RequestLogin(mGUID);
     }
 
     static void GateServerListGameServer()
@@ -141,7 +141,10 @@ class Program
 
     static void GateServerSendToPlayer()
     {
-
+        Console.WriteLine("Input Text ...");
+        string text = Console.ReadLine();
+        byte[] data = System.Text.Encoding.Default.GetBytes(text);
+        mGateClient.RequestSendToPlayer(null, data.Length, data);
     }
 
     static void GameServerConnect()
