@@ -60,8 +60,8 @@
     <Compile Include="Source\GameClient\ServerClientThread.cs" />
     <Compile Include="Source\GateClient\GateClient.cs" />
     <Compile Include="Source\GateClient\GateClientProcessProto.cs" />
-    <Compile Include="Source\GateClient\GateClientRequestGameServerList.cs" />
     <Compile Include="Source\GateClient\GateClientRequestHeart.cs" />
+    <Compile Include="Source\GateClient\GateClientRequestListGameServer.cs" />
     <Compile Include="Source\GateClient\GateClientThread.cs" />
     <Compile Include="Source\NetClient\NetClient.cs" />
     <Compile Include="Source\NetClient\NetClientThread.cs" />

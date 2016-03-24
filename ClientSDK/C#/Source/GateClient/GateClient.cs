@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public partial class GateClient : NetClient
 {
-    public delegate void OnResponseGameServerList(ProtoGateServer.GameServerList responseGameServerList);
-    public OnResponseGameServerList onResponseGameServerList = null;
+    public delegate void OnResponseListGameServer(ProtoGateServer.ListGameServer responseListGameServer);
+    public OnResponseListGameServer onResponseListGameServer = null;
 
     private int mPing = 0;
 
@@ -13,7 +13,7 @@ public partial class GateClient : NetClient
     private ManualResetEvent mEventHeart = null;
 
     private ProtoGateClient.Heart mRequestHeart = new ProtoGateClient.Heart();
-    private ProtoGateClient.GameServerList mRequestGameServerList = new ProtoGateClient.GameServerList();
+    private ProtoGateClient.ListGameServer mRequestListGameServer = new ProtoGateClient.ListGameServer();
 
     public override bool Connect(string ip, int port)
     {

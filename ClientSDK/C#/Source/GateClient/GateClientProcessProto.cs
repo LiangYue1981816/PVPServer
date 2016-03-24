@@ -8,8 +8,8 @@
                 ResponseHeart(buffer);
                 break;
 
-            case (short)ProtoGateServer.RESPONSE_MSG.GAME_SERVER_LIST:
-                ResponseGameServerList(buffer);
+            case (short)ProtoGateServer.RESPONSE_MSG.LIST_GAME_SERVER:
+                ResponseListGameServer(buffer);
                 break;
         }
     }
