@@ -678,10 +678,17 @@ class ListGame : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // repeated .ProtoGameServer.ListGame.Game games = 1;
+  // required .ProtoGameServer.ERROR_CODE err = 1;
+  inline bool has_err() const;
+  inline void clear_err();
+  static const int kErrFieldNumber = 1;
+  inline ::ProtoGameServer::ERROR_CODE err() const;
+  inline void set_err(::ProtoGameServer::ERROR_CODE value);
+
+  // repeated .ProtoGameServer.ListGame.Game games = 2;
   inline int games_size() const;
   inline void clear_games();
-  static const int kGamesFieldNumber = 1;
+  static const int kGamesFieldNumber = 2;
   inline const ::ProtoGameServer::ListGame_Game& games(int index) const;
   inline ::ProtoGameServer::ListGame_Game* mutable_games(int index);
   inline ::ProtoGameServer::ListGame_Game* add_games();
@@ -692,12 +699,15 @@ class ListGame : public ::google::protobuf::Message {
 
   // @@protoc_insertion_point(class_scope:ProtoGameServer.ListGame)
  private:
+  inline void set_has_err();
+  inline void clear_has_err();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::google::protobuf::RepeatedPtrField< ::ProtoGameServer::ListGame_Game > games_;
+  int err_;
   friend void  protobuf_AddDesc_ProtoGameServer_2eproto();
   friend void protobuf_AssignDesc_ProtoGameServer_2eproto();
   friend void protobuf_ShutdownFile_ProtoGameServer_2eproto();
@@ -1561,7 +1571,32 @@ inline void ListGame_Game::set_curplayers(::google::protobuf::int32 value) {
 
 // ListGame
 
-// repeated .ProtoGameServer.ListGame.Game games = 1;
+// required .ProtoGameServer.ERROR_CODE err = 1;
+inline bool ListGame::has_err() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ListGame::set_has_err() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ListGame::clear_has_err() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ListGame::clear_err() {
+  err_ = 0;
+  clear_has_err();
+}
+inline ::ProtoGameServer::ERROR_CODE ListGame::err() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ListGame.err)
+  return static_cast< ::ProtoGameServer::ERROR_CODE >(err_);
+}
+inline void ListGame::set_err(::ProtoGameServer::ERROR_CODE value) {
+  assert(::ProtoGameServer::ERROR_CODE_IsValid(value));
+  set_has_err();
+  err_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameServer.ListGame.err)
+}
+
+// repeated .ProtoGameServer.ListGame.Game games = 2;
 inline int ListGame::games_size() const {
   return games_.size();
 }

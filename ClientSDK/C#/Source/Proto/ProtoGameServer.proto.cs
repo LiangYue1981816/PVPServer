@@ -91,8 +91,15 @@ namespace ProtoGameServer
   {
     public ListGame() {}
     
+    private ProtoGameServer.ERROR_CODE _err;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ProtoGameServer.ERROR_CODE err
+    {
+      get { return _err; }
+      set { _err = value; }
+    }
     private readonly global::System.Collections.Generic.List<ProtoGameServer.ListGame.Game> _games = new global::System.Collections.Generic.List<ProtoGameServer.ListGame.Game>();
-    [global::ProtoBuf.ProtoMember(1, Name=@"games", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(2, Name=@"games", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<ProtoGameServer.ListGame.Game> games
     {
       get { return _games; }

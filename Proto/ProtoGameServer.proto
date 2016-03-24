@@ -88,7 +88,8 @@ message ListGame
 		required int32 curPlayers = 6;
 	}
 	
-	repeated Game games = 1;
+	required ERROR_CODE err = 1;
+	repeated Game games = 2;
 }
 
 message CreateGame
