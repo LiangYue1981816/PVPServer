@@ -303,7 +303,7 @@ void CGameServer::OnListGame(CPlayer *pPlayer, WORD size)
 	//
 	ProtoGameServer::ERROR_CODE err = ProtoGameServer::ERROR_CODE::ERR_NONE;
 
-	if (pPlayer->GetFlags() != ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_LOGIN) {
+	if (pPlayer->IsLogin() == FALSE) {
 		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
 	}
 

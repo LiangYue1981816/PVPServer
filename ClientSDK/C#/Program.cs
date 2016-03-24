@@ -125,7 +125,7 @@ class Program
 
     static void GateServerConnect()
     {
-        mGameClient.Connect(mGateServerIP, mGateServerPort);
+        mGateClient.Connect(mGateServerIP, mGateServerPort);
     }
 
     static void GateServerLogin()
