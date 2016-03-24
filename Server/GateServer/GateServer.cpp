@@ -95,13 +95,20 @@ void CGateServer::DestroyUpdateThread(void)
 BOOL CGateServer::Login(CIOContext *pContext, DWORD guid)
 {
 	//
-	// 1. 查找
+	// 1. 参数安全检查
+	//
+	if (guid == 0xffffffff) {
+		return FALSE;
+	}
+
+	//
+	// 2. 查找
 	//
 	GUIDMAP::const_iterator itContext = m_guidmap.find(guid);
 	if (itContext != m_guidmap.end()) return FALSE;
 
 	//
-	// 2. 登陆
+	// 3. 登陆
 	//
 	pContext->guid = guid;
 	m_guidmap[guid] = pContext;
@@ -213,6 +220,11 @@ void CGateServer::OnUpdateRecv(DWORD dwDeltaTime)
 						OnHeartReset(pContext);
 						break;
 
+					case ProtoGateClient::REQUEST_MSG::LOGIN:
+						OnLogin(pContext, bodySize);
+						OnHeartReset(pContext);
+						break;
+
 					case ProtoGateClient::REQUEST_MSG::LIST_GAME_SERVER:
 						OnListGameServer(pContext, bodySize);
 						OnHeartReset(pContext);
@@ -277,6 +289,59 @@ void CGateServer::OnHeart(CIOContext *pContext, WORD size)
 	// 4. 发送
 	//
 	SendTo(pContext, buffer, writeBuffer.GetActiveBufferSize());
+}
+
+//
+// 登陆
+//
+void CGateServer::OnLogin(CIOContext *pContext, WORD size)
+{
+	ProtoGateClient::Login requestLogin;
+	ProtoGateServer::Login responseLogin;
+
+	BYTE buffer[PACK_BUFFER_SIZE];
+	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
+
+	//
+	// 1. 解析消息
+	//
+	if (Parser(&pContext->recvBuffer, &requestLogin, size) == FALSE) {
+		return;
+	}
+
+	//
+	// 2. 玩家登陆
+	//
+	ProtoGateServer::ERROR_CODE err = ProtoGateServer::ERROR_CODE::ERR_NONE;
+
+	if (requestLogin.version() != ProtoGateServer::VERSION_NUMBER::VERSION) {
+		err = ProtoGateServer::ERROR_CODE::ERR_VERSION_INVALID; goto ERR;
+	}
+
+	if (pContext->guid != 0xffffffff) {
+		err = ProtoGateServer::ERROR_CODE::ERR_PLAYER_NOT_NONE; goto ERR;
+	}
+
+	if (Login(pContext, requestLogin.guid()) == FALSE) {
+		err = ProtoGateServer::ERROR_CODE::ERR_PLAYER_INVALID_GUID; goto ERR;
+	}
+
+	responseLogin.set_guid(pContext->guid);
+
+	goto NEXT;
+ERR:
+NEXT:
+	responseLogin.set_err(err);
+
+	 //
+	 // 3. 序列化消息
+	 //
+	 Serializer(&writeBuffer, &responseLogin, ProtoGateServer::RESPONSE_MSG::LOGIN);
+
+	 //
+	 // 4. 发送玩家
+	 //
+	 SendTo(pContext, buffer, writeBuffer.GetActiveBufferSize());
 }
 
 //

@@ -315,26 +315,33 @@ void CGameServer::ReleaseGame(CGame *pGame)
 BOOL CGameServer::Login(CPlayer *pPlayer, DWORD guid)
 {
 	//
-	// 1. 检查玩家
+	// 1. 参数安全检查
+	//
+	if (guid == 0xffffffff) {
+		return FALSE;
+	}
+
+	//
+	// 2. 检查玩家
 	//
 	if (pPlayer->IsLogin()) {
 		return FALSE;
 	}
 
 	//
-	// 2. 查找注册玩家
+	// 3. 查找注册玩家
 	//
 	GUIDMAP::const_iterator itPlayer = m_guidmap.find(guid);
 	if (itPlayer != m_guidmap.end()) return FALSE;
 
 	//
-	// 3. 注册玩家
+	// 4. 注册玩家
 	//
 	pPlayer->guid = guid;
 	m_guidmap[guid] = pPlayer;
 
 	//
-	// 4. 设置玩家标识
+	// 5. 设置玩家标识
 	//
 	pPlayer->SetFlags(ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_LOGIN);
 

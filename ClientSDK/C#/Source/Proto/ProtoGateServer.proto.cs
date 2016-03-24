@@ -155,11 +155,11 @@ namespace ProtoGateServer
       [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_INVALID_GUID", Value=1001)]
       ERR_PLAYER_INVALID_GUID = 1001,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_NOT_NONE", Value=1002)]
-      ERR_PLAYER_FLAGS_NOT_NONE = 1002,
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_NOT_NONE", Value=1002)]
+      ERR_PLAYER_NOT_NONE = 1002,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_NOT_LOGIN", Value=1003)]
-      ERR_PLAYER_FLAGS_NOT_LOGIN = 1003
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_NOT_LOGIN", Value=1003)]
+      ERR_PLAYER_NOT_LOGIN = 1003
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"RESPONSE_MSG")]
