@@ -6,12 +6,13 @@ enum REQUEST_MSG
 	HEART = 1000;
 	FLAGS = 1001;
 	LOGIN = 1002;
-	CREATE_GAME = 1003;
-	DESTROY_GAME = 1004;
-	ENTER_GAME = 1005;
-	EXIT_GAME = 1006;
-	SEND_TO_PLAYER = 1007;
-	SEND_TO_PLAYER_ALL = 1008;
+	LIST_GAME = 1003;
+	CREATE_GAME = 1004;
+	DESTROY_GAME = 1005;
+	ENTER_GAME = 1006;
+	EXIT_GAME = 1007;
+	SEND_TO_PLAYER = 1008;
+	SEND_TO_PLAYER_ALL = 1009;
 }
 
 message Heart
@@ -27,6 +28,10 @@ message Login
 {
 	required uint32 guid = 1;
 	required int32 version = 2;
+}
+
+message ListGame
+{
 }
 
 message CreateGame
