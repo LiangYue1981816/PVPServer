@@ -35,13 +35,15 @@ void protobuf_AssignDesc_ProtoGateClient_2eproto();
 void protobuf_ShutdownFile_ProtoGateClient_2eproto();
 
 class Heart;
+class Login;
 class ListGameServer;
 class SendToPlayer;
 
 enum REQUEST_MSG {
   HEART = 3000,
-  LIST_GAME_SERVER = 3001,
-  SEND_TO_PLAYER = 3002
+  LOGIN = 3001,
+  LIST_GAME_SERVER = 3002,
+  SEND_TO_PLAYER = 3003
 };
 bool REQUEST_MSG_IsValid(int value);
 const REQUEST_MSG REQUEST_MSG_MIN = HEART;
@@ -136,6 +138,95 @@ class Heart : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static Heart* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class Login : public ::google::protobuf::Message {
+ public:
+  Login();
+  virtual ~Login();
+
+  Login(const Login& from);
+
+  inline Login& operator=(const Login& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Login& default_instance();
+
+  void Swap(Login* other);
+
+  // implements Message ----------------------------------------------
+
+  Login* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Login& from);
+  void MergeFrom(const Login& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required uint32 guid = 1;
+  inline bool has_guid() const;
+  inline void clear_guid();
+  static const int kGuidFieldNumber = 1;
+  inline ::google::protobuf::uint32 guid() const;
+  inline void set_guid(::google::protobuf::uint32 value);
+
+  // required int32 version = 2;
+  inline bool has_version() const;
+  inline void clear_version();
+  static const int kVersionFieldNumber = 2;
+  inline ::google::protobuf::int32 version() const;
+  inline void set_version(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:ProtoGateClient.Login)
+ private:
+  inline void set_has_guid();
+  inline void clear_has_guid();
+  inline void set_has_version();
+  inline void clear_has_version();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 guid_;
+  ::google::protobuf::int32 version_;
+  friend void  protobuf_AddDesc_ProtoGateClient_2eproto();
+  friend void protobuf_AssignDesc_ProtoGateClient_2eproto();
+  friend void protobuf_ShutdownFile_ProtoGateClient_2eproto();
+
+  void InitAsDefaultInstance();
+  static Login* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -352,6 +443,58 @@ inline void Heart::set_timestamp(::google::protobuf::int32 value) {
   set_has_timestamp();
   timestamp_ = value;
   // @@protoc_insertion_point(field_set:ProtoGateClient.Heart.timestamp)
+}
+
+// -------------------------------------------------------------------
+
+// Login
+
+// required uint32 guid = 1;
+inline bool Login::has_guid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Login::set_has_guid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Login::clear_has_guid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void Login::clear_guid() {
+  guid_ = 0u;
+  clear_has_guid();
+}
+inline ::google::protobuf::uint32 Login::guid() const {
+  // @@protoc_insertion_point(field_get:ProtoGateClient.Login.guid)
+  return guid_;
+}
+inline void Login::set_guid(::google::protobuf::uint32 value) {
+  set_has_guid();
+  guid_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGateClient.Login.guid)
+}
+
+// required int32 version = 2;
+inline bool Login::has_version() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void Login::set_has_version() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Login::clear_has_version() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void Login::clear_version() {
+  version_ = 0;
+  clear_has_version();
+}
+inline ::google::protobuf::int32 Login::version() const {
+  // @@protoc_insertion_point(field_get:ProtoGateClient.Login.version)
+  return version_;
+}
+inline void Login::set_version(::google::protobuf::int32 value) {
+  set_has_version();
+  version_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGateClient.Login.version)
 }
 
 // -------------------------------------------------------------------

@@ -365,23 +365,20 @@ namespace ProtoGameServer
       [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_INVALID", Value=1000)]
       ERR_PLAYER_INVALID = 1000,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_INVALID_ID", Value=1001)]
-      ERR_PLAYER_INVALID_ID = 1001,
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_INVALID_GUID", Value=1001)]
+      ERR_PLAYER_INVALID_GUID = 1001,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_INVALID_GUID", Value=1002)]
-      ERR_PLAYER_INVALID_GUID = 1002,
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_NOT_NONE", Value=1002)]
+      ERR_PLAYER_FLAGS_NOT_NONE = 1002,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_NOT_NONE", Value=1003)]
-      ERR_PLAYER_FLAGS_NOT_NONE = 1003,
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_NOT_LOGIN", Value=1003)]
+      ERR_PLAYER_FLAGS_NOT_LOGIN = 1003,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_NOT_LOGIN", Value=1004)]
-      ERR_PLAYER_FLAGS_NOT_LOGIN = 1004,
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_NOT_INGAME", Value=1004)]
+      ERR_PLAYER_FLAGS_NOT_INGAME = 1004,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_NOT_INGAME", Value=1005)]
-      ERR_PLAYER_FLAGS_NOT_INGAME = 1005,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_INGAME", Value=1006)]
-      ERR_PLAYER_FLAGS_INGAME = 1006,
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_INGAME", Value=1005)]
+      ERR_PLAYER_FLAGS_INGAME = 1005,
             
       [global::ProtoBuf.ProtoEnum(Name=@"ERR_GAME_INVALID", Value=2000)]
       ERR_GAME_INVALID = 2000,

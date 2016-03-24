@@ -6,16 +6,41 @@ enum VERSION_NUMBER
 	VERSION = 0x00010000;
 }
 
+enum FLAGS_CODE
+{
+	PLAYER_FLAGS_NONE = 0x00000000;
+	PLAYER_FLAGS_LOGIN = 0x00000001;
+}
+
+enum ERROR_CODE
+{
+	ERR_NONE = 0;
+
+	ERR_VERSION_INVALID = 1;
+
+	ERR_PLAYER_INVALID = 1000;
+	ERR_PLAYER_INVALID_GUID = 1001;
+	ERR_PLAYER_FLAGS_NOT_NONE = 1002;
+	ERR_PLAYER_FLAGS_NOT_LOGIN = 1003;
+}
+
 enum RESPONSE_MSG
 {
 	HEART = 3000;
-	LIST_GAME_SERVER = 3001;
-	SEND_TO_PLAYER = 3002;
+	LOGIN = 3001;
+	LIST_GAME_SERVER = 3002;
+	SEND_TO_PLAYER = 3003;
 }
 
 message Heart
 {
 	required int32 timestamp = 1;
+}
+
+message Login
+{
+	required ERROR_CODE err = 1;
+	optional uint32 guid = 2;
 }
 
 message ListGameServer

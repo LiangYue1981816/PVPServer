@@ -35,6 +35,7 @@ void protobuf_AssignDesc_ProtoGateServer_2eproto();
 void protobuf_ShutdownFile_ProtoGateServer_2eproto();
 
 class Heart;
+class Login;
 class ListGameServer;
 class ListGameServer_GameServer;
 class SendToPlayer;
@@ -57,10 +58,53 @@ inline bool VERSION_NUMBER_Parse(
   return ::google::protobuf::internal::ParseNamedEnum<VERSION_NUMBER>(
     VERSION_NUMBER_descriptor(), name, value);
 }
+enum FLAGS_CODE {
+  PLAYER_FLAGS_NONE = 0,
+  PLAYER_FLAGS_LOGIN = 1
+};
+bool FLAGS_CODE_IsValid(int value);
+const FLAGS_CODE FLAGS_CODE_MIN = PLAYER_FLAGS_NONE;
+const FLAGS_CODE FLAGS_CODE_MAX = PLAYER_FLAGS_LOGIN;
+const int FLAGS_CODE_ARRAYSIZE = FLAGS_CODE_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* FLAGS_CODE_descriptor();
+inline const ::std::string& FLAGS_CODE_Name(FLAGS_CODE value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    FLAGS_CODE_descriptor(), value);
+}
+inline bool FLAGS_CODE_Parse(
+    const ::std::string& name, FLAGS_CODE* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<FLAGS_CODE>(
+    FLAGS_CODE_descriptor(), name, value);
+}
+enum ERROR_CODE {
+  ERR_NONE = 0,
+  ERR_VERSION_INVALID = 1,
+  ERR_PLAYER_INVALID = 1000,
+  ERR_PLAYER_INVALID_GUID = 1001,
+  ERR_PLAYER_FLAGS_NOT_NONE = 1002,
+  ERR_PLAYER_FLAGS_NOT_LOGIN = 1003
+};
+bool ERROR_CODE_IsValid(int value);
+const ERROR_CODE ERROR_CODE_MIN = ERR_NONE;
+const ERROR_CODE ERROR_CODE_MAX = ERR_PLAYER_FLAGS_NOT_LOGIN;
+const int ERROR_CODE_ARRAYSIZE = ERROR_CODE_MAX + 1;
+
+const ::google::protobuf::EnumDescriptor* ERROR_CODE_descriptor();
+inline const ::std::string& ERROR_CODE_Name(ERROR_CODE value) {
+  return ::google::protobuf::internal::NameOfEnum(
+    ERROR_CODE_descriptor(), value);
+}
+inline bool ERROR_CODE_Parse(
+    const ::std::string& name, ERROR_CODE* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<ERROR_CODE>(
+    ERROR_CODE_descriptor(), name, value);
+}
 enum RESPONSE_MSG {
   HEART = 3000,
-  LIST_GAME_SERVER = 3001,
-  SEND_TO_PLAYER = 3002
+  LOGIN = 3001,
+  LIST_GAME_SERVER = 3002,
+  SEND_TO_PLAYER = 3003
 };
 bool RESPONSE_MSG_IsValid(int value);
 const RESPONSE_MSG RESPONSE_MSG_MIN = HEART;
@@ -155,6 +199,95 @@ class Heart : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static Heart* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class Login : public ::google::protobuf::Message {
+ public:
+  Login();
+  virtual ~Login();
+
+  Login(const Login& from);
+
+  inline Login& operator=(const Login& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Login& default_instance();
+
+  void Swap(Login* other);
+
+  // implements Message ----------------------------------------------
+
+  Login* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Login& from);
+  void MergeFrom(const Login& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required .ProtoGateServer.ERROR_CODE err = 1;
+  inline bool has_err() const;
+  inline void clear_err();
+  static const int kErrFieldNumber = 1;
+  inline ::ProtoGateServer::ERROR_CODE err() const;
+  inline void set_err(::ProtoGateServer::ERROR_CODE value);
+
+  // optional uint32 guid = 2;
+  inline bool has_guid() const;
+  inline void clear_guid();
+  static const int kGuidFieldNumber = 2;
+  inline ::google::protobuf::uint32 guid() const;
+  inline void set_guid(::google::protobuf::uint32 value);
+
+  // @@protoc_insertion_point(class_scope:ProtoGateServer.Login)
+ private:
+  inline void set_has_err();
+  inline void clear_has_err();
+  inline void set_has_guid();
+  inline void clear_has_guid();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  int err_;
+  ::google::protobuf::uint32 guid_;
+  friend void  protobuf_AddDesc_ProtoGateServer_2eproto();
+  friend void protobuf_AssignDesc_ProtoGateServer_2eproto();
+  friend void protobuf_ShutdownFile_ProtoGateServer_2eproto();
+
+  void InitAsDefaultInstance();
+  static Login* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -481,6 +614,59 @@ inline void Heart::set_timestamp(::google::protobuf::int32 value) {
 
 // -------------------------------------------------------------------
 
+// Login
+
+// required .ProtoGateServer.ERROR_CODE err = 1;
+inline bool Login::has_err() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Login::set_has_err() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Login::clear_has_err() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void Login::clear_err() {
+  err_ = 0;
+  clear_has_err();
+}
+inline ::ProtoGateServer::ERROR_CODE Login::err() const {
+  // @@protoc_insertion_point(field_get:ProtoGateServer.Login.err)
+  return static_cast< ::ProtoGateServer::ERROR_CODE >(err_);
+}
+inline void Login::set_err(::ProtoGateServer::ERROR_CODE value) {
+  assert(::ProtoGateServer::ERROR_CODE_IsValid(value));
+  set_has_err();
+  err_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGateServer.Login.err)
+}
+
+// optional uint32 guid = 2;
+inline bool Login::has_guid() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void Login::set_has_guid() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Login::clear_has_guid() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void Login::clear_guid() {
+  guid_ = 0u;
+  clear_has_guid();
+}
+inline ::google::protobuf::uint32 Login::guid() const {
+  // @@protoc_insertion_point(field_get:ProtoGateServer.Login.guid)
+  return guid_;
+}
+inline void Login::set_guid(::google::protobuf::uint32 value) {
+  set_has_guid();
+  guid_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGateServer.Login.guid)
+}
+
+// -------------------------------------------------------------------
+
 // ListGameServer_GameServer
 
 // required string ip = 1;
@@ -782,6 +968,16 @@ template <> struct is_proto_enum< ::ProtoGateServer::VERSION_NUMBER> : ::google:
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::ProtoGateServer::VERSION_NUMBER>() {
   return ::ProtoGateServer::VERSION_NUMBER_descriptor();
+}
+template <> struct is_proto_enum< ::ProtoGateServer::FLAGS_CODE> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::ProtoGateServer::FLAGS_CODE>() {
+  return ::ProtoGateServer::FLAGS_CODE_descriptor();
+}
+template <> struct is_proto_enum< ::ProtoGateServer::ERROR_CODE> : ::google::protobuf::internal::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::ProtoGateServer::ERROR_CODE>() {
+  return ::ProtoGateServer::ERROR_CODE_descriptor();
 }
 template <> struct is_proto_enum< ::ProtoGateServer::RESPONSE_MSG> : ::google::protobuf::internal::true_type {};
 template <>

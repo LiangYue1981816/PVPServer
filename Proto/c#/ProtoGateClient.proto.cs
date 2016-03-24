@@ -27,6 +27,30 @@ namespace ProtoGateClient
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Login")]
+  public partial class Login : global::ProtoBuf.IExtensible
+  {
+    public Login() {}
+    
+    private uint _guid;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public uint guid
+    {
+      get { return _guid; }
+      set { _guid = value; }
+    }
+    private int _version;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"version", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int version
+    {
+      get { return _version; }
+      set { _version = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ListGameServer")]
   public partial class ListGameServer : global::ProtoBuf.IExtensible
   {
@@ -82,11 +106,14 @@ namespace ProtoGateClient
       [global::ProtoBuf.ProtoEnum(Name=@"HEART", Value=3000)]
       HEART = 3000,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"LIST_GAME_SERVER", Value=3001)]
-      LIST_GAME_SERVER = 3001,
+      [global::ProtoBuf.ProtoEnum(Name=@"LOGIN", Value=3001)]
+      LOGIN = 3001,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=3002)]
-      SEND_TO_PLAYER = 3002
+      [global::ProtoBuf.ProtoEnum(Name=@"LIST_GAME_SERVER", Value=3002)]
+      LIST_GAME_SERVER = 3002,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=3003)]
+      SEND_TO_PLAYER = 3003
     }
   
 }

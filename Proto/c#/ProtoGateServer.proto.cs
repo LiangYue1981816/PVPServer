@@ -27,6 +27,31 @@ namespace ProtoGateServer
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Login")]
+  public partial class Login : global::ProtoBuf.IExtensible
+  {
+    public Login() {}
+    
+    private ProtoGateServer.ERROR_CODE _err;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ProtoGateServer.ERROR_CODE err
+    {
+      get { return _err; }
+      set { _err = value; }
+    }
+    private uint _guid = default(uint);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(uint))]
+    public uint guid
+    {
+      get { return _guid; }
+      set { _guid = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ListGameServer")]
   public partial class ListGameServer : global::ProtoBuf.IExtensible
   {
@@ -114,6 +139,40 @@ namespace ProtoGateServer
       VERSION = 65536
     }
   
+    [global::ProtoBuf.ProtoContract(Name=@"FLAGS_CODE")]
+    public enum FLAGS_CODE
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_NONE", Value=0)]
+      PLAYER_FLAGS_NONE = 0,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_LOGIN", Value=1)]
+      PLAYER_FLAGS_LOGIN = 1
+    }
+  
+    [global::ProtoBuf.ProtoContract(Name=@"ERROR_CODE")]
+    public enum ERROR_CODE
+    {
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_NONE", Value=0)]
+      ERR_NONE = 0,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_VERSION_INVALID", Value=1)]
+      ERR_VERSION_INVALID = 1,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_INVALID", Value=1000)]
+      ERR_PLAYER_INVALID = 1000,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_INVALID_GUID", Value=1001)]
+      ERR_PLAYER_INVALID_GUID = 1001,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_NOT_NONE", Value=1002)]
+      ERR_PLAYER_FLAGS_NOT_NONE = 1002,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_NOT_LOGIN", Value=1003)]
+      ERR_PLAYER_FLAGS_NOT_LOGIN = 1003
+    }
+  
     [global::ProtoBuf.ProtoContract(Name=@"RESPONSE_MSG")]
     public enum RESPONSE_MSG
     {
@@ -121,11 +180,14 @@ namespace ProtoGateServer
       [global::ProtoBuf.ProtoEnum(Name=@"HEART", Value=3000)]
       HEART = 3000,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"LIST_GAME_SERVER", Value=3001)]
-      LIST_GAME_SERVER = 3001,
+      [global::ProtoBuf.ProtoEnum(Name=@"LOGIN", Value=3001)]
+      LOGIN = 3001,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=3002)]
-      SEND_TO_PLAYER = 3002
+      [global::ProtoBuf.ProtoEnum(Name=@"LIST_GAME_SERVER", Value=3002)]
+      LIST_GAME_SERVER = 3002,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=3003)]
+      SEND_TO_PLAYER = 3003
     }
   
 }

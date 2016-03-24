@@ -4,13 +4,20 @@ package ProtoGateClient;
 enum REQUEST_MSG
 {
 	HEART = 3000;
-	LIST_GAME_SERVER = 3001;
-	SEND_TO_PLAYER = 3002;
+	LOGIN = 3001;
+	LIST_GAME_SERVER = 3002;
+	SEND_TO_PLAYER = 3003;
 }
 
 message Heart
 {
 	required int32 timestamp = 1;
+}
+
+message Login
+{
+	required uint32 guid = 1;
+	required int32 version = 2;
 }
 
 message ListGameServer

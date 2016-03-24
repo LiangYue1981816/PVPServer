@@ -23,6 +23,9 @@ namespace {
 const ::google::protobuf::Descriptor* Heart_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Heart_reflection_ = NULL;
+const ::google::protobuf::Descriptor* Login_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Login_reflection_ = NULL;
 const ::google::protobuf::Descriptor* ListGameServer_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   ListGameServer_reflection_ = NULL;
@@ -33,6 +36,8 @@ const ::google::protobuf::Descriptor* SendToPlayer_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   SendToPlayer_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* VERSION_NUMBER_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* FLAGS_CODE_descriptor_ = NULL;
+const ::google::protobuf::EnumDescriptor* ERROR_CODE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* RESPONSE_MSG_descriptor_ = NULL;
 
 }  // namespace
@@ -59,7 +64,23 @@ void protobuf_AssignDesc_ProtoGateServer_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Heart));
-  ListGameServer_descriptor_ = file->message_type(1);
+  Login_descriptor_ = file->message_type(1);
+  static const int Login_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Login, err_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Login, guid_),
+  };
+  Login_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      Login_descriptor_,
+      Login::default_instance_,
+      Login_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Login, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Login, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(Login));
+  ListGameServer_descriptor_ = file->message_type(2);
   static const int ListGameServer_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGameServer, servers_),
   };
@@ -92,7 +113,7 @@ void protobuf_AssignDesc_ProtoGateServer_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ListGameServer_GameServer));
-  SendToPlayer_descriptor_ = file->message_type(2);
+  SendToPlayer_descriptor_ = file->message_type(3);
   static const int SendToPlayer_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, size_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, data_),
@@ -109,7 +130,9 @@ void protobuf_AssignDesc_ProtoGateServer_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SendToPlayer));
   VERSION_NUMBER_descriptor_ = file->enum_type(0);
-  RESPONSE_MSG_descriptor_ = file->enum_type(1);
+  FLAGS_CODE_descriptor_ = file->enum_type(1);
+  ERROR_CODE_descriptor_ = file->enum_type(2);
+  RESPONSE_MSG_descriptor_ = file->enum_type(3);
 }
 
 namespace {
@@ -125,6 +148,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     Heart_descriptor_, &Heart::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    Login_descriptor_, &Login::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     ListGameServer_descriptor_, &ListGameServer::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     ListGameServer_GameServer_descriptor_, &ListGameServer_GameServer::default_instance());
@@ -137,6 +162,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
 void protobuf_ShutdownFile_ProtoGateServer_2eproto() {
   delete Heart::default_instance_;
   delete Heart_reflection_;
+  delete Login::default_instance_;
+  delete Login_reflection_;
   delete ListGameServer::default_instance_;
   delete ListGameServer_reflection_;
   delete ListGameServer_GameServer::default_instance_;
@@ -153,22 +180,32 @@ void protobuf_AddDesc_ProtoGateServer_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\025ProtoGateServer.proto\022\017ProtoGateServer"
-    "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"\231\001\n\016ListGam"
-    "eServer\022;\n\007servers\030\001 \003(\0132*.ProtoGateServ"
-    "er.ListGameServer.GameServer\032J\n\nGameServ"
-    "er\022\n\n\002ip\030\001 \002(\t\022\014\n\004port\030\002 \002(\005\022\020\n\010maxGames"
-    "\030\003 \002(\005\022\020\n\010curGames\030\004 \002(\005\"*\n\014SendToPlayer"
-    "\022\014\n\004size\030\001 \002(\005\022\014\n\004data\030\002 \002(\014*\037\n\016VERSION_"
-    "NUMBER\022\r\n\007VERSION\020\200\200\004*F\n\014RESPONSE_MSG\022\n\n"
-    "\005HEART\020\270\027\022\025\n\020LIST_GAME_SERVER\020\271\027\022\023\n\016SEND"
-    "_TO_PLAYER\020\272\027B\002H\001", 377);
+    "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"\?\n\005Login\022(\n"
+    "\003err\030\001 \002(\0162\033.ProtoGateServer.ERROR_CODE\022"
+    "\014\n\004guid\030\002 \001(\r\"\231\001\n\016ListGameServer\022;\n\007serv"
+    "ers\030\001 \003(\0132*.ProtoGateServer.ListGameServ"
+    "er.GameServer\032J\n\nGameServer\022\n\n\002ip\030\001 \002(\t\022"
+    "\014\n\004port\030\002 \002(\005\022\020\n\010maxGames\030\003 \002(\005\022\020\n\010curGa"
+    "mes\030\004 \002(\005\"*\n\014SendToPlayer\022\014\n\004size\030\001 \002(\005\022"
+    "\014\n\004data\030\002 \002(\014*\037\n\016VERSION_NUMBER\022\r\n\007VERSI"
+    "ON\020\200\200\004*;\n\nFLAGS_CODE\022\025\n\021PLAYER_FLAGS_NON"
+    "E\020\000\022\026\n\022PLAYER_FLAGS_LOGIN\020\001*\253\001\n\nERROR_CO"
+    "DE\022\014\n\010ERR_NONE\020\000\022\027\n\023ERR_VERSION_INVALID\020"
+    "\001\022\027\n\022ERR_PLAYER_INVALID\020\350\007\022\034\n\027ERR_PLAYER"
+    "_INVALID_GUID\020\351\007\022\036\n\031ERR_PLAYER_FLAGS_NOT"
+    "_NONE\020\352\007\022\037\n\032ERR_PLAYER_FLAGS_NOT_LOGIN\020\353"
+    "\007*R\n\014RESPONSE_MSG\022\n\n\005HEART\020\270\027\022\n\n\005LOGIN\020\271"
+    "\027\022\025\n\020LIST_GAME_SERVER\020\272\027\022\023\n\016SEND_TO_PLAY"
+    "ER\020\273\027B\002H\001", 689);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGateServer.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
+  Login::default_instance_ = new Login();
   ListGameServer::default_instance_ = new ListGameServer();
   ListGameServer_GameServer::default_instance_ = new ListGameServer_GameServer();
   SendToPlayer::default_instance_ = new SendToPlayer();
   Heart::default_instance_->InitAsDefaultInstance();
+  Login::default_instance_->InitAsDefaultInstance();
   ListGameServer::default_instance_->InitAsDefaultInstance();
   ListGameServer_GameServer::default_instance_->InitAsDefaultInstance();
   SendToPlayer::default_instance_->InitAsDefaultInstance();
@@ -194,6 +231,38 @@ bool VERSION_NUMBER_IsValid(int value) {
   }
 }
 
+const ::google::protobuf::EnumDescriptor* FLAGS_CODE_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return FLAGS_CODE_descriptor_;
+}
+bool FLAGS_CODE_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::google::protobuf::EnumDescriptor* ERROR_CODE_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ERROR_CODE_descriptor_;
+}
+bool ERROR_CODE_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 1000:
+    case 1001:
+    case 1002:
+    case 1003:
+      return true;
+    default:
+      return false;
+  }
+}
+
 const ::google::protobuf::EnumDescriptor* RESPONSE_MSG_descriptor() {
   protobuf_AssignDescriptorsOnce();
   return RESPONSE_MSG_descriptor_;
@@ -203,6 +272,7 @@ bool RESPONSE_MSG_IsValid(int value) {
     case 3000:
     case 3001:
     case 3002:
+    case 3003:
       return true;
     default:
       return false;
@@ -429,6 +499,287 @@ void Heart::Swap(Heart* other) {
   ::google::protobuf::Metadata metadata;
   metadata.descriptor = Heart_descriptor_;
   metadata.reflection = Heart_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int Login::kErrFieldNumber;
+const int Login::kGuidFieldNumber;
+#endif  // !_MSC_VER
+
+Login::Login()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:ProtoGateServer.Login)
+}
+
+void Login::InitAsDefaultInstance() {
+}
+
+Login::Login(const Login& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:ProtoGateServer.Login)
+}
+
+void Login::SharedCtor() {
+  _cached_size_ = 0;
+  err_ = 0;
+  guid_ = 0u;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+Login::~Login() {
+  // @@protoc_insertion_point(destructor:ProtoGateServer.Login)
+  SharedDtor();
+}
+
+void Login::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void Login::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* Login::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return Login_descriptor_;
+}
+
+const Login& Login::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_ProtoGateServer_2eproto();
+  return *default_instance_;
+}
+
+Login* Login::default_instance_ = NULL;
+
+Login* Login::New() const {
+  return new Login;
+}
+
+void Login::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<Login*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  ZR_(err_, guid_);
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool Login::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:ProtoGateServer.Login)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .ProtoGateServer.ERROR_CODE err = 1;
+      case 1: {
+        if (tag == 8) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::ProtoGateServer::ERROR_CODE_IsValid(value)) {
+            set_err(static_cast< ::ProtoGateServer::ERROR_CODE >(value));
+          } else {
+            mutable_unknown_fields()->AddVarint(1, value);
+          }
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_guid;
+        break;
+      }
+
+      // optional uint32 guid = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_guid:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &guid_)));
+          set_has_guid();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:ProtoGateServer.Login)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:ProtoGateServer.Login)
+  return false;
+#undef DO_
+}
+
+void Login::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:ProtoGateServer.Login)
+  // required .ProtoGateServer.ERROR_CODE err = 1;
+  if (has_err()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->err(), output);
+  }
+
+  // optional uint32 guid = 2;
+  if (has_guid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->guid(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:ProtoGateServer.Login)
+}
+
+::google::protobuf::uint8* Login::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGateServer.Login)
+  // required .ProtoGateServer.ERROR_CODE err = 1;
+  if (has_err()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      1, this->err(), target);
+  }
+
+  // optional uint32 guid = 2;
+  if (has_guid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(2, this->guid(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGateServer.Login)
+  return target;
+}
+
+int Login::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .ProtoGateServer.ERROR_CODE err = 1;
+    if (has_err()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->err());
+    }
+
+    // optional uint32 guid = 2;
+    if (has_guid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->guid());
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Login::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const Login* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const Login*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void Login::MergeFrom(const Login& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_err()) {
+      set_err(from.err());
+    }
+    if (from.has_guid()) {
+      set_guid(from.guid());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void Login::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Login::CopyFrom(const Login& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Login::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  return true;
+}
+
+void Login::Swap(Login* other) {
+  if (other != this) {
+    std::swap(err_, other->err_);
+    std::swap(guid_, other->guid_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata Login::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Login_descriptor_;
+  metadata.reflection = Login_reflection_;
   return metadata;
 }
 
