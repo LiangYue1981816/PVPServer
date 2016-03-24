@@ -24,6 +24,7 @@ class Program
     static void Main(string[] args)
     {
         mGateClient.onResponseListGameServer = OnResponseListGameServer;
+        mGateClient.onResponseSendToPlayer = OnResponseSendToPlayer;
         mGameClient.onResponseListGame = OnResponseListGame;
         mGameClient.onResponseSendToPlayer = OnResponseSendToPlayer;
 
@@ -269,7 +270,7 @@ class Program
     {
         while (true)
         {
-            Thread.Sleep(33);
+            Thread.Sleep(1);
             mGateClient.Update();
             mGameClient.Update();
             Console.Title = "GameServer:" + mGameClient.GetPing().ToString() + " " + "GateServer:" + mGateClient.GetPing().ToString();
