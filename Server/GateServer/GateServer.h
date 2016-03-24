@@ -26,6 +26,7 @@ public:
 	} GameServerStatus;
 
 	typedef std::map<CIOContext*, GameServerStatus> GameServerMap;                                 // 游戏服务器集合
+	typedef std::map<DWORD, CIOContext*> GUIDMAP;                                                  // GUID映射表
 
 
 	// 构造/析构函数
@@ -42,6 +43,11 @@ public:
 protected:
 	virtual BOOL CreateUpdateThread(void);                                                         // 创建更新线程
 	virtual void DestroyUpdateThread(void);                                                        // 销毁更新线程
+
+protected:
+	virtual BOOL Login(CIOContext *pContext, DWORD guid);                                          // 登陆
+	virtual BOOL Logout(CIOContext *pContext);                                                     // 注销
+	virtual CIOContext* QueryContext(DWORD guid);                                                  // 查询
 
 protected:
 	virtual void SendTo(CIOContext *pContext, BYTE *pBuffer, size_t size);                         // 发送指定客户端
@@ -69,6 +75,7 @@ protected:
 	int m_timeOut;                                                                                 // 心跳超时
 	HANDLE m_hUpdateThread;                                                                        // 更新线程句柄
 
+	GUIDMAP m_guidmap;                                                                             // GUID映射表
 	GameServerMap m_gameServerMap;                                                                 // 游戏服务器集合
 
 protected:

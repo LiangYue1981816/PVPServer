@@ -36,7 +36,6 @@ const ::google::protobuf::Descriptor* SendToPlayer_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   SendToPlayer_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* VERSION_NUMBER_descriptor_ = NULL;
-const ::google::protobuf::EnumDescriptor* FLAGS_CODE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* ERROR_CODE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* RESPONSE_MSG_descriptor_ = NULL;
 
@@ -130,9 +129,8 @@ void protobuf_AssignDesc_ProtoGateServer_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SendToPlayer));
   VERSION_NUMBER_descriptor_ = file->enum_type(0);
-  FLAGS_CODE_descriptor_ = file->enum_type(1);
-  ERROR_CODE_descriptor_ = file->enum_type(2);
-  RESPONSE_MSG_descriptor_ = file->enum_type(3);
+  ERROR_CODE_descriptor_ = file->enum_type(1);
+  RESPONSE_MSG_descriptor_ = file->enum_type(2);
 }
 
 namespace {
@@ -188,15 +186,13 @@ void protobuf_AddDesc_ProtoGateServer_2eproto() {
     "\014\n\004port\030\002 \002(\005\022\020\n\010maxGames\030\003 \002(\005\022\020\n\010curGa"
     "mes\030\004 \002(\005\"*\n\014SendToPlayer\022\014\n\004size\030\001 \002(\005\022"
     "\014\n\004data\030\002 \002(\014*\037\n\016VERSION_NUMBER\022\r\n\007VERSI"
-    "ON\020\200\200\004*;\n\nFLAGS_CODE\022\025\n\021PLAYER_FLAGS_NON"
-    "E\020\000\022\026\n\022PLAYER_FLAGS_LOGIN\020\001*\253\001\n\nERROR_CO"
-    "DE\022\014\n\010ERR_NONE\020\000\022\027\n\023ERR_VERSION_INVALID\020"
-    "\001\022\027\n\022ERR_PLAYER_INVALID\020\350\007\022\034\n\027ERR_PLAYER"
-    "_INVALID_GUID\020\351\007\022\036\n\031ERR_PLAYER_FLAGS_NOT"
-    "_NONE\020\352\007\022\037\n\032ERR_PLAYER_FLAGS_NOT_LOGIN\020\353"
-    "\007*R\n\014RESPONSE_MSG\022\n\n\005HEART\020\270\027\022\n\n\005LOGIN\020\271"
-    "\027\022\025\n\020LIST_GAME_SERVER\020\272\027\022\023\n\016SEND_TO_PLAY"
-    "ER\020\273\027B\002H\001", 689);
+    "ON\020\200\200\004*\253\001\n\nERROR_CODE\022\014\n\010ERR_NONE\020\000\022\027\n\023E"
+    "RR_VERSION_INVALID\020\001\022\027\n\022ERR_PLAYER_INVAL"
+    "ID\020\350\007\022\034\n\027ERR_PLAYER_INVALID_GUID\020\351\007\022\036\n\031E"
+    "RR_PLAYER_FLAGS_NOT_NONE\020\352\007\022\037\n\032ERR_PLAYE"
+    "R_FLAGS_NOT_LOGIN\020\353\007*R\n\014RESPONSE_MSG\022\n\n\005"
+    "HEART\020\270\027\022\n\n\005LOGIN\020\271\027\022\025\n\020LIST_GAME_SERVER"
+    "\020\272\027\022\023\n\016SEND_TO_PLAYER\020\273\027B\002H\001", 628);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGateServer.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -225,20 +221,6 @@ const ::google::protobuf::EnumDescriptor* VERSION_NUMBER_descriptor() {
 bool VERSION_NUMBER_IsValid(int value) {
   switch(value) {
     case 65536:
-      return true;
-    default:
-      return false;
-  }
-}
-
-const ::google::protobuf::EnumDescriptor* FLAGS_CODE_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return FLAGS_CODE_descriptor_;
-}
-bool FLAGS_CODE_IsValid(int value) {
-  switch(value) {
-    case 0:
-    case 1:
       return true;
     default:
       return false;

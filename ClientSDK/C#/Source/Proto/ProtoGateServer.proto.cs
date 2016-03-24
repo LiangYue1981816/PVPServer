@@ -139,17 +139,6 @@ namespace ProtoGateServer
       VERSION = 65536
     }
   
-    [global::ProtoBuf.ProtoContract(Name=@"FLAGS_CODE")]
-    public enum FLAGS_CODE
-    {
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_NONE", Value=0)]
-      PLAYER_FLAGS_NONE = 0,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_LOGIN", Value=1)]
-      PLAYER_FLAGS_LOGIN = 1
-    }
-  
     [global::ProtoBuf.ProtoContract(Name=@"ERROR_CODE")]
     public enum ERROR_CODE
     {

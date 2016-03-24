@@ -195,7 +195,7 @@ protected:
 
 	// 属性
 protected:
-	GUIDMAP m_guidmap;                                                                             // 逻辑ID与连接ID映射表
+	GUIDMAP m_guidmap;                                                                             // GUID映射表
 
 protected:
 	int m_curGames;                                                                                // 当前游戏数

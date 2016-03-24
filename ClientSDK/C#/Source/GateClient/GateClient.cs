@@ -15,7 +15,7 @@ public partial class GateClient : NetClient
 
     private int mPing = 0;
     private uint mGUID = 0xffffffff;
-    private uint mFlags = (uint)ProtoGateServer.FLAGS_CODE.PLAYER_FLAGS_NONE;
+    private bool mbLogin = false;
 
     private Thread mThreadHeart = null;
     private ManualResetEvent mEventHeart = null;
@@ -42,7 +42,7 @@ public partial class GateClient : NetClient
     public override bool Disconnect()
     {
         mGUID = 0xffffffff;
-        mFlags = (uint)ProtoGateServer.FLAGS_CODE.PLAYER_FLAGS_NONE;
+        mbLogin = false;
 
         if (base.Disconnect())
         {
@@ -70,29 +70,9 @@ public partial class GateClient : NetClient
         return mGUID;
     }
 
-    public uint GetFlags()
-    {
-        return mFlags;
-    }
-
     public bool IsLogin()
     {
-        return IsEnable(ProtoGateServer.FLAGS_CODE.PLAYER_FLAGS_LOGIN);
-    }
-
-    protected bool IsEnable(ProtoGateServer.FLAGS_CODE code)
-    {
-        return (mFlags & ((uint)code)) != 0 ? true : false;
-    }
-
-    protected void EnableFlag(ProtoGateServer.FLAGS_CODE code)
-    {
-        mFlags = mFlags | ((uint)code);
-    }
-
-    protected void DisableFlag(ProtoGateServer.FLAGS_CODE code)
-    {
-        mFlags = mFlags & ~((uint)code);
+        return mbLogin;
     }
 
     protected void SendProto(ProtoGateClient.REQUEST_MSG msg, global::ProtoBuf.IExtensible proto)

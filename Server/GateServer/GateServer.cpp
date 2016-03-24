@@ -90,6 +90,55 @@ void CGateServer::DestroyUpdateThread(void)
 }
 
 //
+// 登陆
+//
+BOOL CGateServer::Login(CIOContext *pContext, DWORD guid)
+{
+	//
+	// 1. 查找
+	//
+	GUIDMAP::const_iterator itContext = m_guidmap.find(guid);
+	if (itContext != m_guidmap.end()) return FALSE;
+
+	//
+	// 2. 登陆
+	//
+	pContext->guid = guid;
+	m_guidmap[guid] = pContext;
+
+	return TRUE;
+}
+
+//
+// 注销
+//
+BOOL CGateServer::Logout(CIOContext *pContext)
+{
+	//
+	// 1. 查找
+	//
+	GUIDMAP::const_iterator itContext = m_guidmap.find(pContext->guid);
+	if (itContext == m_guidmap.end()) return FALSE;
+
+	//
+	// 2. 注销
+	//
+	pContext->guid = 0xffffffff;
+	m_guidmap.erase(itContext);
+
+	return TRUE;
+}
+
+//
+// 查询
+//
+CIOContext* CGateServer::QueryContext(DWORD guid)
+{
+	GUIDMAP::const_iterator itContext = m_guidmap.find(guid);
+	return itContext != m_guidmap.end() ? itContext->second : NULL;
+}
+
+//
 // 发送指定客户端
 //
 void CGateServer::SendTo(CIOContext *pContext, BYTE *pBuffer, size_t size)

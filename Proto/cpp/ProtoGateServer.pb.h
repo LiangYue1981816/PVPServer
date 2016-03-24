@@ -58,25 +58,6 @@ inline bool VERSION_NUMBER_Parse(
   return ::google::protobuf::internal::ParseNamedEnum<VERSION_NUMBER>(
     VERSION_NUMBER_descriptor(), name, value);
 }
-enum FLAGS_CODE {
-  PLAYER_FLAGS_NONE = 0,
-  PLAYER_FLAGS_LOGIN = 1
-};
-bool FLAGS_CODE_IsValid(int value);
-const FLAGS_CODE FLAGS_CODE_MIN = PLAYER_FLAGS_NONE;
-const FLAGS_CODE FLAGS_CODE_MAX = PLAYER_FLAGS_LOGIN;
-const int FLAGS_CODE_ARRAYSIZE = FLAGS_CODE_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* FLAGS_CODE_descriptor();
-inline const ::std::string& FLAGS_CODE_Name(FLAGS_CODE value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    FLAGS_CODE_descriptor(), value);
-}
-inline bool FLAGS_CODE_Parse(
-    const ::std::string& name, FLAGS_CODE* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<FLAGS_CODE>(
-    FLAGS_CODE_descriptor(), name, value);
-}
 enum ERROR_CODE {
   ERR_NONE = 0,
   ERR_VERSION_INVALID = 1,
@@ -968,11 +949,6 @@ template <> struct is_proto_enum< ::ProtoGateServer::VERSION_NUMBER> : ::google:
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::ProtoGateServer::VERSION_NUMBER>() {
   return ::ProtoGateServer::VERSION_NUMBER_descriptor();
-}
-template <> struct is_proto_enum< ::ProtoGateServer::FLAGS_CODE> : ::google::protobuf::internal::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::ProtoGateServer::FLAGS_CODE>() {
-  return ::ProtoGateServer::FLAGS_CODE_descriptor();
 }
 template <> struct is_proto_enum< ::ProtoGateServer::ERROR_CODE> : ::google::protobuf::internal::true_type {};
 template <>
