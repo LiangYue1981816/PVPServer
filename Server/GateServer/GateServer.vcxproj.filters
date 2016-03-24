@@ -93,5 +93,8 @@
     <ClCompile Include="..\Proto\ProtoGateServer.pb.cc">
       <Filter>Proto\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GateServerUpdate.cpp">
+      <Filter>GateServer\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

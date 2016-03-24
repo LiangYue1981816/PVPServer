@@ -49,10 +49,13 @@ protected:
 	virtual BOOL Logout(CIOContext *pContext);                                                     // 注销
 	virtual CIOContext* QueryContext(DWORD guid);                                                  // 查询
 
+	virtual void ClearGameServer(CIOContext *pContext);                                            // 清理游戏服务器
+
 protected:
 	virtual void SendTo(CIOContext *pContext, BYTE *pBuffer, size_t size);                         // 发送指定客户端
 
 protected:
+	virtual void OnConnect(CIOContext *pContext, SOCKET acceptSocket);                             // 客户端链接回调
 	virtual void OnDisconnect(CIOContext *pContext);                                               // 客户端断链回调
 
 	virtual void OnUpdateSend(void);                                                               // 更新发送消息
