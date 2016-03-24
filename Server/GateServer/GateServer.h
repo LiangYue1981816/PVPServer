@@ -25,8 +25,8 @@ public:
 		int curGames;                                                                              // 游戏服务器当前游戏数
 	} GameServerStatus;
 
-	typedef std::map<CIOContext*, GameServerStatus> GameServerMap;                                 // 游戏服务器集合
 	typedef std::map<DWORD, CIOContext*> GUIDMAP;                                                  // GUID映射表
+	typedef std::map<CIOContext*, GameServerStatus> GameServerMap;                                 // 游戏服务器集合
 
 
 	// 构造/析构函数

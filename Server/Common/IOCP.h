@@ -36,7 +36,7 @@ public:
 		DWORD dwCompleteSize;                                                                      // 完成数据大小
 
 		DWORD operationType;                                                                       // 操作类型
-		CIOContext *pIOContext;                                                                    // IO上下文
+		CIOContext *pContext;                                                                      // IO上下文
 	} WSA_BUFFER;
 
 
@@ -122,11 +122,11 @@ protected:
 
 protected:
 	virtual CIOContext* GetIOContext(BOOL bLock = TRUE);                                           // 获得IO上下文
-	virtual void ReleaseIOContext(CIOContext *pIOContext, BOOL bLock = TRUE);                      // 释放IO上下文
+	virtual void ReleaseIOContext(CIOContext *pContext, BOOL bLock = TRUE);                        // 释放IO上下文
 
 protected:
-	virtual void OnConnect(CIOContext *pIOContext, SOCKET acceptSocket);                           // 客户端链接回调
-	virtual void OnDisconnect(CIOContext *pIOContext);                                             // 客户端断链回调
+	virtual void OnConnect(CIOContext *pContext, SOCKET acceptSocket);                             // 客户端链接回调
+	virtual void OnDisconnect(CIOContext *pContext);                                               // 客户端断链回调
 
 protected:
 	static DWORD WINAPI ListenThread(LPVOID lpParam);                                              // 监听线程

@@ -4,21 +4,21 @@
 //
 // 客户端链接回调
 //
-void CGameServer::OnConnect(CIOContext *pIOContext, SOCKET acceptSocket)
+void CGameServer::OnConnect(CIOContext *pContext, SOCKET acceptSocket)
 {
-	((CPlayer *)pIOContext)->SetFlags(ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_NONE);
-	CIOCPServer::OnConnect(pIOContext, acceptSocket);
+	((CPlayer *)pContext)->SetFlags(ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_NONE);
+	CIOCPServer::OnConnect(pContext, acceptSocket);
 }
 
 //
 // 客户端断链回调
 //
-void CGameServer::OnDisconnect(CIOContext *pIOContext)
+void CGameServer::OnDisconnect(CIOContext *pContext)
 {
-	OnExitGame((CPlayer *)pIOContext, 0);
-	Logout((CPlayer *)pIOContext);
+	OnExitGame((CPlayer *)pContext, 0);
+	Logout((CPlayer *)pContext);
 
-	CIOCPServer::OnDisconnect(pIOContext);
+	CIOCPServer::OnDisconnect(pContext);
 }
 
 //
@@ -303,7 +303,11 @@ void CGameServer::OnListGame(CPlayer *pPlayer, WORD size)
 	//
 	ProtoGameServer::ERROR_CODE err = ProtoGameServer::ERROR_CODE::ERR_NONE;
 
-	if (pPlayer->IsLogin() == FALSE) {
+	if (pPlayer->pGame != NULL) {
+		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_INGAME; goto ERR;
+	}
+
+	if (pPlayer->GetFlags() != ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_LOGIN) {
 		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
 	}
 
@@ -503,7 +507,7 @@ NEXT:
 	//
 	// 4. 发送玩家
 	//
-	if (pPlayer->pGame) {
+	if (err == ProtoGameServer::ERROR_CODE::ERR_NONE && pPlayer->pGame) {
 		SendToPlayerAll(pPlayer->pGame, NULL, buffer, writeBuffer.GetActiveBufferSize());
 	}
 	else {

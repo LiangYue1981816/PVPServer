@@ -56,10 +56,10 @@ void CIOContext::ClearBuffer(void)
 	memset(&wsaRecvBuffer, 0, sizeof(wsaRecvBuffer));
 	memset(&wsaSendBuffer, 0, sizeof(wsaSendBuffer));
 
-	wsaRecvBuffer.pIOContext = this;
+	wsaRecvBuffer.pContext = this;
 	wsaRecvBuffer.operationType = NONE_POSTED << 16;
 
-	wsaSendBuffer.pIOContext = this;
+	wsaSendBuffer.pContext = this;
 	wsaSendBuffer.operationType = NONE_POSTED << 16;
 
 	recvBuffer.ClearBuffer();
@@ -494,7 +494,7 @@ void CIOCPServer::Disconnect(void)
 //
 CIOContext* CIOCPServer::GetIOContext(BOOL bLock)
 {
-	CIOContext *pIOContext = NULL;
+	CIOContext *pContext = NULL;
 
 	if (bLock) EnterCriticalSection(&m_sectionIOContext);
 	{
@@ -502,17 +502,17 @@ CIOContext* CIOCPServer::GetIOContext(BOOL bLock)
 			//
 			// 1. 建立活动链表
 			//
-			pIOContext = m_pFreeContext;
+			pContext = m_pFreeContext;
 
-			pIOContext->bInUsed = TRUE;
-			pIOContext->pPrevActive = NULL;
-			pIOContext->pNextActive = m_pActiveContext;
+			pContext->bInUsed = TRUE;
+			pContext->pPrevActive = NULL;
+			pContext->pNextActive = m_pActiveContext;
 
 			if (m_pActiveContext) {
-				m_pActiveContext->pPrevActive = pIOContext;
+				m_pActiveContext->pPrevActive = pContext;
 			}
 
-			m_pActiveContext = pIOContext;
+			m_pActiveContext = pContext;
 
 			//
 			// 2. 建立空闲链表
@@ -527,47 +527,47 @@ CIOContext* CIOCPServer::GetIOContext(BOOL bLock)
 	}
 	if (bLock) LeaveCriticalSection(&m_sectionIOContext);
 
-	return pIOContext;
+	return pContext;
 }
 
 //
 // 释放IOContext
 //
-void CIOCPServer::ReleaseIOContext(CIOContext *pIOContext, BOOL bLock)
+void CIOCPServer::ReleaseIOContext(CIOContext *pContext, BOOL bLock)
 {
 	if (bLock) EnterCriticalSection(&m_sectionIOContext);
 	{
-		if (pIOContext->bInUsed) {
-			pIOContext->bInUsed = FALSE;
+		if (pContext->bInUsed) {
+			pContext->bInUsed = FALSE;
 
 			//
 			// 1. 断开连接
 			//
-			OnDisconnect(pIOContext);
+			OnDisconnect(pContext);
 
 			//
 			// 2. 建立空闲链表
 			//
-			pIOContext->pNext = m_pFreeContext;
-			m_pFreeContext = pIOContext;
+			pContext->pNext = m_pFreeContext;
+			m_pFreeContext = pContext;
 
 			//
 			// 3. 建立活动链表
 			//
-			if (pIOContext->pPrevActive) {
-				pIOContext->pPrevActive->pNextActive = pIOContext->pNextActive;
+			if (pContext->pPrevActive) {
+				pContext->pPrevActive->pNextActive = pContext->pNextActive;
 			}
 
-			if (pIOContext->pNextActive) {
-				pIOContext->pNextActive->pPrevActive = pIOContext->pPrevActive;
+			if (pContext->pNextActive) {
+				pContext->pNextActive->pPrevActive = pContext->pPrevActive;
 			}
 
-			if (m_pActiveContext == pIOContext) {
-				m_pActiveContext = pIOContext->pNextActive;
+			if (m_pActiveContext == pContext) {
+				m_pActiveContext = pContext->pNextActive;
 			}
 
-			pIOContext->pNextActive = NULL;
-			pIOContext->pPrevActive = NULL;
+			pContext->pNextActive = NULL;
+			pContext->pPrevActive = NULL;
 
 			//
 			// 3. 记录IO上下文数
@@ -581,20 +581,20 @@ void CIOCPServer::ReleaseIOContext(CIOContext *pIOContext, BOOL bLock)
 //
 // 链接
 //
-void CIOCPServer::OnConnect(CIOContext *pIOContext, SOCKET acceptSocket)
+void CIOCPServer::OnConnect(CIOContext *pContext, SOCKET acceptSocket)
 {
-	pIOContext->dwHeartTime = 0;
-	pIOContext->ClearBuffer();
-	pIOContext->Accept(acceptSocket);
-	pIOContext->OnAccept();
+	pContext->dwHeartTime = 0;
+	pContext->ClearBuffer();
+	pContext->Accept(acceptSocket);
+	pContext->OnAccept();
 }
 
 //
 // 断连
 //
-void CIOCPServer::OnDisconnect(CIOContext *pIOContext)
+void CIOCPServer::OnDisconnect(CIOContext *pContext)
 {
-	pIOContext->OnDisconnect();
+	pContext->OnDisconnect();
 }
 
 //
@@ -607,9 +607,9 @@ DWORD WINAPI CIOCPServer::ListenThread(LPVOID lpParam)
 			SOCKET acceptSocket = WSAAccept(pIOCPServer->m_listenSocket, NULL, NULL, NULL, 0);
 
 			if (acceptSocket != INVALID_SOCKET) {
-				if (CIOContext *pIOContext = pIOCPServer->GetIOContext()) {
+				if (CIOContext *pContext = pIOCPServer->GetIOContext()) {
 					CreateIoCompletionPort((HANDLE)acceptSocket, pIOCPServer->m_hIOCP, (ULONG_PTR)acceptSocket, 0);
-					pIOCPServer->OnConnect(pIOContext, acceptSocket);
+					pIOCPServer->OnConnect(pContext, acceptSocket);
 				}
 				else {
 					shutdown(acceptSocket, SD_BOTH);
@@ -650,14 +650,14 @@ DWORD WINAPI CIOCPServer::TransferThread(LPVOID lpParam)
 			// 3. 完成IO操作
 			//
 			if (rcode && dwTransferred) {
-				pIOBuffer->pIOContext->OnComplete(pIOBuffer, dwTransferred);
+				pIOBuffer->pContext->OnComplete(pIOBuffer, dwTransferred);
 				continue;
 			}
 
 			//
 			// 4. 客户端断线, 回收IO上下文
 			//
-			pIOCPServer->ReleaseIOContext(pIOBuffer->pIOContext);
+			pIOCPServer->ReleaseIOContext(pIOBuffer->pContext);
 		}
 	}
 
