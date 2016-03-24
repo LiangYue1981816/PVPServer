@@ -65,6 +65,7 @@ protected:
 	virtual void OnHeart(CIOContext *pContext, WORD size);                                         // 心跳
 	virtual void OnLogin(CIOContext *pContext, WORD size);                                         // 登陆
 	virtual void OnListGameServer(CIOContext *pContext, WORD size);                                // 获得游戏服务器列表
+	virtual void OnSendToPlayer(CIOContext *pContext, WORD size);                                  // 发送指定玩家
 	virtual void OnGameServerStatus(CIOContext *pContext, WORD size);                              // 获得游戏服务器状态
 
 protected:

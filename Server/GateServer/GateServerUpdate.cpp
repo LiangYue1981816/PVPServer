@@ -80,6 +80,11 @@ void CGateServer::OnUpdateRecv(DWORD dwDeltaTime)
 						OnHeartReset(pContext);
 						break;
 
+					case ProtoGateClient::REQUEST_MSG::SEND_TO_PLAYER:
+						OnSendToPlayer(pContext, bodySize);
+						OnHeartReset(pContext);
+						break;
+
 					case ProtoGameServer::REQUEST_MSG::SERVER_STATUS:
 						OnGameServerStatus(pContext, bodySize);
 						OnHeartReset(pContext);
@@ -160,7 +165,7 @@ void CGateServer::OnLogin(CIOContext *pContext, WORD size)
 	}
 
 	//
-	// 2. 玩家登陆
+	// 2. 登陆
 	//
 	ProtoGateServer::ERROR_CODE err = ProtoGateServer::ERROR_CODE::ERR_NONE;
 
@@ -189,7 +194,7 @@ NEXT:
 	 Serializer(&writeBuffer, &responseLogin, ProtoGateServer::RESPONSE_MSG::LOGIN);
 
 	 //
-	 // 4. 发送玩家
+	 // 4. 发送
 	 //
 	 SendTo(pContext, buffer, writeBuffer.GetActiveBufferSize());
 }
@@ -233,6 +238,56 @@ void CGateServer::OnListGameServer(CIOContext *pContext, WORD size)
 	// 4. 发送
 	//
 	SendTo(pContext, buffer, writeBuffer.GetActiveBufferSize());
+}
+
+//
+// 发送指定玩家
+//
+void CGateServer::OnSendToPlayer(CIOContext *pContext, WORD size)
+{
+	ProtoGateClient::SendToPlayer requestSendToPlayer;
+	ProtoGateServer::SendToPlayer responseSendToPlayer;
+
+	BYTE buffer[PACK_BUFFER_SIZE];
+	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
+
+	//
+	// 1. 解析消息
+	//
+	if (Parser(&pContext->recvBuffer, &requestSendToPlayer, size) == FALSE) {
+		return;
+	}
+
+	//
+	// 2. 设置协议
+	//
+	responseSendToPlayer.set_size(requestSendToPlayer.size());
+	responseSendToPlayer.set_data(requestSendToPlayer.data().c_str(), requestSendToPlayer.size());
+
+	//
+	// 3. 序列化消息
+	//
+	Serializer(&writeBuffer, &responseSendToPlayer, ProtoGateServer::RESPONSE_MSG::SEND_TO_PLAYER);
+
+	//
+	// 4. 发送指定玩家
+	//
+	if (requestSendToPlayer.players_size() > 0) {
+		for (int index = 0; index < requestSendToPlayer.players_size(); index++) {
+			if (CIOContext *pContextSendTo = QueryContext(requestSendToPlayer.players().Get(index))) {
+				if (pContext != pContextSendTo) {
+					SendTo(pContextSendTo, buffer, writeBuffer.GetActiveBufferSize());
+				}
+			}
+		}
+	}
+	else {
+		for (GUIDMAP::const_iterator itContext = m_guidmap.begin(); itContext != m_guidmap.end(); ++itContext) {
+			if (pContext != itContext->second) {
+				SendTo(itContext->second, buffer, writeBuffer.GetActiveBufferSize());
+			}
+		}
+	}
 }
 
 //
