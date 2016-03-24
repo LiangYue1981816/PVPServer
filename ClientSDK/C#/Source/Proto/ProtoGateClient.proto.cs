@@ -27,11 +27,49 @@ namespace ProtoGateClient
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GameServerList")]
-  public partial class GameServerList : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ListGameServer")]
+  public partial class ListGameServer : global::ProtoBuf.IExtensible
   {
-    public GameServerList() {}
+    public ListGameServer() {}
     
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"SendToPlayer")]
+  public partial class SendToPlayer : global::ProtoBuf.IExtensible
+  {
+    public SendToPlayer() {}
+    
+    private uint _guid;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"guid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public uint guid
+    {
+      get { return _guid; }
+      set { _guid = value; }
+    }
+    private int _size;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"size", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int size
+    {
+      get { return _size; }
+      set { _size = value; }
+    }
+    private byte[] _data;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"data", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public byte[] data
+    {
+      get { return _data; }
+      set { _data = value; }
+    }
+    private readonly global::System.Collections.Generic.List<int> _players = new global::System.Collections.Generic.List<int>();
+    [global::ProtoBuf.ProtoMember(4, Name=@"players", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public global::System.Collections.Generic.List<int> players
+    {
+      get { return _players; }
+    }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -44,8 +82,11 @@ namespace ProtoGateClient
       [global::ProtoBuf.ProtoEnum(Name=@"HEART", Value=3000)]
       HEART = 3000,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"GAME_SERVER_LIST", Value=3001)]
-      GAME_SERVER_LIST = 3001
+      [global::ProtoBuf.ProtoEnum(Name=@"LIST_GAME_SERVER", Value=3001)]
+      LIST_GAME_SERVER = 3001,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=3002)]
+      SEND_TO_PLAYER = 3002
     }
   
 }

@@ -4,7 +4,8 @@ package ProtoGateClient;
 enum REQUEST_MSG
 {
 	HEART = 3000;
-	GAME_SERVER_LIST = 3001;
+	LIST_GAME_SERVER = 3001;
+	SEND_TO_PLAYER = 3002;
 }
 
 message Heart
@@ -12,6 +13,14 @@ message Heart
 	required int32 timestamp = 1;
 }
 
-message GameServerList
+message ListGameServer
 {
+}
+
+message SendToPlayer
+{
+	required uint32 guid = 1;
+	required int32 size = 2;
+	required bytes data = 3;
+	repeated int32 players = 4;
 }

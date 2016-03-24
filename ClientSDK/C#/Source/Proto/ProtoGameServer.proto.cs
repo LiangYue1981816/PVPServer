@@ -86,6 +86,75 @@ namespace ProtoGameServer
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ListGame")]
+  public partial class ListGame : global::ProtoBuf.IExtensible
+  {
+    public ListGame() {}
+    
+    private readonly global::System.Collections.Generic.List<ProtoGameServer.ListGame.Game> _games = new global::System.Collections.Generic.List<ProtoGameServer.ListGame.Game>();
+    [global::ProtoBuf.ProtoMember(1, Name=@"games", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<ProtoGameServer.ListGame.Game> games
+    {
+      get { return _games; }
+    }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Game")]
+  public partial class Game : global::ProtoBuf.IExtensible
+  {
+    public Game() {}
+    
+    private bool _private;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"private", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public bool @private
+    {
+      get { return _private; }
+      set { _private = value; }
+    }
+    private int _gameid;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int gameid
+    {
+      get { return _gameid; }
+      set { _gameid = value; }
+    }
+    private int _mode;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"mode", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int mode
+    {
+      get { return _mode; }
+      set { _mode = value; }
+    }
+    private int _map;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"map", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int map
+    {
+      get { return _map; }
+      set { _map = value; }
+    }
+    private int _maxPlayers;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"maxPlayers", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int maxPlayers
+    {
+      get { return _maxPlayers; }
+      set { _maxPlayers = value; }
+    }
+    private int _curPlayers;
+    [global::ProtoBuf.ProtoMember(6, IsRequired = true, Name=@"curPlayers", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int curPlayers
+    {
+      get { return _curPlayers; }
+      set { _curPlayers = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"CreateGame")]
   public partial class CreateGame : global::ProtoBuf.IExtensible
   {
@@ -210,10 +279,10 @@ namespace ProtoGameServer
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GameList")]
-  public partial class GameList : global::ProtoBuf.IExtensible
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ServerStatus")]
+  public partial class ServerStatus : global::ProtoBuf.IExtensible
   {
-    public GameList() {}
+    public ServerStatus() {}
     
     private string _ip;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"ip", DataFormat = global::ProtoBuf.DataFormat.Default)]
@@ -229,65 +298,20 @@ namespace ProtoGameServer
       get { return _port; }
       set { _port = value; }
     }
-    private readonly global::System.Collections.Generic.List<ProtoGameServer.GameList.Game> _games = new global::System.Collections.Generic.List<ProtoGameServer.GameList.Game>();
-    [global::ProtoBuf.ProtoMember(3, Name=@"games", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<ProtoGameServer.GameList.Game> games
+    private int _maxGames;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"maxGames", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int maxGames
     {
-      get { return _games; }
+      get { return _maxGames; }
+      set { _maxGames = value; }
     }
-  
-  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Game")]
-  public partial class Game : global::ProtoBuf.IExtensible
-  {
-    public Game() {}
-    
-    private bool _private;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"private", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public bool @private
+    private int _curGames;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"curGames", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int curGames
     {
-      get { return _private; }
-      set { _private = value; }
+      get { return _curGames; }
+      set { _curGames = value; }
     }
-    private int _gameid;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int gameid
-    {
-      get { return _gameid; }
-      set { _gameid = value; }
-    }
-    private int _mode;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"mode", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int mode
-    {
-      get { return _mode; }
-      set { _mode = value; }
-    }
-    private int _map;
-    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"map", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int map
-    {
-      get { return _map; }
-      set { _map = value; }
-    }
-    private int _maxPlayers;
-    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"maxPlayers", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int maxPlayers
-    {
-      get { return _maxPlayers; }
-      set { _maxPlayers = value; }
-    }
-    private readonly global::System.Collections.Generic.List<int> _playes = new global::System.Collections.Generic.List<int>();
-    [global::ProtoBuf.ProtoMember(6, Name=@"playes", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public global::System.Collections.Generic.List<int> playes
-    {
-      get { return _playes; }
-    }
-  
-    private global::ProtoBuf.IExtension extensionObject;
-    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
-  }
-  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
@@ -393,28 +417,31 @@ namespace ProtoGameServer
       [global::ProtoBuf.ProtoEnum(Name=@"HOST", Value=1003)]
       HOST = 1003,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"CREATE_GAME", Value=1004)]
-      CREATE_GAME = 1004,
+      [global::ProtoBuf.ProtoEnum(Name=@"LIST_GAME", Value=1004)]
+      LIST_GAME = 1004,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"DESTROY_GAME", Value=1005)]
-      DESTROY_GAME = 1005,
+      [global::ProtoBuf.ProtoEnum(Name=@"CREATE_GAME", Value=1005)]
+      CREATE_GAME = 1005,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ENTER_GAME", Value=1006)]
-      ENTER_GAME = 1006,
+      [global::ProtoBuf.ProtoEnum(Name=@"DESTROY_GAME", Value=1006)]
+      DESTROY_GAME = 1006,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"EXIT_GAME", Value=1007)]
-      EXIT_GAME = 1007,
+      [global::ProtoBuf.ProtoEnum(Name=@"ENTER_GAME", Value=1007)]
+      ENTER_GAME = 1007,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=1008)]
-      SEND_TO_PLAYER = 1008
+      [global::ProtoBuf.ProtoEnum(Name=@"EXIT_GAME", Value=1008)]
+      EXIT_GAME = 1008,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=1009)]
+      SEND_TO_PLAYER = 1009
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"REQUEST_MSG")]
     public enum REQUEST_MSG
     {
             
-      [global::ProtoBuf.ProtoEnum(Name=@"GAME_LIST", Value=2000)]
-      GAME_LIST = 2000
+      [global::ProtoBuf.ProtoEnum(Name=@"SERVER_STATUS", Value=2000)]
+      SERVER_STATUS = 2000
     }
   
 }

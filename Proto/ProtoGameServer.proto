@@ -125,22 +125,13 @@ message SendToPlayer
 
 enum REQUEST_MSG
 {
-	GAME_LIST = 2000;
+	SERVER_STATUS = 2000;
 }
 
-message GameList
+message ServerStatus
 {
-	message Game
-	{
-		required bool private = 1;
-		required int32 gameid = 2;
-		required int32 mode = 3;
-		required int32 map = 4;
-		required int32 maxPlayers = 5;
-		repeated int32 playes = 6;
-	}
-	
 	required string ip = 1;
 	required int32 port = 2;
-	repeated Game games = 3;
+	required int32 maxGames = 3;
+	required int32 curGames = 4;
 }

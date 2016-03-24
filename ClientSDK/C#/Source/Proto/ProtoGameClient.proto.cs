@@ -61,6 +61,16 @@ namespace ProtoGameClient
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ListGame")]
+  public partial class ListGame : global::ProtoBuf.IExtensible
+  {
+    public ListGame() {}
+    
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"CreateGame")]
   public partial class CreateGame : global::ProtoBuf.IExtensible
   {
@@ -218,23 +228,26 @@ namespace ProtoGameClient
       [global::ProtoBuf.ProtoEnum(Name=@"LOGIN", Value=1002)]
       LOGIN = 1002,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"CREATE_GAME", Value=1003)]
-      CREATE_GAME = 1003,
+      [global::ProtoBuf.ProtoEnum(Name=@"LIST_GAME", Value=1003)]
+      LIST_GAME = 1003,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"DESTROY_GAME", Value=1004)]
-      DESTROY_GAME = 1004,
+      [global::ProtoBuf.ProtoEnum(Name=@"CREATE_GAME", Value=1004)]
+      CREATE_GAME = 1004,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ENTER_GAME", Value=1005)]
-      ENTER_GAME = 1005,
+      [global::ProtoBuf.ProtoEnum(Name=@"DESTROY_GAME", Value=1005)]
+      DESTROY_GAME = 1005,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"EXIT_GAME", Value=1006)]
-      EXIT_GAME = 1006,
+      [global::ProtoBuf.ProtoEnum(Name=@"ENTER_GAME", Value=1006)]
+      ENTER_GAME = 1006,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=1007)]
-      SEND_TO_PLAYER = 1007,
+      [global::ProtoBuf.ProtoEnum(Name=@"EXIT_GAME", Value=1007)]
+      EXIT_GAME = 1007,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER_ALL", Value=1008)]
-      SEND_TO_PLAYER_ALL = 1008
+      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=1008)]
+      SEND_TO_PLAYER = 1008,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER_ALL", Value=1009)]
+      SEND_TO_PLAYER_ALL = 1009
     }
   
 }

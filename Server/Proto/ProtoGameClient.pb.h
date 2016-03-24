@@ -37,6 +37,7 @@ void protobuf_ShutdownFile_ProtoGameClient_2eproto();
 class Heart;
 class Flags;
 class Login;
+class ListGame;
 class CreateGame;
 class DestroyGame;
 class EnterGame;
@@ -48,12 +49,13 @@ enum REQUEST_MSG {
   HEART = 1000,
   FLAGS = 1001,
   LOGIN = 1002,
-  CREATE_GAME = 1003,
-  DESTROY_GAME = 1004,
-  ENTER_GAME = 1005,
-  EXIT_GAME = 1006,
-  SEND_TO_PLAYER = 1007,
-  SEND_TO_PLAYER_ALL = 1008
+  LIST_GAME = 1003,
+  CREATE_GAME = 1004,
+  DESTROY_GAME = 1005,
+  ENTER_GAME = 1006,
+  EXIT_GAME = 1007,
+  SEND_TO_PLAYER = 1008,
+  SEND_TO_PLAYER_ALL = 1009
 };
 bool REQUEST_MSG_IsValid(int value);
 const REQUEST_MSG REQUEST_MSG_MIN = HEART;
@@ -306,6 +308,75 @@ class Login : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static Login* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ListGame : public ::google::protobuf::Message {
+ public:
+  ListGame();
+  virtual ~ListGame();
+
+  ListGame(const ListGame& from);
+
+  inline ListGame& operator=(const ListGame& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ListGame& default_instance();
+
+  void Swap(ListGame* other);
+
+  // implements Message ----------------------------------------------
+
+  ListGame* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ListGame& from);
+  void MergeFrom(const ListGame& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:ProtoGameClient.ListGame)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_ProtoGameClient_2eproto();
+  friend void protobuf_AssignDesc_ProtoGameClient_2eproto();
+  friend void protobuf_ShutdownFile_ProtoGameClient_2eproto();
+
+  void InitAsDefaultInstance();
+  static ListGame* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -947,6 +1018,10 @@ inline void Login::set_version(::google::protobuf::int32 value) {
   version_ = value;
   // @@protoc_insertion_point(field_set:ProtoGameClient.Login.version)
 }
+
+// -------------------------------------------------------------------
+
+// ListGame
 
 // -------------------------------------------------------------------
 
