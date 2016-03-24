@@ -222,5 +222,3 @@ protected:
 	DWORD m_dwRecvDataSize;                                                                        // 接收数据量
 	DWORD m_dwSendDataSize;                                                                        // 发送数据量
 };
-
-extern void WriteLog(const char *szFmt, ...);                                                      // 输出日志

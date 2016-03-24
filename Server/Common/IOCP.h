@@ -36,7 +36,7 @@ public:
 		DWORD dwCompleteSize;                                                                      // 完成数据大小
 
 		DWORD operationType;                                                                       // 操作类型
-		CIOContext *pContext;                                                                      // IO上下文
+		CIOContext *pContext;                                                                      // 上下文
 	} WSA_BUFFER;
 
 
@@ -105,13 +105,13 @@ public:
 	virtual void Stop(void);                                                                       // 停止服务器
 
 protected:
-	virtual BOOL AllocContexts(int maxContexts);                                                   // 分配IO上下文
+	virtual BOOL AllocContexts(int maxContexts);                                                   // 分配上下文
 	virtual BOOL CreateIOCP(void);                                                                 // 创建完成端口
 	virtual BOOL CreateListenThread(void);                                                         // 创建侦听线程
 	virtual BOOL CreateTransferThreads(void);                                                      // 创建传输线程
 	virtual BOOL CreateShutdownEvent(void);                                                        // 创建关闭事件
 
-	virtual void FreeContexts(void);                                                               // 释放IO上下文
+	virtual void FreeContexts(void);                                                               // 释放上下文
 	virtual void DestroyIOCP(void);                                                                // 销毁完成端口
 	virtual void DestroyListenThread(void);                                                        // 销毁侦听线程
 	virtual void DestroyTransferThreads(void);                                                     // 销毁传输线程
@@ -121,8 +121,8 @@ protected:
 	virtual void Disconnect(void);                                                                 // 断开连接
 
 protected:
-	virtual CIOContext* GetIOContext(BOOL bLock = TRUE);                                           // 获得IO上下文
-	virtual void ReleaseIOContext(CIOContext *pContext, BOOL bLock = TRUE);                        // 释放IO上下文
+	virtual CIOContext* GetNextContext(BOOL bLock = TRUE);                                         // 获得空闲上下文
+	virtual void ReleaseContext(CIOContext *pContext, BOOL bLock = TRUE);                          // 释放上下文
 
 protected:
 	virtual void OnConnect(CIOContext *pContext, SOCKET acceptSocket);                             // 客户端链接回调
@@ -146,13 +146,13 @@ protected:
 	HANDLE m_hTransferThreads[MAX_THREAD_COUNT];                                                   // 传输线程句柄
 
 	HANDLE m_hShutdownEvent;                                                                       // 退出事件
-	CRITICAL_SECTION m_sectionIOContext;                                                           // IO上下文临界区
+	CRITICAL_SECTION m_sectionContext;                                                             // 上下文临界区
 
-	int m_curContexts;                                                                             // 当前IO上下文数
-	int m_maxContexts;                                                                             // 最大IO上下文数
-	CIOContext **m_contexts;                                                                       // IO上下文集合
-	CIOContext *m_pFreeContext;                                                                    // 空闲IO上下文
-	CIOContext *m_pActiveContext;                                                                  // 活动IO上下文
+	int m_curContexts;                                                                             // 当前上下文数
+	int m_maxContexts;                                                                             // 最大上下文数
+	CIOContext **m_contexts;                                                                       // 上下文集合
+	CIOContext *m_pFreeContext;                                                                    // 空闲上下文
+	CIOContext *m_pActiveContext;                                                                  // 活动上下文
 };
 
 extern int GetProcessors(void);                                                                    // 获得处理器数
@@ -160,3 +160,5 @@ extern UINT tick(void);                                                         
 
 extern int SendData(int s, char *buff, int n);                                                     // 发送数据
 extern int RecvData(int s, char *buff, int n);                                                     // 接收数据
+
+extern void WriteLog(const char *szFmt, ...);                                                      // 输出日志

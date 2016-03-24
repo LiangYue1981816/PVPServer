@@ -17,7 +17,6 @@ void CGameServer::OnDisconnect(CIOContext *pContext)
 {
 	OnExitGame((CPlayer *)pContext, 0);
 	Logout((CPlayer *)pContext);
-
 	CIOCPServer::OnDisconnect(pContext);
 }
 
@@ -128,7 +127,7 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 
 		if (pPlayer->dwHeartTime > (DWORD)(1000 * m_timeOut)) {
 			WriteLog("%s: Heart TimeOut\n", pPlayer->ip);
-			ReleaseIOContext(pPlayer, FALSE);
+			ReleaseContext(pPlayer, FALSE);
 		}
 
 		pPlayer = pNextPlayer;
@@ -326,7 +325,7 @@ void CGameServer::OnListGame(CPlayer *pPlayer, WORD size)
 
 	goto NEXT;
 ERR:
-NEXT :
+NEXT:
 	responseListGame.set_err(err);
 
 	 //
@@ -427,8 +426,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 销毁检查
 	//
-	ProtoGameServer::ERROR_CODE err = pPlayer->pGame ? ProtoGameServer::ERROR_CODE::ERR_NONE : ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_INGAME;
-	responseDestroyGame.set_err(err);
+	responseDestroyGame.set_err(pPlayer->pGame ? ProtoGameServer::ERROR_CODE::ERR_NONE : ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_INGAME);
 
 	//
 	// 3. 序列化消息
@@ -543,8 +541,7 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 退出游戏
 	//
-	ProtoGameServer::ERROR_CODE err = pPlayer->pGame ? ProtoGameServer::ERROR_CODE::ERR_NONE : ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_INGAME;
-	responseExitGame.set_err(err);
+	responseExitGame.set_err(pPlayer->pGame ? ProtoGameServer::ERROR_CODE::ERR_NONE : ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_INGAME);
 	responseExitGame.set_guid(pPlayer->guid);
 
 	//

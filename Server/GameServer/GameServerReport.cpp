@@ -43,14 +43,14 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 			CCacheBuffer writeBuffer(sizeof(buffer), buffer);
 			ProtoGameServer::ServerStatus requestServerStatus;
 			{
-				EnterCriticalSection(&pServer->m_sectionIOContext);
+				EnterCriticalSection(&pServer->m_sectionContext);
 				{
 					requestServerStatus.set_ip(pServer->m_ip);
 					requestServerStatus.set_port(pServer->m_port);
 					requestServerStatus.set_maxgames(pServer->m_maxGames);
 					requestServerStatus.set_curgames(pServer->m_curGames);
 				}
-				LeaveCriticalSection(&pServer->m_sectionIOContext);
+				LeaveCriticalSection(&pServer->m_sectionContext);
 			}
 			Serializer(&writeBuffer, &requestServerStatus, ProtoGameServer::REQUEST_MSG::SERVER_STATUS);
 

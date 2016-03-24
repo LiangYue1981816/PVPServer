@@ -2,7 +2,7 @@
 
 
 //////////////////////////////////////////////////////////////////////////
-// IO上下文
+// 上下文
 //========================================================================
 CIOContext::CIOContext(void)
 	: dwHeartTime(0x00000000)
@@ -258,13 +258,13 @@ CIOCPServer::CIOCPServer(void)
 	WSADATA wsaData;
 	WSAStartup(MAKEWORD(2, 2), &wsaData);
 
-	InitializeCriticalSectionAndSpinCount(&m_sectionIOContext, 4000);
+	InitializeCriticalSectionAndSpinCount(&m_sectionContext, 4000);
 }
 
 CIOCPServer::~CIOCPServer(void)
 {
 	WSACleanup();
-	DeleteCriticalSection(&m_sectionIOContext);
+	DeleteCriticalSection(&m_sectionContext);
 }
 
 //
@@ -298,19 +298,19 @@ void CIOCPServer::Stop(void)
 }
 
 //
-// 分配IO上下文
+// 分配上下文
 //
 BOOL CIOCPServer::AllocContexts(int maxContexts)
 {
 	//
-	// 1. 分配IO上下文存储
+	// 1. 分配上下文存储
 	//
 	m_curContexts = 0;
 	m_maxContexts = maxContexts;
 	m_contexts = new CIOContext*[m_maxContexts];
 
 	//
-	// 2. 建立空闲IO上下文链表
+	// 2. 建立空闲上下文链表
 	//
 	for (int indexContext = 0; indexContext < m_maxContexts; indexContext++) {
 		m_contexts[indexContext] = new CIOContext;
@@ -371,7 +371,7 @@ BOOL CIOCPServer::CreateShutdownEvent(void)
 }
 
 //
-// 释放IO上下文
+// 释放上下文
 //
 void CIOCPServer::FreeContexts(void)
 {
@@ -490,13 +490,13 @@ void CIOCPServer::Disconnect(void)
 }
 
 //
-// 获得空闲IOContext
+// 获得空闲上下文
 //
-CIOContext* CIOCPServer::GetIOContext(BOOL bLock)
+CIOContext* CIOCPServer::GetNextContext(BOOL bLock)
 {
 	CIOContext *pContext = NULL;
 
-	if (bLock) EnterCriticalSection(&m_sectionIOContext);
+	if (bLock) EnterCriticalSection(&m_sectionContext);
 	{
 		if (m_pFreeContext) {
 			//
@@ -520,22 +520,22 @@ CIOContext* CIOCPServer::GetIOContext(BOOL bLock)
 			m_pFreeContext = m_pFreeContext->pNext;
 
 			//
-			// 3. 记录IO上下文数
+			// 3. 记录上下文数
 			//
 			m_curContexts++;
 		}
 	}
-	if (bLock) LeaveCriticalSection(&m_sectionIOContext);
+	if (bLock) LeaveCriticalSection(&m_sectionContext);
 
 	return pContext;
 }
 
 //
-// 释放IOContext
+// 释放上下文
 //
-void CIOCPServer::ReleaseIOContext(CIOContext *pContext, BOOL bLock)
+void CIOCPServer::ReleaseContext(CIOContext *pContext, BOOL bLock)
 {
-	if (bLock) EnterCriticalSection(&m_sectionIOContext);
+	if (bLock) EnterCriticalSection(&m_sectionContext);
 	{
 		if (pContext->bInUsed) {
 			pContext->bInUsed = FALSE;
@@ -570,12 +570,12 @@ void CIOCPServer::ReleaseIOContext(CIOContext *pContext, BOOL bLock)
 			pContext->pPrevActive = NULL;
 
 			//
-			// 3. 记录IO上下文数
+			// 3. 记录上下文数
 			//
 			m_curContexts--;
 		}
 	}
-	if (bLock) LeaveCriticalSection(&m_sectionIOContext);
+	if (bLock) LeaveCriticalSection(&m_sectionContext);
 }
 
 //
@@ -607,7 +607,7 @@ DWORD WINAPI CIOCPServer::ListenThread(LPVOID lpParam)
 			SOCKET acceptSocket = WSAAccept(pIOCPServer->m_listenSocket, NULL, NULL, NULL, 0);
 
 			if (acceptSocket != INVALID_SOCKET) {
-				if (CIOContext *pContext = pIOCPServer->GetIOContext()) {
+				if (CIOContext *pContext = pIOCPServer->GetNextContext()) {
 					CreateIoCompletionPort((HANDLE)acceptSocket, pIOCPServer->m_hIOCP, (ULONG_PTR)acceptSocket, 0);
 					pIOCPServer->OnConnect(pContext, acceptSocket);
 				}
@@ -642,12 +642,12 @@ DWORD WINAPI CIOCPServer::TransferThread(LPVOID lpParam)
 			if (!pOverlapped) continue;
 
 			//
-			// 2. 获得IO上下文
+			// 2. 获得上下文
 			//
 			pIOBuffer = CONTAINING_RECORD(pOverlapped, CIOContext::WSA_BUFFER, overlapped);
 
 			//
-			// 3. 完成IO操作
+			// 3. 完成操作
 			//
 			if (rcode && dwTransferred) {
 				pIOBuffer->pContext->OnComplete(pIOBuffer, dwTransferred);
@@ -655,9 +655,9 @@ DWORD WINAPI CIOCPServer::TransferThread(LPVOID lpParam)
 			}
 
 			//
-			// 4. 客户端断线, 回收IO上下文
+			// 4. 客户端断线, 回收上下文
 			//
-			pIOCPServer->ReleaseIOContext(pIOBuffer->pContext);
+			pIOCPServer->ReleaseContext(pIOBuffer->pContext);
 		}
 	}
 

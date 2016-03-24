@@ -127,7 +127,7 @@ BOOL CGameServer::AllocGames(int maxGames)
 BOOL CGameServer::AllocPlayers(int maxPlayers)
 {
 	//
-	// 1. 分配IO上下文存储
+	// 1. 分配上下文存储
 	//
 	m_curContexts = 0;
 	m_maxContexts = maxPlayers;
@@ -513,7 +513,7 @@ DWORD WINAPI CGameServer::UpdateThread(LPVOID lpParam)
 				// 1. 更新服务器
 				//
 				DWORD dwBegin = tick() / 1000;
-				EnterCriticalSection(&pServer->m_sectionIOContext);
+				EnterCriticalSection(&pServer->m_sectionContext);
 				{
 					pServer->OnUpdateRecv(dwDeltaTime);
 
@@ -525,7 +525,7 @@ DWORD WINAPI CGameServer::UpdateThread(LPVOID lpParam)
 
 					pServer->OnUpdateSend();
 				}
-				LeaveCriticalSection(&pServer->m_sectionIOContext);
+				LeaveCriticalSection(&pServer->m_sectionContext);
 				DWORD dwEnd = tick() / 1000;
 
 				//
@@ -537,11 +537,11 @@ DWORD WINAPI CGameServer::UpdateThread(LPVOID lpParam)
 
 				// 报告更新1FPS
 				if (dwReportDeltaTime > 1000) {
-					EnterCriticalSection(&pServer->m_sectionIOContext);
+					EnterCriticalSection(&pServer->m_sectionContext);
 					{
 						pServer->Monitor();
 					}
-					LeaveCriticalSection(&pServer->m_sectionIOContext);
+					LeaveCriticalSection(&pServer->m_sectionContext);
 
 					pServer->m_dwRuntimeTotal++;
 					pServer->m_dwUpdateCount = 0;
