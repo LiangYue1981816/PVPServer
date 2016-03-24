@@ -20,6 +20,10 @@
                 ResponseHost(buffer);
                 break;
 
+            case (short)ProtoGameServer.RESPONSE_MSG.LIST_GAME:
+                ResponseListGame(buffer);
+                break;
+
             case (short)ProtoGameServer.RESPONSE_MSG.CREATE_GAME:
                 ResponseCreateGame(buffer);
                 break;

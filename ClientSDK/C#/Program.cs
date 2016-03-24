@@ -24,6 +24,7 @@ class Program
     static void Main(string[] args)
     {
         mGateClient.onResponseListGameServer = OnResponseListGameServer;
+        mGameClient.onResponseListGame = OnResponseListGame;
         mGameClient.onResponseSendToPlayer = OnResponseSendToPlayer;
 
         mThreadUpdate = new Thread(ThreadUpdate);
@@ -171,7 +172,7 @@ class Program
 
     static void GameServerListGame()
     {
-
+        mGameClient.RequestListGame();
     }
 
     static void GameServerCreateGame()
@@ -237,6 +238,21 @@ class Program
             address.ip = responseListGameServer.servers[indexGameServer].ip;
             address.port = responseListGameServer.servers[indexGameServer].port;
             mGameServerList.Add(address);
+        }
+    }
+
+    static void OnResponseListGame(ProtoGameServer.ListGame responseListGame)
+    {
+        for (int indexGame = 0; indexGame < responseListGame.games.Count; indexGame++)
+        {
+            Console.WriteLine(string.Format(
+                "Game{0} private={1} mode={2} map={3} players={4}/{5}",
+                responseListGame.games[indexGame].gameid,
+                responseListGame.games[indexGame].@private,
+                responseListGame.games[indexGame].mode,
+                responseListGame.games[indexGame].map,
+                responseListGame.games[indexGame].curPlayers,
+                responseListGame.games[indexGame].maxPlayers));
         }
     }
 

@@ -4,10 +4,18 @@ using System.Collections.Generic;
 
 public partial class GateClient : NetClient
 {
+    public delegate void OnResponseLogin();
     public delegate void OnResponseListGameServer(ProtoGateServer.ListGameServer responseListGameServer);
+    public delegate void OnResponseSendToPlayer(int size, byte[] data);
+    public OnResponseLogin onResponseLogin = null;
     public OnResponseListGameServer onResponseListGameServer = null;
+    public OnResponseSendToPlayer onResponseSendToPlayer = null;
+
+    private ProtoGateServer.ERROR_CODE mErrorCode = ProtoGateServer.ERROR_CODE.ERR_NONE;
 
     private int mPing = 0;
+    private uint mGUID = 0xffffffff;
+    private uint mFlags = (uint)ProtoGateServer.FLAGS_CODE.PLAYER_FLAGS_NONE;
 
     private Thread mThreadHeart = null;
     private ManualResetEvent mEventHeart = null;
@@ -33,6 +41,9 @@ public partial class GateClient : NetClient
 
     public override bool Disconnect()
     {
+        mGUID = 0xffffffff;
+        mFlags = (uint)ProtoGateServer.FLAGS_CODE.PLAYER_FLAGS_NONE;
+
         if (base.Disconnect())
         {
             mThreadHeart.Abort();
@@ -44,9 +55,44 @@ public partial class GateClient : NetClient
         return false;
     }
 
+    public ProtoGateServer.ERROR_CODE GetLastError()
+    {
+        return mErrorCode;
+    }
+
     public int GetPing()
     {
         return mPing;
+    }
+
+    public uint GetGUID()
+    {
+        return mGUID;
+    }
+
+    public uint GetFlags()
+    {
+        return mFlags;
+    }
+
+    public bool IsLogin()
+    {
+        return IsEnable(ProtoGateServer.FLAGS_CODE.PLAYER_FLAGS_LOGIN);
+    }
+
+    protected bool IsEnable(ProtoGateServer.FLAGS_CODE code)
+    {
+        return (mFlags & ((uint)code)) != 0 ? true : false;
+    }
+
+    protected void EnableFlag(ProtoGateServer.FLAGS_CODE code)
+    {
+        mFlags = mFlags | ((uint)code);
+    }
+
+    protected void DisableFlag(ProtoGateServer.FLAGS_CODE code)
+    {
+        mFlags = mFlags & ~((uint)code);
     }
 
     protected void SendProto(ProtoGateClient.REQUEST_MSG msg, global::ProtoBuf.IExtensible proto)

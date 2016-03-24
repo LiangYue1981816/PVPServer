@@ -6,6 +6,7 @@ public partial class ServerClient : NetClient
 {
     public delegate void OnResponseHost(uint guid);
     public delegate void OnResponseLogin();
+    public delegate void OnResponseListGame(ProtoGameServer.ListGame responseListGame);
     public delegate void OnResponseCreateGame();
     public delegate void OnResponseDestroyGame();
     public delegate void OnResposneEnterGame(uint guid);
@@ -13,6 +14,7 @@ public partial class ServerClient : NetClient
     public delegate void OnResponseSendToPlayer(int size, byte[] data);
     public OnResponseHost onResponseHost = null;
     public OnResponseLogin onResponseLogin = null;
+    public OnResponseListGame onResponseListGame = null;
     public OnResponseCreateGame onResponseCreateGame = null;
     public OnResponseDestroyGame onResponseDestroyGame = null;
     public OnResposneEnterGame onResposneEnterGame = null;
@@ -34,6 +36,7 @@ public partial class ServerClient : NetClient
     private ProtoGameClient.Heart mRequestHeart = new ProtoGameClient.Heart();
     private ProtoGameClient.Flags mRequestFlags = new ProtoGameClient.Flags();
     private ProtoGameClient.Login mRequestLogin = new ProtoGameClient.Login();
+    private ProtoGameClient.ListGame mRequestList = new ProtoGameClient.ListGame();
     private ProtoGameClient.CreateGame mRequestCreateGame = new ProtoGameClient.CreateGame();
     private ProtoGameClient.DestroyGame mRequestDestroyGame = new ProtoGameClient.DestroyGame();
     private ProtoGameClient.EnterGame mRequestEnterGame = new ProtoGameClient.EnterGame();

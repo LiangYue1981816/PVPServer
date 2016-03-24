@@ -55,6 +55,7 @@
     <Compile Include="Source\GameClient\ServerClientRequestFlags.cs" />
     <Compile Include="Source\GameClient\ServerClientRequestHeart.cs" />
     <Compile Include="Source\GameClient\ServerClientRequestHost.cs" />
+    <Compile Include="Source\GameClient\ServerClientRequestListGame.cs" />
     <Compile Include="Source\GameClient\ServerClientRequestLogin.cs" />
     <Compile Include="Source\GameClient\ServerClientRequestSendToPlayer.cs" />
     <Compile Include="Source\GameClient\ServerClientThread.cs" />
