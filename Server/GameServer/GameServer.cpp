@@ -490,6 +490,7 @@ void CGameServer::Monitor(void)
 	//
 	// 2. ÏÔÊ¾·þÎñÆ÷×´Ì¬
 	//
+	printf("GameServer %s:%d\n", m_ip, m_port);
 	printf("Recv Data = %dB (%2.2fMb/s)\n", m_dwRecvDataSize, 8.0f*m_dwRecvDataSize / 1024.0f / 1024.0f);
 	printf("Send Data = %dB (%2.2fMb/s)\n", m_dwSendDataSize, 8.0f*m_dwSendDataSize / 1024.0f / 1024.0f);
 	printf("Update Time = %dms\n", m_dwUpdateTime);
