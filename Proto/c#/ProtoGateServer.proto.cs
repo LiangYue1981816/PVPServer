@@ -57,8 +57,15 @@ namespace ProtoGateServer
   {
     public ListGameServer() {}
     
+    private ProtoGateServer.ERROR_CODE _err;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ProtoGateServer.ERROR_CODE err
+    {
+      get { return _err; }
+      set { _err = value; }
+    }
     private readonly global::System.Collections.Generic.List<ProtoGateServer.ListGameServer.GameServer> _servers = new global::System.Collections.Generic.List<ProtoGateServer.ListGameServer.GameServer>();
-    [global::ProtoBuf.ProtoMember(1, Name=@"servers", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(2, Name=@"servers", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public global::System.Collections.Generic.List<ProtoGateServer.ListGameServer.GameServer> servers
     {
       get { return _servers; }

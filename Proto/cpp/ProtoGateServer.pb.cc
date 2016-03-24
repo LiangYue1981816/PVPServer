@@ -80,7 +80,8 @@ void protobuf_AssignDesc_ProtoGateServer_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Login));
   ListGameServer_descriptor_ = file->message_type(2);
-  static const int ListGameServer_offsets_[1] = {
+  static const int ListGameServer_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGameServer, err_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGameServer, servers_),
   };
   ListGameServer_reflection_ =
@@ -180,19 +181,20 @@ void protobuf_AddDesc_ProtoGateServer_2eproto() {
     "\n\025ProtoGateServer.proto\022\017ProtoGateServer"
     "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"\?\n\005Login\022(\n"
     "\003err\030\001 \002(\0162\033.ProtoGateServer.ERROR_CODE\022"
-    "\014\n\004guid\030\002 \001(\r\"\231\001\n\016ListGameServer\022;\n\007serv"
-    "ers\030\001 \003(\0132*.ProtoGateServer.ListGameServ"
-    "er.GameServer\032J\n\nGameServer\022\n\n\002ip\030\001 \002(\t\022"
-    "\014\n\004port\030\002 \002(\005\022\020\n\010maxGames\030\003 \002(\005\022\020\n\010curGa"
-    "mes\030\004 \002(\005\"*\n\014SendToPlayer\022\014\n\004size\030\001 \002(\005\022"
-    "\014\n\004data\030\002 \002(\014*\037\n\016VERSION_NUMBER\022\r\n\007VERSI"
-    "ON\020\200\200\004*\237\001\n\nERROR_CODE\022\014\n\010ERR_NONE\020\000\022\027\n\023E"
-    "RR_VERSION_INVALID\020\001\022\027\n\022ERR_PLAYER_INVAL"
-    "ID\020\350\007\022\034\n\027ERR_PLAYER_INVALID_GUID\020\351\007\022\030\n\023E"
-    "RR_PLAYER_NOT_NONE\020\352\007\022\031\n\024ERR_PLAYER_NOT_"
-    "LOGIN\020\353\007*R\n\014RESPONSE_MSG\022\n\n\005HEART\020\270\027\022\n\n\005"
-    "LOGIN\020\271\027\022\025\n\020LIST_GAME_SERVER\020\272\027\022\023\n\016SEND_"
-    "TO_PLAYER\020\273\027B\002H\001", 616);
+    "\014\n\004guid\030\002 \001(\r\"\303\001\n\016ListGameServer\022(\n\003err\030"
+    "\001 \002(\0162\033.ProtoGateServer.ERROR_CODE\022;\n\007se"
+    "rvers\030\002 \003(\0132*.ProtoGateServer.ListGameSe"
+    "rver.GameServer\032J\n\nGameServer\022\n\n\002ip\030\001 \002("
+    "\t\022\014\n\004port\030\002 \002(\005\022\020\n\010maxGames\030\003 \002(\005\022\020\n\010cur"
+    "Games\030\004 \002(\005\"*\n\014SendToPlayer\022\014\n\004size\030\001 \002("
+    "\005\022\014\n\004data\030\002 \002(\014*\037\n\016VERSION_NUMBER\022\r\n\007VER"
+    "SION\020\200\200\004*\237\001\n\nERROR_CODE\022\014\n\010ERR_NONE\020\000\022\027\n"
+    "\023ERR_VERSION_INVALID\020\001\022\027\n\022ERR_PLAYER_INV"
+    "ALID\020\350\007\022\034\n\027ERR_PLAYER_INVALID_GUID\020\351\007\022\030\n"
+    "\023ERR_PLAYER_NOT_NONE\020\352\007\022\031\n\024ERR_PLAYER_NO"
+    "T_LOGIN\020\353\007*R\n\014RESPONSE_MSG\022\n\n\005HEART\020\270\027\022\n"
+    "\n\005LOGIN\020\271\027\022\025\n\020LIST_GAME_SERVER\020\272\027\022\023\n\016SEN"
+    "D_TO_PLAYER\020\273\027B\002H\001", 658);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGateServer.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -1144,6 +1146,7 @@ void ListGameServer_GameServer::Swap(ListGameServer_GameServer* other) {
 // -------------------------------------------------------------------
 
 #ifndef _MSC_VER
+const int ListGameServer::kErrFieldNumber;
 const int ListGameServer::kServersFieldNumber;
 #endif  // !_MSC_VER
 
@@ -1165,6 +1168,7 @@ ListGameServer::ListGameServer(const ListGameServer& from)
 
 void ListGameServer::SharedCtor() {
   _cached_size_ = 0;
+  err_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1200,6 +1204,7 @@ ListGameServer* ListGameServer::New() const {
 }
 
 void ListGameServer::Clear() {
+  err_ = 0;
   servers_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -1215,16 +1220,35 @@ bool ListGameServer::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .ProtoGateServer.ListGameServer.GameServer servers = 1;
+      // required .ProtoGateServer.ERROR_CODE err = 1;
       case 1: {
-        if (tag == 10) {
+        if (tag == 8) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::ProtoGateServer::ERROR_CODE_IsValid(value)) {
+            set_err(static_cast< ::ProtoGateServer::ERROR_CODE >(value));
+          } else {
+            mutable_unknown_fields()->AddVarint(1, value);
+          }
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_servers;
+        break;
+      }
+
+      // repeated .ProtoGateServer.ListGameServer.GameServer servers = 2;
+      case 2: {
+        if (tag == 18) {
          parse_servers:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                 input, add_servers()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(10)) goto parse_servers;
+        if (input->ExpectTag(18)) goto parse_servers;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1254,10 +1278,16 @@ failure:
 void ListGameServer::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:ProtoGateServer.ListGameServer)
-  // repeated .ProtoGateServer.ListGameServer.GameServer servers = 1;
+  // required .ProtoGateServer.ERROR_CODE err = 1;
+  if (has_err()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->err(), output);
+  }
+
+  // repeated .ProtoGateServer.ListGameServer.GameServer servers = 2;
   for (int i = 0; i < this->servers_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->servers(i), output);
+      2, this->servers(i), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -1270,11 +1300,17 @@ void ListGameServer::SerializeWithCachedSizes(
 ::google::protobuf::uint8* ListGameServer::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:ProtoGateServer.ListGameServer)
-  // repeated .ProtoGateServer.ListGameServer.GameServer servers = 1;
+  // required .ProtoGateServer.ERROR_CODE err = 1;
+  if (has_err()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      1, this->err(), target);
+  }
+
+  // repeated .ProtoGateServer.ListGameServer.GameServer servers = 2;
   for (int i = 0; i < this->servers_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        1, this->servers(i), target);
+        2, this->servers(i), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1288,7 +1324,15 @@ void ListGameServer::SerializeWithCachedSizes(
 int ListGameServer::ByteSize() const {
   int total_size = 0;
 
-  // repeated .ProtoGateServer.ListGameServer.GameServer servers = 1;
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required .ProtoGateServer.ERROR_CODE err = 1;
+    if (has_err()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->err());
+    }
+
+  }
+  // repeated .ProtoGateServer.ListGameServer.GameServer servers = 2;
   total_size += 1 * this->servers_size();
   for (int i = 0; i < this->servers_size(); i++) {
     total_size +=
@@ -1322,6 +1366,11 @@ void ListGameServer::MergeFrom(const ::google::protobuf::Message& from) {
 void ListGameServer::MergeFrom(const ListGameServer& from) {
   GOOGLE_CHECK_NE(&from, this);
   servers_.MergeFrom(from.servers_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_err()) {
+      set_err(from.err());
+    }
+  }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
@@ -1338,6 +1387,7 @@ void ListGameServer::CopyFrom(const ListGameServer& from) {
 }
 
 bool ListGameServer::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
   if (!::google::protobuf::internal::AllAreInitialized(this->servers())) return false;
   return true;
@@ -1345,6 +1395,7 @@ bool ListGameServer::IsInitialized() const {
 
 void ListGameServer::Swap(ListGameServer* other) {
   if (other != this) {
+    std::swap(err_, other->err_);
     servers_.Swap(&other->servers_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

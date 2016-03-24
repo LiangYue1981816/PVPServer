@@ -97,7 +97,7 @@ void CGateServer::OnUpdateRecv(DWORD dwDeltaTime)
 
 		if (pContext->dwHeartTime > (DWORD)(1000 * m_timeOut)) {
 			WriteLog("%s: Heart TimeOut\n", pContext->ip);
-			ReleaseIOContext(pContext, FALSE);
+			ReleaseContext(pContext, FALSE);
 		}
 
 		pContext = pNextContext;
@@ -200,7 +200,7 @@ NEXT:
 }
 
 //
-// 获得游戏服务器列表
+// 游戏服务器列表
 //
 void CGateServer::OnListGameServer(CIOContext *pContext, WORD size)
 {
@@ -220,6 +220,12 @@ void CGateServer::OnListGameServer(CIOContext *pContext, WORD size)
 	//
 	// 2. 获得游戏服务器列表
 	//
+	ProtoGateServer::ERROR_CODE err = ProtoGateServer::ERROR_CODE::ERR_NONE;
+
+	if (pContext->guid == 0xffffffff) {
+		err = ProtoGateServer::ERROR_CODE::ERR_PLAYER_NOT_LOGIN; goto ERR;
+	}
+
 	for (GameServerMap::const_iterator itGameServer = m_gameServerMap.begin(); itGameServer != m_gameServerMap.end(); ++itGameServer) {
 		if (ProtoGateServer::ListGameServer_GameServer *pGameServer = responseListGameServer.add_servers()) {
 			pGameServer->set_ip(itGameServer->second.ip);
@@ -228,6 +234,11 @@ void CGateServer::OnListGameServer(CIOContext *pContext, WORD size)
 			pGameServer->set_curgames(itGameServer->second.curGames);
 		}
 	}
+
+	goto NEXT;
+ERR:
+NEXT:
+	responseListGameServer.set_err(err);
 
 	//
 	// 3. 序列化消息
@@ -259,8 +270,12 @@ void CGateServer::OnSendToPlayer(CIOContext *pContext, WORD size)
 	}
 
 	//
-	// 2. 设置协议
+	// 2. 转发协议
 	//
+	if (pContext->guid == 0xffffffff) {
+		return;
+	}
+
 	responseSendToPlayer.set_size(requestSendToPlayer.size());
 	responseSendToPlayer.set_data(requestSendToPlayer.data().c_str(), requestSendToPlayer.size());
 
@@ -291,7 +306,7 @@ void CGateServer::OnSendToPlayer(CIOContext *pContext, WORD size)
 }
 
 //
-// 获得游戏服务器状态
+// 游戏服务器状态
 //
 void CGateServer::OnGameServerStatus(CIOContext *pContext, WORD size)
 {
@@ -348,12 +363,12 @@ DWORD WINAPI CGateServer::UpdateThread(LPVOID lpParam)
 				// 1. 更新服务器
 				//
 				DWORD dwBegin = tick() / 1000;
-				EnterCriticalSection(&pServer->m_sectionIOContext);
+				EnterCriticalSection(&pServer->m_sectionContext);
 				{
 					pServer->OnUpdateRecv(dwDeltaTime);
 					pServer->OnUpdateSend();
 				}
-				LeaveCriticalSection(&pServer->m_sectionIOContext);
+				LeaveCriticalSection(&pServer->m_sectionContext);
 				DWORD dwEnd = tick() / 1000;
 
 				//
@@ -365,11 +380,11 @@ DWORD WINAPI CGateServer::UpdateThread(LPVOID lpParam)
 
 				// 报告更新1FPS
 				if (dwReportDeltaTime > 1000) {
-					EnterCriticalSection(&pServer->m_sectionIOContext);
+					EnterCriticalSection(&pServer->m_sectionContext);
 					{
 						pServer->Monitor();
 					}
-					LeaveCriticalSection(&pServer->m_sectionIOContext);
+					LeaveCriticalSection(&pServer->m_sectionContext);
 
 					pServer->m_dwRuntimeTotal++;
 					pServer->m_dwUpdateCount = 0;

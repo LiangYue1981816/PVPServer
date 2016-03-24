@@ -597,8 +597,15 @@ void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 查找目标玩家
 	//
+	if (pPlayer->pGame == NULL) {
+		return;
+	}
+
 	CPlayer *pTarget = QueryPlayer(requestSendToPlayer.guid());
-	if (pTarget == NULL) return;
+
+	if (pTarget == NULL) {
+		return;
+	}
 
 	responseSendToPlayer.set_size(requestSendToPlayer.size());
 	responseSendToPlayer.set_data(requestSendToPlayer.data().c_str(), requestSendToPlayer.size());

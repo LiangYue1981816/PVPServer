@@ -47,7 +47,8 @@ message ListGameServer
 		required int32 curGames = 4;
 	}
 	
-	repeated GameServer servers = 1;
+	required ERROR_CODE err = 1;
+	repeated GameServer servers = 2;
 }
 
 message SendToPlayer

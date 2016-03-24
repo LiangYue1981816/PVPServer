@@ -64,9 +64,9 @@ protected:
 	virtual void OnHeartReset(CIOContext *pContext);                                               // 重置心跳
 	virtual void OnHeart(CIOContext *pContext, WORD size);                                         // 心跳
 	virtual void OnLogin(CIOContext *pContext, WORD size);                                         // 登陆
-	virtual void OnListGameServer(CIOContext *pContext, WORD size);                                // 获得游戏服务器列表
+	virtual void OnListGameServer(CIOContext *pContext, WORD size);                                // 游戏服务器列表
 	virtual void OnSendToPlayer(CIOContext *pContext, WORD size);                                  // 发送指定玩家
-	virtual void OnGameServerStatus(CIOContext *pContext, WORD size);                              // 获得游戏服务器状态
+	virtual void OnGameServerStatus(CIOContext *pContext, WORD size);                              // 游戏服务器状态
 
 protected:
 	virtual void Monitor(void);                                                                    // 监控
@@ -92,5 +92,3 @@ protected:
 	DWORD m_dwRecvDataSize;                                                                        // 接收数据量
 	DWORD m_dwSendDataSize;                                                                        // 发送数据量
 };
-
-extern void WriteLog(const char *szFmt, ...);                                                      // 输出日志

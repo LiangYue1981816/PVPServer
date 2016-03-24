@@ -441,10 +441,17 @@ class ListGameServer : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // repeated .ProtoGateServer.ListGameServer.GameServer servers = 1;
+  // required .ProtoGateServer.ERROR_CODE err = 1;
+  inline bool has_err() const;
+  inline void clear_err();
+  static const int kErrFieldNumber = 1;
+  inline ::ProtoGateServer::ERROR_CODE err() const;
+  inline void set_err(::ProtoGateServer::ERROR_CODE value);
+
+  // repeated .ProtoGateServer.ListGameServer.GameServer servers = 2;
   inline int servers_size() const;
   inline void clear_servers();
-  static const int kServersFieldNumber = 1;
+  static const int kServersFieldNumber = 2;
   inline const ::ProtoGateServer::ListGameServer_GameServer& servers(int index) const;
   inline ::ProtoGateServer::ListGameServer_GameServer* mutable_servers(int index);
   inline ::ProtoGateServer::ListGameServer_GameServer* add_servers();
@@ -455,12 +462,15 @@ class ListGameServer : public ::google::protobuf::Message {
 
   // @@protoc_insertion_point(class_scope:ProtoGateServer.ListGameServer)
  private:
+  inline void set_has_err();
+  inline void clear_has_err();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::google::protobuf::RepeatedPtrField< ::ProtoGateServer::ListGameServer_GameServer > servers_;
+  int err_;
   friend void  protobuf_AddDesc_ProtoGateServer_2eproto();
   friend void protobuf_AssignDesc_ProtoGateServer_2eproto();
   friend void protobuf_ShutdownFile_ProtoGateServer_2eproto();
@@ -802,7 +812,32 @@ inline void ListGameServer_GameServer::set_curgames(::google::protobuf::int32 va
 
 // ListGameServer
 
-// repeated .ProtoGateServer.ListGameServer.GameServer servers = 1;
+// required .ProtoGateServer.ERROR_CODE err = 1;
+inline bool ListGameServer::has_err() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ListGameServer::set_has_err() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ListGameServer::clear_has_err() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ListGameServer::clear_err() {
+  err_ = 0;
+  clear_has_err();
+}
+inline ::ProtoGateServer::ERROR_CODE ListGameServer::err() const {
+  // @@protoc_insertion_point(field_get:ProtoGateServer.ListGameServer.err)
+  return static_cast< ::ProtoGateServer::ERROR_CODE >(err_);
+}
+inline void ListGameServer::set_err(::ProtoGateServer::ERROR_CODE value) {
+  assert(::ProtoGateServer::ERROR_CODE_IsValid(value));
+  set_has_err();
+  err_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGateServer.ListGameServer.err)
+}
+
+// repeated .ProtoGateServer.ListGameServer.GameServer servers = 2;
 inline int ListGameServer::servers_size() const {
   return servers_.size();
 }
