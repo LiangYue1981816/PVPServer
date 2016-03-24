@@ -39,7 +39,7 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 			//
 			// 2. 向网关服务器报告当前游戏列表
 			//
-			BYTE buffer[1024 * 1024];
+			BYTE buffer[PACK_BUFFER_SIZE];
 			CCacheBuffer writeBuffer(sizeof(buffer), buffer);
 			ProtoGameServer::ServerStatus requestServerStatus;
 			{
@@ -54,7 +54,7 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 			}
 			Serializer(&writeBuffer, &requestServerStatus, ProtoGameServer::REQUEST_MSG::SERVER_STATUS);
 
-			rcode = SendData(sock, (char *)buffer, writeBuffer.GetActiveBufferSize());
+			rcode = SendData((int)sock, (char *)buffer, (int)writeBuffer.GetActiveBufferSize());
 			if (rcode < 0) goto RETRY;
 		}
 

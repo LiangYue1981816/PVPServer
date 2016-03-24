@@ -5,7 +5,7 @@ void Serializer(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WOR
 {
 	try {
 		WORD fullSize, bodySize;
-		BYTE body[1024 * 1024];
+		BYTE body[PACK_BUFFER_SIZE];
 
 		message->SerializeToArray(body, sizeof(body));
 		bodySize = message->ByteSize();
