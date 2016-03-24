@@ -530,21 +530,6 @@ CIOContext* CIOCPServer::GetIOContext(BOOL bLock)
 	return pIOContext;
 }
 
-CIOContext* CIOCPServer::GetIOContextByIndex(int index, BOOL bLock)
-{
-	CIOContext *pIOContext = NULL;
-
-	if (bLock) EnterCriticalSection(&m_sectionIOContext);
-	{
-		if (index >= 0 && index < m_maxContexts) {
-			pIOContext = m_contexts[index];
-		}
-	}
-	if (bLock) LeaveCriticalSection(&m_sectionIOContext);
-
-	return pIOContext;
-}
-
 //
 // ÊÍ·ÅIOContext
 //

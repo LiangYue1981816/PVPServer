@@ -122,7 +122,7 @@ class CGameServer : public CIOCPServer
 {
 	// 数据结构
 public:
-	typedef std::map<DWORD, int> GUIDMAP;                                                          // GUID映射表
+	typedef std::map<DWORD, CPlayer*> GUIDMAP;                                                     // GUID映射表
 
 
 	// 构造/析构函数

@@ -331,7 +331,7 @@ BOOL CGameServer::Login(CPlayer *pPlayer, DWORD guid)
 	// 3. 注册玩家
 	//
 	pPlayer->guid = guid;
-	m_guidmap[guid] = pPlayer->id;
+	m_guidmap[guid] = pPlayer;
 
 	//
 	// 4. 设置玩家标识
@@ -379,7 +379,7 @@ BOOL CGameServer::Logout(CPlayer *pPlayer)
 CPlayer* CGameServer::QueryPlayer(DWORD guid)
 {
 	GUIDMAP::const_iterator itPlayer = m_guidmap.find(guid);
-	return itPlayer != m_guidmap.end() ? (CPlayer *)GetIOContextByIndex(itPlayer->second) : NULL;
+	return itPlayer != m_guidmap.end() ? itPlayer->second : NULL;
 }
 
 //

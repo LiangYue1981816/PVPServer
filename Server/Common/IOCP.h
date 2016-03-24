@@ -122,7 +122,6 @@ protected:
 
 protected:
 	virtual CIOContext* GetIOContext(BOOL bLock = TRUE);                                           // 获得IO上下文
-	virtual CIOContext* GetIOContextByIndex(int index, BOOL bLock = TRUE);                         // 获得IO上下文
 	virtual void ReleaseIOContext(CIOContext *pIOContext, BOOL bLock = TRUE);                      // 释放IO上下文
 
 protected:
