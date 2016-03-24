@@ -3,10 +3,13 @@
 #include <stdlib.h>
 #include "GateServer.h"
 
-void main()
+void main(int argc, char* argv[])
 {
+	const char *ip = argv[1];
+	int port = atoi(argv[2]);
+
 	CGateServer server;
-	server.Start("127.0.0.1", 10000, 20000, 10);
+	server.Start(ip, port, 20000, 10);
 	getch();
 	server.Stop();
 }

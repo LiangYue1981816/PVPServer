@@ -6,10 +6,16 @@
 #define MAX_GAMES                      50
 #define MAX_GAME_PLAYERS               10
 
-void main()
+void main(int argc, char* argv[])
 {
+	const char *ip = argv[1];
+	int port = atoi(argv[2]);
+
+	const char* gateip = argv[3];
+	int gateport = atoi(argv[4]);
+
 	CGameServer server;
-	server.Start("127.0.0.1", 20000, MAX_GAMES, MAX_GAME_PLAYERS, 120, "127.0.0.1", 10000);
+	server.Start(ip, port, MAX_GAMES, MAX_GAME_PLAYERS, 10, gateip, gateport);
 	getch();
 	server.Stop();
 }
