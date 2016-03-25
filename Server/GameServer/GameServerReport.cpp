@@ -9,16 +9,14 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 	if (CGameServer *pServer = (CGameServer *)lpParam) {
 		SOCKET sock = INVALID_SOCKET;
 
-	RETRY:
-		if (sock != INVALID_SOCKET) {
-			shutdown(sock, SD_BOTH);
-			closesocket(sock);
-			sock = INVALID_SOCKET;
-		}
-
 		while (WAIT_OBJECT_0 != WaitForSingleObject(pServer->m_hShutdownEvent, 0)) {
 			Sleep(1000);
+
 			int rcode = NO_ERROR;
+
+			BYTE buffer[PACK_BUFFER_SIZE];
+			CCacheBuffer writeBuffer(sizeof(buffer), buffer);
+			ProtoGameServer::ServerStatus requestServerStatus;
 
 			//
 			// 1. 链接网关服务器
@@ -39,23 +37,31 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 			//
 			// 2. 向网关服务器报告当前游戏列表
 			//
-			BYTE buffer[PACK_BUFFER_SIZE];
-			CCacheBuffer writeBuffer(sizeof(buffer), buffer);
-			ProtoGameServer::ServerStatus requestServerStatus;
+			EnterCriticalSection(&pServer->m_sectionContext);
 			{
-				EnterCriticalSection(&pServer->m_sectionContext);
-				{
-					requestServerStatus.set_ip(pServer->m_ip);
-					requestServerStatus.set_port(pServer->m_port);
-					requestServerStatus.set_maxgames(pServer->m_maxGames);
-					requestServerStatus.set_curgames(pServer->m_curGames);
-				}
-				LeaveCriticalSection(&pServer->m_sectionContext);
+				requestServerStatus.set_ip(pServer->m_ip);
+				requestServerStatus.set_port(pServer->m_port);
+				requestServerStatus.set_maxgames(pServer->m_maxGames);
+				requestServerStatus.set_curgames(pServer->m_curGames);
 			}
+			LeaveCriticalSection(&pServer->m_sectionContext);
+
 			Serializer(&writeBuffer, &requestServerStatus, ProtoGameServer::REQUEST_MSG::SERVER_STATUS);
 
 			rcode = SendData((int)sock, (char *)buffer, (int)writeBuffer.GetActiveBufferSize());
 			if (rcode < 0) goto RETRY;
+
+			continue;
+
+			//
+			// 3. 断线重连
+			//
+		RETRY:
+			if (sock != INVALID_SOCKET) {
+				shutdown(sock, SD_BOTH);
+				closesocket(sock);
+				sock = INVALID_SOCKET;
+			}
 		}
 
 		if (sock != INVALID_SOCKET) {
