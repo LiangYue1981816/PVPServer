@@ -2,8 +2,7 @@
 
 
 CGateServer::CGateServer(void)
-	: m_timeOut(0)
-	, m_hUpdateThread(NULL)
+	: m_hUpdateThread(NULL)
 
 	, m_dwUpdateCount(0)
 	, m_dwUpdateTime(0)

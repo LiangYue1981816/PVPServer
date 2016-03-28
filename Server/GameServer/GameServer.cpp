@@ -8,8 +8,6 @@ CGameServer::CGameServer(void)
 	, m_pFreeGame(NULL)
 	, m_pActiveGame(NULL)
 
-	, m_timeOut(0)
-
 	, m_hReportThread(NULL)
 	, m_hUpdateThread(NULL)
 

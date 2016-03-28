@@ -77,7 +77,6 @@ protected:
 
 	// 属性
 protected:
-	int m_timeOut;                                                                                 // 心跳超时
 	HANDLE m_hUpdateThread;                                                                        // 更新线程句柄
 
 	GUIDMAP m_guidmap;                                                                             // GUID映射表
