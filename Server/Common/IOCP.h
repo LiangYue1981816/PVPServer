@@ -53,14 +53,16 @@ public:
 
 	virtual BOOL IsAlive(void);                                                                    // 活动判断
 
-	virtual BOOL Send(BYTE *pBuffer, DWORD size, DWORD dwType = 0);                                // 发送
+protected:
 	virtual BOOL Recv(DWORD size, DWORD dwType = 0);                                               // 接收
+	virtual BOOL Send(BYTE *pBuffer, DWORD size, DWORD dwType = 0);                                // 发送
 
-	virtual void OnComplete(WSA_BUFFER *pIOBuffer, DWORD dwTransferred);                           // 完成回调函数
+public:
 	virtual void OnAccept(void);                                                                   // 接收SOCKET回调函数
 	virtual void OnDisconnect(void);                                                               // 断开回调函数
 	virtual void OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType);                              // 接收回调函数
 	virtual void OnSendNext(BYTE *pBuffer, DWORD size, DWORD dwType);                              // 发送回调函数
+	virtual void OnComplete(WSA_BUFFER *pIOBuffer, DWORD dwTransferred);                           // 完成回调函数
 
 
 	// 属性

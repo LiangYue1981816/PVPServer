@@ -81,39 +81,6 @@ BOOL CIOContext::IsAlive(void)
 }
 
 //
-// 发送
-//
-BOOL CIOContext::Send(BYTE *pBuffer, DWORD size, DWORD dwType)
-{
-	//
-	// 1. 发送数据大小检查
-	//
-	if (size == 0 || size > sizeof(wsaSendBuffer.dataBuffer)) {
-		return FALSE;
-	}
-
-	//
-	// 2. 投递发送操作
-	//
-	DWORD dwBytes = 0;
-	DWORD dwFlags = 0;
-
-	memcpy(wsaSendBuffer.dataBuffer, pBuffer, size);
-
-	wsaSendBuffer.dwRequestSize = size;
-	wsaSendBuffer.dwCompleteSize = 0;
-
-	wsaSendBuffer.wsaBuffer.len = size;
-	wsaSendBuffer.wsaBuffer.buf = (char *)wsaSendBuffer.dataBuffer;
-
-	wsaSendBuffer.operationType = SEND_POSTED << 16 | dwType;
-
-	WSASend(acceptSocket, &wsaSendBuffer.wsaBuffer, 1, &dwBytes, dwFlags, &wsaSendBuffer.overlapped, NULL);
-
-	return TRUE;
-}
-
-//
 // 接收
 //
 BOOL CIOContext::Recv(DWORD size, DWORD dwType)
@@ -145,49 +112,36 @@ BOOL CIOContext::Recv(DWORD size, DWORD dwType)
 }
 
 //
-// 完成回调函数
+// 发送
 //
-void CIOContext::OnComplete(WSA_BUFFER *pIOBuffer, DWORD dwTransferred)
+BOOL CIOContext::Send(BYTE *pBuffer, DWORD size, DWORD dwType)
 {
+	//
+	// 1. 发送数据大小检查
+	//
+	if (size == 0 || size > sizeof(wsaSendBuffer.dataBuffer)) {
+		return FALSE;
+	}
+
+	//
+	// 2. 投递发送操作
+	//
 	DWORD dwBytes = 0;
 	DWORD dwFlags = 0;
 
-	switch (pIOBuffer->operationType >> 16) {
-	case RECV_POSTED:
-		recvBuffer.Lock();
-		{
-			pIOBuffer->dwCompleteSize += dwTransferred;
+	memcpy(wsaSendBuffer.dataBuffer, pBuffer, size);
 
-			if (pIOBuffer->dwCompleteSize < pIOBuffer->dwRequestSize) {
-				pIOBuffer->wsaBuffer.len = pIOBuffer->dwRequestSize - pIOBuffer->dwCompleteSize;
-				pIOBuffer->wsaBuffer.buf = (char *)&pIOBuffer->dataBuffer[pIOBuffer->dwCompleteSize];
-				WSARecv(acceptSocket, &pIOBuffer->wsaBuffer, 1, &dwBytes, &dwFlags, &pIOBuffer->overlapped, NULL);
-			}
-			else {
-				OnRecvNext(pIOBuffer->dataBuffer, pIOBuffer->dwCompleteSize, pIOBuffer->operationType & 0x0000ffff);
-			}
-		}
-		recvBuffer.Unlock();
+	wsaSendBuffer.dwRequestSize = size;
+	wsaSendBuffer.dwCompleteSize = 0;
 
-		break;
-	case SEND_POSTED:
-		sendBuffer.Lock();
-		{
-			pIOBuffer->dwCompleteSize += dwTransferred;
+	wsaSendBuffer.wsaBuffer.len = size;
+	wsaSendBuffer.wsaBuffer.buf = (char *)wsaSendBuffer.dataBuffer;
 
-			if (pIOBuffer->dwCompleteSize < pIOBuffer->dwRequestSize) {
-				pIOBuffer->wsaBuffer.len = pIOBuffer->dwRequestSize - pIOBuffer->dwCompleteSize;
-				pIOBuffer->wsaBuffer.buf = (char *)&pIOBuffer->dataBuffer[pIOBuffer->dwCompleteSize];
-				WSASend(acceptSocket, &pIOBuffer->wsaBuffer, 1, &dwBytes, dwFlags, &pIOBuffer->overlapped, NULL);
-			}
-			else {
-				OnSendNext(pIOBuffer->dataBuffer, pIOBuffer->dwCompleteSize, pIOBuffer->operationType & 0x0000ffff);
-			}
-		}
-		sendBuffer.Unlock();
+	wsaSendBuffer.operationType = SEND_POSTED << 16 | dwType;
 
-		break;
-	}
+	WSASend(acceptSocket, &wsaSendBuffer.wsaBuffer, 1, &dwBytes, dwFlags, &wsaSendBuffer.overlapped, NULL);
+
+	return TRUE;
 }
 
 //
@@ -238,6 +192,52 @@ void CIOContext::OnSendNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 
 	dataSize = sendBuffer.PopData(dataBuffer, sendBuffer.GetActiveBufferSize());
 	Send(dataBuffer, dataSize);
+}
+
+//
+// 完成回调函数
+//
+void CIOContext::OnComplete(WSA_BUFFER *pIOBuffer, DWORD dwTransferred)
+{
+	DWORD dwBytes = 0;
+	DWORD dwFlags = 0;
+
+	switch (pIOBuffer->operationType >> 16) {
+	case RECV_POSTED:
+		recvBuffer.Lock();
+		{
+			pIOBuffer->dwCompleteSize += dwTransferred;
+
+			if (pIOBuffer->dwCompleteSize < pIOBuffer->dwRequestSize) {
+				pIOBuffer->wsaBuffer.len = pIOBuffer->dwRequestSize - pIOBuffer->dwCompleteSize;
+				pIOBuffer->wsaBuffer.buf = (char *)&pIOBuffer->dataBuffer[pIOBuffer->dwCompleteSize];
+				WSARecv(acceptSocket, &pIOBuffer->wsaBuffer, 1, &dwBytes, &dwFlags, &pIOBuffer->overlapped, NULL);
+			}
+			else {
+				OnRecvNext(pIOBuffer->dataBuffer, pIOBuffer->dwCompleteSize, pIOBuffer->operationType & 0x0000ffff);
+			}
+		}
+		recvBuffer.Unlock();
+
+		break;
+	case SEND_POSTED:
+		sendBuffer.Lock();
+		{
+			pIOBuffer->dwCompleteSize += dwTransferred;
+
+			if (pIOBuffer->dwCompleteSize < pIOBuffer->dwRequestSize) {
+				pIOBuffer->wsaBuffer.len = pIOBuffer->dwRequestSize - pIOBuffer->dwCompleteSize;
+				pIOBuffer->wsaBuffer.buf = (char *)&pIOBuffer->dataBuffer[pIOBuffer->dwCompleteSize];
+				WSASend(acceptSocket, &pIOBuffer->wsaBuffer, 1, &dwBytes, dwFlags, &pIOBuffer->overlapped, NULL);
+			}
+			else {
+				OnSendNext(pIOBuffer->dataBuffer, pIOBuffer->dwCompleteSize, pIOBuffer->operationType & 0x0000ffff);
+			}
+		}
+		sendBuffer.Unlock();
+
+		break;
+	}
 }
 
 
