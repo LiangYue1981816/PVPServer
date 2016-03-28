@@ -83,7 +83,7 @@ BOOL CIOContext::IsAlive(void)
 //
 // 接收
 //
-BOOL CIOContext::Recv(DWORD size, DWORD dwType)
+BOOL CIOContext::WSRecv(DWORD size, DWORD dwType)
 {
 	//
 	// 1. 接收数据大小检查
@@ -114,7 +114,7 @@ BOOL CIOContext::Recv(DWORD size, DWORD dwType)
 //
 // 发送
 //
-BOOL CIOContext::Send(BYTE *pBuffer, DWORD size, DWORD dwType)
+BOOL CIOContext::WSSend(BYTE *pBuffer, DWORD size, DWORD dwType)
 {
 	//
 	// 1. 发送数据大小检查
@@ -145,11 +145,27 @@ BOOL CIOContext::Send(BYTE *pBuffer, DWORD size, DWORD dwType)
 }
 
 //
+// 压入数据到接收缓冲
+//
+BOOL CIOContext::PushRecvBuffer(BYTE *pBuffer, DWORD size, BOOL bLock)
+{
+	return TRUE;
+}
+
+//
+// 压入数据到发送缓冲
+//
+BOOL CIOContext::PushSendBuffer(BYTE *pBuffer, DWORD size, BOOL bLock)
+{
+	return TRUE;
+}
+
+//
 // 接收SOCKET回调函数
 //
 void CIOContext::OnAccept(void)
 {
-	Recv(2, RECV_LEN);
+	WSRecv(2, RECV_LEN);
 }
 
 //
@@ -172,12 +188,12 @@ void CIOContext::OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 	switch (dwType) {
 	case RECV_LEN:
 		recvBuffer.PushData(pBuffer, size);
-		Recv(*(WORD *)pBuffer, RECV_DATA);
+		WSRecv(*(WORD *)pBuffer, RECV_DATA);
 		break;
 
 	case RECV_DATA:
 		recvBuffer.PushData(pBuffer, size);
-		Recv(2, RECV_LEN);
+		WSRecv(2, RECV_LEN);
 		break;
 	}
 }
@@ -191,7 +207,7 @@ void CIOContext::OnSendNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 	BYTE dataBuffer[SEND_BUFFER_SIZE];
 
 	dataSize = sendBuffer.PopData(dataBuffer, sendBuffer.GetActiveBufferSize());
-	Send(dataBuffer, dataSize);
+	WSSend(dataBuffer, dataSize);
 }
 
 //
