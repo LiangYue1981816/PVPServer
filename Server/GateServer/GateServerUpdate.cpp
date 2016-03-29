@@ -28,11 +28,7 @@ void CGateServer::OnUpdateSend(void)
 	if (CIOContext *pContext = m_pActiveContext) {
 		do {
 			if (pContext->IsAlive()) {
-				pContext->sendBuffer.Lock();
-				{
-					pContext->OnSendNext(NULL, 0, 0);
-				}
-				pContext->sendBuffer.Unlock();
+				pContext->OnSendNext();
 			}
 		} while (pContext = pContext->pNextActive);
 	}

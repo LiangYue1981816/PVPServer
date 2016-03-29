@@ -204,8 +204,6 @@ protected:
 	CGame *m_pFreeGame;                                                                            // 空闲游戏
 	CGame *m_pActiveGame;                                                                          // 活动游戏
 
-	int m_timeOut;                                                                                 // 心跳超时
-
 	HANDLE m_hReportThread;                                                                        // 汇报线程句柄
 	HANDLE m_hUpdateThread;                                                                        // 更新线程句柄
 

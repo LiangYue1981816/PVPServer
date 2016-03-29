@@ -28,11 +28,7 @@ void CGameServer::OnUpdateSend(void)
 	if (CPlayer *pPlayer = (CPlayer *)m_pActiveContext) {
 		do {
 			if (pPlayer->IsAlive()) {
-				pPlayer->sendBuffer.Lock();
-				{
-					pPlayer->OnSendNext(NULL, 0, 0);
-				}
-				pPlayer->sendBuffer.Unlock();
+				pPlayer->OnSendNext();
 			}
 		} while (pPlayer = (CPlayer *)pPlayer->pNextActive);
 	}

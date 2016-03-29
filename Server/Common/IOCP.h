@@ -11,8 +11,12 @@
 #include "CacheBuffer.h"
 
 
+class CIOCPServer;
 class CIOContext
 {
+	friend class CIOCPServer;
+
+
 	// 数据结构
 public:
 	enum {
@@ -48,19 +52,23 @@ public:
 
 	// 方法
 public:
+	virtual BOOL IsAlive(void);                                                                    // 活动判断
+
+protected:
 	virtual void Accept(SOCKET sock);                                                              // 接收SOCKET
 	virtual void ClearBuffer(void);                                                                // 清空缓冲
 
-	virtual BOOL IsAlive(void);                                                                    // 活动判断
+protected:
+	virtual BOOL WSARecv(DWORD size, DWORD dwType = 0);                                            // 接收
+	virtual BOOL WSASend(BYTE *pBuffer, DWORD size, DWORD dwType = 0);                             // 发送
 
-	virtual BOOL Send(BYTE *pBuffer, DWORD size, DWORD dwType = 0);                                // 发送
-	virtual BOOL Recv(DWORD size, DWORD dwType = 0);                                               // 接收
-
-	virtual void OnComplete(WSA_BUFFER *pIOBuffer, DWORD dwTransferred);                           // 完成回调函数
+public:
 	virtual void OnAccept(void);                                                                   // 接收SOCKET回调函数
 	virtual void OnDisconnect(void);                                                               // 断开回调函数
+
 	virtual void OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType);                              // 接收回调函数
-	virtual void OnSendNext(BYTE *pBuffer, DWORD size, DWORD dwType);                              // 发送回调函数
+	virtual void OnSendNext(void);                                                                 // 发送回调函数
+	virtual void OnComplete(WSA_BUFFER *pIOBuffer, DWORD dwTransferred);                           // 完成回调函数
 
 
 	// 属性
@@ -73,13 +81,15 @@ public:
 	DWORD guid;                                                                                    // guid
 
 	BOOL bInUsed;                                                                                  // 使用中
+
+	CCacheBuffer recvBuffer;                                                                       // 接收缓冲
+	CCacheBuffer sendBuffer;                                                                       // 发送缓冲
+
+protected:
 	SOCKET acceptSocket;                                                                           // SOCKET
 
 	WSA_BUFFER wsaRecvBuffer;                                                                      // 接收缓冲
 	WSA_BUFFER wsaSendBuffer;                                                                      // 发送缓冲
-
-	CCacheBuffer recvBuffer;                                                                       // 接收缓冲
-	CCacheBuffer sendBuffer;                                                                       // 发送缓冲
 
 public:
 	CIOContext *pNext;                                                                             // 下一个上下文
@@ -101,7 +111,7 @@ public:
 
 	// 方法
 public:
-	virtual BOOL Start(const char *ip, int port, int maxContexts = 1000);                          // 启动服务器
+	virtual BOOL Start(const char *ip, int port, int maxContexts, int timeOut);                    // 启动服务器
 	virtual void Stop(void);                                                                       // 停止服务器
 
 protected:
@@ -121,8 +131,8 @@ protected:
 	virtual void Disconnect(void);                                                                 // 断开连接
 
 protected:
-	virtual CIOContext* GetNextContext(BOOL bLock = TRUE);                                         // 获得空闲上下文
-	virtual void ReleaseContext(CIOContext *pContext, BOOL bLock = TRUE);                          // 释放上下文
+	virtual CIOContext* GetNextContext(BOOL bLock);                                                // 获得空闲上下文
+	virtual void ReleaseContext(CIOContext *pContext, BOOL bLock);                                 // 释放上下文
 
 protected:
 	virtual void OnConnect(CIOContext *pContext, SOCKET acceptSocket);                             // 客户端链接回调
@@ -135,8 +145,9 @@ protected:
 
 	// 属性
 protected:
-	int m_port;                                                                                    // 端口
 	char m_ip[256];                                                                                // IP
+	int m_port;                                                                                    // 端口
+	int m_timeOut;                                                                                 // 心跳超时
 
 protected:
 	SOCKET m_listenSocket;                                                                         // 监听SOCKET
