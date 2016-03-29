@@ -16,6 +16,9 @@ CIOContext::CIOContext(void)
 	, recvBuffer(RECV_BUFFER_SIZE)
 	, sendBuffer(SEND_BUFFER_SIZE)
 
+	, bIsRecvBufferOverflow(FALSE)
+	, bIsSendBufferOverflow(FALSE)
+
 	, pNext(NULL)
 	, pNextActive(NULL)
 	, pPrevActive(NULL)
@@ -72,6 +75,57 @@ void CIOContext::ClearBuffer(void)
 
 	recvBuffer.ClearBuffer();
 	sendBuffer.ClearBuffer();
+
+	bIsRecvBufferOverflow = FALSE;
+	bIsSendBufferOverflow = FALSE;
+}
+
+//
+// 发送数据
+//
+void CIOContext::Send(void)
+{
+	sendBuffer.Lock();
+	{
+		if (wsaSendBuffer.dwCompleteSize == wsaSendBuffer.dwRequestSize) {
+			OnSendNext();
+		}
+	}
+	sendBuffer.Unlock();
+}
+
+//
+// 压入数据到接收缓冲
+//
+void CIOContext::PushRecvBuffer(BYTE *pBuffer, DWORD size, BOOL bLock)
+{
+	if (bIsRecvBufferOverflow == FALSE) {
+		if (bLock) recvBuffer.Lock();
+		{
+			DWORD dwPushSize = recvBuffer.PushData(pBuffer, size);
+			if (dwPushSize != size) {
+				bIsRecvBufferOverflow = TRUE;
+			}
+		}
+		if (bLock) recvBuffer.Unlock();
+	}
+}
+
+//
+// 压入数据到发送缓冲
+//
+void CIOContext::PushSendBuffer(BYTE *pBuffer, DWORD size, BOOL bLock)
+{
+	if (bIsSendBufferOverflow == FALSE) {
+		if (bLock) sendBuffer.Lock();
+		{
+			DWORD dwPushSize = sendBuffer.PushData(pBuffer, size);
+			if (dwPushSize != size) {
+				bIsSendBufferOverflow = TRUE;
+			}
+		}
+		if (bLock) sendBuffer.Unlock();
+	}
 }
 
 //
@@ -163,12 +217,12 @@ void CIOContext::OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 {
 	switch (dwType) {
 	case RECV_LEN:
-		recvBuffer.PushData(pBuffer, size);
+		PushRecvBuffer(pBuffer, size, FALSE);
 		WSARecv(*(WORD *)pBuffer, RECV_DATA);
 		break;
 
 	case RECV_DATA:
-		recvBuffer.PushData(pBuffer, size);
+		PushRecvBuffer(pBuffer, size, FALSE);
 		WSARecv(2, RECV_LEN);
 		break;
 	}

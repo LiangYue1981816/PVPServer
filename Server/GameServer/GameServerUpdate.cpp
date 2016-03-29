@@ -28,7 +28,7 @@ void CGameServer::OnUpdateSend(void)
 	if (CPlayer *pPlayer = (CPlayer *)m_pActiveContext) {
 		do {
 			if (pPlayer->IsAlive()) {
-				pPlayer->OnSendNext();
+				pPlayer->Send();
 			}
 		} while (pPlayer = (CPlayer *)pPlayer->pNextActive);
 	}

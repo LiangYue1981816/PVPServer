@@ -159,10 +159,7 @@ void CGateServer::ClearGameServer(CIOContext *pContext)
 void CGateServer::SendTo(CIOContext *pContext, BYTE *pBuffer, size_t size)
 {
 	if (pContext && pContext->IsAlive() && pBuffer && size > 0) {
-		pContext->sendBuffer.Lock();
-		pContext->sendBuffer.PushData(pBuffer, size);
-		pContext->sendBuffer.Unlock();
-
+		pContext->PushSendBuffer(pBuffer, size, TRUE);
 		m_dwSendDataSize += (DWORD)size;
 	}
 }

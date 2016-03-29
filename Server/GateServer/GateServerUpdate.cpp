@@ -28,7 +28,7 @@ void CGateServer::OnUpdateSend(void)
 	if (CIOContext *pContext = m_pActiveContext) {
 		do {
 			if (pContext->IsAlive()) {
-				pContext->OnSendNext();
+				pContext->Send();
 			}
 		} while (pContext = pContext->pNextActive);
 	}
