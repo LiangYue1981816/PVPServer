@@ -159,7 +159,7 @@ void CGateServer::ClearGameServer(CIOContext *pContext)
 void CGateServer::SendTo(CIOContext *pContext, BYTE *pBuffer, size_t size)
 {
 	if (pContext && pContext->IsAlive() && pBuffer && size > 0) {
-		pContext->PushSendBuffer(pBuffer, size, TRUE);
+		pContext->Send(pBuffer, size);
 		m_dwSendDataSize += (DWORD)size;
 	}
 }
@@ -205,7 +205,6 @@ DWORD WINAPI CGateServer::UpdateThread(LPVOID lpParam)
 					DWORD dwBegin = tick() / 1000;
 					{
 						pServer->OnUpdateRecv(dwDeltaTime);
-						pServer->OnUpdateSend();
 					}
 					DWORD dwEnd = tick() / 1000;
 

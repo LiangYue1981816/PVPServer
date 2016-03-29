@@ -393,10 +393,7 @@ CPlayer* CGameServer::QueryPlayer(DWORD guid)
 void CGameServer::SendToPlayer(CPlayer *pPlayer, BYTE *pBuffer, size_t size)
 {
 	if (pPlayer && pPlayer->IsAlive() && pBuffer && size > 0) {
-		pPlayer->sendBuffer.Lock();
-		pPlayer->sendBuffer.PushData(pBuffer, size);
-		pPlayer->sendBuffer.Unlock();
-
+		pPlayer->Send(pBuffer, size);
 		m_dwSendDataSize += (DWORD)size;
 	}
 }
@@ -522,8 +519,6 @@ DWORD WINAPI CGameServer::UpdateThread(LPVOID lpParam)
 							pServer->OnUpdateGameLogic(dwGameDeltaTime / 1000.0f);
 							dwGameDeltaTime = 0;
 						}
-
-						pServer->OnUpdateSend();
 					}
 					DWORD dwEnd = tick() / 1000;
 

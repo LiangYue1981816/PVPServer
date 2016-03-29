@@ -147,7 +147,7 @@ int CCacheBuffer::PushData(unsigned char *pData, size_t size)
 		return -1;
 	}
 
-	if (size <= 0 || size > GetFreeBufferSize()) {
+	if (size == 0 || size > GetFreeBufferSize()) {
 		return 0;
 	}
 
@@ -191,7 +191,7 @@ int CCacheBuffer::PopData(unsigned char *pData, size_t size)
 		return -1;
 	}
 
-	if (size <= 0 || size > GetActiveBufferSize()) {
+	if (size == 0 || size > GetActiveBufferSize()) {
 		return 0;
 	}
 

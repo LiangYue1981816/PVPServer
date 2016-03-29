@@ -21,20 +21,6 @@ void CGateServer::OnDisconnect(CIOContext *pContext)
 }
 
 //
-// 更新发送消息
-//
-void CGateServer::OnUpdateSend(void)
-{
-	if (CIOContext *pContext = m_pActiveContext) {
-		do {
-			if (pContext->IsAlive()) {
-				pContext->Send();
-			}
-		} while (pContext = pContext->pNextActive);
-	}
-}
-
-//
 // 更新接收消息
 //
 void CGateServer::OnUpdateRecv(DWORD dwDeltaTime)

@@ -21,20 +21,6 @@ void CGameServer::OnDisconnect(CIOContext *pContext)
 }
 
 //
-// 更新发送消息
-//
-void CGameServer::OnUpdateSend(void)
-{
-	if (CPlayer *pPlayer = (CPlayer *)m_pActiveContext) {
-		do {
-			if (pPlayer->IsAlive()) {
-				pPlayer->Send();
-			}
-		} while (pPlayer = (CPlayer *)pPlayer->pNextActive);
-	}
-}
-
-//
 // 更新接收消息
 //
 void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)

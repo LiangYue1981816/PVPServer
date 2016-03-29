@@ -168,7 +168,6 @@ protected:
 	virtual void OnConnect(CIOContext *pContext, SOCKET acceptSocket);                             // 客户端链接回调
 	virtual void OnDisconnect(CIOContext *pContext);                                               // 客户端断链回调
 
-	virtual void OnUpdateSend(void);                                                               // 更新发送消息
 	virtual void OnUpdateRecv(DWORD dwDeltaTime);                                                  // 更新接收消息
 	virtual void OnUpdateGameMessage(CPlayer *pPlayer, WORD msg);                                  // 更新游戏消息
 	virtual void OnUpdateGameLogic(float deltaTime);                                               // 更新游戏逻辑

@@ -49,17 +49,11 @@ public:
 	// 方法
 public:
 	virtual BOOL IsAlive(void);                                                                    // 活动判断
-
-	virtual void Accept(SOCKET sock);                                                              // 接收SOCKET
 	virtual void ClearBuffer(void);                                                                // 清空缓冲
-
-	virtual void Send(void);                                                                       // 发送数据
-
-	virtual void PushRecvBuffer(BYTE *pBuffer, DWORD size, BOOL bLock);                            // 压入数据到接收缓冲
-	virtual void PushSendBuffer(BYTE *pBuffer, DWORD size, BOOL bLock);                            // 压入数据到发送缓冲
+	virtual void Send(BYTE *pBuffer, DWORD size);                                                  // 发送数据
 
 public:
-	virtual void OnAccept(void);                                                                   // 接收SOCKET回调函数
+	virtual void OnAccept(SOCKET sock);                                                            // 接收SOCKET回调函数
 	virtual void OnDisconnect(void);                                                               // 断开回调函数
 	virtual void OnComplete(WSA_BUFFER *pIOBuffer, DWORD dwTransferred);                           // 完成回调函数
 
