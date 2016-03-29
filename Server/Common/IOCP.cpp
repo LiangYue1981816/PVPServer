@@ -606,16 +606,15 @@ DWORD WINAPI CIOCPServer::ListenThread(LPVOID lpParam)
 	if (CIOCPServer *pIOCPServer = (CIOCPServer *)lpParam) {
 		while (WAIT_OBJECT_0 != WaitForSingleObject(pIOCPServer->m_hShutdownEvent, 0)) {
 			SOCKET acceptSocket = WSAAccept(pIOCPServer->m_listenSocket, NULL, NULL, NULL, 0);
+			if (acceptSocket == INVALID_SOCKET) break;
 
-			if (acceptSocket != INVALID_SOCKET) {
-				if (CIOContext *pContext = pIOCPServer->GetNextContext(TRUE)) {
-					CreateIoCompletionPort((HANDLE)acceptSocket, pIOCPServer->m_hIOCP, (ULONG_PTR)acceptSocket, 0);
-					pIOCPServer->OnConnect(pContext, acceptSocket);
-				}
-				else {
-					shutdown(acceptSocket, SD_BOTH);
-					closesocket(acceptSocket);
-				}
+			if (CIOContext *pContext = pIOCPServer->GetNextContext(TRUE)) {
+				CreateIoCompletionPort((HANDLE)acceptSocket, pIOCPServer->m_hIOCP, (ULONG_PTR)acceptSocket, 0);
+				pIOCPServer->OnConnect(pContext, acceptSocket);
+			}
+			else {
+				shutdown(acceptSocket, SD_BOTH);
+				closesocket(acceptSocket);
 			}
 		}
 	}
@@ -640,7 +639,7 @@ DWORD WINAPI CIOCPServer::TransferThread(LPVOID lpParam)
 			// 1. 查询完成端口
 			//
 			rcode = GetQueuedCompletionStatus(pIOCPServer->m_hIOCP, &dwTransferred, (PULONG_PTR)&acceptSocket, (LPOVERLAPPED *)&pOverlapped, INFINITE);
-			if (!pOverlapped) continue;
+			if (pOverlapped == NULL) continue;
 
 			//
 			// 2. 获得上下文
