@@ -15,9 +15,16 @@ class Program
     static string mGateServerIP = "127.0.0.1";
     static int mGateServerPort = 10000;
 
+    static string mGameServerIP = "127.0.0.1";
+    static int mGameServerPort = 20000;
+
+    static string mHelloWorld = "Hello world!";
+
     static Thread mThreadUpdate = null;
     static GateClient mGateClient = new GateClient();
     static GameClient mGameClient = new GameClient();
+    static GateClient[] mGateClients = new GateClient[100];
+    static GameClient[][] mGameClients = new GameClient[10][];
 
     static List<GameServerAddress> mGameServerList = new List<GameServerAddress>();
 
@@ -45,82 +52,152 @@ class Program
             Console.WriteLine("");
 
             Console.WriteLine("GateServer");
-            Console.WriteLine("[0] Connect");
-            Console.WriteLine("[1] Login");
-            Console.WriteLine("[2] ListGameServer");
-            Console.WriteLine("[3] SendToPlayer");
+            Console.WriteLine("[0] AutoTest");
+            Console.WriteLine("[1] Connect");
+            Console.WriteLine("[2] Login");
+            Console.WriteLine("[3] ListGameServer");
+            Console.WriteLine("[4] SendToPlayer");
             Console.WriteLine("");
 
             Console.WriteLine("GameServer");
-            Console.WriteLine("[10] Connect");
-            Console.WriteLine("[11] Flags");
-            Console.WriteLine("[12] Login");
-            Console.WriteLine("[13] ListGame");
-            Console.WriteLine("[14] CreateGame");
-            Console.WriteLine("[15] DestroyGame");
-            Console.WriteLine("[16] EnterGame");
-            Console.WriteLine("[17] ExitGame");
-            Console.WriteLine("[18] SendToPlayer");
-            Console.WriteLine("[19] SendToPlayerAll");
+            Console.WriteLine("[10] AutoTest");
+            Console.WriteLine("[11] Connect");
+            Console.WriteLine("[12] Flags");
+            Console.WriteLine("[13] Login");
+            Console.WriteLine("[14] ListGame");
+            Console.WriteLine("[15] CreateGame");
+            Console.WriteLine("[16] DestroyGame");
+            Console.WriteLine("[17] EnterGame");
+            Console.WriteLine("[18] ExitGame");
+            Console.WriteLine("[19] SendToPlayer");
+            Console.WriteLine("[20] SendToPlayerAll");
 
             string input = Console.ReadLine();
 
             if (input == "0")
             {
-                GateServerConnect();
+                GateServerAutoTest();
             }
             if (input == "1")
             {
-                GateServerLogin();
+                GateServerConnect();
             }
             if (input == "2")
             {
-                GateServerListGameServer();
+                GateServerLogin();
             }
             if (input == "3")
+            {
+                GateServerListGameServer();
+            }
+            if (input == "4")
             {
                 GateServerSendToPlayer();
             }
 
             if (input == "10")
             {
-                GameServerConnect();
+                GameServerAutoTest();
             }
             if (input == "11")
             {
-                GameServerFlags();
+                GameServerConnect();
             }
             if (input == "12")
             {
-                GameServerLogin();
+                GameServerFlags();
             }
             if (input == "13")
             {
-                GameServerListGame();
+                GameServerLogin();
             }
             if (input == "14")
             {
-                GameServerCreateGame();
+                GameServerListGame();
             }
             if (input == "15")
             {
-                GameServerDestroyGame();
+                GameServerCreateGame();
             }
             if (input == "16")
             {
-                GameServerEnterGame();
+                GameServerDestroyGame();
             }
             if (input == "17")
             {
-                GameServerExitGame();
+                GameServerEnterGame();
             }
             if (input == "18")
             {
-                GameServerSendToPlayer();
+                GameServerExitGame();
             }
             if (input == "19")
             {
+                GameServerSendToPlayer();
+            }
+            if (input == "20")
+            {
                 GameServerSendToPlayerAll();
+            }
+        }
+    }
+
+    static void GateServerAutoTest()
+    {
+        for (int indexPlayer = 0; indexPlayer < mGateClients.Length; indexPlayer++)
+        {
+            mGateClients[indexPlayer] = new GateClient();
+        }
+
+        int nLoopCount = 0;
+        while (true)
+        {
+            nLoopCount++;
+            Thread.Sleep(33);
+
+            bool bConnected = true;
+            bool bLogin = true;
+
+            // Update
+            for (int indexPlayer = 0; indexPlayer < mGateClients.Length; indexPlayer++)
+            {
+                mGateClients[indexPlayer].Update();
+            }
+
+            // Connect
+            for (int indexPlayer = 0; indexPlayer < mGateClients.Length; indexPlayer++)
+            {
+                if (mGateClients[indexPlayer].IsConnected() == false)
+                {
+                    mGateClients[indexPlayer].Connect(mGateServerIP, mGateServerPort);
+                    bConnected = false;
+                }
+            }
+            if (bConnected == false)
+            {
+                Console.WriteLine("Connect..." + nLoopCount.ToString());
+                continue;
+            }
+
+            // Login
+            for (int indexPlayer = 0; indexPlayer < mGateClients.Length; indexPlayer++)
+            {
+                if (mGateClients[indexPlayer].IsLogin() == false)
+                {
+                    mGateClients[indexPlayer].RequestLogin((uint)(DateTime.Now.Millisecond + DateTime.Now.Second * 1000));
+                    bLogin = false;
+                }
+            }
+            if (bLogin == false)
+            {
+                Console.WriteLine("Login..." + nLoopCount.ToString());
+                continue;
+            }
+
+            // GameServerList
+            for (int indexPlayer = 0; indexPlayer < mGateClients.Length; indexPlayer++)
+            {
+                mGateClients[indexPlayer].RequestListGameServer();
             }
         }
     }
@@ -146,6 +223,122 @@ class Program
         string text = Console.ReadLine();
         byte[] data = System.Text.Encoding.Default.GetBytes(text);
         mGateClient.RequestSendToPlayer(null, data.Length, data);
+    }
+
+    static void GameServerAutoTest()
+    {
+        for (int indexGame = 0; indexGame < mGameClients.Length; indexGame++)
+        {
+            mGameClients[indexGame] = new GameClient[10];
+
+            for (int indexPlayer = 0; indexPlayer < mGameClients[indexGame].Length; indexPlayer++)
+            {
+                mGameClients[indexGame][indexPlayer] = new GameClient();
+                mGameClients[indexGame][indexPlayer].onResponseSendToPlayer = OnResponseSendToPlayerAutoTest;
+            }
+        }
+
+        int nLoopCount = 0;
+        while (true)
+        {
+            nLoopCount++;
+            Thread.Sleep(33);
+
+            bool bConnected = true;
+            bool bLogin = true;
+            bool bEnter = true;
+
+            // Update
+            for (int indexGame = 0; indexGame < mGameClients.Length; indexGame++)
+            {
+                for (int indexPlayer = 0; indexPlayer < mGameClients[indexGame].Length; indexPlayer++)
+                {
+                    mGameClients[indexGame][indexPlayer].Update();
+                }
+            }
+
+            // Connect
+            for (int indexGame = 0; indexGame < mGameClients.Length; indexGame++)
+            {
+                for (int indexPlayer = 0; indexPlayer < mGameClients[indexGame].Length; indexPlayer++)
+                {
+                    if (mGameClients[indexGame][indexPlayer].IsConnected() == false)
+                    {
+                        mGameClients[indexGame][indexPlayer].Connect(mGameServerIP, mGameServerPort);
+                        bConnected = false;
+                    }
+                }
+            }
+            if (bConnected == false)
+            {
+                Console.WriteLine("Connect..." + nLoopCount.ToString());
+                continue;
+            }
+
+            // Login
+            for (int indexGame = 0; indexGame < mGameClients.Length; indexGame++)
+            {
+                for (int indexPlayer = 0; indexPlayer < mGameClients[indexGame].Length; indexPlayer++)
+                {
+                    if (mGameClients[indexGame][indexPlayer].IsLogin() == false)
+                    {
+                        mGameClients[indexGame][indexPlayer].RequestLogin((uint)(DateTime.Now.Millisecond + DateTime.Now.Second * 1000));
+                        bLogin = false;
+                    }
+                }
+            }
+            if (bLogin == false)
+            {
+                Console.WriteLine("Login..." + nLoopCount.ToString());
+                continue;
+            }
+
+            // Create/Enter Game
+            for (int indexGame = 0; indexGame < mGameClients.Length; indexGame++)
+            {
+                uint gameid = 0xcccccccc;
+                for (int indexPlayer = 0; indexPlayer < mGameClients[indexGame].Length; indexPlayer++)
+                {
+                    if (mGameClients[indexGame][indexPlayer].IsWaiting() == true)
+                    {
+                        gameid = mGameClients[indexGame][indexPlayer].GetGameID();
+                        break;
+                    }
+                }
+
+                if (gameid == 0xcccccccc)
+                {
+                    mGameClients[indexGame][0].RequestCreateGame("", 0, 0, mGameClients[indexGame].Length, 0.0f);
+                    bEnter = false;
+                }
+                else
+                {
+                    for (int indexPlayer = 0; indexPlayer < mGameClients[indexGame].Length; indexPlayer++)
+                    {
+                        if (mGameClients[indexGame][indexPlayer].IsWaiting() == false)
+                        {
+                            mGameClients[indexGame][indexPlayer].RequestEnterGame("", gameid);
+                            bEnter = false;
+                        }
+                    }
+                }
+            }
+            if (bEnter == false)
+            {
+                Console.WriteLine("Enter..." + nLoopCount.ToString());
+                continue;
+            }
+
+            // Send
+            for (int indexGame = 0; indexGame < mGameClients.Length; indexGame++)
+            {
+                for (int indexPlayer = 0; indexPlayer < mGameClients[indexGame].Length; indexPlayer++)
+                {
+                    byte[] data = System.Text.Encoding.Default.GetBytes(mHelloWorld);
+                    mGameClients[indexGame][indexPlayer].RequestSendToPlayerAll(0xffffffff, data.Length, data);
+                }
+            }
+        }
     }
 
     static void GameServerConnect()
@@ -265,6 +458,15 @@ class Program
     {
         string strData = System.Text.Encoding.Default.GetString(data);
         Console.WriteLine("Transfer: " + strData);
+    }
+
+    static void OnResponseSendToPlayerAutoTest(int size, byte[] data)
+    {
+        string strData = System.Text.Encoding.Default.GetString(data);
+        if (strData != mHelloWorld)
+        {
+            Console.WriteLine("Transfer Error: " + strData);
+        }
     }
 
     static void ThreadUpdate()
