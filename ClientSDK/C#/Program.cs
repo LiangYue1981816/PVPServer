@@ -183,7 +183,7 @@ class Program
     {
         Console.WriteLine("Input Password ...");
         string password = Console.ReadLine();
-        mGameClient.RequestCreateGame(password, 1, 2, 10);
+        mGameClient.RequestCreateGame(password, 1, 2, 10, 1.0f);
     }
 
     static void GameServerDestroyGame()
@@ -250,11 +250,12 @@ class Program
         for (int indexGame = 0; indexGame < responseListGame.games.Count; indexGame++)
         {
             Console.WriteLine(string.Format(
-                "Game{0} private={1} mode={2} map={3} players={4}/{5}",
+                "Game{0} private={1} mode={2} map={3} weight={4} players={5}/{6}",
                 responseListGame.games[indexGame].gameid,
                 responseListGame.games[indexGame].@private,
                 responseListGame.games[indexGame].mode,
                 responseListGame.games[indexGame].map,
+                responseListGame.games[indexGame].weight,
                 responseListGame.games[indexGame].curPlayers,
                 responseListGame.games[indexGame].maxPlayers));
         }

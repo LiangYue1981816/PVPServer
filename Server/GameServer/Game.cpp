@@ -9,9 +9,9 @@ CGame::CGame(CGameServer *s)
 
 	, m_mode(-1)
 	, m_mapid(-1)
-
 	, m_curPlayers(0)
 	, m_maxPlayers(0)
+	, m_weight(0.0f)
 	
 	, m_dwHostGUID(0xffffffff)
 
@@ -30,13 +30,14 @@ CGame::~CGame(void)
 //
 // 设置游戏
 //
-void CGame::SetGame(const char *password, int mode, int mapid, int maxPlayers)
+void CGame::SetGame(const char *password, int mode, int mapid, int maxPlayers, float weight)
 {
 	m_dwHostGUID = 0xffffffff;
 
 	m_mode = mode;
 	m_mapid = mapid;
 	m_maxPlayers = maxPlayers;
+	m_weight = weight;
 	strcpy(m_szPassword, password);
 }
 
@@ -78,6 +79,14 @@ int CGame::GetCurPlayers(void) const
 int CGame::GetMaxPlayers(void) const
 {
 	return m_maxPlayers;
+}
+
+//
+// 获得游戏权重
+//
+float CGame::GetWeight(void) const
+{
+	return m_weight;
 }
 
 //
