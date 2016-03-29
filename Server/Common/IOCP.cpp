@@ -82,6 +82,30 @@ void CIOContext::Send(BYTE *pBuffer, DWORD size)
 }
 
 //
+// 检查
+//
+BOOL CIOContext::Check(DWORD dwTimeOut)
+{
+	if (bIsRecvBufferOverflow || bIsSendBufferOverflow || dwHeartTime > dwTimeOut) {
+		if (bIsRecvBufferOverflow) {
+			WriteLog("%s: Recv buffer overflow\n", ip);
+		}
+
+		if (bIsSendBufferOverflow) {
+			WriteLog("%s: Send buffer overflow\n", ip);
+		}
+
+		if (dwHeartTime > dwTimeOut) {
+			WriteLog("%s: Heart TimeOut\n", ip);
+		}
+
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+//
 // 接收SOCKET回调函数
 //
 void CIOContext::OnAccept(SOCKET sock)

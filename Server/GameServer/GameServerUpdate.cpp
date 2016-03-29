@@ -107,8 +107,7 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 			pPlayer->recvBuffer.Unlock();
 		}
 
-		if (pPlayer->dwHeartTime > (DWORD)(1000 * m_timeOut)) {
-			WriteLog("%s: Heart TimeOut\n", pPlayer->ip);
+		if (pPlayer->Check((DWORD)(1000 * m_timeOut)) == FALSE) {
 			ReleaseContext(pPlayer, FALSE);
 		}
 

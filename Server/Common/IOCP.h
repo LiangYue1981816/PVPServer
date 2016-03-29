@@ -51,6 +51,7 @@ public:
 	virtual BOOL IsAlive(void);                                                                    // 活动判断
 	virtual void ClearBuffer(void);                                                                // 清空缓冲
 	virtual void Send(BYTE *pBuffer, DWORD size);                                                  // 发送数据
+	virtual BOOL Check(DWORD dwTimeOut);                                                           // 检查
 
 public:
 	virtual void OnAccept(SOCKET sock);                                                            // 接收SOCKET回调函数
