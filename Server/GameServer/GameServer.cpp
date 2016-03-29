@@ -508,49 +508,46 @@ DWORD WINAPI CGameServer::UpdateThread(LPVOID lpParam)
 			static DWORD dwGameDeltaTime = 0;
 			static DWORD dwReportDeltaTime = 0;
 			{
-				//
-				// 1. 更新服务器
-				//
-				DWORD dwBegin = tick() / 1000;
 				EnterCriticalSection(&pServer->m_sectionContext);
 				{
-					pServer->OnUpdateRecv(dwDeltaTime);
+					//
+					// 1. 更新服务器
+					//
+					DWORD dwBegin = tick() / 1000;
+					{
+						pServer->OnUpdateRecv(dwDeltaTime);
 
-					// 游戏更新20FPS
-					if (dwGameDeltaTime > 50) {
-						pServer->OnUpdateGameLogic(dwGameDeltaTime / 1000.0f);
-						dwGameDeltaTime = 0;
+						// 游戏更新20FPS
+						if (dwGameDeltaTime > 50) {
+							pServer->OnUpdateGameLogic(dwGameDeltaTime / 1000.0f);
+							dwGameDeltaTime = 0;
+						}
+
+						pServer->OnUpdateSend();
 					}
+					DWORD dwEnd = tick() / 1000;
 
-					pServer->OnUpdateSend();
+					//
+					// 2. 更新统计信息
+					//
+					pServer->m_dwUpdateCount++;
+					pServer->m_dwUpdateTimeTotal += dwEnd - dwBegin;
+					pServer->m_dwUpdateTime = pServer->m_dwUpdateTimeTotal / pServer->m_dwUpdateCount;
+
+					// 报告更新1FPS
+					if (dwReportDeltaTime > 1000) {
+						pServer->Monitor();
+						pServer->m_dwRuntimeTotal++;
+						pServer->m_dwUpdateCount = 0;
+						pServer->m_dwUpdateTime = 0;
+						pServer->m_dwUpdateTimeTotal = 0;
+						pServer->m_dwRecvDataSize = 0;
+						pServer->m_dwSendDataSize = 0;
+
+						dwReportDeltaTime = 0;
+					}
 				}
 				LeaveCriticalSection(&pServer->m_sectionContext);
-				DWORD dwEnd = tick() / 1000;
-
-				//
-				// 2. 更新统计信息
-				//
-				pServer->m_dwUpdateCount++;
-				pServer->m_dwUpdateTimeTotal += dwEnd - dwBegin;
-				pServer->m_dwUpdateTime = pServer->m_dwUpdateTimeTotal / pServer->m_dwUpdateCount;
-
-				// 报告更新1FPS
-				if (dwReportDeltaTime > 1000) {
-					EnterCriticalSection(&pServer->m_sectionContext);
-					{
-						pServer->Monitor();
-					}
-					LeaveCriticalSection(&pServer->m_sectionContext);
-
-					pServer->m_dwRuntimeTotal++;
-					pServer->m_dwUpdateCount = 0;
-					pServer->m_dwUpdateTime = 0;
-					pServer->m_dwUpdateTimeTotal = 0;
-					pServer->m_dwRecvDataSize = 0;
-					pServer->m_dwSendDataSize = 0;
-
-					dwReportDeltaTime = 0;
-				}
 
 				//
 				// 3. 释放时间片

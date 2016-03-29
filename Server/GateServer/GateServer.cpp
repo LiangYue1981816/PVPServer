@@ -166,3 +166,85 @@ void CGateServer::SendTo(CIOContext *pContext, BYTE *pBuffer, size_t size)
 		m_dwSendDataSize += (DWORD)size;
 	}
 }
+
+//
+// 监控
+//
+void CGateServer::Monitor(void)
+{
+	//
+	// 1. 清屏幕
+	//
+	system("cls");
+
+	//
+	// 2. 显示服务器状态
+	//
+	printf("GateServer %s:%d\n", m_ip, m_port);
+	printf("Recv Data = %dB (%2.2fMb/s)\n", m_dwRecvDataSize, 8.0f*m_dwRecvDataSize / 1024.0f / 1024.0f);
+	printf("Send Data = %dB (%2.2fMb/s)\n", m_dwSendDataSize, 8.0f*m_dwSendDataSize / 1024.0f / 1024.0f);
+	printf("Update Time = %dms\n", m_dwUpdateTime);
+	printf("Run Time = %2.2d:%2.2d:%2.2d\n", m_dwRuntimeTotal / 3600, m_dwRuntimeTotal / 60 - (m_dwRuntimeTotal / 3600) * 60, m_dwRuntimeTotal - (m_dwRuntimeTotal / 60) * 60);
+	printf("GameServers = %d, Players = %d\n", m_gameServerMap.size(), m_guidmap.size());
+}
+
+//
+// 更新线程
+//
+DWORD WINAPI CGateServer::UpdateThread(LPVOID lpParam)
+{
+	if (CGateServer *pServer = (CGateServer *)lpParam) {
+		while (WAIT_OBJECT_0 != WaitForSingleObject(pServer->m_hShutdownEvent, 0)) {
+			DWORD dwLastTime = tick() / 1000;
+			static DWORD dwDeltaTime = 0;
+			static DWORD dwGameDeltaTime = 0;
+			static DWORD dwReportDeltaTime = 0;
+			{
+				EnterCriticalSection(&pServer->m_sectionContext);
+				{
+					//
+					// 1. 更新服务器
+					//
+					DWORD dwBegin = tick() / 1000;
+					{
+						pServer->OnUpdateRecv(dwDeltaTime);
+						pServer->OnUpdateSend();
+					}
+					DWORD dwEnd = tick() / 1000;
+
+					//
+					// 2. 更新统计信息
+					//
+					pServer->m_dwUpdateCount++;
+					pServer->m_dwUpdateTimeTotal += dwEnd - dwBegin;
+					pServer->m_dwUpdateTime = pServer->m_dwUpdateTimeTotal / pServer->m_dwUpdateCount;
+
+					// 报告更新1FPS
+					if (dwReportDeltaTime > 1000) {
+						pServer->Monitor();
+						pServer->m_dwRuntimeTotal++;
+						pServer->m_dwUpdateCount = 0;
+						pServer->m_dwUpdateTime = 0;
+						pServer->m_dwUpdateTimeTotal = 0;
+						pServer->m_dwRecvDataSize = 0;
+						pServer->m_dwSendDataSize = 0;
+
+						dwReportDeltaTime = 0;
+					}
+				}
+				LeaveCriticalSection(&pServer->m_sectionContext);
+
+				//
+				// 3. 释放时间片
+				//
+				Sleep(1);
+			}
+			dwDeltaTime = tick() / 1000 - dwLastTime;
+			dwDeltaTime = dwDeltaTime < 1000 ? dwDeltaTime : 0;
+			dwGameDeltaTime += dwDeltaTime;
+			dwReportDeltaTime += dwDeltaTime;
+		}
+	}
+
+	return 0L;
+}
