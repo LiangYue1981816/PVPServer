@@ -13,9 +13,6 @@ CIOContext::CIOContext(void)
 	, bInUsed(FALSE)
 	, acceptSocket(INVALID_SOCKET)
 
-	, bIsRecvBufferOverflow(FALSE)
-	, bIsSendBufferOverflow(FALSE)
-
 	, recvBuffer(RECV_BUFFER_SIZE)
 	, sendBuffer(SEND_BUFFER_SIZE)
 
@@ -67,9 +64,6 @@ void CIOContext::ClearBuffer(void)
 
 	recvBuffer.ClearBuffer();
 	sendBuffer.ClearBuffer();
-
-	bIsRecvBufferOverflow = FALSE;
-	bIsSendBufferOverflow = FALSE;
 }
 
 //
@@ -245,8 +239,7 @@ void CIOContext::OnSendNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 // IOCP Server
 //========================================================================
 CIOCPServer::CIOCPServer(void)
-	: m_timeOut(5)
-	, m_listenSocket(INVALID_SOCKET)
+	: m_listenSocket(INVALID_SOCKET)
 
 	, m_hIOCP(NULL)
 	, m_hListenThread(NULL)
@@ -277,9 +270,8 @@ CIOCPServer::~CIOCPServer(void)
 //
 // 启动
 //
-BOOL CIOCPServer::Start(const char *ip, int port, int maxContexts, int timeOut)
+BOOL CIOCPServer::Start(const char *ip, int port, int maxContexts)
 {
-	m_timeOut = max(5, timeOut);
 	if (AllocContexts(maxContexts) == FALSE) return FALSE;
 	if (Listen(ip, port) == FALSE) return FALSE;
 	if (CreateIOCP() == FALSE) return FALSE;
@@ -587,30 +579,6 @@ void CIOCPServer::ReleaseContext(CIOContext *pContext, BOOL bLock)
 }
 
 //
-// 检查上下文
-//
-void CIOCPServer::CheckContext(CIOContext *pContext, BOOL bLock)
-{
-	if (pContext->bIsRecvBufferOverflow ||
-		pContext->bIsSendBufferOverflow ||
-		pContext->dwHeartTime > (DWORD)(1000 * m_timeOut)) {
-		if (pContext->bIsRecvBufferOverflow) {
-			WriteLog("%s: Recv buffer overflow\n", pContext->ip);
-		}
-
-		if (pContext->bIsSendBufferOverflow) {
-			WriteLog("%s: Send buffer overflow\n", pContext->ip);
-		}
-
-		if (pContext->dwHeartTime > (DWORD)(1000 * m_timeOut)) {
-			WriteLog("%s: Heart TimeOut\n", pContext->ip);
-		}
-
-		ReleaseContext(pContext, bLock);
-	}
-}
-
-//
 // 链接
 //
 void CIOCPServer::OnConnect(CIOContext *pContext, SOCKET acceptSocket)
@@ -639,7 +607,7 @@ DWORD WINAPI CIOCPServer::ListenThread(LPVOID lpParam)
 			SOCKET acceptSocket = WSAAccept(pIOCPServer->m_listenSocket, NULL, NULL, NULL, 0);
 
 			if (acceptSocket != INVALID_SOCKET) {
-				if (CIOContext *pContext = pIOCPServer->GetNextContext(TRUE)) {
+				if (CIOContext *pContext = pIOCPServer->GetNextContext()) {
 					CreateIoCompletionPort((HANDLE)acceptSocket, pIOCPServer->m_hIOCP, (ULONG_PTR)acceptSocket, 0);
 					pIOCPServer->OnConnect(pContext, acceptSocket);
 				}
@@ -689,7 +657,7 @@ DWORD WINAPI CIOCPServer::TransferThread(LPVOID lpParam)
 			//
 			// 4. 客户端断线, 回收上下文
 			//
-			pIOCPServer->ReleaseContext(pIOBuffer->pContext, TRUE);
+			pIOCPServer->ReleaseContext(pIOBuffer->pContext);
 		}
 	}
 

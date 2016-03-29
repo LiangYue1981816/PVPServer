@@ -95,7 +95,11 @@ void CGateServer::OnUpdateRecv(DWORD dwDeltaTime)
 			pContext->recvBuffer.Unlock();
 		}
 
-		CheckContext(pContext, FALSE);
+		if (pContext->dwHeartTime > (DWORD)(1000 * m_timeOut)) {
+			WriteLog("%s: Heart TimeOut\n", pContext->ip);
+			ReleaseContext(pContext, FALSE);
+		}
+
 		pContext = pNextContext;
 	}
 }

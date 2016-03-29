@@ -75,9 +75,6 @@ public:
 	BOOL bInUsed;                                                                                  // 使用中
 	SOCKET acceptSocket;                                                                           // SOCKET
 
-	BOOL bIsRecvBufferOverflow;                                                                    // 接收缓冲溢出
-	BOOL bIsSendBufferOverflow;                                                                    // 发送缓冲溢出
-
 	WSA_BUFFER wsaRecvBuffer;                                                                      // 接收缓冲
 	WSA_BUFFER wsaSendBuffer;                                                                      // 发送缓冲
 
@@ -104,7 +101,7 @@ public:
 
 	// 方法
 public:
-	virtual BOOL Start(const char *ip, int port, int maxContexts, int timeOut);                    // 启动服务器
+	virtual BOOL Start(const char *ip, int port, int maxContexts = 1000);                          // 启动服务器
 	virtual void Stop(void);                                                                       // 停止服务器
 
 protected:
@@ -124,10 +121,8 @@ protected:
 	virtual void Disconnect(void);                                                                 // 断开连接
 
 protected:
-	virtual CIOContext* GetNextContext(BOOL bLock);                                                // 获得空闲上下文
-	virtual void ReleaseContext(CIOContext *pContext, BOOL bLock);                                 // 释放上下文
-
-	virtual void CheckContext(CIOContext *pContext, BOOL bLock);                                   // 检查上下文
+	virtual CIOContext* GetNextContext(BOOL bLock = TRUE);                                         // 获得空闲上下文
+	virtual void ReleaseContext(CIOContext *pContext, BOOL bLock = TRUE);                          // 释放上下文
 
 protected:
 	virtual void OnConnect(CIOContext *pContext, SOCKET acceptSocket);                             // 客户端链接回调
@@ -142,7 +137,6 @@ protected:
 protected:
 	int m_port;                                                                                    // 端口
 	char m_ip[256];                                                                                // IP
-	int m_timeOut;                                                                                 // 心跳超时
 
 protected:
 	SOCKET m_listenSocket;                                                                         // 监听SOCKET
