@@ -588,6 +588,13 @@ class ListGame_Game : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 curplayers() const;
   inline void set_curplayers(::google::protobuf::int32 value);
 
+  // required float weight = 7;
+  inline bool has_weight() const;
+  inline void clear_weight();
+  static const int kWeightFieldNumber = 7;
+  inline float weight() const;
+  inline void set_weight(float value);
+
   // @@protoc_insertion_point(class_scope:ProtoGameServer.ListGame.Game)
  private:
   inline void set_has_private_();
@@ -602,6 +609,8 @@ class ListGame_Game : public ::google::protobuf::Message {
   inline void clear_has_maxplayers();
   inline void set_has_curplayers();
   inline void clear_has_curplayers();
+  inline void set_has_weight();
+  inline void clear_has_weight();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -613,6 +622,7 @@ class ListGame_Game : public ::google::protobuf::Message {
   ::google::protobuf::int32 map_;
   ::google::protobuf::int32 maxplayers_;
   ::google::protobuf::int32 curplayers_;
+  float weight_;
   friend void  protobuf_AddDesc_ProtoGameServer_2eproto();
   friend void protobuf_AssignDesc_ProtoGameServer_2eproto();
   friend void protobuf_ShutdownFile_ProtoGameServer_2eproto();
@@ -1564,6 +1574,30 @@ inline void ListGame_Game::set_curplayers(::google::protobuf::int32 value) {
   set_has_curplayers();
   curplayers_ = value;
   // @@protoc_insertion_point(field_set:ProtoGameServer.ListGame.Game.curPlayers)
+}
+
+// required float weight = 7;
+inline bool ListGame_Game::has_weight() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void ListGame_Game::set_has_weight() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void ListGame_Game::clear_has_weight() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void ListGame_Game::clear_weight() {
+  weight_ = 0;
+  clear_has_weight();
+}
+inline float ListGame_Game::weight() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ListGame.Game.weight)
+  return weight_;
+}
+inline void ListGame_Game::set_weight(float value) {
+  set_has_weight();
+  weight_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameServer.ListGame.Game.weight)
 }
 
 // -------------------------------------------------------------------

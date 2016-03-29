@@ -152,6 +152,13 @@ namespace ProtoGameServer
       get { return _curPlayers; }
       set { _curPlayers = value; }
     }
+    private float _weight;
+    [global::ProtoBuf.ProtoMember(7, IsRequired = true, Name=@"weight", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    public float weight
+    {
+      get { return _weight; }
+      set { _weight = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }

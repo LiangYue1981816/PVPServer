@@ -85,6 +85,7 @@ message ListGame
 		required int32 map = 4;
 		required int32 maxPlayers = 5;
 		required int32 curPlayers = 6;
+		required float weight = 7;
 	}
 	
 	required ERROR_CODE err = 1;

@@ -466,6 +466,13 @@ class CreateGame : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 maxplayers() const;
   inline void set_maxplayers(::google::protobuf::int32 value);
 
+  // required float weight = 5;
+  inline bool has_weight() const;
+  inline void clear_weight();
+  static const int kWeightFieldNumber = 5;
+  inline float weight() const;
+  inline void set_weight(float value);
+
   // @@protoc_insertion_point(class_scope:ProtoGameClient.CreateGame)
  private:
   inline void set_has_password();
@@ -476,6 +483,8 @@ class CreateGame : public ::google::protobuf::Message {
   inline void clear_has_mode();
   inline void set_has_maxplayers();
   inline void clear_has_maxplayers();
+  inline void set_has_weight();
+  inline void clear_has_weight();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -485,6 +494,7 @@ class CreateGame : public ::google::protobuf::Message {
   ::google::protobuf::int32 map_;
   ::google::protobuf::int32 mode_;
   ::google::protobuf::int32 maxplayers_;
+  float weight_;
   friend void  protobuf_AddDesc_ProtoGameClient_2eproto();
   friend void protobuf_AssignDesc_ProtoGameClient_2eproto();
   friend void protobuf_ShutdownFile_ProtoGameClient_2eproto();
@@ -1173,6 +1183,30 @@ inline void CreateGame::set_maxplayers(::google::protobuf::int32 value) {
   set_has_maxplayers();
   maxplayers_ = value;
   // @@protoc_insertion_point(field_set:ProtoGameClient.CreateGame.maxPlayers)
+}
+
+// required float weight = 5;
+inline bool CreateGame::has_weight() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void CreateGame::set_has_weight() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void CreateGame::clear_has_weight() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void CreateGame::clear_weight() {
+  weight_ = 0;
+  clear_has_weight();
+}
+inline float CreateGame::weight() const {
+  // @@protoc_insertion_point(field_get:ProtoGameClient.CreateGame.weight)
+  return weight_;
+}
+inline void CreateGame::set_weight(float value) {
+  set_has_weight();
+  weight_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameClient.CreateGame.weight)
 }
 
 // -------------------------------------------------------------------
