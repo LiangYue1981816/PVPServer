@@ -54,12 +54,8 @@ public:
 	virtual BOOL IsAlive(void);                                                                    // 活动判断
 
 protected:
-	virtual BOOL WSRecv(DWORD size, DWORD dwType = 0);                                             // 接收
-	virtual BOOL WSSend(BYTE *pBuffer, DWORD size, DWORD dwType = 0);                              // 发送
-
-public:
-	virtual BOOL PushRecvBuffer(BYTE *pBuffer, DWORD size, BOOL bLock);                            // 压入数据到接收缓冲
-	virtual BOOL PushSendBuffer(BYTE *pBuffer, DWORD size, BOOL bLock);                            // 压入数据到发送缓冲
+	virtual BOOL Recv(DWORD size, DWORD dwType = 0);                                               // 接收
+	virtual BOOL Send(BYTE *pBuffer, DWORD size, DWORD dwType = 0);                                // 发送
 
 public:
 	virtual void OnAccept(void);                                                                   // 接收SOCKET回调函数
