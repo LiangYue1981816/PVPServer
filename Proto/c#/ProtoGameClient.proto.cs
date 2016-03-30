@@ -104,12 +104,12 @@ namespace ProtoGameClient
       get { return _maxPlayers; }
       set { _maxPlayers = value; }
     }
-    private float _weight;
-    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"weight", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
-    public float weight
+    private float _evaluation;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"evaluation", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    public float evaluation
     {
-      get { return _weight; }
-      set { _weight = value; }
+      get { return _evaluation; }
+      set { _evaluation = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

@@ -443,12 +443,12 @@ class Program
         for (int indexGame = 0; indexGame < responseListGame.games.Count; indexGame++)
         {
             Console.WriteLine(string.Format(
-                "Game{0} private={1} mode={2} map={3} weight={4} players={5}/{6}",
+                "Game{0} private={1} mode={2} map={3} evaluation={4} players={5}/{6}",
                 responseListGame.games[indexGame].gameid,
                 responseListGame.games[indexGame].@private,
                 responseListGame.games[indexGame].mode,
                 responseListGame.games[indexGame].map,
-                responseListGame.games[indexGame].weight,
+                responseListGame.games[indexGame].evaluation,
                 responseListGame.games[indexGame].curPlayers,
                 responseListGame.games[indexGame].maxPlayers));
         }

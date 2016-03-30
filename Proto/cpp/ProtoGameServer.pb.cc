@@ -156,7 +156,7 @@ void protobuf_AssignDesc_ProtoGameServer_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGame_Game, map_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGame_Game, maxplayers_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGame_Game, curplayers_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGame_Game, weight_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGame_Game, evaluation_),
   };
   ListGame_Game_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -350,43 +350,43 @@ void protobuf_AddDesc_ProtoGameServer_2eproto() {
     "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"\026\n\005Flags\022\r\n"
     "\005flags\030\001 \002(\r\"\?\n\005Login\022(\n\003err\030\001 \002(\0162\033.Pro"
     "toGameServer.ERROR_CODE\022\014\n\004guid\030\002 \001(\r\"\024\n"
-    "\004Host\022\014\n\004guid\030\001 \002(\r\"\337\001\n\010ListGame\022(\n\003err\030"
+    "\004Host\022\014\n\004guid\030\001 \002(\r\"\343\001\n\010ListGame\022(\n\003err\030"
     "\001 \002(\0162\033.ProtoGameServer.ERROR_CODE\022-\n\005ga"
     "mes\030\002 \003(\0132\036.ProtoGameServer.ListGame.Gam"
-    "e\032z\n\004Game\022\017\n\007private\030\001 \002(\010\022\016\n\006gameid\030\002 \002"
+    "e\032~\n\004Game\022\017\n\007private\030\001 \002(\010\022\016\n\006gameid\030\002 \002"
     "(\005\022\014\n\004mode\030\003 \002(\005\022\013\n\003map\030\004 \002(\005\022\022\n\nmaxPlay"
-    "ers\030\005 \002(\005\022\022\n\ncurPlayers\030\006 \002(\005\022\016\n\006weight\030"
-    "\007 \002(\002\"F\n\nCreateGame\022(\n\003err\030\001 \002(\0162\033.Proto"
-    "GameServer.ERROR_CODE\022\016\n\006gameid\030\002 \001(\r\"7\n"
-    "\013DestroyGame\022(\n\003err\030\001 \002(\0162\033.ProtoGameSer"
-    "ver.ERROR_CODE\"S\n\tEnterGame\022(\n\003err\030\001 \002(\016"
-    "2\033.ProtoGameServer.ERROR_CODE\022\014\n\004guid\030\002 "
-    "\001(\r\022\016\n\006gameid\030\003 \001(\r\"B\n\010ExitGame\022(\n\003err\030\001"
+    "ers\030\005 \002(\005\022\022\n\ncurPlayers\030\006 \002(\005\022\022\n\nevaluat"
+    "ion\030\007 \002(\002\"F\n\nCreateGame\022(\n\003err\030\001 \002(\0162\033.P"
+    "rotoGameServer.ERROR_CODE\022\016\n\006gameid\030\002 \001("
+    "\r\"7\n\013DestroyGame\022(\n\003err\030\001 \002(\0162\033.ProtoGam"
+    "eServer.ERROR_CODE\"S\n\tEnterGame\022(\n\003err\030\001"
     " \002(\0162\033.ProtoGameServer.ERROR_CODE\022\014\n\004gui"
-    "d\030\002 \001(\r\"*\n\014SendToPlayer\022\014\n\004size\030\001 \002(\005\022\014\n"
-    "\004data\030\002 \002(\014\"L\n\014ServerStatus\022\n\n\002ip\030\001 \002(\t\022"
-    "\014\n\004port\030\002 \002(\005\022\020\n\010maxGames\030\003 \002(\005\022\020\n\010curGa"
-    "mes\030\004 \002(\005*\037\n\016VERSION_NUMBER\022\r\n\007VERSION\020\200"
-    "\200\004*\206\001\n\nFLAGS_CODE\022\025\n\021PLAYER_FLAGS_NONE\020\000"
-    "\022\026\n\022PLAYER_FLAGS_LOGIN\020\001\022\030\n\024PLAYER_FLAGS"
-    "_WAITING\020\002\022\026\n\022PLAYER_FLAGS_READY\020\004\022\027\n\023PL"
-    "AYER_FLAGS_GAMING\020\010*\250\003\n\nERROR_CODE\022\014\n\010ER"
-    "R_NONE\020\000\022\027\n\023ERR_VERSION_INVALID\020\001\022\027\n\022ERR"
-    "_PLAYER_INVALID\020\350\007\022\034\n\027ERR_PLAYER_INVALID"
-    "_GUID\020\351\007\022\036\n\031ERR_PLAYER_FLAGS_NOT_NONE\020\352\007"
-    "\022\037\n\032ERR_PLAYER_FLAGS_NOT_LOGIN\020\353\007\022 \n\033ERR"
-    "_PLAYER_FLAGS_NOT_INGAME\020\354\007\022\034\n\027ERR_PLAYE"
-    "R_FLAGS_INGAME\020\355\007\022\025\n\020ERR_GAME_INVALID\020\320\017"
-    "\022\030\n\023ERR_GAME_INVALID_ID\020\321\017\022\023\n\016ERR_GAME_U"
-    "SING\020\322\017\022\023\n\016ERR_GAME_EMPTY\020\323\017\022\022\n\rERR_GAME"
-    "_FULL\020\324\017\022\026\n\021ERR_GAME_PASSWORD\020\325\017\022\024\n\017ERR_"
-    "SERVER_FULL\020\270\027\022\036\n\031ERR_GAMEPLAY_INVALID_M"
-    "ODE\020\240\037*\250\001\n\014RESPONSE_MSG\022\n\n\005HEART\020\350\007\022\n\n\005F"
-    "LAGS\020\351\007\022\n\n\005LOGIN\020\352\007\022\t\n\004HOST\020\353\007\022\016\n\tLIST_G"
-    "AME\020\354\007\022\020\n\013CREATE_GAME\020\355\007\022\021\n\014DESTROY_GAME"
-    "\020\356\007\022\017\n\nENTER_GAME\020\357\007\022\016\n\tEXIT_GAME\020\360\007\022\023\n\016"
-    "SEND_TO_PLAYER\020\361\007*!\n\013REQUEST_MSG\022\022\n\rSERV"
-    "ER_STATUS\020\320\017B\002H\001", 1616);
+    "d\030\002 \001(\r\022\016\n\006gameid\030\003 \001(\r\"B\n\010ExitGame\022(\n\003e"
+    "rr\030\001 \002(\0162\033.ProtoGameServer.ERROR_CODE\022\014\n"
+    "\004guid\030\002 \001(\r\"*\n\014SendToPlayer\022\014\n\004size\030\001 \002("
+    "\005\022\014\n\004data\030\002 \002(\014\"L\n\014ServerStatus\022\n\n\002ip\030\001 "
+    "\002(\t\022\014\n\004port\030\002 \002(\005\022\020\n\010maxGames\030\003 \002(\005\022\020\n\010c"
+    "urGames\030\004 \002(\005*\037\n\016VERSION_NUMBER\022\r\n\007VERSI"
+    "ON\020\200\200\004*\206\001\n\nFLAGS_CODE\022\025\n\021PLAYER_FLAGS_NO"
+    "NE\020\000\022\026\n\022PLAYER_FLAGS_LOGIN\020\001\022\030\n\024PLAYER_F"
+    "LAGS_WAITING\020\002\022\026\n\022PLAYER_FLAGS_READY\020\004\022\027"
+    "\n\023PLAYER_FLAGS_GAMING\020\010*\250\003\n\nERROR_CODE\022\014"
+    "\n\010ERR_NONE\020\000\022\027\n\023ERR_VERSION_INVALID\020\001\022\027\n"
+    "\022ERR_PLAYER_INVALID\020\350\007\022\034\n\027ERR_PLAYER_INV"
+    "ALID_GUID\020\351\007\022\036\n\031ERR_PLAYER_FLAGS_NOT_NON"
+    "E\020\352\007\022\037\n\032ERR_PLAYER_FLAGS_NOT_LOGIN\020\353\007\022 \n"
+    "\033ERR_PLAYER_FLAGS_NOT_INGAME\020\354\007\022\034\n\027ERR_P"
+    "LAYER_FLAGS_INGAME\020\355\007\022\025\n\020ERR_GAME_INVALI"
+    "D\020\320\017\022\030\n\023ERR_GAME_INVALID_ID\020\321\017\022\023\n\016ERR_GA"
+    "ME_USING\020\322\017\022\023\n\016ERR_GAME_EMPTY\020\323\017\022\022\n\rERR_"
+    "GAME_FULL\020\324\017\022\026\n\021ERR_GAME_PASSWORD\020\325\017\022\024\n\017"
+    "ERR_SERVER_FULL\020\270\027\022\036\n\031ERR_GAMEPLAY_INVAL"
+    "ID_MODE\020\240\037*\250\001\n\014RESPONSE_MSG\022\n\n\005HEART\020\350\007\022"
+    "\n\n\005FLAGS\020\351\007\022\n\n\005LOGIN\020\352\007\022\t\n\004HOST\020\353\007\022\016\n\tLI"
+    "ST_GAME\020\354\007\022\020\n\013CREATE_GAME\020\355\007\022\021\n\014DESTROY_"
+    "GAME\020\356\007\022\017\n\nENTER_GAME\020\357\007\022\016\n\tEXIT_GAME\020\360\007"
+    "\022\023\n\016SEND_TO_PLAYER\020\361\007*!\n\013REQUEST_MSG\022\022\n\r"
+    "SERVER_STATUS\020\320\017B\002H\001", 1620);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGameServer.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -1475,7 +1475,7 @@ const int ListGame_Game::kModeFieldNumber;
 const int ListGame_Game::kMapFieldNumber;
 const int ListGame_Game::kMaxPlayersFieldNumber;
 const int ListGame_Game::kCurPlayersFieldNumber;
-const int ListGame_Game::kWeightFieldNumber;
+const int ListGame_Game::kEvaluationFieldNumber;
 #endif  // !_MSC_VER
 
 ListGame_Game::ListGame_Game()
@@ -1502,7 +1502,7 @@ void ListGame_Game::SharedCtor() {
   map_ = 0;
   maxplayers_ = 0;
   curplayers_ = 0;
-  weight_ = 0;
+  evaluation_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1549,7 +1549,7 @@ void ListGame_Game::Clear() {
   } while (0)
 
   if (_has_bits_[0 / 32] & 127) {
-    ZR_(private__, weight_);
+    ZR_(private__, evaluation_);
   }
 
 #undef OFFSET_OF_FIELD_
@@ -1654,18 +1654,18 @@ bool ListGame_Game::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(61)) goto parse_weight;
+        if (input->ExpectTag(61)) goto parse_evaluation;
         break;
       }
 
-      // required float weight = 7;
+      // required float evaluation = 7;
       case 7: {
         if (tag == 61) {
-         parse_weight:
+         parse_evaluation:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &weight_)));
-          set_has_weight();
+                 input, &evaluation_)));
+          set_has_evaluation();
         } else {
           goto handle_unusual;
         }
@@ -1728,9 +1728,9 @@ void ListGame_Game::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->curplayers(), output);
   }
 
-  // required float weight = 7;
-  if (has_weight()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->weight(), output);
+  // required float evaluation = 7;
+  if (has_evaluation()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->evaluation(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -1773,9 +1773,9 @@ void ListGame_Game::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->curplayers(), target);
   }
 
-  // required float weight = 7;
-  if (has_weight()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->weight(), target);
+  // required float evaluation = 7;
+  if (has_evaluation()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->evaluation(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1830,8 +1830,8 @@ int ListGame_Game::ByteSize() const {
           this->curplayers());
     }
 
-    // required float weight = 7;
-    if (has_weight()) {
+    // required float evaluation = 7;
+    if (has_evaluation()) {
       total_size += 1 + 4;
     }
 
@@ -1880,8 +1880,8 @@ void ListGame_Game::MergeFrom(const ListGame_Game& from) {
     if (from.has_curplayers()) {
       set_curplayers(from.curplayers());
     }
-    if (from.has_weight()) {
-      set_weight(from.weight());
+    if (from.has_evaluation()) {
+      set_evaluation(from.evaluation());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -1913,7 +1913,7 @@ void ListGame_Game::Swap(ListGame_Game* other) {
     std::swap(map_, other->map_);
     std::swap(maxplayers_, other->maxplayers_);
     std::swap(curplayers_, other->curplayers_);
-    std::swap(weight_, other->weight_);
+    std::swap(evaluation_, other->evaluation_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
