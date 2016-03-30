@@ -8,6 +8,11 @@ class GameServerAddress
     public int port = 0;
 }
 
+public partial class GameClient : ServerClient
+{
+}
+
+
 class Program
 {
     static uint mGUID = (uint)(DateTime.Now.Millisecond + DateTime.Now.Second * 1000);

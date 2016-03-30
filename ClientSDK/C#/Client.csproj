@@ -45,20 +45,6 @@
     <Compile Include="Source\Common\Package.cs" />
     <Compile Include="Source\Common\ProtoHelper.cs" />
     <Compile Include="Source\Common\SocketHelper.cs" />
-    <Compile Include="Source\GameClient\GameClient.cs" />
-    <Compile Include="Source\GameClient\ServerClient.cs" />
-    <Compile Include="Source\GameClient\ServerClientProcessProto.cs" />
-    <Compile Include="Source\GameClient\ServerClientRequestCreateGame.cs" />
-    <Compile Include="Source\GameClient\ServerClientRequestDestroyGame.cs" />
-    <Compile Include="Source\GameClient\ServerClientRequestEnterGame.cs" />
-    <Compile Include="Source\GameClient\ServerClientRequestExitGame.cs" />
-    <Compile Include="Source\GameClient\ServerClientRequestFlags.cs" />
-    <Compile Include="Source\GameClient\ServerClientRequestHeart.cs" />
-    <Compile Include="Source\GameClient\ServerClientRequestHost.cs" />
-    <Compile Include="Source\GameClient\ServerClientRequestListGame.cs" />
-    <Compile Include="Source\GameClient\ServerClientRequestLogin.cs" />
-    <Compile Include="Source\GameClient\ServerClientRequestSendToPlayer.cs" />
-    <Compile Include="Source\GameClient\ServerClientThread.cs" />
     <Compile Include="Source\GateClient\GateClient.cs" />
     <Compile Include="Source\GateClient\GateClientProcessProto.cs" />
     <Compile Include="Source\GateClient\GateClientRequestHeart.cs" />
@@ -161,6 +147,19 @@
     <Compile Include="Source\Proto\ProtoGameServer.proto.cs" />
     <Compile Include="Source\Proto\ProtoGateClient.proto.cs" />
     <Compile Include="Source\Proto\ProtoGateServer.proto.cs" />
+    <Compile Include="Source\ServerClient\ServerClient.cs" />
+    <Compile Include="Source\ServerClient\ServerClientProcessProto.cs" />
+    <Compile Include="Source\ServerClient\ServerClientRequestCreateGame.cs" />
+    <Compile Include="Source\ServerClient\ServerClientRequestDestroyGame.cs" />
+    <Compile Include="Source\ServerClient\ServerClientRequestEnterGame.cs" />
+    <Compile Include="Source\ServerClient\ServerClientRequestExitGame.cs" />
+    <Compile Include="Source\ServerClient\ServerClientRequestFlags.cs" />
+    <Compile Include="Source\ServerClient\ServerClientRequestHeart.cs" />
+    <Compile Include="Source\ServerClient\ServerClientRequestHost.cs" />
+    <Compile Include="Source\ServerClient\ServerClientRequestListGame.cs" />
+    <Compile Include="Source\ServerClient\ServerClientRequestLogin.cs" />
+    <Compile Include="Source\ServerClient\ServerClientRequestSendToPlayer.cs" />
+    <Compile Include="Source\ServerClient\ServerClientThread.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
