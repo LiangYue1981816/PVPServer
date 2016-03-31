@@ -233,7 +233,11 @@ DWORD WINAPI CGateServer::UpdateThread(LPVOID lpParam)
 				//
 				// 3.  Õ∑≈ ±º‰∆¨
 				//
-				Sleep(1);
+				timeBeginPeriod(1);
+				{
+					Sleep(1);
+				}
+				timeEndPeriod(1);
 			}
 			dwDeltaTime = tick() / 1000 - dwLastTime;
 			dwDeltaTime = dwDeltaTime < 1000 ? dwDeltaTime : 0;
