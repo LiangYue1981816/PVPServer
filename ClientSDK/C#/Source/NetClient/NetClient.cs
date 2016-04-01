@@ -42,6 +42,7 @@ public partial class NetClient
             IPEndPoint ipEndPoint = new IPEndPoint(ipAddress, port);
 
             mSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            mSocket.NoDelay = true;
             mSocket.Connect(ipEndPoint);
         }
         catch (Exception)
