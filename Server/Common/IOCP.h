@@ -13,6 +13,9 @@
 
 class CIOContext
 {
+	friend class CIOCPServer;
+
+
 	// 数据结构
 public:
 	enum {
@@ -137,6 +140,8 @@ protected:
 protected:
 	virtual void OnConnect(CIOContext *pContext, SOCKET acceptSocket);                             // 客户端链接回调
 	virtual void OnDisconnect(CIOContext *pContext);                                               // 客户端断链回调
+
+	virtual void OnUpdateSend(void);                                                               // 更新发送
 
 protected:
 	static DWORD WINAPI ListenThread(LPVOID lpParam);                                              // 监听线程

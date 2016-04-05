@@ -205,6 +205,7 @@ DWORD WINAPI CGateServer::UpdateThread(LPVOID lpParam)
 					DWORD dwBegin = tick() / 1000;
 					{
 						pServer->OnUpdateRecv(dwDeltaTime);
+						pServer->OnUpdateSend();
 					}
 					DWORD dwEnd = tick() / 1000;
 

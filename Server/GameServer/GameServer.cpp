@@ -519,6 +519,8 @@ DWORD WINAPI CGameServer::UpdateThread(LPVOID lpParam)
 							pServer->OnUpdateGameLogic(dwGameDeltaTime / 1000.0f);
 							dwGameDeltaTime = 0;
 						}
+
+						pServer->OnUpdateSend();
 					}
 					DWORD dwEnd = tick() / 1000;
 

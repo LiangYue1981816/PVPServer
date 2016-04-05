@@ -64,19 +64,15 @@ void CIOContext::ClearBuffer(void)
 //
 void CIOContext::Send(BYTE *pBuffer, DWORD size)
 {
-	if (bIsSendBufferOverflow == FALSE) {
-		sendBuffer.Lock();
-		{
+	sendBuffer.Lock();
+	{
+		if (bIsSendBufferOverflow == FALSE) {
 			if (sendBuffer.PushData(pBuffer, size) != size) {
 				bIsSendBufferOverflow = TRUE;
 			}
-
-			if (bIsSendBufferOverflow == FALSE) {
-				OnSendNext();
-			}
 		}
-		sendBuffer.Unlock();
 	}
+	sendBuffer.Unlock();
 }
 
 //
@@ -664,6 +660,24 @@ void CIOCPServer::OnConnect(CIOContext *pContext, SOCKET acceptSocket)
 void CIOCPServer::OnDisconnect(CIOContext *pContext)
 {
 	pContext->OnDisconnect();
+}
+
+//
+// ¸üÐÂ·¢ËÍ
+//
+void CIOCPServer::OnUpdateSend(void)
+{
+	if (CIOContext *pContext = m_pActiveContext) {
+		do {
+			pContext->sendBuffer.Lock();
+			{
+				if (pContext->bIsSendBufferOverflow == FALSE) {
+					pContext->OnSendNext();
+				}
+			}
+			pContext->sendBuffer.Unlock();
+		} while (pContext = pContext->pNextActive);
+	}
 }
 
 //
