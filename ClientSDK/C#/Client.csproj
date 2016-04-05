@@ -51,7 +51,7 @@
     <Compile Include="Source\GateClient\GateClientRequestListGameServer.cs" />
     <Compile Include="Source\GateClient\GateClientRequestLogin.cs" />
     <Compile Include="Source\GateClient\GateClientRequestSendToPlayer.cs" />
-    <Compile Include="Source\GateClient\GateClientThread.cs" />
+    <Compile Include="Source\GateClient\GateClientUpdate.cs" />
     <Compile Include="Source\NetClient\NetClient.cs" />
     <Compile Include="Source\NetClient\NetClientThread.cs" />
     <Compile Include="Source\NetClient\NetClientUpdate.cs" />
@@ -159,7 +159,7 @@
     <Compile Include="Source\ServerClient\ServerClientRequestListGame.cs" />
     <Compile Include="Source\ServerClient\ServerClientRequestLogin.cs" />
     <Compile Include="Source\ServerClient\ServerClientRequestSendToPlayer.cs" />
-    <Compile Include="Source\ServerClient\ServerClientThread.cs" />
+    <Compile Include="Source\ServerClient\ServerClientUpdate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

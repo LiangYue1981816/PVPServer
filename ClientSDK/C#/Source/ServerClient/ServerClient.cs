@@ -31,8 +31,7 @@ public partial class ServerClient : NetClient
     private uint mFlags = (uint)ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_NONE;
     private List<uint> mPlayers = new List<uint>();
 
-    private Thread mThreadHeart = null;
-    private ManualResetEvent mEventHeart = null;
+    private float mHeartDeltaTime = 0.0f;
 
     private ProtoGameClient.Heart mRequestHeart = new ProtoGameClient.Heart();
     private ProtoGameClient.Flags mRequestFlags = new ProtoGameClient.Flags();
@@ -47,18 +46,7 @@ public partial class ServerClient : NetClient
 
     public override bool Connect(string ip, int port)
     {
-        if (base.Connect(ip, port))
-        {
-            mThreadHeart = new Thread(ThreadHeart);
-            mEventHeart = new ManualResetEvent(false);
-
-            mThreadHeart.Start();
-            mEventHeart.Set();
-
-            return true;
-        }
-
-        return false;
+        return base.Connect(ip, port);
     }
 
     public override bool Disconnect()
@@ -68,15 +56,7 @@ public partial class ServerClient : NetClient
         mGameID = 0xcccccccc;
         mFlags = (uint)ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_NONE;
 
-        if (base.Disconnect())
-        {
-            mThreadHeart.Abort();
-            mEventHeart = null;
-
-            return true;
-        }
-
-        return false;
+        return base.Disconnect();
     }
 
     public ProtoGameServer.ERROR_CODE GetLastError()

@@ -2,7 +2,7 @@
 
 public partial class NetClient
 {
-    public virtual void Update()
+    public virtual void Update(float deltaTime)
     {
         //
         // 1. Check

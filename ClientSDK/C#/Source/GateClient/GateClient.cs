@@ -18,8 +18,7 @@ public partial class GateClient : NetClient
     private uint mGUID = 0xffffffff;
     private bool mbLogin = false;
 
-    private Thread mThreadHeart = null;
-    private ManualResetEvent mEventHeart = null;
+    private float mHeartDeltaTime = 0.0f;
 
     private ProtoGateClient.Heart mRequestHeart = new ProtoGateClient.Heart();
     private ProtoGateClient.Login mRequestLogin = new ProtoGateClient.Login();
@@ -28,18 +27,7 @@ public partial class GateClient : NetClient
 
     public override bool Connect(string ip, int port)
     {
-        if (base.Connect(ip, port))
-        {
-            mThreadHeart = new Thread(ThreadHeart);
-            mEventHeart = new ManualResetEvent(false);
-
-            mThreadHeart.Start();
-            mEventHeart.Set();
-
-            return true;
-        }
-
-        return false;
+        return base.Connect(ip, port);
     }
 
     public override bool Disconnect()
@@ -47,15 +35,7 @@ public partial class GateClient : NetClient
         mGUID = 0xffffffff;
         mbLogin = false;
 
-        if (base.Disconnect())
-        {
-            mThreadHeart.Abort();
-            mEventHeart = null;
-
-            return true;
-        }
-
-        return false;
+        return base.Disconnect();
     }
 
     public ProtoGateServer.ERROR_CODE GetLastError()

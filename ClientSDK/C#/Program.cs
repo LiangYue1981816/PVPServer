@@ -166,7 +166,7 @@ class Program
             // Update
             for (int indexPlayer = 0; indexPlayer < mGateClients.Length; indexPlayer++)
             {
-                mGateClients[indexPlayer].Update();
+                mGateClients[indexPlayer].Update(33.0f / 1000.0f);
             }
 
             // Connect
@@ -258,7 +258,7 @@ class Program
             {
                 for (int indexPlayer = 0; indexPlayer < mGameClients[indexGame].Length; indexPlayer++)
                 {
-                    mGameClients[indexGame][indexPlayer].Update();
+                    mGameClients[indexGame][indexPlayer].Update(33.0f / 1000.0f);
                 }
             }
 
@@ -479,8 +479,8 @@ class Program
         while (true)
         {
             Thread.Sleep(1);
-            mGateClient.Update();
-            mGameClient.Update();
+            mGateClient.Update(1.0f / 1000.0f);
+            mGameClient.Update(1.0f / 1000.0f);
             Console.Title = "GameServer:" + mGameClient.GetPing().ToString() + " " + "GateServer:" + mGateClient.GetPing().ToString();
         }
     }
