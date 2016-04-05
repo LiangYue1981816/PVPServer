@@ -72,9 +72,7 @@ void CIOContext::Send(BYTE *pBuffer, DWORD size)
 			}
 
 			if (bIsSendBufferOverflow == FALSE) {
-				if (wsaSendBuffer.dwCompleteSize == wsaSendBuffer.dwRequestSize) {
-					OnSendNext();
-				}
+				OnSendNext();
 			}
 		}
 		sendBuffer.Unlock();
@@ -196,20 +194,22 @@ void CIOContext::OnComplete(WSA_BUFFER *pIOBuffer, DWORD dwTransferred)
 //
 void CIOContext::OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 {
-	if (bIsRecvBufferOverflow == FALSE) {
-		if (recvBuffer.PushData(pBuffer, size) != size) {
-			bIsRecvBufferOverflow = TRUE;
-		}
-
+	if (wsaRecvBuffer.dwCompleteSize == wsaRecvBuffer.dwRequestSize) {
 		if (bIsRecvBufferOverflow == FALSE) {
-			switch (dwType) {
-			case RECV_LEN:
-				WSARecv(*(WORD *)pBuffer, RECV_DATA);
-				break;
+			if (recvBuffer.PushData(pBuffer, size) != size) {
+				bIsRecvBufferOverflow = TRUE;
+			}
 
-			case RECV_DATA:
-				WSARecv(2, RECV_LEN);
-				break;
+			if (bIsRecvBufferOverflow == FALSE) {
+				switch (dwType) {
+				case RECV_LEN:
+					WSARecv(*(WORD *)pBuffer, RECV_DATA);
+					break;
+
+				case RECV_DATA:
+					WSARecv(2, RECV_LEN);
+					break;
+				}
 			}
 		}
 	}
@@ -220,11 +220,13 @@ void CIOContext::OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 //
 void CIOContext::OnSendNext(void)
 {
-	DWORD size;
-	BYTE buffer[PACK_BUFFER_SIZE];
+	if (wsaSendBuffer.dwCompleteSize == wsaSendBuffer.dwRequestSize) {
+		DWORD size;
+		BYTE buffer[PACK_BUFFER_SIZE];
 
-	size = sendBuffer.PopData(buffer, min(sizeof(buffer), sendBuffer.GetActiveBufferSize()));
-	WSASend(buffer, size);
+		size = sendBuffer.PopData(buffer, min(sizeof(buffer), sendBuffer.GetActiveBufferSize()));
+		WSASend(buffer, size);
+	}
 }
 
 //
