@@ -23,13 +23,13 @@ class Program
     static string mGameServerIP = "127.0.0.1";
     static int mGameServerPort = 20000;
 
-    static string mHelloWorld = "Hello world!";
+    static string mHelloWorld = "Each man is the architect of his own fate.";
 
     static Thread mThreadUpdate = null;
     static GateClient mGateClient = new GateClient();
     static GameClient mGameClient = new GameClient();
     static GateClient[] mGateClients = new GateClient[100];
-    static GameClient[][] mGameClients = new GameClient[10][];
+    static GameClient[][] mGameClients = new GameClient[5][];
 
     static List<GameServerAddress> mGameServerList = new List<GameServerAddress>();
 
@@ -350,16 +350,19 @@ class Program
     {
         Console.WriteLine("Input Server ID ...");
 
+        string ip = mGameServerIP;
+        int port = mGameServerPort;
+
         string input = Console.ReadLine();
         int id = Int32.Parse(input);
 
-        if (id < 0 || id >= mGameServerList.Count)
+        if (id >= 0 && id < mGameServerList.Count)
         {
-            Console.WriteLine("Invalid Server ID");
-            return;
+            ip = mGameServerList[id].ip;
+            port = mGameServerList[id].port;
         }
 
-        mGameClient.Connect(mGameServerList[id].ip, mGameServerList[id].port);
+        mGameClient.Connect(ip, port);
     }
 
     static void GameServerFlags()
