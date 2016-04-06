@@ -36,14 +36,17 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 				pPlayer->dwHeartTime += dwDeltaTime;
 
 				while (TRUE) {
-					WORD msg = 0;
-					WORD fullSize = *(WORD *)pPlayer->recvBuffer.GetPopPointer();
-					WORD bodySize = fullSize - sizeof(msg);
+					WORD msg;
+					WORD fullSize;
+					WORD bodySize;
 
+					if (pPlayer->recvBuffer.GetData((BYTE *)&fullSize, sizeof(fullSize)) != sizeof(fullSize)) break;
 					if (pPlayer->recvBuffer.GetActiveBufferSize() < sizeof(fullSize) + fullSize) break;
-					if (pPlayer->recvBuffer.PopData((BYTE *)&fullSize, sizeof(fullSize)) == FALSE) break;
-					if (pPlayer->recvBuffer.PopData((BYTE *)&msg, sizeof(msg)) == FALSE)  break;
 
+					if (pPlayer->recvBuffer.PopData((BYTE *)&fullSize, sizeof(fullSize)) != sizeof(fullSize)) break;
+					if (pPlayer->recvBuffer.PopData((BYTE *)&msg, sizeof(msg)) != sizeof(msg))  break;
+
+					bodySize = fullSize - sizeof(msg);
 					m_dwRecvDataSize += sizeof(fullSize) + fullSize;
 
 					switch (msg) {

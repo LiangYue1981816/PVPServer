@@ -217,11 +217,14 @@ void CIOContext::OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 void CIOContext::OnSendNext(void)
 {
 	if (wsaSendBuffer.dwCompleteSize == wsaSendBuffer.dwRequestSize) {
-		DWORD size;
 		BYTE buffer[PACK_BUFFER_SIZE];
+		size_t size = min(sizeof(buffer), sendBuffer.GetActiveBufferSize());
 
-		size = sendBuffer.PopData(buffer, min(sizeof(buffer), sendBuffer.GetActiveBufferSize()));
-		WSASend(buffer, size);
+		if (size > 0) {
+			if (sendBuffer.PopData(buffer, size) == size) {
+				WSASend(buffer, size);
+			}
+		}
 	}
 }
 

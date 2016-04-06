@@ -31,9 +31,6 @@ public:
 	void Lock(void);                                                                               // 锁定
 	void Unlock(void);                                                                             // 解锁
 
-	unsigned char* GetPushPointer(void);                                                           // 获得压入指针
-	unsigned char* GetPopPointer(void);                                                            // 获得弹出指针
-
 	int PushData(unsigned char *pData, size_t size);                                               // 压入数据
 	int PopData(unsigned char *pData, size_t size);                                                // 弹出数据
 	int GetData(unsigned char *pData, size_t size);                                                // 获得数据

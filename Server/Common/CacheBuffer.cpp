@@ -120,22 +120,6 @@ void CCacheBuffer::ClearBuffer(void)
 }
 
 //
-// 获得压入指针
-//
-unsigned char* CCacheBuffer::GetPushPointer(void)
-{
-	return m_pPushPointer;
-}
-
-//
-// 获得弹出指针
-//
-unsigned char* CCacheBuffer::GetPopPointer(void)
-{
-	return m_pPopPointer;
-}
-
-//
 // 压入数据
 //
 int CCacheBuffer::PushData(unsigned char *pData, size_t size)
