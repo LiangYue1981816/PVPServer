@@ -173,7 +173,7 @@ protected:
 	virtual void OnDisconnect(CIOContext *pContext);                                               // 客户端断链回调
 
 	virtual void OnUpdateRecv(DWORD dwDeltaTime);                                                  // 更新接收消息
-	virtual void OnUpdateGameMessage(CPlayer *pPlayer, WORD msg);                                  // 更新游戏消息
+	virtual void OnUpdateGameMessage(CPlayer *pPlayer, WORD size, WORD msg);                       // 更新游戏消息
 	virtual void OnUpdateGameLogic(float deltaTime);                                               // 更新游戏逻辑
 
 	virtual void OnHeartReset(CPlayer *pPlayer);                                                   // 重置心跳

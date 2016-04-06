@@ -101,7 +101,7 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 						break;
 
 					default:
-						OnUpdateGameMessage(pPlayer, msg);
+						OnUpdateGameMessage(pPlayer, bodySize, msg);
 						OnHeartReset(pPlayer);
 						break;
 					}
@@ -121,7 +121,7 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 //
 // 更新游戏消息
 //
-void CGameServer::OnUpdateGameMessage(CPlayer *pPlayer, WORD msg)
+void CGameServer::OnUpdateGameMessage(CPlayer *pPlayer, WORD size, WORD msg)
 {
 
 }
