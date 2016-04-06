@@ -1,4 +1,5 @@
 #pragma once
+#include <windows.h>
 
 
 typedef int                            BOOL;     // 4BYTE

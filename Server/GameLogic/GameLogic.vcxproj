@@ -19,32 +19,32 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{FD130DAD-8136-43B7-BACE-3052801F65F0}</ProjectGuid>
+    <ProjectGuid>{46DD4732-0B36-4334-9B63-4680576C8456}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>GameServer</RootNamespace>
+    <RootNamespace>GameLogic</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120_xp</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120_xp</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -90,17 +90,15 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;GAMELOGIC_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;../GameLogic</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../Bin/$(Platform)/$(Configuration);../pthread-win32/x86;../ProtoBuf/x86/Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>GameLogic.lib;libprotobuf.lib;ws2_32.lib;wldap32.lib;pthreadVC2.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <StackReserveSize>
-      </StackReserveSize>
+      <AdditionalLibraryDirectories>../Bin/$(Platform)/$(Configuration);../ProtoBuf/x86/Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GameServer.lib;libprotobuf.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -109,17 +107,15 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;__LP64__;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;GAMELOGIC_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;../GameLogic</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../Bin/$(Platform)/$(Configuration);../pthread-win32/x64;../ProtoBuf/x64/Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>GameLogic.lib;libprotobuf.lib;ws2_32.lib;wldap32.lib;pthreadVC2.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <StackReserveSize>
-      </StackReserveSize>
+      <AdditionalLibraryDirectories>../Bin/$(Platform)/$(Configuration);../ProtoBuf/x64/Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GameServer.lib;libprotobuf.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -130,19 +126,17 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;GAMELOGIC_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;../GameLogic</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>../Bin/$(Platform)/$(Configuration);../pthread-win32/x86;../ProtoBuf/x86/Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>GameLogic.lib;libprotobuf.lib;ws2_32.lib;wldap32.lib;pthreadVC2.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <StackReserveSize>
-      </StackReserveSize>
+      <AdditionalLibraryDirectories>../Bin/$(Platform)/$(Configuration);../ProtoBuf/x86/Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GameServer.lib;libprotobuf.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -153,48 +147,27 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;__LP64__;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;GAMELOGIC_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;../GameLogic</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>../Bin/$(Platform)/$(Configuration);../pthread-win32/x64;../ProtoBuf/x64/Release</AdditionalLibraryDirectories>
-      <AdditionalDependencies>GameLogic.lib;libprotobuf.lib;ws2_32.lib;wldap32.lib;pthreadVC2.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <StackReserveSize>
-      </StackReserveSize>
+      <AdditionalLibraryDirectories>../Bin/$(Platform)/$(Configuration);../ProtoBuf/x64/Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GameServer.lib;libprotobuf.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Common\CacheBuffer.h" />
-    <ClInclude Include="..\Common\Common.h" />
-    <ClInclude Include="..\Common\Event.h" />
-    <ClInclude Include="..\Common\IOCP.h" />
-    <ClInclude Include="..\Common\Serializer.h" />
-    <ClInclude Include="..\Proto\ProtoGameClient.pb.h" />
-    <ClInclude Include="..\Proto\ProtoGameServer.pb.h" />
-    <ClInclude Include="..\Proto\ProtoGateClient.pb.h" />
-    <ClInclude Include="..\Proto\ProtoGateServer.pb.h" />
-    <ClInclude Include="GameServer.h" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PVPServer.cpp" />
+    <ClCompile Include="PVPServerUpdate.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Common\CacheBuffer.cpp" />
-    <ClCompile Include="..\Common\Event.cpp" />
-    <ClCompile Include="..\Common\IOCP.cpp" />
-    <ClCompile Include="..\Common\Serializer.cpp" />
-    <ClCompile Include="..\Proto\ProtoGameClient.pb.cc" />
-    <ClCompile Include="..\Proto\ProtoGameServer.pb.cc" />
-    <ClCompile Include="..\Proto\ProtoGateClient.pb.cc" />
-    <ClCompile Include="..\Proto\ProtoGateServer.pb.cc" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameServer.cpp" />
-    <ClCompile Include="GameServerReport.cpp" />
-    <ClCompile Include="GameServerUpdate.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClInclude Include="PVPServer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
