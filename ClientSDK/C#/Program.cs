@@ -23,7 +23,7 @@ class Program
     static string mGameServerIP = "127.0.0.1";
     static int mGameServerPort = 20000;
 
-    static string mHelloWorld = "Each man is the architect of his own fate.";
+    static string mHelloWorld = "Hello world!";
 
     static Thread mThreadUpdate = null;
     static GateClient mGateClient = new GateClient();
@@ -149,6 +149,8 @@ class Program
 
     static void GateServerAutoTest()
     {
+        mGateClient.Connect(mGateServerIP, mGateServerPort);
+
         for (int indexPlayer = 0; indexPlayer < mGateClients.Length; indexPlayer++)
         {
             mGateClients[indexPlayer] = new GateClient();
@@ -232,6 +234,8 @@ class Program
 
     static void GameServerAutoTest()
     {
+        mGameClient.Connect(mGameServerIP, mGameServerPort);
+
         for (int indexGame = 0; indexGame < mGameClients.Length; indexGame++)
         {
             mGameClients[indexGame] = new GameClient[10];
