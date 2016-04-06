@@ -82,9 +82,9 @@ message ListGame
 		required bool private = 1;
 		required int32 gameid = 2;
 		required int32 mode = 3;
-		required int32 map = 4;
-		required int32 maxPlayers = 5;
-		required int32 curPlayers = 6;
+		required int32 mapid = 4;
+		required int32 curPlayers = 5;
+		required int32 maxPlayers = 6;
 		required float evaluation = 7;
 	}
 	
@@ -135,7 +135,7 @@ message ServerStatus
 	{
 		required int32 gameid = 1;
 		required int32 mode = 2;
-		required int32 map = 3;
+		required int32 mapid = 3;
 		required float evaluation = 4;
 	}
 	

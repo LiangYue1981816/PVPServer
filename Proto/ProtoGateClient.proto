@@ -29,5 +29,4 @@ message SendToPlayer
 	repeated uint32 guids = 1;
 	required int32 size = 2;
 	required bytes data = 3;
-	repeated int32 players = 4;
 }
