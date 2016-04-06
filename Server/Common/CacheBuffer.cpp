@@ -209,6 +209,42 @@ int CCacheBuffer::PopData(unsigned char *pData, size_t size)
 	return (int)size;
 }
 
+//
+// 获得数据
+//
+int CCacheBuffer::GetData(unsigned char *pData, size_t size)
+{
+	//
+	// 1. 缓冲检查
+	//
+	if (pData == NULL || m_pBuffer == NULL) {
+		return -1;
+	}
+
+	if (size == 0 || size > GetActiveBufferSize()) {
+		return 0;
+	}
+
+	//
+	// 2. 获得数据
+	//
+	size_t sizeParts[2];
+
+	sizeParts[0] = min(m_totalBufferSize + (size_t)(m_pBuffer - m_pPopPointer), size);
+	sizeParts[1] = size - sizeParts[0];
+
+	size_t activeBufferSize = m_activeBufferSize;
+	unsigned char *pPopPointer = m_pPopPointer;
+	{
+		_PopData(pData, sizeParts[0]);
+		_PopData(pData + sizeParts[0], sizeParts[1]);
+	}
+	m_activeBufferSize = activeBufferSize;
+	m_pPopPointer = pPopPointer;
+
+	return (int)size;
+}
+
 void CCacheBuffer::_PopData(unsigned char *pData, size_t size)
 {
 	memcpy(pData, m_pPopPointer, size);

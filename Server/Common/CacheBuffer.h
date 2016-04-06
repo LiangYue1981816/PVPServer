@@ -36,6 +36,7 @@ public:
 
 	int PushData(unsigned char *pData, size_t size);                                               // 压入数据
 	int PopData(unsigned char *pData, size_t size);                                                // 弹出数据
+	int GetData(unsigned char *pData, size_t size);                                                // 获得数据
 
 protected:
 	void _PushData(unsigned char *pData, size_t size);                                             // 压入数据
