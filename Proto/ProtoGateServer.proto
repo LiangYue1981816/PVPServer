@@ -43,8 +43,8 @@ message ListGameServer
 	{
 		required string ip = 1;
 		required int32 port = 2;
-		required int32 maxGames = 3;
-		required int32 curGames = 4;
+		required int32 curGames = 3;
+		required int32 maxGames = 4;
 	}
 	
 	required ERROR_CODE err = 1;

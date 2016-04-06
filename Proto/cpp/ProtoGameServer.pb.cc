@@ -56,6 +56,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* ServerStatus_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   ServerStatus_reflection_ = NULL;
+const ::google::protobuf::Descriptor* ServerStatus_Game_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  ServerStatus_Game_reflection_ = NULL;
 const ::google::protobuf::EnumDescriptor* VERSION_NUMBER_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* FLAGS_CODE_descriptor_ = NULL;
 const ::google::protobuf::EnumDescriptor* ERROR_CODE_descriptor_ = NULL;
@@ -250,11 +253,12 @@ void protobuf_AssignDesc_ProtoGameServer_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SendToPlayer));
   ServerStatus_descriptor_ = file->message_type(10);
-  static const int ServerStatus_offsets_[4] = {
+  static const int ServerStatus_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus, ip_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus, port_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus, maxgames_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus, curgames_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus, maxgames_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus, games_),
   };
   ServerStatus_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -267,6 +271,24 @@ void protobuf_AssignDesc_ProtoGameServer_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ServerStatus));
+  ServerStatus_Game_descriptor_ = ServerStatus_descriptor_->nested_type(0);
+  static const int ServerStatus_Game_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus_Game, gameid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus_Game, mode_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus_Game, map_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus_Game, evaluation_),
+  };
+  ServerStatus_Game_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      ServerStatus_Game_descriptor_,
+      ServerStatus_Game::default_instance_,
+      ServerStatus_Game_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus_Game, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus_Game, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(ServerStatus_Game));
   VERSION_NUMBER_descriptor_ = file->enum_type(0);
   FLAGS_CODE_descriptor_ = file->enum_type(1);
   ERROR_CODE_descriptor_ = file->enum_type(2);
@@ -308,6 +330,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
     SendToPlayer_descriptor_, &SendToPlayer::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     ServerStatus_descriptor_, &ServerStatus::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    ServerStatus_Game_descriptor_, &ServerStatus_Game::default_instance());
 }
 
 }  // namespace
@@ -337,6 +361,8 @@ void protobuf_ShutdownFile_ProtoGameServer_2eproto() {
   delete SendToPlayer_reflection_;
   delete ServerStatus::default_instance_;
   delete ServerStatus_reflection_;
+  delete ServerStatus_Game::default_instance_;
+  delete ServerStatus_Game_reflection_;
 }
 
 void protobuf_AddDesc_ProtoGameServer_2eproto() {
@@ -364,29 +390,32 @@ void protobuf_AddDesc_ProtoGameServer_2eproto() {
     "d\030\002 \001(\r\022\016\n\006gameid\030\003 \001(\r\"B\n\010ExitGame\022(\n\003e"
     "rr\030\001 \002(\0162\033.ProtoGameServer.ERROR_CODE\022\014\n"
     "\004guid\030\002 \001(\r\"*\n\014SendToPlayer\022\014\n\004size\030\001 \002("
-    "\005\022\014\n\004data\030\002 \002(\014\"L\n\014ServerStatus\022\n\n\002ip\030\001 "
-    "\002(\t\022\014\n\004port\030\002 \002(\005\022\020\n\010maxGames\030\003 \002(\005\022\020\n\010c"
-    "urGames\030\004 \002(\005*\037\n\016VERSION_NUMBER\022\r\n\007VERSI"
-    "ON\020\200\200\004*\206\001\n\nFLAGS_CODE\022\025\n\021PLAYER_FLAGS_NO"
-    "NE\020\000\022\026\n\022PLAYER_FLAGS_LOGIN\020\001\022\030\n\024PLAYER_F"
-    "LAGS_WAITING\020\002\022\026\n\022PLAYER_FLAGS_READY\020\004\022\027"
-    "\n\023PLAYER_FLAGS_GAMING\020\010*\250\003\n\nERROR_CODE\022\014"
-    "\n\010ERR_NONE\020\000\022\027\n\023ERR_VERSION_INVALID\020\001\022\027\n"
-    "\022ERR_PLAYER_INVALID\020\350\007\022\034\n\027ERR_PLAYER_INV"
-    "ALID_GUID\020\351\007\022\036\n\031ERR_PLAYER_FLAGS_NOT_NON"
-    "E\020\352\007\022\037\n\032ERR_PLAYER_FLAGS_NOT_LOGIN\020\353\007\022 \n"
-    "\033ERR_PLAYER_FLAGS_NOT_INGAME\020\354\007\022\034\n\027ERR_P"
-    "LAYER_FLAGS_INGAME\020\355\007\022\025\n\020ERR_GAME_INVALI"
-    "D\020\320\017\022\030\n\023ERR_GAME_INVALID_ID\020\321\017\022\023\n\016ERR_GA"
-    "ME_USING\020\322\017\022\023\n\016ERR_GAME_EMPTY\020\323\017\022\022\n\rERR_"
-    "GAME_FULL\020\324\017\022\026\n\021ERR_GAME_PASSWORD\020\325\017\022\024\n\017"
-    "ERR_SERVER_FULL\020\270\027\022\036\n\031ERR_GAMEPLAY_INVAL"
-    "ID_MODE\020\240\037*\250\001\n\014RESPONSE_MSG\022\n\n\005HEART\020\350\007\022"
-    "\n\n\005FLAGS\020\351\007\022\n\n\005LOGIN\020\352\007\022\t\n\004HOST\020\353\007\022\016\n\tLI"
-    "ST_GAME\020\354\007\022\020\n\013CREATE_GAME\020\355\007\022\021\n\014DESTROY_"
-    "GAME\020\356\007\022\017\n\nENTER_GAME\020\357\007\022\016\n\tEXIT_GAME\020\360\007"
-    "\022\023\n\016SEND_TO_PLAYER\020\361\007*!\n\013REQUEST_MSG\022\022\n\r"
-    "SERVER_STATUS\020\320\017B\002H\001", 1620);
+    "\005\022\014\n\004data\030\002 \002(\014\"\306\001\n\014ServerStatus\022\n\n\002ip\030\001"
+    " \002(\t\022\014\n\004port\030\002 \002(\005\022\020\n\010curGames\030\003 \002(\005\022\020\n\010"
+    "maxGames\030\004 \002(\005\0221\n\005games\030\005 \003(\0132\".ProtoGam"
+    "eServer.ServerStatus.Game\032E\n\004Game\022\016\n\006gam"
+    "eid\030\001 \002(\005\022\014\n\004mode\030\002 \002(\005\022\013\n\003map\030\003 \002(\005\022\022\n\n"
+    "evaluation\030\004 \002(\002*\037\n\016VERSION_NUMBER\022\r\n\007VE"
+    "RSION\020\200\200\004*\206\001\n\nFLAGS_CODE\022\025\n\021PLAYER_FLAGS"
+    "_NONE\020\000\022\026\n\022PLAYER_FLAGS_LOGIN\020\001\022\030\n\024PLAYE"
+    "R_FLAGS_WAITING\020\002\022\026\n\022PLAYER_FLAGS_READY\020"
+    "\004\022\027\n\023PLAYER_FLAGS_GAMING\020\010*\250\003\n\nERROR_COD"
+    "E\022\014\n\010ERR_NONE\020\000\022\027\n\023ERR_VERSION_INVALID\020\001"
+    "\022\027\n\022ERR_PLAYER_INVALID\020\350\007\022\034\n\027ERR_PLAYER_"
+    "INVALID_GUID\020\351\007\022\036\n\031ERR_PLAYER_FLAGS_NOT_"
+    "NONE\020\352\007\022\037\n\032ERR_PLAYER_FLAGS_NOT_LOGIN\020\353\007"
+    "\022 \n\033ERR_PLAYER_FLAGS_NOT_INGAME\020\354\007\022\034\n\027ER"
+    "R_PLAYER_FLAGS_INGAME\020\355\007\022\025\n\020ERR_GAME_INV"
+    "ALID\020\320\017\022\030\n\023ERR_GAME_INVALID_ID\020\321\017\022\023\n\016ERR"
+    "_GAME_USING\020\322\017\022\023\n\016ERR_GAME_EMPTY\020\323\017\022\022\n\rE"
+    "RR_GAME_FULL\020\324\017\022\026\n\021ERR_GAME_PASSWORD\020\325\017\022"
+    "\024\n\017ERR_SERVER_FULL\020\270\027\022\036\n\031ERR_GAMEPLAY_IN"
+    "VALID_MODE\020\240\037*\250\001\n\014RESPONSE_MSG\022\n\n\005HEART\020"
+    "\350\007\022\n\n\005FLAGS\020\351\007\022\n\n\005LOGIN\020\352\007\022\t\n\004HOST\020\353\007\022\016\n"
+    "\tLIST_GAME\020\354\007\022\020\n\013CREATE_GAME\020\355\007\022\021\n\014DESTR"
+    "OY_GAME\020\356\007\022\017\n\nENTER_GAME\020\357\007\022\016\n\tEXIT_GAME"
+    "\020\360\007\022\023\n\016SEND_TO_PLAYER\020\361\007*!\n\013REQUEST_MSG\022"
+    "\022\n\rSERVER_STATUS\020\320\017B\002H\001", 1743);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGameServer.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -401,6 +430,7 @@ void protobuf_AddDesc_ProtoGameServer_2eproto() {
   ExitGame::default_instance_ = new ExitGame();
   SendToPlayer::default_instance_ = new SendToPlayer();
   ServerStatus::default_instance_ = new ServerStatus();
+  ServerStatus_Game::default_instance_ = new ServerStatus_Game();
   Heart::default_instance_->InitAsDefaultInstance();
   Flags::default_instance_->InitAsDefaultInstance();
   Login::default_instance_->InitAsDefaultInstance();
@@ -413,6 +443,7 @@ void protobuf_AddDesc_ProtoGameServer_2eproto() {
   ExitGame::default_instance_->InitAsDefaultInstance();
   SendToPlayer::default_instance_->InitAsDefaultInstance();
   ServerStatus::default_instance_->InitAsDefaultInstance();
+  ServerStatus_Game::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_ProtoGameServer_2eproto);
 }
 
@@ -3584,10 +3615,360 @@ void SendToPlayer::Swap(SendToPlayer* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int ServerStatus_Game::kGameidFieldNumber;
+const int ServerStatus_Game::kModeFieldNumber;
+const int ServerStatus_Game::kMapFieldNumber;
+const int ServerStatus_Game::kEvaluationFieldNumber;
+#endif  // !_MSC_VER
+
+ServerStatus_Game::ServerStatus_Game()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:ProtoGameServer.ServerStatus.Game)
+}
+
+void ServerStatus_Game::InitAsDefaultInstance() {
+}
+
+ServerStatus_Game::ServerStatus_Game(const ServerStatus_Game& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:ProtoGameServer.ServerStatus.Game)
+}
+
+void ServerStatus_Game::SharedCtor() {
+  _cached_size_ = 0;
+  gameid_ = 0;
+  mode_ = 0;
+  map_ = 0;
+  evaluation_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+ServerStatus_Game::~ServerStatus_Game() {
+  // @@protoc_insertion_point(destructor:ProtoGameServer.ServerStatus.Game)
+  SharedDtor();
+}
+
+void ServerStatus_Game::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void ServerStatus_Game::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* ServerStatus_Game::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ServerStatus_Game_descriptor_;
+}
+
+const ServerStatus_Game& ServerStatus_Game::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_ProtoGameServer_2eproto();
+  return *default_instance_;
+}
+
+ServerStatus_Game* ServerStatus_Game::default_instance_ = NULL;
+
+ServerStatus_Game* ServerStatus_Game::New() const {
+  return new ServerStatus_Game;
+}
+
+void ServerStatus_Game::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<ServerStatus_Game*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  ZR_(gameid_, evaluation_);
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ServerStatus_Game::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:ProtoGameServer.ServerStatus.Game)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required int32 gameid = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &gameid_)));
+          set_has_gameid();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_mode;
+        break;
+      }
+
+      // required int32 mode = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_mode:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &mode_)));
+          set_has_mode();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_map;
+        break;
+      }
+
+      // required int32 map = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_map:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &map_)));
+          set_has_map();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(37)) goto parse_evaluation;
+        break;
+      }
+
+      // required float evaluation = 4;
+      case 4: {
+        if (tag == 37) {
+         parse_evaluation:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &evaluation_)));
+          set_has_evaluation();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:ProtoGameServer.ServerStatus.Game)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:ProtoGameServer.ServerStatus.Game)
+  return false;
+#undef DO_
+}
+
+void ServerStatus_Game::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:ProtoGameServer.ServerStatus.Game)
+  // required int32 gameid = 1;
+  if (has_gameid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->gameid(), output);
+  }
+
+  // required int32 mode = 2;
+  if (has_mode()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->mode(), output);
+  }
+
+  // required int32 map = 3;
+  if (has_map()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->map(), output);
+  }
+
+  // required float evaluation = 4;
+  if (has_evaluation()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(4, this->evaluation(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:ProtoGameServer.ServerStatus.Game)
+}
+
+::google::protobuf::uint8* ServerStatus_Game::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGameServer.ServerStatus.Game)
+  // required int32 gameid = 1;
+  if (has_gameid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->gameid(), target);
+  }
+
+  // required int32 mode = 2;
+  if (has_mode()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->mode(), target);
+  }
+
+  // required int32 map = 3;
+  if (has_map()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->map(), target);
+  }
+
+  // required float evaluation = 4;
+  if (has_evaluation()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(4, this->evaluation(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGameServer.ServerStatus.Game)
+  return target;
+}
+
+int ServerStatus_Game::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required int32 gameid = 1;
+    if (has_gameid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->gameid());
+    }
+
+    // required int32 mode = 2;
+    if (has_mode()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->mode());
+    }
+
+    // required int32 map = 3;
+    if (has_map()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->map());
+    }
+
+    // required float evaluation = 4;
+    if (has_evaluation()) {
+      total_size += 1 + 4;
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ServerStatus_Game::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ServerStatus_Game* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ServerStatus_Game*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ServerStatus_Game::MergeFrom(const ServerStatus_Game& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_gameid()) {
+      set_gameid(from.gameid());
+    }
+    if (from.has_mode()) {
+      set_mode(from.mode());
+    }
+    if (from.has_map()) {
+      set_map(from.map());
+    }
+    if (from.has_evaluation()) {
+      set_evaluation(from.evaluation());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ServerStatus_Game::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ServerStatus_Game::CopyFrom(const ServerStatus_Game& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ServerStatus_Game::IsInitialized() const {
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+
+  return true;
+}
+
+void ServerStatus_Game::Swap(ServerStatus_Game* other) {
+  if (other != this) {
+    std::swap(gameid_, other->gameid_);
+    std::swap(mode_, other->mode_);
+    std::swap(map_, other->map_);
+    std::swap(evaluation_, other->evaluation_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata ServerStatus_Game::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = ServerStatus_Game_descriptor_;
+  metadata.reflection = ServerStatus_Game_reflection_;
+  return metadata;
+}
+
+
+// -------------------------------------------------------------------
+
+#ifndef _MSC_VER
 const int ServerStatus::kIpFieldNumber;
 const int ServerStatus::kPortFieldNumber;
-const int ServerStatus::kMaxGamesFieldNumber;
 const int ServerStatus::kCurGamesFieldNumber;
+const int ServerStatus::kMaxGamesFieldNumber;
+const int ServerStatus::kGamesFieldNumber;
 #endif  // !_MSC_VER
 
 ServerStatus::ServerStatus()
@@ -3611,8 +3992,8 @@ void ServerStatus::SharedCtor() {
   _cached_size_ = 0;
   ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   port_ = 0;
-  maxgames_ = 0;
   curgames_ = 0;
+  maxgames_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -3668,11 +4049,13 @@ void ServerStatus::Clear() {
         ip_->clear();
       }
     }
+    maxgames_ = 0;
   }
 
 #undef OFFSET_OF_FIELD_
 #undef ZR_
 
+  games_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -3714,28 +4097,13 @@ bool ServerStatus::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_maxGames;
+        if (input->ExpectTag(24)) goto parse_curGames;
         break;
       }
 
-      // required int32 maxGames = 3;
+      // required int32 curGames = 3;
       case 3: {
         if (tag == 24) {
-         parse_maxGames:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &maxgames_)));
-          set_has_maxgames();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(32)) goto parse_curGames;
-        break;
-      }
-
-      // required int32 curGames = 4;
-      case 4: {
-        if (tag == 32) {
          parse_curGames:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -3744,6 +4112,35 @@ bool ServerStatus::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(32)) goto parse_maxGames;
+        break;
+      }
+
+      // required int32 maxGames = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_maxGames:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &maxgames_)));
+          set_has_maxgames();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_games;
+        break;
+      }
+
+      // repeated .ProtoGameServer.ServerStatus.Game games = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_games:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_games()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_games;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -3788,14 +4185,20 @@ void ServerStatus::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->port(), output);
   }
 
-  // required int32 maxGames = 3;
-  if (has_maxgames()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->maxgames(), output);
+  // required int32 curGames = 3;
+  if (has_curgames()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->curgames(), output);
   }
 
-  // required int32 curGames = 4;
-  if (has_curgames()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->curgames(), output);
+  // required int32 maxGames = 4;
+  if (has_maxgames()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->maxgames(), output);
+  }
+
+  // repeated .ProtoGameServer.ServerStatus.Game games = 5;
+  for (int i = 0; i < this->games_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      5, this->games(i), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -3824,14 +4227,21 @@ void ServerStatus::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->port(), target);
   }
 
-  // required int32 maxGames = 3;
-  if (has_maxgames()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->maxgames(), target);
+  // required int32 curGames = 3;
+  if (has_curgames()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->curgames(), target);
   }
 
-  // required int32 curGames = 4;
-  if (has_curgames()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->curgames(), target);
+  // required int32 maxGames = 4;
+  if (has_maxgames()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->maxgames(), target);
+  }
+
+  // repeated .ProtoGameServer.ServerStatus.Game games = 5;
+  for (int i = 0; i < this->games_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        5, this->games(i), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -3860,21 +4270,29 @@ int ServerStatus::ByteSize() const {
           this->port());
     }
 
-    // required int32 maxGames = 3;
-    if (has_maxgames()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->maxgames());
-    }
-
-    // required int32 curGames = 4;
+    // required int32 curGames = 3;
     if (has_curgames()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->curgames());
     }
 
+    // required int32 maxGames = 4;
+    if (has_maxgames()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->maxgames());
+    }
+
   }
+  // repeated .ProtoGameServer.ServerStatus.Game games = 5;
+  total_size += 1 * this->games_size();
+  for (int i = 0; i < this->games_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->games(i));
+  }
+
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -3900,6 +4318,7 @@ void ServerStatus::MergeFrom(const ::google::protobuf::Message& from) {
 
 void ServerStatus::MergeFrom(const ServerStatus& from) {
   GOOGLE_CHECK_NE(&from, this);
+  games_.MergeFrom(from.games_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_ip()) {
       set_ip(from.ip());
@@ -3907,11 +4326,11 @@ void ServerStatus::MergeFrom(const ServerStatus& from) {
     if (from.has_port()) {
       set_port(from.port());
     }
-    if (from.has_maxgames()) {
-      set_maxgames(from.maxgames());
-    }
     if (from.has_curgames()) {
       set_curgames(from.curgames());
+    }
+    if (from.has_maxgames()) {
+      set_maxgames(from.maxgames());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -3932,6 +4351,7 @@ void ServerStatus::CopyFrom(const ServerStatus& from) {
 bool ServerStatus::IsInitialized() const {
   if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
 
+  if (!::google::protobuf::internal::AllAreInitialized(this->games())) return false;
   return true;
 }
 
@@ -3939,8 +4359,9 @@ void ServerStatus::Swap(ServerStatus* other) {
   if (other != this) {
     std::swap(ip_, other->ip_);
     std::swap(port_, other->port_);
-    std::swap(maxgames_, other->maxgames_);
     std::swap(curgames_, other->curgames_);
+    std::swap(maxgames_, other->maxgames_);
+    games_.Swap(&other->games_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

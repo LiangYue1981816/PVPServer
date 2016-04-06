@@ -46,6 +46,7 @@ class EnterGame;
 class ExitGame;
 class SendToPlayer;
 class ServerStatus;
+class ServerStatus_Game;
 
 enum VERSION_NUMBER {
   VERSION = 65536
@@ -1176,6 +1177,115 @@ class SendToPlayer : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
+class ServerStatus_Game : public ::google::protobuf::Message {
+ public:
+  ServerStatus_Game();
+  virtual ~ServerStatus_Game();
+
+  ServerStatus_Game(const ServerStatus_Game& from);
+
+  inline ServerStatus_Game& operator=(const ServerStatus_Game& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ServerStatus_Game& default_instance();
+
+  void Swap(ServerStatus_Game* other);
+
+  // implements Message ----------------------------------------------
+
+  ServerStatus_Game* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ServerStatus_Game& from);
+  void MergeFrom(const ServerStatus_Game& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required int32 gameid = 1;
+  inline bool has_gameid() const;
+  inline void clear_gameid();
+  static const int kGameidFieldNumber = 1;
+  inline ::google::protobuf::int32 gameid() const;
+  inline void set_gameid(::google::protobuf::int32 value);
+
+  // required int32 mode = 2;
+  inline bool has_mode() const;
+  inline void clear_mode();
+  static const int kModeFieldNumber = 2;
+  inline ::google::protobuf::int32 mode() const;
+  inline void set_mode(::google::protobuf::int32 value);
+
+  // required int32 map = 3;
+  inline bool has_map() const;
+  inline void clear_map();
+  static const int kMapFieldNumber = 3;
+  inline ::google::protobuf::int32 map() const;
+  inline void set_map(::google::protobuf::int32 value);
+
+  // required float evaluation = 4;
+  inline bool has_evaluation() const;
+  inline void clear_evaluation();
+  static const int kEvaluationFieldNumber = 4;
+  inline float evaluation() const;
+  inline void set_evaluation(float value);
+
+  // @@protoc_insertion_point(class_scope:ProtoGameServer.ServerStatus.Game)
+ private:
+  inline void set_has_gameid();
+  inline void clear_has_gameid();
+  inline void set_has_mode();
+  inline void clear_has_mode();
+  inline void set_has_map();
+  inline void clear_has_map();
+  inline void set_has_evaluation();
+  inline void clear_has_evaluation();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::google::protobuf::int32 gameid_;
+  ::google::protobuf::int32 mode_;
+  ::google::protobuf::int32 map_;
+  float evaluation_;
+  friend void  protobuf_AddDesc_ProtoGameServer_2eproto();
+  friend void protobuf_AssignDesc_ProtoGameServer_2eproto();
+  friend void protobuf_ShutdownFile_ProtoGameServer_2eproto();
+
+  void InitAsDefaultInstance();
+  static ServerStatus_Game* default_instance_;
+};
+// -------------------------------------------------------------------
+
 class ServerStatus : public ::google::protobuf::Message {
  public:
   ServerStatus();
@@ -1227,6 +1337,8 @@ class ServerStatus : public ::google::protobuf::Message {
 
   // nested types ----------------------------------------------------
 
+  typedef ServerStatus_Game Game;
+
   // accessors -------------------------------------------------------
 
   // required string ip = 1;
@@ -1248,19 +1360,31 @@ class ServerStatus : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 port() const;
   inline void set_port(::google::protobuf::int32 value);
 
-  // required int32 maxGames = 3;
+  // required int32 curGames = 3;
+  inline bool has_curgames() const;
+  inline void clear_curgames();
+  static const int kCurGamesFieldNumber = 3;
+  inline ::google::protobuf::int32 curgames() const;
+  inline void set_curgames(::google::protobuf::int32 value);
+
+  // required int32 maxGames = 4;
   inline bool has_maxgames() const;
   inline void clear_maxgames();
-  static const int kMaxGamesFieldNumber = 3;
+  static const int kMaxGamesFieldNumber = 4;
   inline ::google::protobuf::int32 maxgames() const;
   inline void set_maxgames(::google::protobuf::int32 value);
 
-  // required int32 curGames = 4;
-  inline bool has_curgames() const;
-  inline void clear_curgames();
-  static const int kCurGamesFieldNumber = 4;
-  inline ::google::protobuf::int32 curgames() const;
-  inline void set_curgames(::google::protobuf::int32 value);
+  // repeated .ProtoGameServer.ServerStatus.Game games = 5;
+  inline int games_size() const;
+  inline void clear_games();
+  static const int kGamesFieldNumber = 5;
+  inline const ::ProtoGameServer::ServerStatus_Game& games(int index) const;
+  inline ::ProtoGameServer::ServerStatus_Game* mutable_games(int index);
+  inline ::ProtoGameServer::ServerStatus_Game* add_games();
+  inline const ::google::protobuf::RepeatedPtrField< ::ProtoGameServer::ServerStatus_Game >&
+      games() const;
+  inline ::google::protobuf::RepeatedPtrField< ::ProtoGameServer::ServerStatus_Game >*
+      mutable_games();
 
   // @@protoc_insertion_point(class_scope:ProtoGameServer.ServerStatus)
  private:
@@ -1268,10 +1392,10 @@ class ServerStatus : public ::google::protobuf::Message {
   inline void clear_has_ip();
   inline void set_has_port();
   inline void clear_has_port();
-  inline void set_has_maxgames();
-  inline void clear_has_maxgames();
   inline void set_has_curgames();
   inline void clear_has_curgames();
+  inline void set_has_maxgames();
+  inline void clear_has_maxgames();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -1279,8 +1403,9 @@ class ServerStatus : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::std::string* ip_;
   ::google::protobuf::int32 port_;
-  ::google::protobuf::int32 maxgames_;
   ::google::protobuf::int32 curgames_;
+  ::google::protobuf::RepeatedPtrField< ::ProtoGameServer::ServerStatus_Game > games_;
+  ::google::protobuf::int32 maxgames_;
   friend void  protobuf_AddDesc_ProtoGameServer_2eproto();
   friend void protobuf_AssignDesc_ProtoGameServer_2eproto();
   friend void protobuf_ShutdownFile_ProtoGameServer_2eproto();
@@ -1977,6 +2102,106 @@ inline void SendToPlayer::set_allocated_data(::std::string* data) {
 
 // -------------------------------------------------------------------
 
+// ServerStatus_Game
+
+// required int32 gameid = 1;
+inline bool ServerStatus_Game::has_gameid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ServerStatus_Game::set_has_gameid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ServerStatus_Game::clear_has_gameid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ServerStatus_Game::clear_gameid() {
+  gameid_ = 0;
+  clear_has_gameid();
+}
+inline ::google::protobuf::int32 ServerStatus_Game::gameid() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ServerStatus.Game.gameid)
+  return gameid_;
+}
+inline void ServerStatus_Game::set_gameid(::google::protobuf::int32 value) {
+  set_has_gameid();
+  gameid_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.Game.gameid)
+}
+
+// required int32 mode = 2;
+inline bool ServerStatus_Game::has_mode() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ServerStatus_Game::set_has_mode() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ServerStatus_Game::clear_has_mode() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ServerStatus_Game::clear_mode() {
+  mode_ = 0;
+  clear_has_mode();
+}
+inline ::google::protobuf::int32 ServerStatus_Game::mode() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ServerStatus.Game.mode)
+  return mode_;
+}
+inline void ServerStatus_Game::set_mode(::google::protobuf::int32 value) {
+  set_has_mode();
+  mode_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.Game.mode)
+}
+
+// required int32 map = 3;
+inline bool ServerStatus_Game::has_map() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ServerStatus_Game::set_has_map() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ServerStatus_Game::clear_has_map() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ServerStatus_Game::clear_map() {
+  map_ = 0;
+  clear_has_map();
+}
+inline ::google::protobuf::int32 ServerStatus_Game::map() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ServerStatus.Game.map)
+  return map_;
+}
+inline void ServerStatus_Game::set_map(::google::protobuf::int32 value) {
+  set_has_map();
+  map_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.Game.map)
+}
+
+// required float evaluation = 4;
+inline bool ServerStatus_Game::has_evaluation() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void ServerStatus_Game::set_has_evaluation() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void ServerStatus_Game::clear_has_evaluation() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void ServerStatus_Game::clear_evaluation() {
+  evaluation_ = 0;
+  clear_has_evaluation();
+}
+inline float ServerStatus_Game::evaluation() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ServerStatus.Game.evaluation)
+  return evaluation_;
+}
+inline void ServerStatus_Game::set_evaluation(float value) {
+  set_has_evaluation();
+  evaluation_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.Game.evaluation)
+}
+
+// -------------------------------------------------------------------
+
 // ServerStatus
 
 // required string ip = 1;
@@ -2079,15 +2304,39 @@ inline void ServerStatus::set_port(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.port)
 }
 
-// required int32 maxGames = 3;
-inline bool ServerStatus::has_maxgames() const {
+// required int32 curGames = 3;
+inline bool ServerStatus::has_curgames() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void ServerStatus::set_has_maxgames() {
+inline void ServerStatus::set_has_curgames() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void ServerStatus::clear_has_maxgames() {
+inline void ServerStatus::clear_has_curgames() {
   _has_bits_[0] &= ~0x00000004u;
+}
+inline void ServerStatus::clear_curgames() {
+  curgames_ = 0;
+  clear_has_curgames();
+}
+inline ::google::protobuf::int32 ServerStatus::curgames() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ServerStatus.curGames)
+  return curgames_;
+}
+inline void ServerStatus::set_curgames(::google::protobuf::int32 value) {
+  set_has_curgames();
+  curgames_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.curGames)
+}
+
+// required int32 maxGames = 4;
+inline bool ServerStatus::has_maxgames() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void ServerStatus::set_has_maxgames() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void ServerStatus::clear_has_maxgames() {
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void ServerStatus::clear_maxgames() {
   maxgames_ = 0;
@@ -2103,28 +2352,34 @@ inline void ServerStatus::set_maxgames(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.maxGames)
 }
 
-// required int32 curGames = 4;
-inline bool ServerStatus::has_curgames() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+// repeated .ProtoGameServer.ServerStatus.Game games = 5;
+inline int ServerStatus::games_size() const {
+  return games_.size();
 }
-inline void ServerStatus::set_has_curgames() {
-  _has_bits_[0] |= 0x00000008u;
+inline void ServerStatus::clear_games() {
+  games_.Clear();
 }
-inline void ServerStatus::clear_has_curgames() {
-  _has_bits_[0] &= ~0x00000008u;
+inline const ::ProtoGameServer::ServerStatus_Game& ServerStatus::games(int index) const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ServerStatus.games)
+  return games_.Get(index);
 }
-inline void ServerStatus::clear_curgames() {
-  curgames_ = 0;
-  clear_has_curgames();
+inline ::ProtoGameServer::ServerStatus_Game* ServerStatus::mutable_games(int index) {
+  // @@protoc_insertion_point(field_mutable:ProtoGameServer.ServerStatus.games)
+  return games_.Mutable(index);
 }
-inline ::google::protobuf::int32 ServerStatus::curgames() const {
-  // @@protoc_insertion_point(field_get:ProtoGameServer.ServerStatus.curGames)
-  return curgames_;
+inline ::ProtoGameServer::ServerStatus_Game* ServerStatus::add_games() {
+  // @@protoc_insertion_point(field_add:ProtoGameServer.ServerStatus.games)
+  return games_.Add();
 }
-inline void ServerStatus::set_curgames(::google::protobuf::int32 value) {
-  set_has_curgames();
-  curgames_ = value;
-  // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.curGames)
+inline const ::google::protobuf::RepeatedPtrField< ::ProtoGameServer::ServerStatus_Game >&
+ServerStatus::games() const {
+  // @@protoc_insertion_point(field_list:ProtoGameServer.ServerStatus.games)
+  return games_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::ProtoGameServer::ServerStatus_Game >*
+ServerStatus::mutable_games() {
+  // @@protoc_insertion_point(field_mutable_list:ProtoGameServer.ServerStatus.games)
+  return &games_;
 }
 
 

@@ -19,10 +19,18 @@ class _ServerExport CGateServer : public CIOCPServer
 	// 数据结构
 public:
 	typedef struct {
+		int id;                                                                                    // 游戏ID
+		int mode;                                                                                  // 游戏模式
+		int mapid;                                                                                 // 游戏地图
+		float evaluation;                                                                          // 游戏评估
+	} GameStatus;
+
+	typedef struct {
 		char ip[260];                                                                              // 游戏服务器IP
 		int port;                                                                                  // 游戏服务器端口
-		int maxGames;                                                                              // 游戏服务器最大游戏数
 		int curGames;                                                                              // 游戏服务器当前游戏数
+		int maxGames;                                                                              // 游戏服务器最大游戏数
+		std::vector<GameStatus> games;                                                             // 游戏集合(可加入)
 	} GameServerStatus;
 
 	typedef std::map<DWORD, CIOContext*> GUIDMAP;                                                  // GUID映射表

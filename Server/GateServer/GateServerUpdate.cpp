@@ -214,8 +214,8 @@ void CGateServer::OnListGameServer(CIOContext *pContext, WORD size)
 		if (ProtoGateServer::ListGameServer_GameServer *pGameServer = responseListGameServer.add_servers()) {
 			pGameServer->set_ip(itGameServer->second.ip);
 			pGameServer->set_port(itGameServer->second.port);
-			pGameServer->set_maxgames(itGameServer->second.maxGames);
 			pGameServer->set_curgames(itGameServer->second.curGames);
+			pGameServer->set_maxgames(itGameServer->second.maxGames);
 		}
 	}
 
@@ -308,8 +308,18 @@ void CGateServer::OnGameServerStatus(CIOContext *pContext, WORD size)
 	//
 	strcpy(m_gameServerMap[pContext].ip, requestServerStatus.ip().c_str());
 	m_gameServerMap[pContext].port = requestServerStatus.port();
-	m_gameServerMap[pContext].maxGames = requestServerStatus.maxgames();
 	m_gameServerMap[pContext].curGames = requestServerStatus.curgames();
+	m_gameServerMap[pContext].maxGames = requestServerStatus.maxgames();
+
+	m_gameServerMap[pContext].games.clear();
+	for (int index = 0; index < requestServerStatus.games_size(); index++) {
+		GameStatus gameStatus;
+		gameStatus.id = requestServerStatus.games(index).gameid();
+		gameStatus.mode = requestServerStatus.games(index).mode();
+		gameStatus.mapid = requestServerStatus.games(index).map();
+		gameStatus.evaluation = requestServerStatus.games(index).evaluation();
+		m_gameServerMap[pContext].games.push_back(gameStatus);
+	}
 }
 
 //

@@ -41,8 +41,20 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 			{
 				requestServerStatus.set_ip(pServer->m_ip);
 				requestServerStatus.set_port(pServer->m_port);
-				requestServerStatus.set_maxgames(pServer->m_maxGames);
 				requestServerStatus.set_curgames(pServer->m_curGames);
+				requestServerStatus.set_maxgames(pServer->m_maxGames);
+
+				if (CGame *pGame = pServer->m_pActiveGame) {
+					do {
+						if (pGame->IsPrivate() == FALSE && pGame->IsFull() == FALSE) {
+							ProtoGameServer::ServerStatus_Game *pGameStatus = requestServerStatus.add_games();
+							pGameStatus->set_gameid(pGame->id);
+							pGameStatus->set_mode(pGame->GetMode());
+							pGameStatus->set_map(pGame->GetMapID());
+							pGameStatus->set_evaluation(pGame->GetEvaluation());
+						}
+					} while (pGame = pGame->pNextActive);
+				}
 			}
 			LeaveCriticalSection(&pServer->m_sectionContext);
 

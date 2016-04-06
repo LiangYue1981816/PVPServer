@@ -312,20 +312,65 @@ namespace ProtoGameServer
       get { return _port; }
       set { _port = value; }
     }
-    private int _maxGames;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"maxGames", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int maxGames
-    {
-      get { return _maxGames; }
-      set { _maxGames = value; }
-    }
     private int _curGames;
-    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"curGames", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"curGames", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int curGames
     {
       get { return _curGames; }
       set { _curGames = value; }
     }
+    private int _maxGames;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"maxGames", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int maxGames
+    {
+      get { return _maxGames; }
+      set { _maxGames = value; }
+    }
+    private readonly global::System.Collections.Generic.List<ProtoGameServer.ServerStatus.Game> _games = new global::System.Collections.Generic.List<ProtoGameServer.ServerStatus.Game>();
+    [global::ProtoBuf.ProtoMember(5, Name=@"games", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<ProtoGameServer.ServerStatus.Game> games
+    {
+      get { return _games; }
+    }
+  
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Game")]
+  public partial class Game : global::ProtoBuf.IExtensible
+  {
+    public Game() {}
+    
+    private int _gameid;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int gameid
+    {
+      get { return _gameid; }
+      set { _gameid = value; }
+    }
+    private int _mode;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"mode", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int mode
+    {
+      get { return _mode; }
+      set { _mode = value; }
+    }
+    private int _map;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"map", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int map
+    {
+      get { return _map; }
+      set { _map = value; }
+    }
+    private float _evaluation;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"evaluation", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    public float evaluation
+    {
+      get { return _evaluation; }
+      set { _evaluation = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
