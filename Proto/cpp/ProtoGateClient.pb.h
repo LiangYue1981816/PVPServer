@@ -383,18 +383,6 @@ class SendToPlayer : public ::google::protobuf::Message {
   inline ::std::string* release_data();
   inline void set_allocated_data(::std::string* data);
 
-  // repeated int32 players = 4;
-  inline int players_size() const;
-  inline void clear_players();
-  static const int kPlayersFieldNumber = 4;
-  inline ::google::protobuf::int32 players(int index) const;
-  inline void set_players(int index, ::google::protobuf::int32 value);
-  inline void add_players(::google::protobuf::int32 value);
-  inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-      players() const;
-  inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-      mutable_players();
-
   // @@protoc_insertion_point(class_scope:ProtoGateClient.SendToPlayer)
  private:
   inline void set_has_size();
@@ -408,7 +396,6 @@ class SendToPlayer : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::RepeatedField< ::google::protobuf::uint32 > guids_;
   ::std::string* data_;
-  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > players_;
   ::google::protobuf::int32 size_;
   friend void  protobuf_AddDesc_ProtoGateClient_2eproto();
   friend void protobuf_AssignDesc_ProtoGateClient_2eproto();
@@ -636,36 +623,6 @@ inline void SendToPlayer::set_allocated_data(::std::string* data) {
     data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:ProtoGateClient.SendToPlayer.data)
-}
-
-// repeated int32 players = 4;
-inline int SendToPlayer::players_size() const {
-  return players_.size();
-}
-inline void SendToPlayer::clear_players() {
-  players_.Clear();
-}
-inline ::google::protobuf::int32 SendToPlayer::players(int index) const {
-  // @@protoc_insertion_point(field_get:ProtoGateClient.SendToPlayer.players)
-  return players_.Get(index);
-}
-inline void SendToPlayer::set_players(int index, ::google::protobuf::int32 value) {
-  players_.Set(index, value);
-  // @@protoc_insertion_point(field_set:ProtoGateClient.SendToPlayer.players)
-}
-inline void SendToPlayer::add_players(::google::protobuf::int32 value) {
-  players_.Add(value);
-  // @@protoc_insertion_point(field_add:ProtoGateClient.SendToPlayer.players)
-}
-inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
-SendToPlayer::players() const {
-  // @@protoc_insertion_point(field_list:ProtoGateClient.SendToPlayer.players)
-  return players_;
-}
-inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
-SendToPlayer::mutable_players() {
-  // @@protoc_insertion_point(field_mutable_list:ProtoGateClient.SendToPlayer.players)
-  return &players_;
 }
 
 

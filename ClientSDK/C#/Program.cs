@@ -459,7 +459,7 @@ class Program
                 responseListGame.games[indexGame].gameid,
                 responseListGame.games[indexGame].@private,
                 responseListGame.games[indexGame].mode,
-                responseListGame.games[indexGame].map,
+                responseListGame.games[indexGame].mapid,
                 responseListGame.games[indexGame].evaluation,
                 responseListGame.games[indexGame].curPlayers,
                 responseListGame.games[indexGame].maxPlayers));

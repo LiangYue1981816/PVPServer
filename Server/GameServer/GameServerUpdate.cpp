@@ -300,9 +300,9 @@ void CGameServer::OnListGame(CPlayer *pPlayer, WORD size)
 				pGameStatus->set_private_(pGame->IsPrivate() ? true : false);
 				pGameStatus->set_gameid(pGame->id);
 				pGameStatus->set_mode(pGame->GetMode());
-				pGameStatus->set_map(pGame->GetMapID());
-				pGameStatus->set_maxplayers(pGame->GetMaxPlayers());
+				pGameStatus->set_mapid(pGame->GetMapID());
 				pGameStatus->set_curplayers(pGame->GetCurPlayers());
+				pGameStatus->set_maxplayers(pGame->GetMaxPlayers());
 				pGameStatus->set_evaluation(pGame->GetEvaluation());
 			}
 		} while (pGame = pGame->pNextActive);
@@ -362,7 +362,7 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 		err = ProtoGameServer::ERROR_CODE::ERR_SERVER_FULL; goto ERR;
 	}
 
-	pGame->SetGame(requestCreateGame.password().c_str(), requestCreateGame.mode(), requestCreateGame.map(), requestCreateGame.maxplayers(), requestCreateGame.evaluation());
+	pGame->SetGame(requestCreateGame.password().c_str(), requestCreateGame.mode(), requestCreateGame.mapid(), requestCreateGame.maxplayers(), requestCreateGame.evaluation());
 	pGame->AddPlayer(pPlayer, requestCreateGame.password().c_str(), TRUE);
 
 	responseCreateGame.set_gameid(pGame->id);

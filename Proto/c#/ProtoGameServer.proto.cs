@@ -131,26 +131,26 @@ namespace ProtoGameServer
       get { return _mode; }
       set { _mode = value; }
     }
-    private int _map;
-    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"map", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int map
+    private int _mapid;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"mapid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int mapid
     {
-      get { return _map; }
-      set { _map = value; }
-    }
-    private int _maxPlayers;
-    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"maxPlayers", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int maxPlayers
-    {
-      get { return _maxPlayers; }
-      set { _maxPlayers = value; }
+      get { return _mapid; }
+      set { _mapid = value; }
     }
     private int _curPlayers;
-    [global::ProtoBuf.ProtoMember(6, IsRequired = true, Name=@"curPlayers", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"curPlayers", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int curPlayers
     {
       get { return _curPlayers; }
       set { _curPlayers = value; }
+    }
+    private int _maxPlayers;
+    [global::ProtoBuf.ProtoMember(6, IsRequired = true, Name=@"maxPlayers", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int maxPlayers
+    {
+      get { return _maxPlayers; }
+      set { _maxPlayers = value; }
     }
     private float _evaluation;
     [global::ProtoBuf.ProtoMember(7, IsRequired = true, Name=@"evaluation", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
@@ -352,12 +352,12 @@ namespace ProtoGameServer
       get { return _mode; }
       set { _mode = value; }
     }
-    private int _map;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"map", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int map
+    private int _mapid;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"mapid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int mapid
     {
-      get { return _map; }
-      set { _map = value; }
+      get { return _mapid; }
+      set { _mapid = value; }
     }
     private float _evaluation;
     [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"evaluation", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]

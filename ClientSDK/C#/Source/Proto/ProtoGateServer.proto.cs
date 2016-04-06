@@ -90,19 +90,19 @@ namespace ProtoGateServer
       get { return _port; }
       set { _port = value; }
     }
-    private int _maxGames;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"maxGames", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int maxGames
-    {
-      get { return _maxGames; }
-      set { _maxGames = value; }
-    }
     private int _curGames;
-    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"curGames", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"curGames", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int curGames
     {
       get { return _curGames; }
       set { _curGames = value; }
+    }
+    private int _maxGames;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"maxGames", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int maxGames
+    {
+      get { return _maxGames; }
+      set { _maxGames = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)

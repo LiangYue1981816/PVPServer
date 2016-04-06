@@ -89,11 +89,10 @@ void protobuf_AssignDesc_ProtoGateClient_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ListGameServer));
   SendToPlayer_descriptor_ = file->message_type(3);
-  static const int SendToPlayer_offsets_[4] = {
+  static const int SendToPlayer_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, guids_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, size_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, data_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, players_),
   };
   SendToPlayer_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -152,11 +151,10 @@ void protobuf_AddDesc_ProtoGateClient_2eproto() {
     "\n\025ProtoGateClient.proto\022\017ProtoGateClient"
     "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"&\n\005Login\022\014\n"
     "\004guid\030\001 \002(\r\022\017\n\007version\030\002 \002(\005\"\020\n\016ListGame"
-    "Server\"J\n\014SendToPlayer\022\r\n\005guids\030\001 \003(\r\022\014\n"
-    "\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014\022\017\n\007players\030\004 \003"
-    "(\005*Q\n\013REQUEST_MSG\022\n\n\005HEART\020\270\027\022\n\n\005LOGIN\020\271"
-    "\027\022\025\n\020LIST_GAME_SERVER\020\272\027\022\023\n\016SEND_TO_PLAY"
-    "ER\020\273\027B\002H\001", 289);
+    "Server\"9\n\014SendToPlayer\022\r\n\005guids\030\001 \003(\r\022\014\n"
+    "\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014*Q\n\013REQUEST_MSG"
+    "\022\n\n\005HEART\020\270\027\022\n\n\005LOGIN\020\271\027\022\025\n\020LIST_GAME_SE"
+    "RVER\020\272\027\022\023\n\016SEND_TO_PLAYER\020\273\027B\002H\001", 272);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGateClient.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -871,7 +869,6 @@ void ListGameServer::Swap(ListGameServer* other) {
 const int SendToPlayer::kGuidsFieldNumber;
 const int SendToPlayer::kSizeFieldNumber;
 const int SendToPlayer::kDataFieldNumber;
-const int SendToPlayer::kPlayersFieldNumber;
 #endif  // !_MSC_VER
 
 SendToPlayer::SendToPlayer()
@@ -942,7 +939,6 @@ void SendToPlayer::Clear() {
     }
   }
   guids_.Clear();
-  players_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -1000,25 +996,6 @@ bool SendToPlayer::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(32)) goto parse_players;
-        break;
-      }
-
-      // repeated int32 players = 4;
-      case 4: {
-        if (tag == 32) {
-         parse_players:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 1, 32, input, this->mutable_players())));
-        } else if (tag == 34) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, this->mutable_players())));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(32)) goto parse_players;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1065,12 +1042,6 @@ void SendToPlayer::SerializeWithCachedSizes(
       3, this->data(), output);
   }
 
-  // repeated int32 players = 4;
-  for (int i = 0; i < this->players_size(); i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(
-      4, this->players(i), output);
-  }
-
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1097,12 +1068,6 @@ void SendToPlayer::SerializeWithCachedSizes(
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         3, this->data(), target);
-  }
-
-  // repeated int32 players = 4;
-  for (int i = 0; i < this->players_size(); i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      WriteInt32ToArray(4, this->players(i), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1142,16 +1107,6 @@ int SendToPlayer::ByteSize() const {
     total_size += 1 * this->guids_size() + data_size;
   }
 
-  // repeated int32 players = 4;
-  {
-    int data_size = 0;
-    for (int i = 0; i < this->players_size(); i++) {
-      data_size += ::google::protobuf::internal::WireFormatLite::
-        Int32Size(this->players(i));
-    }
-    total_size += 1 * this->players_size() + data_size;
-  }
-
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -1178,7 +1133,6 @@ void SendToPlayer::MergeFrom(const ::google::protobuf::Message& from) {
 void SendToPlayer::MergeFrom(const SendToPlayer& from) {
   GOOGLE_CHECK_NE(&from, this);
   guids_.MergeFrom(from.guids_);
-  players_.MergeFrom(from.players_);
   if (from._has_bits_[1 / 32] & (0xffu << (1 % 32))) {
     if (from.has_size()) {
       set_size(from.size());
@@ -1213,7 +1167,6 @@ void SendToPlayer::Swap(SendToPlayer* other) {
     guids_.Swap(&other->guids_);
     std::swap(size_, other->size_);
     std::swap(data_, other->data_);
-    players_.Swap(&other->players_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

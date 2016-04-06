@@ -2,11 +2,11 @@
 
 public partial class ServerClient : NetClient
 {
-    public virtual void RequestCreateGame(string password, int mode, int map, int maxPlayers, float evaluation)
+    public virtual void RequestCreateGame(string password, int mode, int mapid, int maxPlayers, float evaluation)
     {
         mRequestCreateGame.password = password;
         mRequestCreateGame.mode = mode;
-        mRequestCreateGame.map = map;
+        mRequestCreateGame.mapid = mapid;
         mRequestCreateGame.maxPlayers = maxPlayers;
         mRequestCreateGame.evaluation = evaluation;
         SendProto(ProtoGameClient.REQUEST_MSG.CREATE_GAME, mRequestCreateGame);

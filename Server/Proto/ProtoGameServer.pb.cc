@@ -156,9 +156,9 @@ void protobuf_AssignDesc_ProtoGameServer_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGame_Game, private__),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGame_Game, gameid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGame_Game, mode_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGame_Game, map_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGame_Game, maxplayers_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGame_Game, mapid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGame_Game, curplayers_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGame_Game, maxplayers_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ListGame_Game, evaluation_),
   };
   ListGame_Game_reflection_ =
@@ -275,7 +275,7 @@ void protobuf_AssignDesc_ProtoGameServer_2eproto() {
   static const int ServerStatus_Game_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus_Game, gameid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus_Game, mode_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus_Game, map_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus_Game, mapid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ServerStatus_Game, evaluation_),
   };
   ServerStatus_Game_reflection_ =
@@ -376,46 +376,46 @@ void protobuf_AddDesc_ProtoGameServer_2eproto() {
     "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"\026\n\005Flags\022\r\n"
     "\005flags\030\001 \002(\r\"\?\n\005Login\022(\n\003err\030\001 \002(\0162\033.Pro"
     "toGameServer.ERROR_CODE\022\014\n\004guid\030\002 \001(\r\"\024\n"
-    "\004Host\022\014\n\004guid\030\001 \002(\r\"\343\001\n\010ListGame\022(\n\003err\030"
+    "\004Host\022\014\n\004guid\030\001 \002(\r\"\346\001\n\010ListGame\022(\n\003err\030"
     "\001 \002(\0162\033.ProtoGameServer.ERROR_CODE\022-\n\005ga"
     "mes\030\002 \003(\0132\036.ProtoGameServer.ListGame.Gam"
-    "e\032~\n\004Game\022\017\n\007private\030\001 \002(\010\022\016\n\006gameid\030\002 \002"
-    "(\005\022\014\n\004mode\030\003 \002(\005\022\013\n\003map\030\004 \002(\005\022\022\n\nmaxPlay"
-    "ers\030\005 \002(\005\022\022\n\ncurPlayers\030\006 \002(\005\022\022\n\nevaluat"
-    "ion\030\007 \002(\002\"F\n\nCreateGame\022(\n\003err\030\001 \002(\0162\033.P"
-    "rotoGameServer.ERROR_CODE\022\016\n\006gameid\030\002 \001("
-    "\r\"7\n\013DestroyGame\022(\n\003err\030\001 \002(\0162\033.ProtoGam"
-    "eServer.ERROR_CODE\"S\n\tEnterGame\022(\n\003err\030\001"
-    " \002(\0162\033.ProtoGameServer.ERROR_CODE\022\014\n\004gui"
-    "d\030\002 \001(\r\022\016\n\006gameid\030\003 \001(\r\"B\n\010ExitGame\022(\n\003e"
-    "rr\030\001 \002(\0162\033.ProtoGameServer.ERROR_CODE\022\014\n"
-    "\004guid\030\002 \001(\r\"*\n\014SendToPlayer\022\014\n\004size\030\001 \002("
-    "\005\022\014\n\004data\030\002 \002(\014\"\306\001\n\014ServerStatus\022\n\n\002ip\030\001"
-    " \002(\t\022\014\n\004port\030\002 \002(\005\022\020\n\010curGames\030\003 \002(\005\022\020\n\010"
-    "maxGames\030\004 \002(\005\0221\n\005games\030\005 \003(\0132\".ProtoGam"
-    "eServer.ServerStatus.Game\032E\n\004Game\022\016\n\006gam"
-    "eid\030\001 \002(\005\022\014\n\004mode\030\002 \002(\005\022\013\n\003map\030\003 \002(\005\022\022\n\n"
-    "evaluation\030\004 \002(\002*\037\n\016VERSION_NUMBER\022\r\n\007VE"
-    "RSION\020\200\200\004*\206\001\n\nFLAGS_CODE\022\025\n\021PLAYER_FLAGS"
-    "_NONE\020\000\022\026\n\022PLAYER_FLAGS_LOGIN\020\001\022\030\n\024PLAYE"
-    "R_FLAGS_WAITING\020\002\022\026\n\022PLAYER_FLAGS_READY\020"
-    "\004\022\027\n\023PLAYER_FLAGS_GAMING\020\010*\250\003\n\nERROR_COD"
-    "E\022\014\n\010ERR_NONE\020\000\022\027\n\023ERR_VERSION_INVALID\020\001"
-    "\022\027\n\022ERR_PLAYER_INVALID\020\350\007\022\034\n\027ERR_PLAYER_"
-    "INVALID_GUID\020\351\007\022\036\n\031ERR_PLAYER_FLAGS_NOT_"
-    "NONE\020\352\007\022\037\n\032ERR_PLAYER_FLAGS_NOT_LOGIN\020\353\007"
-    "\022 \n\033ERR_PLAYER_FLAGS_NOT_INGAME\020\354\007\022\034\n\027ER"
-    "R_PLAYER_FLAGS_INGAME\020\355\007\022\025\n\020ERR_GAME_INV"
-    "ALID\020\320\017\022\030\n\023ERR_GAME_INVALID_ID\020\321\017\022\023\n\016ERR"
-    "_GAME_USING\020\322\017\022\023\n\016ERR_GAME_EMPTY\020\323\017\022\022\n\rE"
-    "RR_GAME_FULL\020\324\017\022\026\n\021ERR_GAME_PASSWORD\020\325\017\022"
-    "\024\n\017ERR_SERVER_FULL\020\270\027\022\036\n\031ERR_GAMEPLAY_IN"
-    "VALID_MODE\020\240\037*\250\001\n\014RESPONSE_MSG\022\n\n\005HEART\020"
-    "\350\007\022\n\n\005FLAGS\020\351\007\022\n\n\005LOGIN\020\352\007\022\t\n\004HOST\020\353\007\022\016\n"
-    "\tLIST_GAME\020\354\007\022\020\n\013CREATE_GAME\020\355\007\022\021\n\014DESTR"
-    "OY_GAME\020\356\007\022\017\n\nENTER_GAME\020\357\007\022\016\n\tEXIT_GAME"
-    "\020\360\007\022\023\n\016SEND_TO_PLAYER\020\361\007*!\n\013REQUEST_MSG\022"
-    "\022\n\rSERVER_STATUS\020\320\017B\002H\001", 1743);
+    "e\032\200\001\n\004Game\022\017\n\007private\030\001 \002(\010\022\016\n\006gameid\030\002 "
+    "\002(\005\022\014\n\004mode\030\003 \002(\005\022\r\n\005mapid\030\004 \002(\005\022\022\n\ncurP"
+    "layers\030\005 \002(\005\022\022\n\nmaxPlayers\030\006 \002(\005\022\022\n\neval"
+    "uation\030\007 \002(\002\"F\n\nCreateGame\022(\n\003err\030\001 \002(\0162"
+    "\033.ProtoGameServer.ERROR_CODE\022\016\n\006gameid\030\002"
+    " \001(\r\"7\n\013DestroyGame\022(\n\003err\030\001 \002(\0162\033.Proto"
+    "GameServer.ERROR_CODE\"S\n\tEnterGame\022(\n\003er"
+    "r\030\001 \002(\0162\033.ProtoGameServer.ERROR_CODE\022\014\n\004"
+    "guid\030\002 \001(\r\022\016\n\006gameid\030\003 \001(\r\"B\n\010ExitGame\022("
+    "\n\003err\030\001 \002(\0162\033.ProtoGameServer.ERROR_CODE"
+    "\022\014\n\004guid\030\002 \001(\r\"*\n\014SendToPlayer\022\014\n\004size\030\001"
+    " \002(\005\022\014\n\004data\030\002 \002(\014\"\310\001\n\014ServerStatus\022\n\n\002i"
+    "p\030\001 \002(\t\022\014\n\004port\030\002 \002(\005\022\020\n\010curGames\030\003 \002(\005\022"
+    "\020\n\010maxGames\030\004 \002(\005\0221\n\005games\030\005 \003(\0132\".Proto"
+    "GameServer.ServerStatus.Game\032G\n\004Game\022\016\n\006"
+    "gameid\030\001 \002(\005\022\014\n\004mode\030\002 \002(\005\022\r\n\005mapid\030\003 \002("
+    "\005\022\022\n\nevaluation\030\004 \002(\002*\037\n\016VERSION_NUMBER\022"
+    "\r\n\007VERSION\020\200\200\004*\206\001\n\nFLAGS_CODE\022\025\n\021PLAYER_"
+    "FLAGS_NONE\020\000\022\026\n\022PLAYER_FLAGS_LOGIN\020\001\022\030\n\024"
+    "PLAYER_FLAGS_WAITING\020\002\022\026\n\022PLAYER_FLAGS_R"
+    "EADY\020\004\022\027\n\023PLAYER_FLAGS_GAMING\020\010*\250\003\n\nERRO"
+    "R_CODE\022\014\n\010ERR_NONE\020\000\022\027\n\023ERR_VERSION_INVA"
+    "LID\020\001\022\027\n\022ERR_PLAYER_INVALID\020\350\007\022\034\n\027ERR_PL"
+    "AYER_INVALID_GUID\020\351\007\022\036\n\031ERR_PLAYER_FLAGS"
+    "_NOT_NONE\020\352\007\022\037\n\032ERR_PLAYER_FLAGS_NOT_LOG"
+    "IN\020\353\007\022 \n\033ERR_PLAYER_FLAGS_NOT_INGAME\020\354\007\022"
+    "\034\n\027ERR_PLAYER_FLAGS_INGAME\020\355\007\022\025\n\020ERR_GAM"
+    "E_INVALID\020\320\017\022\030\n\023ERR_GAME_INVALID_ID\020\321\017\022\023"
+    "\n\016ERR_GAME_USING\020\322\017\022\023\n\016ERR_GAME_EMPTY\020\323\017"
+    "\022\022\n\rERR_GAME_FULL\020\324\017\022\026\n\021ERR_GAME_PASSWOR"
+    "D\020\325\017\022\024\n\017ERR_SERVER_FULL\020\270\027\022\036\n\031ERR_GAMEPL"
+    "AY_INVALID_MODE\020\240\037*\250\001\n\014RESPONSE_MSG\022\n\n\005H"
+    "EART\020\350\007\022\n\n\005FLAGS\020\351\007\022\n\n\005LOGIN\020\352\007\022\t\n\004HOST\020"
+    "\353\007\022\016\n\tLIST_GAME\020\354\007\022\020\n\013CREATE_GAME\020\355\007\022\021\n\014"
+    "DESTROY_GAME\020\356\007\022\017\n\nENTER_GAME\020\357\007\022\016\n\tEXIT"
+    "_GAME\020\360\007\022\023\n\016SEND_TO_PLAYER\020\361\007*!\n\013REQUEST"
+    "_MSG\022\022\n\rSERVER_STATUS\020\320\017B\002H\001", 1748);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGameServer.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -1503,9 +1503,9 @@ void Host::Swap(Host* other) {
 const int ListGame_Game::kPrivateFieldNumber;
 const int ListGame_Game::kGameidFieldNumber;
 const int ListGame_Game::kModeFieldNumber;
-const int ListGame_Game::kMapFieldNumber;
-const int ListGame_Game::kMaxPlayersFieldNumber;
+const int ListGame_Game::kMapidFieldNumber;
 const int ListGame_Game::kCurPlayersFieldNumber;
+const int ListGame_Game::kMaxPlayersFieldNumber;
 const int ListGame_Game::kEvaluationFieldNumber;
 #endif  // !_MSC_VER
 
@@ -1530,9 +1530,9 @@ void ListGame_Game::SharedCtor() {
   private__ = false;
   gameid_ = 0;
   mode_ = 0;
-  map_ = 0;
-  maxplayers_ = 0;
+  mapid_ = 0;
   curplayers_ = 0;
+  maxplayers_ = 0;
   evaluation_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -1640,48 +1640,48 @@ bool ListGame_Game::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(32)) goto parse_map;
+        if (input->ExpectTag(32)) goto parse_mapid;
         break;
       }
 
-      // required int32 map = 4;
+      // required int32 mapid = 4;
       case 4: {
         if (tag == 32) {
-         parse_map:
+         parse_mapid:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &map_)));
-          set_has_map();
+                 input, &mapid_)));
+          set_has_mapid();
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(40)) goto parse_maxPlayers;
+        if (input->ExpectTag(40)) goto parse_curPlayers;
         break;
       }
 
-      // required int32 maxPlayers = 5;
+      // required int32 curPlayers = 5;
       case 5: {
         if (tag == 40) {
-         parse_maxPlayers:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &maxplayers_)));
-          set_has_maxplayers();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(48)) goto parse_curPlayers;
-        break;
-      }
-
-      // required int32 curPlayers = 6;
-      case 6: {
-        if (tag == 48) {
          parse_curPlayers:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &curplayers_)));
           set_has_curplayers();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(48)) goto parse_maxPlayers;
+        break;
+      }
+
+      // required int32 maxPlayers = 6;
+      case 6: {
+        if (tag == 48) {
+         parse_maxPlayers:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &maxplayers_)));
+          set_has_maxplayers();
         } else {
           goto handle_unusual;
         }
@@ -1744,19 +1744,19 @@ void ListGame_Game::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->mode(), output);
   }
 
-  // required int32 map = 4;
-  if (has_map()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->map(), output);
+  // required int32 mapid = 4;
+  if (has_mapid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->mapid(), output);
   }
 
-  // required int32 maxPlayers = 5;
-  if (has_maxplayers()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->maxplayers(), output);
-  }
-
-  // required int32 curPlayers = 6;
+  // required int32 curPlayers = 5;
   if (has_curplayers()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->curplayers(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->curplayers(), output);
+  }
+
+  // required int32 maxPlayers = 6;
+  if (has_maxplayers()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->maxplayers(), output);
   }
 
   // required float evaluation = 7;
@@ -1789,19 +1789,19 @@ void ListGame_Game::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->mode(), target);
   }
 
-  // required int32 map = 4;
-  if (has_map()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->map(), target);
+  // required int32 mapid = 4;
+  if (has_mapid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->mapid(), target);
   }
 
-  // required int32 maxPlayers = 5;
-  if (has_maxplayers()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->maxplayers(), target);
-  }
-
-  // required int32 curPlayers = 6;
+  // required int32 curPlayers = 5;
   if (has_curplayers()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->curplayers(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->curplayers(), target);
+  }
+
+  // required int32 maxPlayers = 6;
+  if (has_maxplayers()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->maxplayers(), target);
   }
 
   // required float evaluation = 7;
@@ -1840,25 +1840,25 @@ int ListGame_Game::ByteSize() const {
           this->mode());
     }
 
-    // required int32 map = 4;
-    if (has_map()) {
+    // required int32 mapid = 4;
+    if (has_mapid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->map());
+          this->mapid());
     }
 
-    // required int32 maxPlayers = 5;
-    if (has_maxplayers()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->maxplayers());
-    }
-
-    // required int32 curPlayers = 6;
+    // required int32 curPlayers = 5;
     if (has_curplayers()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->curplayers());
+    }
+
+    // required int32 maxPlayers = 6;
+    if (has_maxplayers()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->maxplayers());
     }
 
     // required float evaluation = 7;
@@ -1902,14 +1902,14 @@ void ListGame_Game::MergeFrom(const ListGame_Game& from) {
     if (from.has_mode()) {
       set_mode(from.mode());
     }
-    if (from.has_map()) {
-      set_map(from.map());
-    }
-    if (from.has_maxplayers()) {
-      set_maxplayers(from.maxplayers());
+    if (from.has_mapid()) {
+      set_mapid(from.mapid());
     }
     if (from.has_curplayers()) {
       set_curplayers(from.curplayers());
+    }
+    if (from.has_maxplayers()) {
+      set_maxplayers(from.maxplayers());
     }
     if (from.has_evaluation()) {
       set_evaluation(from.evaluation());
@@ -1941,9 +1941,9 @@ void ListGame_Game::Swap(ListGame_Game* other) {
     std::swap(private__, other->private__);
     std::swap(gameid_, other->gameid_);
     std::swap(mode_, other->mode_);
-    std::swap(map_, other->map_);
-    std::swap(maxplayers_, other->maxplayers_);
+    std::swap(mapid_, other->mapid_);
     std::swap(curplayers_, other->curplayers_);
+    std::swap(maxplayers_, other->maxplayers_);
     std::swap(evaluation_, other->evaluation_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
@@ -3617,7 +3617,7 @@ void SendToPlayer::Swap(SendToPlayer* other) {
 #ifndef _MSC_VER
 const int ServerStatus_Game::kGameidFieldNumber;
 const int ServerStatus_Game::kModeFieldNumber;
-const int ServerStatus_Game::kMapFieldNumber;
+const int ServerStatus_Game::kMapidFieldNumber;
 const int ServerStatus_Game::kEvaluationFieldNumber;
 #endif  // !_MSC_VER
 
@@ -3641,7 +3641,7 @@ void ServerStatus_Game::SharedCtor() {
   _cached_size_ = 0;
   gameid_ = 0;
   mode_ = 0;
-  map_ = 0;
+  mapid_ = 0;
   evaluation_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -3732,18 +3732,18 @@ bool ServerStatus_Game::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_map;
+        if (input->ExpectTag(24)) goto parse_mapid;
         break;
       }
 
-      // required int32 map = 3;
+      // required int32 mapid = 3;
       case 3: {
         if (tag == 24) {
-         parse_map:
+         parse_mapid:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &map_)));
-          set_has_map();
+                 input, &mapid_)));
+          set_has_mapid();
         } else {
           goto handle_unusual;
         }
@@ -3801,9 +3801,9 @@ void ServerStatus_Game::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->mode(), output);
   }
 
-  // required int32 map = 3;
-  if (has_map()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->map(), output);
+  // required int32 mapid = 3;
+  if (has_mapid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->mapid(), output);
   }
 
   // required float evaluation = 4;
@@ -3831,9 +3831,9 @@ void ServerStatus_Game::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->mode(), target);
   }
 
-  // required int32 map = 3;
-  if (has_map()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->map(), target);
+  // required int32 mapid = 3;
+  if (has_mapid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->mapid(), target);
   }
 
   // required float evaluation = 4;
@@ -3867,11 +3867,11 @@ int ServerStatus_Game::ByteSize() const {
           this->mode());
     }
 
-    // required int32 map = 3;
-    if (has_map()) {
+    // required int32 mapid = 3;
+    if (has_mapid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->map());
+          this->mapid());
     }
 
     // required float evaluation = 4;
@@ -3912,8 +3912,8 @@ void ServerStatus_Game::MergeFrom(const ServerStatus_Game& from) {
     if (from.has_mode()) {
       set_mode(from.mode());
     }
-    if (from.has_map()) {
-      set_map(from.map());
+    if (from.has_mapid()) {
+      set_mapid(from.mapid());
     }
     if (from.has_evaluation()) {
       set_evaluation(from.evaluation());
@@ -3944,7 +3944,7 @@ void ServerStatus_Game::Swap(ServerStatus_Game* other) {
   if (other != this) {
     std::swap(gameid_, other->gameid_);
     std::swap(mode_, other->mode_);
-    std::swap(map_, other->map_);
+    std::swap(mapid_, other->mapid_);
     std::swap(evaluation_, other->evaluation_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);

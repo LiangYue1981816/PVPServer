@@ -83,19 +83,19 @@ namespace ProtoGameClient
       get { return _password; }
       set { _password = value; }
     }
-    private int _map;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"map", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public int map
-    {
-      get { return _map; }
-      set { _map = value; }
-    }
     private int _mode;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"mode", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"mode", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int mode
     {
       get { return _mode; }
       set { _mode = value; }
+    }
+    private int _mapid;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"mapid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int mapid
+    {
+      get { return _mapid; }
+      set { _mapid = value; }
     }
     private int _maxPlayers;
     [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"maxPlayers", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]

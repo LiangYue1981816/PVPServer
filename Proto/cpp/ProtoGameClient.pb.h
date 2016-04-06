@@ -445,19 +445,19 @@ class CreateGame : public ::google::protobuf::Message {
   inline ::std::string* release_password();
   inline void set_allocated_password(::std::string* password);
 
-  // required int32 map = 2;
-  inline bool has_map() const;
-  inline void clear_map();
-  static const int kMapFieldNumber = 2;
-  inline ::google::protobuf::int32 map() const;
-  inline void set_map(::google::protobuf::int32 value);
-
-  // required int32 mode = 3;
+  // required int32 mode = 2;
   inline bool has_mode() const;
   inline void clear_mode();
-  static const int kModeFieldNumber = 3;
+  static const int kModeFieldNumber = 2;
   inline ::google::protobuf::int32 mode() const;
   inline void set_mode(::google::protobuf::int32 value);
+
+  // required int32 mapid = 3;
+  inline bool has_mapid() const;
+  inline void clear_mapid();
+  static const int kMapidFieldNumber = 3;
+  inline ::google::protobuf::int32 mapid() const;
+  inline void set_mapid(::google::protobuf::int32 value);
 
   // required int32 maxPlayers = 4;
   inline bool has_maxplayers() const;
@@ -477,10 +477,10 @@ class CreateGame : public ::google::protobuf::Message {
  private:
   inline void set_has_password();
   inline void clear_has_password();
-  inline void set_has_map();
-  inline void clear_has_map();
   inline void set_has_mode();
   inline void clear_has_mode();
+  inline void set_has_mapid();
+  inline void clear_has_mapid();
   inline void set_has_maxplayers();
   inline void clear_has_maxplayers();
   inline void set_has_evaluation();
@@ -491,8 +491,8 @@ class CreateGame : public ::google::protobuf::Message {
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::std::string* password_;
-  ::google::protobuf::int32 map_;
   ::google::protobuf::int32 mode_;
+  ::google::protobuf::int32 mapid_;
   ::google::protobuf::int32 maxplayers_;
   float evaluation_;
   friend void  protobuf_AddDesc_ProtoGameClient_2eproto();
@@ -1113,39 +1113,15 @@ inline void CreateGame::set_allocated_password(::std::string* password) {
   // @@protoc_insertion_point(field_set_allocated:ProtoGameClient.CreateGame.password)
 }
 
-// required int32 map = 2;
-inline bool CreateGame::has_map() const {
+// required int32 mode = 2;
+inline bool CreateGame::has_mode() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void CreateGame::set_has_map() {
+inline void CreateGame::set_has_mode() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void CreateGame::clear_has_map() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void CreateGame::clear_map() {
-  map_ = 0;
-  clear_has_map();
-}
-inline ::google::protobuf::int32 CreateGame::map() const {
-  // @@protoc_insertion_point(field_get:ProtoGameClient.CreateGame.map)
-  return map_;
-}
-inline void CreateGame::set_map(::google::protobuf::int32 value) {
-  set_has_map();
-  map_ = value;
-  // @@protoc_insertion_point(field_set:ProtoGameClient.CreateGame.map)
-}
-
-// required int32 mode = 3;
-inline bool CreateGame::has_mode() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void CreateGame::set_has_mode() {
-  _has_bits_[0] |= 0x00000004u;
-}
 inline void CreateGame::clear_has_mode() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline void CreateGame::clear_mode() {
   mode_ = 0;
@@ -1159,6 +1135,30 @@ inline void CreateGame::set_mode(::google::protobuf::int32 value) {
   set_has_mode();
   mode_ = value;
   // @@protoc_insertion_point(field_set:ProtoGameClient.CreateGame.mode)
+}
+
+// required int32 mapid = 3;
+inline bool CreateGame::has_mapid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void CreateGame::set_has_mapid() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void CreateGame::clear_has_mapid() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void CreateGame::clear_mapid() {
+  mapid_ = 0;
+  clear_has_mapid();
+}
+inline ::google::protobuf::int32 CreateGame::mapid() const {
+  // @@protoc_insertion_point(field_get:ProtoGameClient.CreateGame.mapid)
+  return mapid_;
+}
+inline void CreateGame::set_mapid(::google::protobuf::int32 value) {
+  set_has_mapid();
+  mapid_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameClient.CreateGame.mapid)
 }
 
 // required int32 maxPlayers = 4;

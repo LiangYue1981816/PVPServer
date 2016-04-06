@@ -568,26 +568,26 @@ class ListGame_Game : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 mode() const;
   inline void set_mode(::google::protobuf::int32 value);
 
-  // required int32 map = 4;
-  inline bool has_map() const;
-  inline void clear_map();
-  static const int kMapFieldNumber = 4;
-  inline ::google::protobuf::int32 map() const;
-  inline void set_map(::google::protobuf::int32 value);
+  // required int32 mapid = 4;
+  inline bool has_mapid() const;
+  inline void clear_mapid();
+  static const int kMapidFieldNumber = 4;
+  inline ::google::protobuf::int32 mapid() const;
+  inline void set_mapid(::google::protobuf::int32 value);
 
-  // required int32 maxPlayers = 5;
-  inline bool has_maxplayers() const;
-  inline void clear_maxplayers();
-  static const int kMaxPlayersFieldNumber = 5;
-  inline ::google::protobuf::int32 maxplayers() const;
-  inline void set_maxplayers(::google::protobuf::int32 value);
-
-  // required int32 curPlayers = 6;
+  // required int32 curPlayers = 5;
   inline bool has_curplayers() const;
   inline void clear_curplayers();
-  static const int kCurPlayersFieldNumber = 6;
+  static const int kCurPlayersFieldNumber = 5;
   inline ::google::protobuf::int32 curplayers() const;
   inline void set_curplayers(::google::protobuf::int32 value);
+
+  // required int32 maxPlayers = 6;
+  inline bool has_maxplayers() const;
+  inline void clear_maxplayers();
+  static const int kMaxPlayersFieldNumber = 6;
+  inline ::google::protobuf::int32 maxplayers() const;
+  inline void set_maxplayers(::google::protobuf::int32 value);
 
   // required float evaluation = 7;
   inline bool has_evaluation() const;
@@ -604,12 +604,12 @@ class ListGame_Game : public ::google::protobuf::Message {
   inline void clear_has_gameid();
   inline void set_has_mode();
   inline void clear_has_mode();
-  inline void set_has_map();
-  inline void clear_has_map();
-  inline void set_has_maxplayers();
-  inline void clear_has_maxplayers();
+  inline void set_has_mapid();
+  inline void clear_has_mapid();
   inline void set_has_curplayers();
   inline void clear_has_curplayers();
+  inline void set_has_maxplayers();
+  inline void clear_has_maxplayers();
   inline void set_has_evaluation();
   inline void clear_has_evaluation();
 
@@ -620,9 +620,9 @@ class ListGame_Game : public ::google::protobuf::Message {
   bool private__;
   ::google::protobuf::int32 gameid_;
   ::google::protobuf::int32 mode_;
-  ::google::protobuf::int32 map_;
-  ::google::protobuf::int32 maxplayers_;
+  ::google::protobuf::int32 mapid_;
   ::google::protobuf::int32 curplayers_;
+  ::google::protobuf::int32 maxplayers_;
   float evaluation_;
   friend void  protobuf_AddDesc_ProtoGameServer_2eproto();
   friend void protobuf_AssignDesc_ProtoGameServer_2eproto();
@@ -1244,12 +1244,12 @@ class ServerStatus_Game : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 mode() const;
   inline void set_mode(::google::protobuf::int32 value);
 
-  // required int32 map = 3;
-  inline bool has_map() const;
-  inline void clear_map();
-  static const int kMapFieldNumber = 3;
-  inline ::google::protobuf::int32 map() const;
-  inline void set_map(::google::protobuf::int32 value);
+  // required int32 mapid = 3;
+  inline bool has_mapid() const;
+  inline void clear_mapid();
+  static const int kMapidFieldNumber = 3;
+  inline ::google::protobuf::int32 mapid() const;
+  inline void set_mapid(::google::protobuf::int32 value);
 
   // required float evaluation = 4;
   inline bool has_evaluation() const;
@@ -1264,8 +1264,8 @@ class ServerStatus_Game : public ::google::protobuf::Message {
   inline void clear_has_gameid();
   inline void set_has_mode();
   inline void clear_has_mode();
-  inline void set_has_map();
-  inline void clear_has_map();
+  inline void set_has_mapid();
+  inline void clear_has_mapid();
   inline void set_has_evaluation();
   inline void clear_has_evaluation();
 
@@ -1275,7 +1275,7 @@ class ServerStatus_Game : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::google::protobuf::int32 gameid_;
   ::google::protobuf::int32 mode_;
-  ::google::protobuf::int32 map_;
+  ::google::protobuf::int32 mapid_;
   float evaluation_;
   friend void  protobuf_AddDesc_ProtoGameServer_2eproto();
   friend void protobuf_AssignDesc_ProtoGameServer_2eproto();
@@ -1629,63 +1629,39 @@ inline void ListGame_Game::set_mode(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ProtoGameServer.ListGame.Game.mode)
 }
 
-// required int32 map = 4;
-inline bool ListGame_Game::has_map() const {
+// required int32 mapid = 4;
+inline bool ListGame_Game::has_mapid() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void ListGame_Game::set_has_map() {
+inline void ListGame_Game::set_has_mapid() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void ListGame_Game::clear_has_map() {
+inline void ListGame_Game::clear_has_mapid() {
   _has_bits_[0] &= ~0x00000008u;
 }
-inline void ListGame_Game::clear_map() {
-  map_ = 0;
-  clear_has_map();
+inline void ListGame_Game::clear_mapid() {
+  mapid_ = 0;
+  clear_has_mapid();
 }
-inline ::google::protobuf::int32 ListGame_Game::map() const {
-  // @@protoc_insertion_point(field_get:ProtoGameServer.ListGame.Game.map)
-  return map_;
+inline ::google::protobuf::int32 ListGame_Game::mapid() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ListGame.Game.mapid)
+  return mapid_;
 }
-inline void ListGame_Game::set_map(::google::protobuf::int32 value) {
-  set_has_map();
-  map_ = value;
-  // @@protoc_insertion_point(field_set:ProtoGameServer.ListGame.Game.map)
+inline void ListGame_Game::set_mapid(::google::protobuf::int32 value) {
+  set_has_mapid();
+  mapid_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameServer.ListGame.Game.mapid)
 }
 
-// required int32 maxPlayers = 5;
-inline bool ListGame_Game::has_maxplayers() const {
+// required int32 curPlayers = 5;
+inline bool ListGame_Game::has_curplayers() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void ListGame_Game::set_has_maxplayers() {
+inline void ListGame_Game::set_has_curplayers() {
   _has_bits_[0] |= 0x00000010u;
 }
-inline void ListGame_Game::clear_has_maxplayers() {
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline void ListGame_Game::clear_maxplayers() {
-  maxplayers_ = 0;
-  clear_has_maxplayers();
-}
-inline ::google::protobuf::int32 ListGame_Game::maxplayers() const {
-  // @@protoc_insertion_point(field_get:ProtoGameServer.ListGame.Game.maxPlayers)
-  return maxplayers_;
-}
-inline void ListGame_Game::set_maxplayers(::google::protobuf::int32 value) {
-  set_has_maxplayers();
-  maxplayers_ = value;
-  // @@protoc_insertion_point(field_set:ProtoGameServer.ListGame.Game.maxPlayers)
-}
-
-// required int32 curPlayers = 6;
-inline bool ListGame_Game::has_curplayers() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
-}
-inline void ListGame_Game::set_has_curplayers() {
-  _has_bits_[0] |= 0x00000020u;
-}
 inline void ListGame_Game::clear_has_curplayers() {
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void ListGame_Game::clear_curplayers() {
   curplayers_ = 0;
@@ -1699,6 +1675,30 @@ inline void ListGame_Game::set_curplayers(::google::protobuf::int32 value) {
   set_has_curplayers();
   curplayers_ = value;
   // @@protoc_insertion_point(field_set:ProtoGameServer.ListGame.Game.curPlayers)
+}
+
+// required int32 maxPlayers = 6;
+inline bool ListGame_Game::has_maxplayers() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void ListGame_Game::set_has_maxplayers() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void ListGame_Game::clear_has_maxplayers() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void ListGame_Game::clear_maxplayers() {
+  maxplayers_ = 0;
+  clear_has_maxplayers();
+}
+inline ::google::protobuf::int32 ListGame_Game::maxplayers() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ListGame.Game.maxPlayers)
+  return maxplayers_;
+}
+inline void ListGame_Game::set_maxplayers(::google::protobuf::int32 value) {
+  set_has_maxplayers();
+  maxplayers_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameServer.ListGame.Game.maxPlayers)
 }
 
 // required float evaluation = 7;
@@ -2152,28 +2152,28 @@ inline void ServerStatus_Game::set_mode(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.Game.mode)
 }
 
-// required int32 map = 3;
-inline bool ServerStatus_Game::has_map() const {
+// required int32 mapid = 3;
+inline bool ServerStatus_Game::has_mapid() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void ServerStatus_Game::set_has_map() {
+inline void ServerStatus_Game::set_has_mapid() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void ServerStatus_Game::clear_has_map() {
+inline void ServerStatus_Game::clear_has_mapid() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void ServerStatus_Game::clear_map() {
-  map_ = 0;
-  clear_has_map();
+inline void ServerStatus_Game::clear_mapid() {
+  mapid_ = 0;
+  clear_has_mapid();
 }
-inline ::google::protobuf::int32 ServerStatus_Game::map() const {
-  // @@protoc_insertion_point(field_get:ProtoGameServer.ServerStatus.Game.map)
-  return map_;
+inline ::google::protobuf::int32 ServerStatus_Game::mapid() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ServerStatus.Game.mapid)
+  return mapid_;
 }
-inline void ServerStatus_Game::set_map(::google::protobuf::int32 value) {
-  set_has_map();
-  map_ = value;
-  // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.Game.map)
+inline void ServerStatus_Game::set_mapid(::google::protobuf::int32 value) {
+  set_has_mapid();
+  mapid_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.Game.mapid)
 }
 
 // required float evaluation = 4;

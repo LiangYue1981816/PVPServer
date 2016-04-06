@@ -344,19 +344,19 @@ class ListGameServer_GameServer : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 port() const;
   inline void set_port(::google::protobuf::int32 value);
 
-  // required int32 maxGames = 3;
-  inline bool has_maxgames() const;
-  inline void clear_maxgames();
-  static const int kMaxGamesFieldNumber = 3;
-  inline ::google::protobuf::int32 maxgames() const;
-  inline void set_maxgames(::google::protobuf::int32 value);
-
-  // required int32 curGames = 4;
+  // required int32 curGames = 3;
   inline bool has_curgames() const;
   inline void clear_curgames();
-  static const int kCurGamesFieldNumber = 4;
+  static const int kCurGamesFieldNumber = 3;
   inline ::google::protobuf::int32 curgames() const;
   inline void set_curgames(::google::protobuf::int32 value);
+
+  // required int32 maxGames = 4;
+  inline bool has_maxgames() const;
+  inline void clear_maxgames();
+  static const int kMaxGamesFieldNumber = 4;
+  inline ::google::protobuf::int32 maxgames() const;
+  inline void set_maxgames(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:ProtoGateServer.ListGameServer.GameServer)
  private:
@@ -364,10 +364,10 @@ class ListGameServer_GameServer : public ::google::protobuf::Message {
   inline void clear_has_ip();
   inline void set_has_port();
   inline void clear_has_port();
-  inline void set_has_maxgames();
-  inline void clear_has_maxgames();
   inline void set_has_curgames();
   inline void clear_has_curgames();
+  inline void set_has_maxgames();
+  inline void clear_has_maxgames();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -375,8 +375,8 @@ class ListGameServer_GameServer : public ::google::protobuf::Message {
   mutable int _cached_size_;
   ::std::string* ip_;
   ::google::protobuf::int32 port_;
-  ::google::protobuf::int32 maxgames_;
   ::google::protobuf::int32 curgames_;
+  ::google::protobuf::int32 maxgames_;
   friend void  protobuf_AddDesc_ProtoGateServer_2eproto();
   friend void protobuf_AssignDesc_ProtoGateServer_2eproto();
   friend void protobuf_ShutdownFile_ProtoGateServer_2eproto();
@@ -760,39 +760,15 @@ inline void ListGameServer_GameServer::set_port(::google::protobuf::int32 value)
   // @@protoc_insertion_point(field_set:ProtoGateServer.ListGameServer.GameServer.port)
 }
 
-// required int32 maxGames = 3;
-inline bool ListGameServer_GameServer::has_maxgames() const {
+// required int32 curGames = 3;
+inline bool ListGameServer_GameServer::has_curgames() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void ListGameServer_GameServer::set_has_maxgames() {
+inline void ListGameServer_GameServer::set_has_curgames() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void ListGameServer_GameServer::clear_has_maxgames() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void ListGameServer_GameServer::clear_maxgames() {
-  maxgames_ = 0;
-  clear_has_maxgames();
-}
-inline ::google::protobuf::int32 ListGameServer_GameServer::maxgames() const {
-  // @@protoc_insertion_point(field_get:ProtoGateServer.ListGameServer.GameServer.maxGames)
-  return maxgames_;
-}
-inline void ListGameServer_GameServer::set_maxgames(::google::protobuf::int32 value) {
-  set_has_maxgames();
-  maxgames_ = value;
-  // @@protoc_insertion_point(field_set:ProtoGateServer.ListGameServer.GameServer.maxGames)
-}
-
-// required int32 curGames = 4;
-inline bool ListGameServer_GameServer::has_curgames() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void ListGameServer_GameServer::set_has_curgames() {
-  _has_bits_[0] |= 0x00000008u;
-}
 inline void ListGameServer_GameServer::clear_has_curgames() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline void ListGameServer_GameServer::clear_curgames() {
   curgames_ = 0;
@@ -806,6 +782,30 @@ inline void ListGameServer_GameServer::set_curgames(::google::protobuf::int32 va
   set_has_curgames();
   curgames_ = value;
   // @@protoc_insertion_point(field_set:ProtoGateServer.ListGameServer.GameServer.curGames)
+}
+
+// required int32 maxGames = 4;
+inline bool ListGameServer_GameServer::has_maxgames() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void ListGameServer_GameServer::set_has_maxgames() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void ListGameServer_GameServer::clear_has_maxgames() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void ListGameServer_GameServer::clear_maxgames() {
+  maxgames_ = 0;
+  clear_has_maxgames();
+}
+inline ::google::protobuf::int32 ListGameServer_GameServer::maxgames() const {
+  // @@protoc_insertion_point(field_get:ProtoGateServer.ListGameServer.GameServer.maxGames)
+  return maxgames_;
+}
+inline void ListGameServer_GameServer::set_maxgames(::google::protobuf::int32 value) {
+  set_has_maxgames();
+  maxgames_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGateServer.ListGameServer.GameServer.maxGames)
 }
 
 // -------------------------------------------------------------------

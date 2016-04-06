@@ -50,7 +50,7 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 							ProtoGameServer::ServerStatus_Game *pGameStatus = requestServerStatus.add_games();
 							pGameStatus->set_gameid(pGame->id);
 							pGameStatus->set_mode(pGame->GetMode());
-							pGameStatus->set_map(pGame->GetMapID());
+							pGameStatus->set_mapid(pGame->GetMapID());
 							pGameStatus->set_evaluation(pGame->GetEvaluation());
 						}
 					} while (pGame = pGame->pNextActive);

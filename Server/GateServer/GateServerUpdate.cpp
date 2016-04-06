@@ -271,9 +271,9 @@ void CGateServer::OnSendToPlayer(CIOContext *pContext, WORD size)
 	//
 	// 4. 发送指定玩家
 	//
-	if (requestSendToPlayer.players_size() > 0) {
-		for (int index = 0; index < requestSendToPlayer.players_size(); index++) {
-			if (CIOContext *pContextSendTo = QueryContext(requestSendToPlayer.players().Get(index))) {
+	if (requestSendToPlayer.guids_size() > 0) {
+		for (int index = 0; index < requestSendToPlayer.guids_size(); index++) {
+			if (CIOContext *pContextSendTo = QueryContext(requestSendToPlayer.guids(index))) {
 				if (pContext != pContextSendTo) {
 					SendTo(pContextSendTo, buffer, writeBuffer.GetActiveBufferSize());
 				}
@@ -316,7 +316,7 @@ void CGateServer::OnGameServerStatus(CIOContext *pContext, WORD size)
 		GameStatus gameStatus;
 		gameStatus.id = requestServerStatus.games(index).gameid();
 		gameStatus.mode = requestServerStatus.games(index).mode();
-		gameStatus.mapid = requestServerStatus.games(index).map();
+		gameStatus.mapid = requestServerStatus.games(index).mapid();
 		gameStatus.evaluation = requestServerStatus.games(index).evaluation();
 		m_gameServerMap[pContext].games.push_back(gameStatus);
 	}
