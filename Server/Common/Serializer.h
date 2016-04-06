@@ -11,5 +11,5 @@
 #include "CacheBuffer.h"
 
 
-extern void Serializer(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD msg);
-extern BOOL Parser(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD size);
+_ServerExport void Serializer(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD msg);
+_ServerExport BOOL Parser(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD size);

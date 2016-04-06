@@ -14,7 +14,7 @@
 //
 // 服务器
 //
-class CGateServer : public CIOCPServer
+class _ServerExport CGateServer : public CIOCPServer
 {
 	// 数据结构
 public:

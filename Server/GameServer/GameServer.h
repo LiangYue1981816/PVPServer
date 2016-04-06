@@ -13,9 +13,9 @@
 //
 // 玩家
 //
-class CGame;
-class CGameServer;
-class CPlayer : public CIOContext
+class _ServerExport CGame;
+class _ServerExport CGameServer;
+class _ServerExport CPlayer : public CIOContext
 {
 	// 构造/析构函数
 public:
@@ -55,7 +55,7 @@ public:
 //
 // 游戏
 //
-class CGame
+class _ServerExport CGame
 {
 	// 构造/析构函数
 public:
@@ -122,7 +122,7 @@ public:
 //
 // 服务器
 //
-class CGameServer : public CIOCPServer
+class _ServerExport CGameServer : public CIOCPServer
 {
 	// 数据结构
 public:

@@ -560,7 +560,7 @@ DWORD WINAPI CGameServer::UpdateThread(LPVOID lpParam)
 //
 //  ‰≥ˆ»’÷æ
 //
-void WriteLog(const char *szFmt, ...)
+_ServerExport void WriteLog(const char *szFmt, ...)
 {
 	va_list argList;
 	static char szString[1024 * 1024];

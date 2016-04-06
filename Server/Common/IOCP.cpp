@@ -754,19 +754,9 @@ DWORD WINAPI CIOCPServer::TransferThread(LPVOID lpParam)
 // 功能函数
 //========================================================================
 //
-// 获得处理器数
-//
-int GetProcessors(void)
-{
-	SYSTEM_INFO si;
-	GetSystemInfo(&si);
-	return si.dwNumberOfProcessors;
-}
-
-//
 // 始终滴答
 //
-UINT tick(void)
+_ServerExport UINT tick(void)
 {
 	LARGE_INTEGER freq;
 	LARGE_INTEGER count;
@@ -778,9 +768,39 @@ UINT tick(void)
 }
 
 //
+// 字符串哈希值
+//
+_ServerExport DWORD HashValue(const char *szString)
+{
+	if (!szString) {
+		return 0xffffffff;
+	}
+
+	DWORD dwHashValue = 0;
+	const char *c = szString;
+
+	while (*c) {
+		dwHashValue = (dwHashValue << 5) - dwHashValue + (*c == '/' ? '\\' : *c);
+		c++;
+	}
+
+	return dwHashValue;
+}
+
+//
+// 获得处理器数
+//
+_ServerExport int GetProcessors(void)
+{
+	SYSTEM_INFO si;
+	GetSystemInfo(&si);
+	return si.dwNumberOfProcessors;
+}
+
+//
 // 发送数据
 //
-int SendData(int s, char *buff, int n)
+_ServerExport int SendData(int s, char *buff, int n)
 {
 	int bw = 0;
 	int bcount = 0;
@@ -801,7 +821,7 @@ int SendData(int s, char *buff, int n)
 //
 // 接收数据
 //
-int RecvData(int s, char *buff, int n)
+_ServerExport int RecvData(int s, char *buff, int n)
 {
 	int br = 0;
 	int bcount = 0;

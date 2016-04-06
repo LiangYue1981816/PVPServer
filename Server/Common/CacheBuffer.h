@@ -10,7 +10,7 @@
 #include "Common.h"
 
 
-class CCacheBuffer
+class _ServerExport CCacheBuffer
 {
 	// 构造/析构函数
 public:

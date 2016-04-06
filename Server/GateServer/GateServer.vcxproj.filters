@@ -65,9 +65,6 @@
     <ClCompile Include="..\Common\CacheBuffer.cpp">
       <Filter>Common\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Common\Common.cpp">
-      <Filter>Common\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Common\Event.cpp">
       <Filter>Common\Source Files</Filter>
     </ClCompile>

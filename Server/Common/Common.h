@@ -53,6 +53,13 @@ typedef unsigned int                   DWORD;    // 4BYTE
 #endif
 
 
+#ifdef _WINDOWS_
+#define _ServerExport                  __declspec(dllexport)
+#else
+#define _ServerExport
+#endif
+
+
 #define PACK_BUFFER_SIZE               4*1024
 #define RECV_BUFFER_SIZE               16*1024
 #define SEND_BUFFER_SIZE               16*1024
@@ -61,6 +68,3 @@ typedef unsigned int                   DWORD;    // 4BYTE
 #define IS_ENABLE(flags, attrib)       ((flags) & (attrib) ? TRUE : FALSE)
 #define SET_ENABLE(flags, attrib)      ((flags) = (flags) |  (attrib))
 #define SET_DISABLE(flags, attrib)     ((flags) = (flags) & ~(attrib))
-
-
-extern DWORD HashValue(const char *szString);

@@ -1,7 +1,7 @@
 #include "Serializer.h"
 
 
-void Serializer(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD msg)
+_ServerExport void Serializer(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD msg)
 {
 	try {
 		WORD fullSize, bodySize;
@@ -20,7 +20,7 @@ void Serializer(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WOR
 	}
 }
 
-BOOL Parser(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD size)
+_ServerExport BOOL Parser(CCacheBuffer *pBuffer, ::google::protobuf::Message *message, WORD size)
 {
 	BYTE body[PACK_BUFFER_SIZE];
 

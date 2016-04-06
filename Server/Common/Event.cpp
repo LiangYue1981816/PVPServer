@@ -4,7 +4,7 @@
 //
 // 初始化
 //
-void event_init(event_t *event)
+_ServerExport void event_init(event_t *event)
 {
 	event->flag = FALSE;
 	pthread_cond_init(&event->cond, NULL);
@@ -14,7 +14,7 @@ void event_init(event_t *event)
 //
 // 销毁
 //
-void event_destroy(event_t *event)
+_ServerExport void event_destroy(event_t *event)
 {
 	pthread_cond_destroy(&event->cond);
 	pthread_mutex_destroy(&event->mutex);
@@ -23,7 +23,7 @@ void event_destroy(event_t *event)
 //
 // 触发
 //
-void event_set(event_t *event)
+_ServerExport void event_set(event_t *event)
 {
 	pthread_mutex_lock(&event->mutex);
 	{
@@ -36,7 +36,7 @@ void event_set(event_t *event)
 //
 // 重置
 //
-void event_reset(event_t *event)
+_ServerExport void event_reset(event_t *event)
 {
 	pthread_mutex_lock(&event->mutex);
 	{
@@ -48,7 +48,7 @@ void event_reset(event_t *event)
 //
 // 等待
 //
-void event_wait(event_t *event)
+_ServerExport void event_wait(event_t *event)
 {
 	pthread_mutex_lock(&event->mutex);
 	{
@@ -59,7 +59,7 @@ void event_wait(event_t *event)
 	pthread_mutex_unlock(&event->mutex);
 }
 
-void event_timedwait(event_t *event, int sec, int nsec)
+_ServerExport void event_timedwait(event_t *event, int sec, int nsec)
 {
 	pthread_mutex_lock(&event->mutex);
 	{

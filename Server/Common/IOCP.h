@@ -11,7 +11,7 @@
 #include "CacheBuffer.h"
 
 
-class CIOContext
+class _ServerExport CIOContext
 {
 	friend class CIOCPServer;
 
@@ -101,7 +101,7 @@ public:
 };
 
 
-class CIOCPServer
+class _ServerExport CIOCPServer
 {
 	static const int MAX_THREAD_COUNT = 128;
 
@@ -171,10 +171,12 @@ protected:
 	CIOContext *m_pActiveContext;                                                                  // 活动上下文
 };
 
-extern int GetProcessors(void);                                                                    // 获得处理器数
-extern UINT tick(void);                                                                            // 始终滴答
+_ServerExport UINT tick(void);                                                                     // 始终滴答
 
-extern int SendData(int s, char *buff, int n);                                                     // 发送数据
-extern int RecvData(int s, char *buff, int n);                                                     // 接收数据
+_ServerExport DWORD HashValue(const char *szString);                                               // 字符串哈希值
+_ServerExport int GetProcessors(void);                                                             // 获得处理器数
 
-extern void WriteLog(const char *szFmt, ...);                                                      // 输出日志
+_ServerExport int SendData(int s, char *buff, int n);                                              // 发送数据
+_ServerExport int RecvData(int s, char *buff, int n);                                              // 接收数据
+
+_ServerExport void WriteLog(const char *szFmt, ...);                                               // 输出日志
