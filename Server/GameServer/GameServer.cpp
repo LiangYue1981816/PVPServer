@@ -502,7 +502,6 @@ DWORD WINAPI CGameServer::UpdateThread(LPVOID lpParam)
 		while (WAIT_OBJECT_0 != WaitForSingleObject(pServer->m_hShutdownEvent, 0)) {
 			DWORD dwLastTime = tick() / 1000;
 			static DWORD dwDeltaTime = 0;
-			static DWORD dwGameDeltaTime = 0;
 			static DWORD dwReportDeltaTime = 0;
 			{
 				EnterCriticalSection(&pServer->m_sectionContext);
@@ -513,13 +512,7 @@ DWORD WINAPI CGameServer::UpdateThread(LPVOID lpParam)
 					DWORD dwBegin = tick() / 1000;
 					{
 						pServer->OnUpdateRecv(dwDeltaTime);
-
-						// ÓÎÏ·¸üÐÂ20FPS
-						if (dwGameDeltaTime > 50) {
-							pServer->OnUpdateGameLogic(dwGameDeltaTime / 1000.0f);
-							dwGameDeltaTime = 0;
-						}
-
+						pServer->OnUpdateGameLogic(dwDeltaTime / 1000.0f);
 						pServer->OnUpdateSend();
 					}
 					DWORD dwEnd = tick() / 1000;
@@ -557,7 +550,6 @@ DWORD WINAPI CGameServer::UpdateThread(LPVOID lpParam)
 			}
 			dwDeltaTime = tick() / 1000 - dwLastTime;
 			dwDeltaTime = dwDeltaTime < 1000 ? dwDeltaTime : 0;
-			dwGameDeltaTime += dwDeltaTime;
 			dwReportDeltaTime += dwDeltaTime;
 		}
 	}
