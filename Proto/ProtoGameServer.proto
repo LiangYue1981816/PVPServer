@@ -133,10 +133,11 @@ message ServerStatus
 {
 	message Game
 	{
-		required int32 gameid = 1;
-		required int32 mode = 2;
-		required int32 mapid = 3;
-		required float evaluation = 4;
+		required bool empty = 1;
+		required int32 gameid = 2;
+		required int32 mode = 3;
+		required int32 mapid = 4;
+		required float evaluation = 5;
 	}
 	
 	required string ip = 1;
