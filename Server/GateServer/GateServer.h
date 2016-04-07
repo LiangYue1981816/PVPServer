@@ -24,6 +24,7 @@ public:
 	} PlayerStatus;
 
 	typedef struct {
+		BOOL bEmpty;                                                                               // 空房间
 		int id;                                                                                    // 游戏ID
 		int mode;                                                                                  // 游戏模式
 		int mapid;                                                                                 // 游戏地图

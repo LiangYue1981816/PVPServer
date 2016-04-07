@@ -1230,36 +1230,45 @@ class ServerStatus_Game : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required int32 gameid = 1;
+  // required bool empty = 1;
+  inline bool has_empty() const;
+  inline void clear_empty();
+  static const int kEmptyFieldNumber = 1;
+  inline bool empty() const;
+  inline void set_empty(bool value);
+
+  // required int32 gameid = 2;
   inline bool has_gameid() const;
   inline void clear_gameid();
-  static const int kGameidFieldNumber = 1;
+  static const int kGameidFieldNumber = 2;
   inline ::google::protobuf::int32 gameid() const;
   inline void set_gameid(::google::protobuf::int32 value);
 
-  // required int32 mode = 2;
+  // required int32 mode = 3;
   inline bool has_mode() const;
   inline void clear_mode();
-  static const int kModeFieldNumber = 2;
+  static const int kModeFieldNumber = 3;
   inline ::google::protobuf::int32 mode() const;
   inline void set_mode(::google::protobuf::int32 value);
 
-  // required int32 mapid = 3;
+  // required int32 mapid = 4;
   inline bool has_mapid() const;
   inline void clear_mapid();
-  static const int kMapidFieldNumber = 3;
+  static const int kMapidFieldNumber = 4;
   inline ::google::protobuf::int32 mapid() const;
   inline void set_mapid(::google::protobuf::int32 value);
 
-  // required float evaluation = 4;
+  // required float evaluation = 5;
   inline bool has_evaluation() const;
   inline void clear_evaluation();
-  static const int kEvaluationFieldNumber = 4;
+  static const int kEvaluationFieldNumber = 5;
   inline float evaluation() const;
   inline void set_evaluation(float value);
 
   // @@protoc_insertion_point(class_scope:ProtoGameServer.ServerStatus.Game)
  private:
+  inline void set_has_empty();
+  inline void clear_has_empty();
   inline void set_has_gameid();
   inline void clear_has_gameid();
   inline void set_has_mode();
@@ -1273,6 +1282,7 @@ class ServerStatus_Game : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
+  bool empty_;
   ::google::protobuf::int32 gameid_;
   ::google::protobuf::int32 mode_;
   ::google::protobuf::int32 mapid_;
@@ -2104,15 +2114,39 @@ inline void SendToPlayer::set_allocated_data(::std::string* data) {
 
 // ServerStatus_Game
 
-// required int32 gameid = 1;
-inline bool ServerStatus_Game::has_gameid() const {
+// required bool empty = 1;
+inline bool ServerStatus_Game::has_empty() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void ServerStatus_Game::set_has_gameid() {
+inline void ServerStatus_Game::set_has_empty() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void ServerStatus_Game::clear_has_gameid() {
+inline void ServerStatus_Game::clear_has_empty() {
   _has_bits_[0] &= ~0x00000001u;
+}
+inline void ServerStatus_Game::clear_empty() {
+  empty_ = false;
+  clear_has_empty();
+}
+inline bool ServerStatus_Game::empty() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ServerStatus.Game.empty)
+  return empty_;
+}
+inline void ServerStatus_Game::set_empty(bool value) {
+  set_has_empty();
+  empty_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.Game.empty)
+}
+
+// required int32 gameid = 2;
+inline bool ServerStatus_Game::has_gameid() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ServerStatus_Game::set_has_gameid() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ServerStatus_Game::clear_has_gameid() {
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline void ServerStatus_Game::clear_gameid() {
   gameid_ = 0;
@@ -2128,15 +2162,15 @@ inline void ServerStatus_Game::set_gameid(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.Game.gameid)
 }
 
-// required int32 mode = 2;
+// required int32 mode = 3;
 inline bool ServerStatus_Game::has_mode() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void ServerStatus_Game::set_has_mode() {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
 }
 inline void ServerStatus_Game::clear_has_mode() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline void ServerStatus_Game::clear_mode() {
   mode_ = 0;
@@ -2152,15 +2186,15 @@ inline void ServerStatus_Game::set_mode(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.Game.mode)
 }
 
-// required int32 mapid = 3;
+// required int32 mapid = 4;
 inline bool ServerStatus_Game::has_mapid() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void ServerStatus_Game::set_has_mapid() {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
 }
 inline void ServerStatus_Game::clear_has_mapid() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void ServerStatus_Game::clear_mapid() {
   mapid_ = 0;
@@ -2176,15 +2210,15 @@ inline void ServerStatus_Game::set_mapid(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.Game.mapid)
 }
 
-// required float evaluation = 4;
+// required float evaluation = 5;
 inline bool ServerStatus_Game::has_evaluation() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+  return (_has_bits_[0] & 0x00000010u) != 0;
 }
 inline void ServerStatus_Game::set_has_evaluation() {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
 }
 inline void ServerStatus_Game::clear_has_evaluation() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void ServerStatus_Game::clear_evaluation() {
   evaluation_ = 0;

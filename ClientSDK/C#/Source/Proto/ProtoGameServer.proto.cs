@@ -338,29 +338,36 @@ namespace ProtoGameServer
   {
     public Game() {}
     
+    private bool _empty;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"empty", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public bool empty
+    {
+      get { return _empty; }
+      set { _empty = value; }
+    }
     private int _gameid;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int gameid
     {
       get { return _gameid; }
       set { _gameid = value; }
     }
     private int _mode;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"mode", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"mode", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int mode
     {
       get { return _mode; }
       set { _mode = value; }
     }
     private int _mapid;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"mapid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"mapid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int mapid
     {
       get { return _mapid; }
       set { _mapid = value; }
     }
     private float _evaluation;
-    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"evaluation", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"evaluation", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
     public float evaluation
     {
       get { return _evaluation; }

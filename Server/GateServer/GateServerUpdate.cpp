@@ -314,6 +314,7 @@ void CGateServer::OnGameServerStatus(CIOContext *pContext, WORD size)
 	m_servers[pContext].games.clear();
 	for (int index = 0; index < requestServerStatus.games_size(); index++) {
 		GameStatus gameStatus;
+		gameStatus.bEmpty = requestServerStatus.games(index).empty() ? TRUE : FALSE;
 		gameStatus.id = requestServerStatus.games(index).gameid();
 		gameStatus.mode = requestServerStatus.games(index).mode();
 		gameStatus.mapid = requestServerStatus.games(index).mapid();
