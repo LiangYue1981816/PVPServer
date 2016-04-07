@@ -220,6 +220,14 @@ void CGame::Clear(void)
 	while (pActivePlayer) {
 		DelPlayer(pActivePlayer);
 	}
+
+	memset(m_szPassword, 0, sizeof(m_szPassword));
+	m_mode = -1;
+	m_mapid = -1;
+	m_curPlayers = 0;
+	m_maxPlayers = 0;
+	m_evaluation = 0.0f;
+	m_dwHostGUID = 0xffffffff;
 }
 
 //
