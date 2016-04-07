@@ -19,6 +19,10 @@ class _ServerExport CGateServer : public CIOCPServer
 	// 数据结构
 public:
 	typedef struct {
+		CIOContext *pContext;                                                                      // 玩家上下文
+	} PlayerStatus;
+
+	typedef struct {
 		int id;                                                                                    // 游戏ID
 		int mode;                                                                                  // 游戏模式
 		int mapid;                                                                                 // 游戏地图
@@ -33,7 +37,7 @@ public:
 		std::vector<GameStatus> games;                                                             // 游戏集合(可加入)
 	} GameServerStatus;
 
-	typedef std::map<DWORD, CIOContext*> GUIDMAP;                                                  // GUID映射表
+	typedef std::map<DWORD, PlayerStatus> PlayerMap;                                               // 玩家集合
 	typedef std::map<CIOContext*, GameServerStatus> GameServerMap;                                 // 游戏服务器集合
 
 
@@ -86,8 +90,8 @@ protected:
 protected:
 	HANDLE m_hUpdateThread;                                                                        // 更新线程句柄
 
-	GUIDMAP m_guidmap;                                                                             // GUID映射表
-	GameServerMap m_gameServerMap;                                                                 // 游戏服务器集合
+	PlayerMap m_players;                                                                           // GUID映射表
+	GameServerMap m_servers;                                                                       // 游戏服务器集合
 
 protected:
 	DWORD m_dwUpdateCount;                                                                         // 更新次数

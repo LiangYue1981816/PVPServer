@@ -210,7 +210,7 @@ void CGateServer::OnListGameServer(CIOContext *pContext, WORD size)
 		err = ProtoGateServer::ERROR_CODE::ERR_PLAYER_NOT_LOGIN; goto ERR;
 	}
 
-	for (GameServerMap::const_iterator itGameServer = m_gameServerMap.begin(); itGameServer != m_gameServerMap.end(); ++itGameServer) {
+	for (GameServerMap::const_iterator itGameServer = m_servers.begin(); itGameServer != m_servers.end(); ++itGameServer) {
 		if (ProtoGateServer::ListGameServer_GameServer *pGameServer = responseListGameServer.add_servers()) {
 			pGameServer->set_ip(itGameServer->second.ip);
 			pGameServer->set_port(itGameServer->second.port);
@@ -281,9 +281,9 @@ void CGateServer::OnSendToPlayer(CIOContext *pContext, WORD size)
 		}
 	}
 	else {
-		for (GUIDMAP::const_iterator itContext = m_guidmap.begin(); itContext != m_guidmap.end(); ++itContext) {
-			if (pContext != itContext->second) {
-				SendTo(itContext->second, buffer, writeBuffer.GetActiveBufferSize());
+		for (PlayerMap::const_iterator itPlayer = m_players.begin(); itPlayer != m_players.end(); ++itPlayer) {
+			if (pContext != itPlayer->second.pContext) {
+				SendTo(itPlayer->second.pContext, buffer, writeBuffer.GetActiveBufferSize());
 			}
 		}
 	}
@@ -306,19 +306,19 @@ void CGateServer::OnGameServerStatus(CIOContext *pContext, WORD size)
 	//
 	// 2. 更新游戏服务器列表
 	//
-	strcpy(m_gameServerMap[pContext].ip, requestServerStatus.ip().c_str());
-	m_gameServerMap[pContext].port = requestServerStatus.port();
-	m_gameServerMap[pContext].curGames = requestServerStatus.curgames();
-	m_gameServerMap[pContext].maxGames = requestServerStatus.maxgames();
+	strcpy(m_servers[pContext].ip, requestServerStatus.ip().c_str());
+	m_servers[pContext].port = requestServerStatus.port();
+	m_servers[pContext].curGames = requestServerStatus.curgames();
+	m_servers[pContext].maxGames = requestServerStatus.maxgames();
 
-	m_gameServerMap[pContext].games.clear();
+	m_servers[pContext].games.clear();
 	for (int index = 0; index < requestServerStatus.games_size(); index++) {
 		GameStatus gameStatus;
 		gameStatus.id = requestServerStatus.games(index).gameid();
 		gameStatus.mode = requestServerStatus.games(index).mode();
 		gameStatus.mapid = requestServerStatus.games(index).mapid();
 		gameStatus.evaluation = requestServerStatus.games(index).evaluation();
-		m_gameServerMap[pContext].games.push_back(gameStatus);
+		m_servers[pContext].games.push_back(gameStatus);
 	}
 }
 

@@ -103,14 +103,16 @@ BOOL CGateServer::Login(CIOContext *pContext, DWORD guid)
 	//
 	// 2. ²éÕÒ
 	//
-	GUIDMAP::const_iterator itContext = m_guidmap.find(guid);
-	if (itContext != m_guidmap.end()) return FALSE;
+	PlayerMap::const_iterator itPlayer = m_players.find(guid);
+	if (itPlayer != m_players.end()) return FALSE;
 
 	//
 	// 3. µÇÂ½
 	//
-	pContext->guid = guid;
-	m_guidmap[guid] = pContext;
+	PlayerStatus player;
+	player.pContext = pContext;
+	player.pContext->guid = guid;
+	m_players[guid] = player;
 
 	return TRUE;
 }
@@ -123,14 +125,14 @@ BOOL CGateServer::Logout(CIOContext *pContext)
 	//
 	// 1. ²éÕÒ
 	//
-	GUIDMAP::const_iterator itContext = m_guidmap.find(pContext->guid);
-	if (itContext == m_guidmap.end()) return FALSE;
+	PlayerMap::const_iterator itPlayer = m_players.find(pContext->guid);
+	if (itPlayer == m_players.end()) return FALSE;
 
 	//
 	// 2. ×¢Ïú
 	//
 	pContext->guid = 0xffffffff;
-	m_guidmap.erase(itContext);
+	m_players.erase(itPlayer);
 
 	return TRUE;
 }
@@ -140,8 +142,8 @@ BOOL CGateServer::Logout(CIOContext *pContext)
 //
 CIOContext* CGateServer::QueryContext(DWORD guid)
 {
-	GUIDMAP::const_iterator itContext = m_guidmap.find(guid);
-	return itContext != m_guidmap.end() ? itContext->second : NULL;
+	PlayerMap::const_iterator itPlayer = m_players.find(guid);
+	return itPlayer != m_players.end() ? itPlayer->second.pContext : NULL;
 }
 
 //
@@ -149,8 +151,8 @@ CIOContext* CGateServer::QueryContext(DWORD guid)
 //
 void CGateServer::ClearGameServer(CIOContext *pContext)
 {
-	GameServerMap::const_iterator itGameServer = m_gameServerMap.find(pContext);
-	if (itGameServer != m_gameServerMap.end()) m_gameServerMap.erase(itGameServer);
+	GameServerMap::const_iterator itGameServer = m_servers.find(pContext);
+	if (itGameServer != m_servers.end()) m_servers.erase(itGameServer);
 }
 
 //
@@ -182,7 +184,7 @@ void CGateServer::Monitor(void)
 	printf("Send Data = %dB (%2.2fMb/s)\n", m_dwSendDataSize, 8.0f * m_dwSendDataSize / 1024.0f / 1024.0f);
 	printf("Update Time = %dms\n", m_dwUpdateTime);
 	printf("Run Time = %2.2d:%2.2d:%2.2d\n", m_dwRuntimeTotal / 3600, m_dwRuntimeTotal / 60 - (m_dwRuntimeTotal / 3600) * 60, m_dwRuntimeTotal - (m_dwRuntimeTotal / 60) * 60);
-	printf("GameServers = %d, Players = %d/%d\n", m_gameServerMap.size(), m_guidmap.size(), m_maxContexts);
+	printf("GameServers = %d, Players = %d/%d\n", m_servers.size(), m_players.size(), m_maxContexts);
 }
 
 //
