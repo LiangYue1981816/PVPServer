@@ -95,7 +95,8 @@ protected:
 protected:
 	HANDLE m_hUpdateThread;                                                                        // 更新线程句柄
 
-	PlayerMap m_players;                                                                           // GUID映射表
+	PlayerMap m_matchs;                                                                            // 匹配集合
+	PlayerMap m_players;                                                                           // 玩家集合
 	GameServerMap m_servers;                                                                       // 游戏服务器集合
 
 protected:

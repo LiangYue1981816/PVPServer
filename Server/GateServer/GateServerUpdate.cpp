@@ -233,10 +233,14 @@ ERR:
 NEXT:
 
 	//
-	// 5. 匹配
+	// 5. 添加到匹配集合
 	//
-	m_players[pContext->guid].evaluation = requestMatch.evaluation();
-	m_players[pContext->guid].timeout = requestMatch.timeout();
+	PlayerMap::const_iterator itMatch = m_matchs.find(pContext->guid);
+	if (itMatch != m_matchs.end()) return;
+
+	m_matchs[pContext->guid] = m_players[pContext->guid];
+	m_matchs[pContext->guid].evaluation = requestMatch.evaluation();
+	m_matchs[pContext->guid].timeout = requestMatch.timeout();
 }
 
 //

@@ -126,16 +126,21 @@ BOOL CGateServer::Login(CIOContext *pContext, DWORD guid)
 BOOL CGateServer::Logout(CIOContext *pContext)
 {
 	//
-	// 1. 查找
+	// 1. 注销玩家集合
 	//
 	PlayerMap::const_iterator itPlayer = m_players.find(pContext->guid);
-	if (itPlayer == m_players.end()) return FALSE;
+	if (itPlayer != m_players.end()) m_players.erase(itPlayer);
 
 	//
-	// 2. 注销
+	// 2. 注销匹配集合
+	//
+	PlayerMap::const_iterator itMatch = m_matchs.find(pContext->guid);
+	if (itMatch != m_matchs.end()) m_matchs.erase(itMatch);
+
+	//
+	// 3. 恢复初始化
 	//
 	pContext->guid = 0xffffffff;
-	m_players.erase(itPlayer);
 
 	return TRUE;
 }
