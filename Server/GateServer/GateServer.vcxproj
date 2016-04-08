@@ -190,6 +190,7 @@
     <ClCompile Include="..\Proto\ProtoGateClient.pb.cc" />
     <ClCompile Include="..\Proto\ProtoGateServer.pb.cc" />
     <ClCompile Include="GateServer.cpp" />
+    <ClCompile Include="GateServerMatch.cpp" />
     <ClCompile Include="GateServerUpdate.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>

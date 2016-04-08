@@ -93,5 +93,8 @@
     <ClCompile Include="GateServerUpdate.cpp">
       <Filter>GateServer\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GateServerMatch.cpp">
+      <Filter>GateServer\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -74,6 +74,7 @@ protected:
 	virtual void OnDisconnect(CIOContext *pContext);                                               // 客户端断链回调
 
 	virtual void OnUpdateRecv(DWORD dwDeltaTime);                                                  // 更新接收消息
+	virtual void OnUpdateMatch(DWORD dwDeltaTime);                                                 // 更新匹配
 
 	virtual void OnHeartReset(CIOContext *pContext);                                               // 重置心跳
 	virtual void OnHeart(CIOContext *pContext, WORD size);                                         // 心跳
