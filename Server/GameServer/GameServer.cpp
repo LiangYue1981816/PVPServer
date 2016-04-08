@@ -237,35 +237,61 @@ void CGameServer::DestroyUpdateThread(void)
 //
 // 获得游戏
 //
-CGame* CGameServer::GetNextGame(void)
+CGame* CGameServer::GetNextGame(int gameid)
 {
-	CGame *pGame = NULL;
-
-	if (m_pFreeGame) {
-		//
-		// 1. 建立活动链接
-		//
-		pGame = m_pFreeGame;
-
-		pGame->pPrevActive = NULL;
-		pGame->pNextActive = m_pActiveGame;
-
-		if (m_pActiveGame) {
-			m_pActiveGame->pPrevActive = pGame;
-		}
-
-		m_pActiveGame = pGame;
-
-		//
-		// 2. 建立空闲链表
-		//
-		m_pFreeGame = m_pFreeGame->pNext;
-
-		//
-		// 3. 记录游戏数
-		//
-		m_curGames++;
+	//
+	// 1. 检查空闲游戏链表
+	//
+	if (m_pFreeGame == NULL) {
+		return NULL;
 	}
+
+	//
+	// 2. 搜索空闲游戏
+	//
+	CGame *pGame = m_pFreeGame;
+	CGame *pGamePrev = NULL;
+
+	if (gameid >= 0 && gameid < m_maxGames) {
+		do {
+			if (pGame->id == gameid) {
+				break;
+			}
+
+			pGamePrev = pGame;
+		} while (pGame = pGame->pNext);
+	}
+
+	if (pGame == NULL) {
+		return NULL;
+	}
+
+	//
+	// 3. 建立活动链接
+	//
+	pGame->pPrevActive = NULL;
+	pGame->pNextActive = m_pActiveGame;
+
+	if (m_pActiveGame) {
+		m_pActiveGame->pPrevActive = pGame;
+	}
+
+	m_pActiveGame = pGame;
+
+	//
+	// 4. 建立空闲链表
+	//
+	if (pGamePrev) {
+		pGamePrev->pNext = pGame->pNext;
+	}
+	else {
+		m_pFreeGame = pGame->pNext;
+	}
+
+	//
+	// 5. 记录游戏数
+	//
+	m_curGames++;
 
 	return pGame;
 }

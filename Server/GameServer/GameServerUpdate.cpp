@@ -356,7 +356,7 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
 	}
 
-	pGame = GetNextGame();
+	pGame = GetNextGame(requestCreateGame.gameid());
 
 	if (pGame == NULL) {
 		err = ProtoGameServer::ERROR_CODE::ERR_SERVER_FULL; goto ERR;

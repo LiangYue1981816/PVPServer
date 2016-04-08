@@ -121,8 +121,9 @@ void protobuf_AssignDesc_ProtoGameClient_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ListGame));
   CreateGame_descriptor_ = file->message_type(4);
-  static const int CreateGame_offsets_[5] = {
+  static const int CreateGame_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CreateGame, password_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CreateGame, gameid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CreateGame, mode_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CreateGame, mapid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CreateGame, maxplayers_),
@@ -287,19 +288,19 @@ void protobuf_AddDesc_ProtoGameClient_2eproto() {
     "\n\025ProtoGameClient.proto\022\017ProtoGameClient"
     "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"\007\n\005Flags\"&\n"
     "\005Login\022\014\n\004guid\030\001 \002(\r\022\017\n\007version\030\002 \002(\005\"\n\n"
-    "\010ListGame\"c\n\nCreateGame\022\020\n\010password\030\001 \002("
-    "\t\022\014\n\004mode\030\002 \002(\005\022\r\n\005mapid\030\003 \002(\005\022\022\n\nmaxPla"
-    "yers\030\004 \002(\005\022\022\n\nevaluation\030\005 \002(\002\"\r\n\013Destro"
-    "yGame\"-\n\tEnterGame\022\016\n\006gameid\030\001 \002(\r\022\020\n\010pa"
-    "ssword\030\002 \002(\t\"\n\n\010ExitGame\"8\n\014SendToPlayer"
-    "\022\014\n\004guid\030\001 \002(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data\030\003 \002"
-    "(\014\"=\n\017SendToPlayerAll\022\016\n\006filter\030\001 \002(\r\022\014\n"
-    "\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014*\265\001\n\013REQUEST_MS"
-    "G\022\n\n\005HEART\020\350\007\022\n\n\005FLAGS\020\351\007\022\n\n\005LOGIN\020\352\007\022\016\n"
-    "\tLIST_GAME\020\353\007\022\020\n\013CREATE_GAME\020\354\007\022\021\n\014DESTR"
-    "OY_GAME\020\355\007\022\017\n\nENTER_GAME\020\356\007\022\016\n\tEXIT_GAME"
-    "\020\357\007\022\023\n\016SEND_TO_PLAYER\020\360\007\022\027\n\022SEND_TO_PLAY"
-    "ER_ALL\020\361\007B\002H\001", 613);
+    "\010ListGame\"w\n\nCreateGame\022\020\n\010password\030\001 \002("
+    "\t\022\022\n\006gameid\030\002 \002(\005:\002-1\022\014\n\004mode\030\003 \002(\005\022\r\n\005m"
+    "apid\030\004 \002(\005\022\022\n\nmaxPlayers\030\005 \002(\005\022\022\n\nevalua"
+    "tion\030\006 \002(\002\"\r\n\013DestroyGame\"-\n\tEnterGame\022\016"
+    "\n\006gameid\030\001 \002(\r\022\020\n\010password\030\002 \002(\t\"\n\n\010Exit"
+    "Game\"8\n\014SendToPlayer\022\014\n\004guid\030\001 \002(\r\022\014\n\004si"
+    "ze\030\002 \002(\005\022\014\n\004data\030\003 \002(\014\"=\n\017SendToPlayerAl"
+    "l\022\016\n\006filter\030\001 \002(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data\030"
+    "\003 \002(\014*\265\001\n\013REQUEST_MSG\022\n\n\005HEART\020\350\007\022\n\n\005FLA"
+    "GS\020\351\007\022\n\n\005LOGIN\020\352\007\022\016\n\tLIST_GAME\020\353\007\022\020\n\013CRE"
+    "ATE_GAME\020\354\007\022\021\n\014DESTROY_GAME\020\355\007\022\017\n\nENTER_"
+    "GAME\020\356\007\022\016\n\tEXIT_GAME\020\357\007\022\023\n\016SEND_TO_PLAYE"
+    "R\020\360\007\022\027\n\022SEND_TO_PLAYER_ALL\020\361\007B\002H\001", 633);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGameClient.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -1204,6 +1205,7 @@ void ListGame::Swap(ListGame* other) {
 
 #ifndef _MSC_VER
 const int CreateGame::kPasswordFieldNumber;
+const int CreateGame::kGameidFieldNumber;
 const int CreateGame::kModeFieldNumber;
 const int CreateGame::kMapidFieldNumber;
 const int CreateGame::kMaxPlayersFieldNumber;
@@ -1230,6 +1232,7 @@ void CreateGame::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   password_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  gameid_ = -1;
   mode_ = 0;
   mapid_ = 0;
   maxplayers_ = 0;
@@ -1282,13 +1285,14 @@ void CreateGame::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 31) {
+  if (_has_bits_[0 / 32] & 63) {
     ZR_(mode_, evaluation_);
     if (has_password()) {
       if (password_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         password_->clear();
       }
     }
+    gameid_ = -1;
   }
 
 #undef OFFSET_OF_FIELD_
@@ -1320,13 +1324,28 @@ bool CreateGame::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_mode;
+        if (input->ExpectTag(16)) goto parse_gameid;
         break;
       }
 
-      // required int32 mode = 2;
+      // required int32 gameid = 2 [default = -1];
       case 2: {
         if (tag == 16) {
+         parse_gameid:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &gameid_)));
+          set_has_gameid();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_mode;
+        break;
+      }
+
+      // required int32 mode = 3;
+      case 3: {
+        if (tag == 24) {
          parse_mode:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -1335,13 +1354,13 @@ bool CreateGame::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_mapid;
+        if (input->ExpectTag(32)) goto parse_mapid;
         break;
       }
 
-      // required int32 mapid = 3;
-      case 3: {
-        if (tag == 24) {
+      // required int32 mapid = 4;
+      case 4: {
+        if (tag == 32) {
          parse_mapid:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -1350,13 +1369,13 @@ bool CreateGame::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(32)) goto parse_maxPlayers;
+        if (input->ExpectTag(40)) goto parse_maxPlayers;
         break;
       }
 
-      // required int32 maxPlayers = 4;
-      case 4: {
-        if (tag == 32) {
+      // required int32 maxPlayers = 5;
+      case 5: {
+        if (tag == 40) {
          parse_maxPlayers:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -1365,13 +1384,13 @@ bool CreateGame::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(45)) goto parse_evaluation;
+        if (input->ExpectTag(53)) goto parse_evaluation;
         break;
       }
 
-      // required float evaluation = 5;
-      case 5: {
-        if (tag == 45) {
+      // required float evaluation = 6;
+      case 6: {
+        if (tag == 53) {
          parse_evaluation:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
@@ -1419,24 +1438,29 @@ void CreateGame::SerializeWithCachedSizes(
       1, this->password(), output);
   }
 
-  // required int32 mode = 2;
+  // required int32 gameid = 2 [default = -1];
+  if (has_gameid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->gameid(), output);
+  }
+
+  // required int32 mode = 3;
   if (has_mode()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->mode(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->mode(), output);
   }
 
-  // required int32 mapid = 3;
+  // required int32 mapid = 4;
   if (has_mapid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->mapid(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->mapid(), output);
   }
 
-  // required int32 maxPlayers = 4;
+  // required int32 maxPlayers = 5;
   if (has_maxplayers()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->maxplayers(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->maxplayers(), output);
   }
 
-  // required float evaluation = 5;
+  // required float evaluation = 6;
   if (has_evaluation()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(5, this->evaluation(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->evaluation(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -1460,24 +1484,29 @@ void CreateGame::SerializeWithCachedSizes(
         1, this->password(), target);
   }
 
-  // required int32 mode = 2;
+  // required int32 gameid = 2 [default = -1];
+  if (has_gameid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->gameid(), target);
+  }
+
+  // required int32 mode = 3;
   if (has_mode()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->mode(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->mode(), target);
   }
 
-  // required int32 mapid = 3;
+  // required int32 mapid = 4;
   if (has_mapid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->mapid(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->mapid(), target);
   }
 
-  // required int32 maxPlayers = 4;
+  // required int32 maxPlayers = 5;
   if (has_maxplayers()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->maxplayers(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->maxplayers(), target);
   }
 
-  // required float evaluation = 5;
+  // required float evaluation = 6;
   if (has_evaluation()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(5, this->evaluation(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->evaluation(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1499,28 +1528,35 @@ int CreateGame::ByteSize() const {
           this->password());
     }
 
-    // required int32 mode = 2;
+    // required int32 gameid = 2 [default = -1];
+    if (has_gameid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->gameid());
+    }
+
+    // required int32 mode = 3;
     if (has_mode()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->mode());
     }
 
-    // required int32 mapid = 3;
+    // required int32 mapid = 4;
     if (has_mapid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->mapid());
     }
 
-    // required int32 maxPlayers = 4;
+    // required int32 maxPlayers = 5;
     if (has_maxplayers()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->maxplayers());
     }
 
-    // required float evaluation = 5;
+    // required float evaluation = 6;
     if (has_evaluation()) {
       total_size += 1 + 4;
     }
@@ -1555,6 +1591,9 @@ void CreateGame::MergeFrom(const CreateGame& from) {
     if (from.has_password()) {
       set_password(from.password());
     }
+    if (from.has_gameid()) {
+      set_gameid(from.gameid());
+    }
     if (from.has_mode()) {
       set_mode(from.mode());
     }
@@ -1584,7 +1623,7 @@ void CreateGame::CopyFrom(const CreateGame& from) {
 }
 
 bool CreateGame::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000001f) != 0x0000001f) return false;
+  if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
 
   return true;
 }
@@ -1592,6 +1631,7 @@ bool CreateGame::IsInitialized() const {
 void CreateGame::Swap(CreateGame* other) {
   if (other != this) {
     std::swap(password_, other->password_);
+    std::swap(gameid_, other->gameid_);
     std::swap(mode_, other->mode_);
     std::swap(mapid_, other->mapid_);
     std::swap(maxplayers_, other->maxplayers_);

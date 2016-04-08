@@ -37,10 +37,11 @@ message ListGame
 message CreateGame
 {
 	required string password = 1;
-	required int32 mode = 2;
-	required int32 mapid = 3;
-	required int32 maxPlayers = 4;
-	required float evaluation = 5;
+	required int32 gameid = 2 [default = -1];
+	required int32 mode = 3;
+	required int32 mapid = 4;
+	required int32 maxPlayers = 5;
+	required float evaluation = 6;
 }
 
 message DestroyGame

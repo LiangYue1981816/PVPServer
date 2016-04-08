@@ -152,7 +152,7 @@ protected:
 	virtual void DestroyUpdateThread(void);                                                        // 销毁更新线程
 
 protected:
-	virtual CGame* GetNextGame(void);                                                              // 获得游戏
+	virtual CGame* GetNextGame(int gameid);                                                        // 获得游戏
 	virtual void ReleaseGame(CGame *pGame);                                                        // 释放游戏
 
 protected:
