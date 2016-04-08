@@ -24,6 +24,7 @@ message Login
 message Match
 {
 	required float evaluation = 1;
+	required float timeout = 2;
 }
 
 message ListGameServer

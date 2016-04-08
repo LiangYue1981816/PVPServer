@@ -63,6 +63,13 @@ namespace ProtoGateClient
       get { return _evaluation; }
       set { _evaluation = value; }
     }
+    private float _timeout;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"timeout", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    public float timeout
+    {
+      get { return _timeout; }
+      set { _timeout = value; }
+    }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
