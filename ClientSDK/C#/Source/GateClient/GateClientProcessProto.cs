@@ -12,6 +12,10 @@
                 ResponseLogin(buffer);
                 break;
 
+            case (short)ProtoGateServer.RESPONSE_MSG.MATCH:
+                ResponseMatch(buffer);
+                break;
+
             case (short)ProtoGateServer.RESPONSE_MSG.SEND_TO_PLAYER:
                 ResponseSendToPlayer(buffer);
                 break;
