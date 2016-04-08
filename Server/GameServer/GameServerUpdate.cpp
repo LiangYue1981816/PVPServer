@@ -467,7 +467,7 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
 	}
 
-	if (requestEnterGame.gameid() < 0 || requestEnterGame.gameid() >= (DWORD)m_maxGames) {
+	if (requestEnterGame.gameid() < 0 || requestEnterGame.gameid() >= m_maxGames) {
 		err = ProtoGameServer::ERROR_CODE::ERR_GAME_INVALID_ID; goto ERR;
 	}
 

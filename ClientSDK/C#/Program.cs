@@ -326,7 +326,7 @@ class Program
                     {
                         if (mGameClients[indexGame][indexPlayer].IsWaiting() == false)
                         {
-                            mGameClients[indexGame][indexPlayer].RequestEnterGame("", gameid);
+                            mGameClients[indexGame][indexPlayer].RequestEnterGame("", (int)gameid);
                             bEnter = false;
                         }
                     }
@@ -386,9 +386,11 @@ class Program
 
     static void GameServerCreateGame()
     {
+        Console.WriteLine("Input Game ID ...");
+        string gameid = Console.ReadLine();
         Console.WriteLine("Input Password ...");
         string password = Console.ReadLine();
-        mGameClient.RequestCreateGame(password, 1, 2, 10, 1.0f);
+        mGameClient.RequestCreateGame(password, Int32.Parse(gameid), 1, 2, 10, 1.0f);
     }
 
     static void GameServerDestroyGame()
@@ -402,7 +404,7 @@ class Program
         string gameid = Console.ReadLine();
         Console.WriteLine("Input Password ...");
         string password = Console.ReadLine();
-        mGameClient.RequestEnterGame(password, UInt32.Parse(gameid));
+        mGameClient.RequestEnterGame(password, Int32.Parse(gameid));
     }
 
     static void GameServerExitGame()

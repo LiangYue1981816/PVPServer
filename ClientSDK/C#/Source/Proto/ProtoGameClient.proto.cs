@@ -138,9 +138,9 @@ namespace ProtoGameClient
   {
     public EnterGame() {}
     
-    private uint _gameid;
+    private int _gameid;
     [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
-    public uint gameid
+    public int gameid
     {
       get { return _gameid; }
       set { _gameid = value; }

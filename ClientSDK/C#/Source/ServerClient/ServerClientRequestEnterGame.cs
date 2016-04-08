@@ -2,7 +2,7 @@
 
 public partial class ServerClient : NetClient
 {
-    public virtual void RequestEnterGame(string password, uint gameid)
+    public virtual void RequestEnterGame(string password, int gameid)
     {
         mRequestEnterGame.password = password;
         mRequestEnterGame.gameid = gameid;

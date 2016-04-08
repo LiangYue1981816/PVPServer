@@ -292,7 +292,7 @@ void protobuf_AddDesc_ProtoGameClient_2eproto() {
     "\t\022\022\n\006gameid\030\002 \002(\005:\002-1\022\014\n\004mode\030\003 \002(\005\022\r\n\005m"
     "apid\030\004 \002(\005\022\022\n\nmaxPlayers\030\005 \002(\005\022\022\n\nevalua"
     "tion\030\006 \002(\002\"\r\n\013DestroyGame\"-\n\tEnterGame\022\016"
-    "\n\006gameid\030\001 \002(\r\022\020\n\010password\030\002 \002(\t\"\n\n\010Exit"
+    "\n\006gameid\030\001 \002(\005\022\020\n\010password\030\002 \002(\t\"\n\n\010Exit"
     "Game\"8\n\014SendToPlayer\022\014\n\004guid\030\001 \002(\r\022\014\n\004si"
     "ze\030\002 \002(\005\022\014\n\004data\030\003 \002(\014\"=\n\017SendToPlayerAl"
     "l\022\016\n\006filter\030\001 \002(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data\030"
@@ -1851,7 +1851,7 @@ EnterGame::EnterGame(const EnterGame& from)
 void EnterGame::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
-  gameid_ = 0u;
+  gameid_ = 0;
   password_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -1892,7 +1892,7 @@ EnterGame* EnterGame::New() const {
 
 void EnterGame::Clear() {
   if (_has_bits_[0 / 32] & 3) {
-    gameid_ = 0u;
+    gameid_ = 0;
     if (has_password()) {
       if (password_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         password_->clear();
@@ -1913,11 +1913,11 @@ bool EnterGame::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 gameid = 1;
+      // required int32 gameid = 1;
       case 1: {
         if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &gameid_)));
           set_has_gameid();
         } else {
@@ -1969,9 +1969,9 @@ failure:
 void EnterGame::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:ProtoGameClient.EnterGame)
-  // required uint32 gameid = 1;
+  // required int32 gameid = 1;
   if (has_gameid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->gameid(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->gameid(), output);
   }
 
   // required string password = 2;
@@ -1994,9 +1994,9 @@ void EnterGame::SerializeWithCachedSizes(
 ::google::protobuf::uint8* EnterGame::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:ProtoGameClient.EnterGame)
-  // required uint32 gameid = 1;
+  // required int32 gameid = 1;
   if (has_gameid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteUInt32ToArray(1, this->gameid(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->gameid(), target);
   }
 
   // required string password = 2;
@@ -2022,10 +2022,10 @@ int EnterGame::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 gameid = 1;
+    // required int32 gameid = 1;
     if (has_gameid()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->gameid());
     }
 
