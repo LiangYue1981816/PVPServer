@@ -113,6 +113,7 @@ BOOL CGateServer::Login(CIOContext *pContext, DWORD guid)
 	player.pContext = pContext;
 	player.pContext->guid = guid;
 	player.evaluation = 0.0f;
+	player.timeout = 0.0f;
 
 	m_players[guid] = player;
 

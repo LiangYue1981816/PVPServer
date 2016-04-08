@@ -60,6 +60,11 @@ void CGateServer::OnUpdateRecv(DWORD dwDeltaTime)
 						OnHeartReset(pContext);
 						break;
 
+					case ProtoGateClient::REQUEST_MSG::MATCH:
+						OnMatch(pContext, bodySize);
+						OnHeartReset(pContext);
+						break;
+
 					case ProtoGateClient::REQUEST_MSG::LIST_GAME_SERVER:
 						OnListGameServer(pContext, bodySize);
 						OnHeartReset(pContext);
@@ -181,6 +186,57 @@ NEXT:
 	 // 4. 发送
 	 //
 	 SendTo(pContext, buffer, writeBuffer.GetActiveBufferSize());
+}
+
+//
+// 匹配
+//
+void CGateServer::OnMatch(CIOContext *pContext, WORD size)
+{
+	ProtoGateClient::Match requestMatch;
+	ProtoGateServer::Match responseMath;
+
+	BYTE buffer[PACK_BUFFER_SIZE];
+	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
+
+	//
+	// 1. 解析消息
+	//
+	if (Parser(&pContext->recvBuffer, &requestMatch, size) == FALSE) {
+		return;
+	}
+
+	//
+	// 2. 检查
+	//
+	ProtoGateServer::ERROR_CODE err = ProtoGateServer::ERROR_CODE::ERR_NONE;
+
+	if (pContext->guid == 0xffffffff) {
+		err = ProtoGateServer::ERROR_CODE::ERR_PLAYER_NOT_LOGIN; goto ERR;
+	}
+
+	goto NEXT;
+ERR:
+	responseMath.set_err(err);
+
+	//
+	// 3. 序列化消息
+	//
+	Serializer(&writeBuffer, &responseMath, ProtoGateServer::RESPONSE_MSG::MATCH);
+
+	//
+	// 4. 发送
+	//
+	SendTo(pContext, buffer, writeBuffer.GetActiveBufferSize());
+
+	return;
+NEXT:
+
+	//
+	// 5. 匹配
+	//
+	m_players[pContext->guid].evaluation = requestMatch.evaluation();
+	m_players[pContext->guid].timeout = requestMatch.timeout();
 }
 
 //

@@ -20,7 +20,8 @@ class _ServerExport CGateServer : public CIOCPServer
 public:
 	typedef struct {
 		CIOContext *pContext;                                                                      // 玩家上下文
-		float evaluation;                                                                          // 玩家评估
+		float evaluation;                                                                          // 玩家评估值
+		float timeout;                                                                             // 玩家匹配超时
 	} PlayerStatus;
 
 	typedef struct {
@@ -77,6 +78,7 @@ protected:
 	virtual void OnHeartReset(CIOContext *pContext);                                               // 重置心跳
 	virtual void OnHeart(CIOContext *pContext, WORD size);                                         // 心跳
 	virtual void OnLogin(CIOContext *pContext, WORD size);                                         // 登陆
+	virtual void OnMatch(CIOContext *pContext, WORD size);                                         // 匹配
 	virtual void OnListGameServer(CIOContext *pContext, WORD size);                                // 游戏服务器列表
 	virtual void OnSendToPlayer(CIOContext *pContext, WORD size);                                  // 发送指定玩家
 	virtual void OnGameServerStatus(CIOContext *pContext, WORD size);                              // 游戏服务器状态

@@ -335,7 +335,7 @@ class Match : public ::google::protobuf::Message {
   inline ::ProtoGateServer::ERROR_CODE err() const;
   inline void set_err(::ProtoGateServer::ERROR_CODE value);
 
-  // required string ip = 2;
+  // required string ip = 2 [default = ""];
   inline bool has_ip() const;
   inline void clear_ip();
   static const int kIpFieldNumber = 2;
@@ -347,14 +347,14 @@ class Match : public ::google::protobuf::Message {
   inline ::std::string* release_ip();
   inline void set_allocated_ip(::std::string* ip);
 
-  // required int32 port = 3;
+  // required int32 port = 3 [default = -1];
   inline bool has_port() const;
   inline void clear_port();
   static const int kPortFieldNumber = 3;
   inline ::google::protobuf::int32 port() const;
   inline void set_port(::google::protobuf::int32 value);
 
-  // required int32 gameid = 4;
+  // required int32 gameid = 4 [default = -1];
   inline bool has_gameid() const;
   inline void clear_gameid();
   static const int kGameidFieldNumber = 4;
@@ -802,7 +802,7 @@ inline void Match::set_err(::ProtoGateServer::ERROR_CODE value) {
   // @@protoc_insertion_point(field_set:ProtoGateServer.Match.err)
 }
 
-// required string ip = 2;
+// required string ip = 2 [default = ""];
 inline bool Match::has_ip() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -878,7 +878,7 @@ inline void Match::set_allocated_ip(::std::string* ip) {
   // @@protoc_insertion_point(field_set_allocated:ProtoGateServer.Match.ip)
 }
 
-// required int32 port = 3;
+// required int32 port = 3 [default = -1];
 inline bool Match::has_port() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -889,7 +889,7 @@ inline void Match::clear_has_port() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline void Match::clear_port() {
-  port_ = 0;
+  port_ = -1;
   clear_has_port();
 }
 inline ::google::protobuf::int32 Match::port() const {
@@ -902,7 +902,7 @@ inline void Match::set_port(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ProtoGateServer.Match.port)
 }
 
-// required int32 gameid = 4;
+// required int32 gameid = 4 [default = -1];
 inline bool Match::has_gameid() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
@@ -913,7 +913,7 @@ inline void Match::clear_has_gameid() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline void Match::clear_gameid() {
-  gameid_ = 0;
+  gameid_ = -1;
   clear_has_gameid();
 }
 inline ::google::protobuf::int32 Match::gameid() const {
