@@ -22,6 +22,13 @@ public partial class GateClient : NetClient
                     onResponseListGameServer(responseListGameServer);
                 }
             }
+            else
+            {
+                if (onResponseError != null)
+                {
+                    onResponseError(mErrorCode);
+                }
+            }
         }
         catch(Exception)
         {

@@ -43,6 +43,13 @@ public partial class ServerClient : NetClient
                     onResponseCreateGame();
                 }
             }
+            else
+            {
+                if (onResponseError != null)
+                {
+                    onResponseError(mErrorCode);
+                }
+            }
         }
         catch(Exception)
         {

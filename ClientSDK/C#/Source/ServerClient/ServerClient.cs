@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public partial class ServerClient : NetClient
 {
+    public delegate void OnResponseError(ProtoGameServer.ERROR_CODE err);
     public delegate void OnResponseHost(uint guid);
     public delegate void OnResponseLogin();
     public delegate void OnResponseListGame(ProtoGameServer.ListGame responseListGame);
@@ -13,6 +14,7 @@ public partial class ServerClient : NetClient
     public delegate void OnResponseExitGame(uint guid);
     public delegate void OnResponseSendToPlayer(int size, byte[] data);
 
+    public OnResponseError onResponseError = null;
     public OnResponseHost onResponseHost = null;
     public OnResponseLogin onResponseLogin = null;
     public OnResponseListGame onResponseListGame = null;

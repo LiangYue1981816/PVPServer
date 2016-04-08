@@ -27,6 +27,13 @@ public partial class ServerClient : NetClient
                     onResponseLogin();
                 }
             }
+            else
+            {
+                if (onResponseError != null)
+                {
+                    onResponseError(mErrorCode);
+                }
+            }
         }
         catch (Exception)
         {

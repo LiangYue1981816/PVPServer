@@ -39,6 +39,13 @@ public partial class ServerClient : NetClient
                     onResponseExitGame(responseExitGame.guid);
                 }
             }
+            else
+            {
+                if (onResponseError != null)
+                {
+                    onResponseError(mErrorCode);
+                }
+            }
         }
         catch (Exception)
         {

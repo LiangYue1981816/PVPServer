@@ -50,6 +50,7 @@
     <Compile Include="Source\GateClient\GateClientRequestHeart.cs" />
     <Compile Include="Source\GateClient\GateClientRequestListGameServer.cs" />
     <Compile Include="Source\GateClient\GateClientRequestLogin.cs" />
+    <Compile Include="Source\GateClient\GateClientRequestMatch.cs" />
     <Compile Include="Source\GateClient\GateClientRequestSendToPlayer.cs" />
     <Compile Include="Source\GateClient\GateClientUpdate.cs" />
     <Compile Include="Source\NetClient\NetClient.cs" />

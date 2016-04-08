@@ -22,6 +22,13 @@ public partial class ServerClient : NetClient
                     onResponseListGame(responseListGame);
                 }
             }
+            else
+            {
+                if (onResponseError != null)
+                {
+                    onResponseError(mErrorCode);
+                }
+            }
         }
         catch(Exception)
         {

@@ -28,6 +28,13 @@ public partial class ServerClient : NetClient
                     onResponseDestroyGame();
                 }
             }
+            else
+            {
+                if (onResponseError != null)
+                {
+                    onResponseError(mErrorCode);
+                }
+            }
         }
         catch (Exception)
         {
