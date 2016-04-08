@@ -5,8 +5,9 @@ enum REQUEST_MSG
 {
 	HEART = 3000;
 	LOGIN = 3001;
-	LIST_GAME_SERVER = 3002;
-	SEND_TO_PLAYER = 3003;
+	MATCH = 3002;
+	LIST_GAME_SERVER = 3003;
+	SEND_TO_PLAYER = 3004;
 }
 
 message Heart
@@ -18,6 +19,11 @@ message Login
 {
 	required uint32 guid = 1;
 	required int32 version = 2;
+}
+
+message Match
+{
+	required float evaluation = 1;
 }
 
 message ListGameServer

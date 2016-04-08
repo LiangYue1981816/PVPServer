@@ -22,8 +22,9 @@ enum RESPONSE_MSG
 {
 	HEART = 3000;
 	LOGIN = 3001;
-	LIST_GAME_SERVER = 3002;
-	SEND_TO_PLAYER = 3003;
+	MATCH = 3002;
+	LIST_GAME_SERVER = 3003;
+	SEND_TO_PLAYER = 3004;
 }
 
 message Heart
@@ -35,6 +36,13 @@ message Login
 {
 	required ERROR_CODE err = 1;
 	optional uint32 guid = 2;
+}
+
+message Match
+{
+	required string ip = 1;
+	required int32 port = 2;
+	required int32 gameid = 3;
 }
 
 message ListGameServer

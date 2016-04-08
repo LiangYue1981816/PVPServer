@@ -52,6 +52,37 @@ namespace ProtoGateServer
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Match")]
+  public partial class Match : global::ProtoBuf.IExtensible
+  {
+    public Match() {}
+    
+    private string _ip;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"ip", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string ip
+    {
+      get { return _ip; }
+      set { _ip = value; }
+    }
+    private int _port;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"port", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int port
+    {
+      get { return _port; }
+      set { _port = value; }
+    }
+    private int _gameid;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int gameid
+    {
+      get { return _gameid; }
+      set { _gameid = value; }
+    }
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ListGameServer")]
   public partial class ListGameServer : global::ProtoBuf.IExtensible
   {
@@ -179,11 +210,14 @@ namespace ProtoGateServer
       [global::ProtoBuf.ProtoEnum(Name=@"LOGIN", Value=3001)]
       LOGIN = 3001,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"LIST_GAME_SERVER", Value=3002)]
-      LIST_GAME_SERVER = 3002,
+      [global::ProtoBuf.ProtoEnum(Name=@"MATCH", Value=3002)]
+      MATCH = 3002,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=3003)]
-      SEND_TO_PLAYER = 3003
+      [global::ProtoBuf.ProtoEnum(Name=@"LIST_GAME_SERVER", Value=3003)]
+      LIST_GAME_SERVER = 3003,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=3004)]
+      SEND_TO_PLAYER = 3004
     }
   
 }

@@ -26,6 +26,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* Login_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Login_reflection_ = NULL;
+const ::google::protobuf::Descriptor* Match_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Match_reflection_ = NULL;
 const ::google::protobuf::Descriptor* ListGameServer_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   ListGameServer_reflection_ = NULL;
@@ -74,7 +77,22 @@ void protobuf_AssignDesc_ProtoGateClient_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Login));
-  ListGameServer_descriptor_ = file->message_type(2);
+  Match_descriptor_ = file->message_type(2);
+  static const int Match_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Match, evaluation_),
+  };
+  Match_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      Match_descriptor_,
+      Match::default_instance_,
+      Match_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Match, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Match, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(Match));
+  ListGameServer_descriptor_ = file->message_type(3);
   static const int ListGameServer_offsets_[1] = {
   };
   ListGameServer_reflection_ =
@@ -88,7 +106,7 @@ void protobuf_AssignDesc_ProtoGateClient_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ListGameServer));
-  SendToPlayer_descriptor_ = file->message_type(3);
+  SendToPlayer_descriptor_ = file->message_type(4);
   static const int SendToPlayer_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, guids_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, size_),
@@ -123,6 +141,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     Login_descriptor_, &Login::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    Match_descriptor_, &Match::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     ListGameServer_descriptor_, &ListGameServer::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     SendToPlayer_descriptor_, &SendToPlayer::default_instance());
@@ -135,6 +155,8 @@ void protobuf_ShutdownFile_ProtoGateClient_2eproto() {
   delete Heart_reflection_;
   delete Login::default_instance_;
   delete Login_reflection_;
+  delete Match::default_instance_;
+  delete Match_reflection_;
   delete ListGameServer::default_instance_;
   delete ListGameServer_reflection_;
   delete SendToPlayer::default_instance_;
@@ -150,19 +172,22 @@ void protobuf_AddDesc_ProtoGateClient_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\025ProtoGateClient.proto\022\017ProtoGateClient"
     "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"&\n\005Login\022\014\n"
-    "\004guid\030\001 \002(\r\022\017\n\007version\030\002 \002(\005\"\020\n\016ListGame"
-    "Server\"9\n\014SendToPlayer\022\r\n\005guids\030\001 \003(\r\022\014\n"
-    "\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014*Q\n\013REQUEST_MSG"
-    "\022\n\n\005HEART\020\270\027\022\n\n\005LOGIN\020\271\027\022\025\n\020LIST_GAME_SE"
-    "RVER\020\272\027\022\023\n\016SEND_TO_PLAYER\020\273\027B\002H\001", 272);
+    "\004guid\030\001 \002(\r\022\017\n\007version\030\002 \002(\005\"\033\n\005Match\022\022\n"
+    "\nevaluation\030\001 \002(\002\"\020\n\016ListGameServer\"9\n\014S"
+    "endToPlayer\022\r\n\005guids\030\001 \003(\r\022\014\n\004size\030\002 \002(\005"
+    "\022\014\n\004data\030\003 \002(\014*]\n\013REQUEST_MSG\022\n\n\005HEART\020\270"
+    "\027\022\n\n\005LOGIN\020\271\027\022\n\n\005MATCH\020\272\027\022\025\n\020LIST_GAME_S"
+    "ERVER\020\273\027\022\023\n\016SEND_TO_PLAYER\020\274\027B\002H\001", 313);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGateClient.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
   Login::default_instance_ = new Login();
+  Match::default_instance_ = new Match();
   ListGameServer::default_instance_ = new ListGameServer();
   SendToPlayer::default_instance_ = new SendToPlayer();
   Heart::default_instance_->InitAsDefaultInstance();
   Login::default_instance_->InitAsDefaultInstance();
+  Match::default_instance_->InitAsDefaultInstance();
   ListGameServer::default_instance_->InitAsDefaultInstance();
   SendToPlayer::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_ProtoGateClient_2eproto);
@@ -184,6 +209,7 @@ bool REQUEST_MSG_IsValid(int value) {
     case 3001:
     case 3002:
     case 3003:
+    case 3004:
       return true;
     default:
       return false;
@@ -685,6 +711,227 @@ void Login::Swap(Login* other) {
   ::google::protobuf::Metadata metadata;
   metadata.descriptor = Login_descriptor_;
   metadata.reflection = Login_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int Match::kEvaluationFieldNumber;
+#endif  // !_MSC_VER
+
+Match::Match()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:ProtoGateClient.Match)
+}
+
+void Match::InitAsDefaultInstance() {
+}
+
+Match::Match(const Match& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:ProtoGateClient.Match)
+}
+
+void Match::SharedCtor() {
+  _cached_size_ = 0;
+  evaluation_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+Match::~Match() {
+  // @@protoc_insertion_point(destructor:ProtoGateClient.Match)
+  SharedDtor();
+}
+
+void Match::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void Match::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* Match::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return Match_descriptor_;
+}
+
+const Match& Match::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_ProtoGateClient_2eproto();
+  return *default_instance_;
+}
+
+Match* Match::default_instance_ = NULL;
+
+Match* Match::New() const {
+  return new Match;
+}
+
+void Match::Clear() {
+  evaluation_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool Match::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:ProtoGateClient.Match)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required float evaluation = 1;
+      case 1: {
+        if (tag == 13) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                 input, &evaluation_)));
+          set_has_evaluation();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:ProtoGateClient.Match)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:ProtoGateClient.Match)
+  return false;
+#undef DO_
+}
+
+void Match::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:ProtoGateClient.Match)
+  // required float evaluation = 1;
+  if (has_evaluation()) {
+    ::google::protobuf::internal::WireFormatLite::WriteFloat(1, this->evaluation(), output);
+  }
+
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:ProtoGateClient.Match)
+}
+
+::google::protobuf::uint8* Match::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGateClient.Match)
+  // required float evaluation = 1;
+  if (has_evaluation()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->evaluation(), target);
+  }
+
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGateClient.Match)
+  return target;
+}
+
+int Match::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required float evaluation = 1;
+    if (has_evaluation()) {
+      total_size += 1 + 4;
+    }
+
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void Match::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const Match* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const Match*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void Match::MergeFrom(const Match& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_evaluation()) {
+      set_evaluation(from.evaluation());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void Match::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Match::CopyFrom(const Match& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Match::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  return true;
+}
+
+void Match::Swap(Match* other) {
+  if (other != this) {
+    std::swap(evaluation_, other->evaluation_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata Match::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Match_descriptor_;
+  metadata.reflection = Match_reflection_;
   return metadata;
 }
 

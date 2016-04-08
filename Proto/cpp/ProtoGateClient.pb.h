@@ -36,14 +36,16 @@ void protobuf_ShutdownFile_ProtoGateClient_2eproto();
 
 class Heart;
 class Login;
+class Match;
 class ListGameServer;
 class SendToPlayer;
 
 enum REQUEST_MSG {
   HEART = 3000,
   LOGIN = 3001,
-  LIST_GAME_SERVER = 3002,
-  SEND_TO_PLAYER = 3003
+  MATCH = 3002,
+  LIST_GAME_SERVER = 3003,
+  SEND_TO_PLAYER = 3004
 };
 bool REQUEST_MSG_IsValid(int value);
 const REQUEST_MSG REQUEST_MSG_MIN = HEART;
@@ -227,6 +229,85 @@ class Login : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static Login* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class Match : public ::google::protobuf::Message {
+ public:
+  Match();
+  virtual ~Match();
+
+  Match(const Match& from);
+
+  inline Match& operator=(const Match& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Match& default_instance();
+
+  void Swap(Match* other);
+
+  // implements Message ----------------------------------------------
+
+  Match* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const Match& from);
+  void MergeFrom(const Match& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required float evaluation = 1;
+  inline bool has_evaluation() const;
+  inline void clear_evaluation();
+  static const int kEvaluationFieldNumber = 1;
+  inline float evaluation() const;
+  inline void set_evaluation(float value);
+
+  // @@protoc_insertion_point(class_scope:ProtoGateClient.Match)
+ private:
+  inline void set_has_evaluation();
+  inline void clear_has_evaluation();
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  float evaluation_;
+  friend void  protobuf_AddDesc_ProtoGateClient_2eproto();
+  friend void protobuf_AssignDesc_ProtoGateClient_2eproto();
+  friend void protobuf_ShutdownFile_ProtoGateClient_2eproto();
+
+  void InitAsDefaultInstance();
+  static Match* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -485,6 +566,34 @@ inline void Login::set_version(::google::protobuf::int32 value) {
   set_has_version();
   version_ = value;
   // @@protoc_insertion_point(field_set:ProtoGateClient.Login.version)
+}
+
+// -------------------------------------------------------------------
+
+// Match
+
+// required float evaluation = 1;
+inline bool Match::has_evaluation() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Match::set_has_evaluation() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Match::clear_has_evaluation() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void Match::clear_evaluation() {
+  evaluation_ = 0;
+  clear_has_evaluation();
+}
+inline float Match::evaluation() const {
+  // @@protoc_insertion_point(field_get:ProtoGateClient.Match.evaluation)
+  return evaluation_;
+}
+inline void Match::set_evaluation(float value) {
+  set_has_evaluation();
+  evaluation_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGateClient.Match.evaluation)
 }
 
 // -------------------------------------------------------------------
