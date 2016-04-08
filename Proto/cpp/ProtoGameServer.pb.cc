@@ -383,7 +383,7 @@ void protobuf_AddDesc_ProtoGameServer_2eproto() {
     "e\032\200\001\n\004Game\022\017\n\007private\030\001 \002(\010\022\016\n\006gameid\030\002 "
     "\002(\005\022\014\n\004mode\030\003 \002(\005\022\r\n\005mapid\030\004 \002(\005\022\022\n\ncurP"
     "layers\030\005 \002(\005\022\022\n\nmaxPlayers\030\006 \002(\005\022\022\n\neval"
-    "uation\030\007 \002(\002\"F\n\nCreateGame\022(\n\003err\030\001 \002(\0162"
+    "uation\030\007 \002(\005\"F\n\nCreateGame\022(\n\003err\030\001 \002(\0162"
     "\033.ProtoGameServer.ERROR_CODE\022\016\n\006gameid\030\002"
     " \001(\r\"7\n\013DestroyGame\022(\n\003err\030\001 \002(\0162\033.Proto"
     "GameServer.ERROR_CODE\"S\n\tEnterGame\022(\n\003er"
@@ -396,7 +396,7 @@ void protobuf_AddDesc_ProtoGameServer_2eproto() {
     "\020\n\010maxGames\030\004 \002(\005\0221\n\005games\030\005 \003(\0132\".Proto"
     "GameServer.ServerStatus.Game\032V\n\004Game\022\r\n\005"
     "empty\030\001 \002(\010\022\016\n\006gameid\030\002 \002(\005\022\014\n\004mode\030\003 \002("
-    "\005\022\r\n\005mapid\030\004 \002(\005\022\022\n\nevaluation\030\005 \002(\002*\037\n\016"
+    "\005\022\r\n\005mapid\030\004 \002(\005\022\022\n\nevaluation\030\005 \002(\005*\037\n\016"
     "VERSION_NUMBER\022\r\n\007VERSION\020\200\200\004*\206\001\n\nFLAGS_"
     "CODE\022\025\n\021PLAYER_FLAGS_NONE\020\000\022\026\n\022PLAYER_FL"
     "AGS_LOGIN\020\001\022\030\n\024PLAYER_FLAGS_WAITING\020\002\022\026\n"
@@ -1687,16 +1687,16 @@ bool ListGame_Game::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(61)) goto parse_evaluation;
+        if (input->ExpectTag(56)) goto parse_evaluation;
         break;
       }
 
-      // required float evaluation = 7;
+      // required int32 evaluation = 7;
       case 7: {
-        if (tag == 61) {
+        if (tag == 56) {
          parse_evaluation:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &evaluation_)));
           set_has_evaluation();
         } else {
@@ -1761,9 +1761,9 @@ void ListGame_Game::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->maxplayers(), output);
   }
 
-  // required float evaluation = 7;
+  // required int32 evaluation = 7;
   if (has_evaluation()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(7, this->evaluation(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(7, this->evaluation(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -1806,9 +1806,9 @@ void ListGame_Game::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->maxplayers(), target);
   }
 
-  // required float evaluation = 7;
+  // required int32 evaluation = 7;
   if (has_evaluation()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(7, this->evaluation(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(7, this->evaluation(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1863,9 +1863,11 @@ int ListGame_Game::ByteSize() const {
           this->maxplayers());
     }
 
-    // required float evaluation = 7;
+    // required int32 evaluation = 7;
     if (has_evaluation()) {
-      total_size += 1 + 4;
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->evaluation());
     }
 
   }
@@ -3768,16 +3770,16 @@ bool ServerStatus_Game::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(45)) goto parse_evaluation;
+        if (input->ExpectTag(40)) goto parse_evaluation;
         break;
       }
 
-      // required float evaluation = 5;
+      // required int32 evaluation = 5;
       case 5: {
-        if (tag == 45) {
+        if (tag == 40) {
          parse_evaluation:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &evaluation_)));
           set_has_evaluation();
         } else {
@@ -3832,9 +3834,9 @@ void ServerStatus_Game::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->mapid(), output);
   }
 
-  // required float evaluation = 5;
+  // required int32 evaluation = 5;
   if (has_evaluation()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(5, this->evaluation(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->evaluation(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -3867,9 +3869,9 @@ void ServerStatus_Game::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->mapid(), target);
   }
 
-  // required float evaluation = 5;
+  // required int32 evaluation = 5;
   if (has_evaluation()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(5, this->evaluation(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->evaluation(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -3910,9 +3912,11 @@ int ServerStatus_Game::ByteSize() const {
           this->mapid());
     }
 
-    // required float evaluation = 5;
+    // required int32 evaluation = 5;
     if (has_evaluation()) {
-      total_size += 1 + 4;
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->evaluation());
     }
 
   }

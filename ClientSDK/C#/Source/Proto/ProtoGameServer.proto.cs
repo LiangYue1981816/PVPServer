@@ -152,9 +152,9 @@ namespace ProtoGameServer
       get { return _maxPlayers; }
       set { _maxPlayers = value; }
     }
-    private float _evaluation;
-    [global::ProtoBuf.ProtoMember(7, IsRequired = true, Name=@"evaluation", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
-    public float evaluation
+    private int _evaluation;
+    [global::ProtoBuf.ProtoMember(7, IsRequired = true, Name=@"evaluation", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int evaluation
     {
       get { return _evaluation; }
       set { _evaluation = value; }
@@ -366,9 +366,9 @@ namespace ProtoGameServer
       get { return _mapid; }
       set { _mapid = value; }
     }
-    private float _evaluation;
-    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"evaluation", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
-    public float evaluation
+    private int _evaluation;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"evaluation", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int evaluation
     {
       get { return _evaluation; }
       set { _evaluation = value; }

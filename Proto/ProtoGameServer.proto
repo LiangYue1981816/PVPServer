@@ -85,7 +85,7 @@ message ListGame
 		required int32 mapid = 4;
 		required int32 curPlayers = 5;
 		required int32 maxPlayers = 6;
-		required float evaluation = 7;
+		required int32 evaluation = 7;
 	}
 	
 	required ERROR_CODE err = 1;
@@ -137,7 +137,7 @@ message ServerStatus
 		required int32 gameid = 2;
 		required int32 mode = 3;
 		required int32 mapid = 4;
-		required float evaluation = 5;
+		required int32 evaluation = 5;
 	}
 	
 	required string ip = 1;

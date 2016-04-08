@@ -473,12 +473,12 @@ class CreateGame : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 maxplayers() const;
   inline void set_maxplayers(::google::protobuf::int32 value);
 
-  // required float evaluation = 6;
+  // required int32 evaluation = 6;
   inline bool has_evaluation() const;
   inline void clear_evaluation();
   static const int kEvaluationFieldNumber = 6;
-  inline float evaluation() const;
-  inline void set_evaluation(float value);
+  inline ::google::protobuf::int32 evaluation() const;
+  inline void set_evaluation(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:ProtoGameClient.CreateGame)
  private:
@@ -504,7 +504,7 @@ class CreateGame : public ::google::protobuf::Message {
   ::google::protobuf::int32 mode_;
   ::google::protobuf::int32 mapid_;
   ::google::protobuf::int32 maxplayers_;
-  float evaluation_;
+  ::google::protobuf::int32 evaluation_;
   friend void  protobuf_AddDesc_ProtoGameClient_2eproto();
   friend void protobuf_AssignDesc_ProtoGameClient_2eproto();
   friend void protobuf_ShutdownFile_ProtoGameClient_2eproto();
@@ -1219,7 +1219,7 @@ inline void CreateGame::set_maxplayers(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ProtoGameClient.CreateGame.maxPlayers)
 }
 
-// required float evaluation = 6;
+// required int32 evaluation = 6;
 inline bool CreateGame::has_evaluation() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
@@ -1233,11 +1233,11 @@ inline void CreateGame::clear_evaluation() {
   evaluation_ = 0;
   clear_has_evaluation();
 }
-inline float CreateGame::evaluation() const {
+inline ::google::protobuf::int32 CreateGame::evaluation() const {
   // @@protoc_insertion_point(field_get:ProtoGameClient.CreateGame.evaluation)
   return evaluation_;
 }
-inline void CreateGame::set_evaluation(float value) {
+inline void CreateGame::set_evaluation(::google::protobuf::int32 value) {
   set_has_evaluation();
   evaluation_ = value;
   // @@protoc_insertion_point(field_set:ProtoGameClient.CreateGame.evaluation)

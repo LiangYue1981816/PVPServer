@@ -174,7 +174,7 @@ void protobuf_AddDesc_ProtoGateClient_2eproto() {
     "\n\025ProtoGateClient.proto\022\017ProtoGateClient"
     "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"&\n\005Login\022\014\n"
     "\004guid\030\001 \002(\r\022\017\n\007version\030\002 \002(\005\",\n\005Match\022\022\n"
-    "\nevaluation\030\001 \002(\002\022\017\n\007timeout\030\002 \002(\002\"\020\n\016Li"
+    "\nevaluation\030\001 \002(\005\022\017\n\007timeout\030\002 \002(\002\"\020\n\016Li"
     "stGameServer\"9\n\014SendToPlayer\022\r\n\005guids\030\001 "
     "\003(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014*]\n\013REQUE"
     "ST_MSG\022\n\n\005HEART\020\270\027\022\n\n\005LOGIN\020\271\027\022\n\n\005MATCH\020"
@@ -808,11 +808,11 @@ bool Match::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required float evaluation = 1;
+      // required int32 evaluation = 1;
       case 1: {
-        if (tag == 13) {
+        if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &evaluation_)));
           set_has_evaluation();
         } else {
@@ -862,9 +862,9 @@ failure:
 void Match::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:ProtoGateClient.Match)
-  // required float evaluation = 1;
+  // required int32 evaluation = 1;
   if (has_evaluation()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(1, this->evaluation(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->evaluation(), output);
   }
 
   // required float timeout = 2;
@@ -882,9 +882,9 @@ void Match::SerializeWithCachedSizes(
 ::google::protobuf::uint8* Match::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:ProtoGateClient.Match)
-  // required float evaluation = 1;
+  // required int32 evaluation = 1;
   if (has_evaluation()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->evaluation(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->evaluation(), target);
   }
 
   // required float timeout = 2;
@@ -904,9 +904,11 @@ int Match::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required float evaluation = 1;
+    // required int32 evaluation = 1;
     if (has_evaluation()) {
-      total_size += 1 + 4;
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->evaluation());
     }
 
     // required float timeout = 2;

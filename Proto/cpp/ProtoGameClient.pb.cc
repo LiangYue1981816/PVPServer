@@ -291,7 +291,7 @@ void protobuf_AddDesc_ProtoGameClient_2eproto() {
     "\010ListGame\"w\n\nCreateGame\022\020\n\010password\030\001 \002("
     "\t\022\022\n\006gameid\030\002 \002(\005:\002-1\022\014\n\004mode\030\003 \002(\005\022\r\n\005m"
     "apid\030\004 \002(\005\022\022\n\nmaxPlayers\030\005 \002(\005\022\022\n\nevalua"
-    "tion\030\006 \002(\002\"\r\n\013DestroyGame\"-\n\tEnterGame\022\016"
+    "tion\030\006 \002(\005\"\r\n\013DestroyGame\"-\n\tEnterGame\022\016"
     "\n\006gameid\030\001 \002(\005\022\020\n\010password\030\002 \002(\t\"\n\n\010Exit"
     "Game\"8\n\014SendToPlayer\022\014\n\004guid\030\001 \002(\r\022\014\n\004si"
     "ze\030\002 \002(\005\022\014\n\004data\030\003 \002(\014\"=\n\017SendToPlayerAl"
@@ -1384,16 +1384,16 @@ bool CreateGame::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(53)) goto parse_evaluation;
+        if (input->ExpectTag(48)) goto parse_evaluation;
         break;
       }
 
-      // required float evaluation = 6;
+      // required int32 evaluation = 6;
       case 6: {
-        if (tag == 53) {
+        if (tag == 48) {
          parse_evaluation:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &evaluation_)));
           set_has_evaluation();
         } else {
@@ -1458,9 +1458,9 @@ void CreateGame::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->maxplayers(), output);
   }
 
-  // required float evaluation = 6;
+  // required int32 evaluation = 6;
   if (has_evaluation()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(6, this->evaluation(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->evaluation(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -1504,9 +1504,9 @@ void CreateGame::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->maxplayers(), target);
   }
 
-  // required float evaluation = 6;
+  // required int32 evaluation = 6;
   if (has_evaluation()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(6, this->evaluation(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->evaluation(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1556,9 +1556,11 @@ int CreateGame::ByteSize() const {
           this->maxplayers());
     }
 
-    // required float evaluation = 6;
+    // required int32 evaluation = 6;
     if (has_evaluation()) {
-      total_size += 1 + 4;
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->evaluation());
     }
 
   }

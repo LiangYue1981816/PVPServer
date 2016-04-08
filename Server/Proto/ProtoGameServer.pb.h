@@ -589,12 +589,12 @@ class ListGame_Game : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 maxplayers() const;
   inline void set_maxplayers(::google::protobuf::int32 value);
 
-  // required float evaluation = 7;
+  // required int32 evaluation = 7;
   inline bool has_evaluation() const;
   inline void clear_evaluation();
   static const int kEvaluationFieldNumber = 7;
-  inline float evaluation() const;
-  inline void set_evaluation(float value);
+  inline ::google::protobuf::int32 evaluation() const;
+  inline void set_evaluation(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:ProtoGameServer.ListGame.Game)
  private:
@@ -623,7 +623,7 @@ class ListGame_Game : public ::google::protobuf::Message {
   ::google::protobuf::int32 mapid_;
   ::google::protobuf::int32 curplayers_;
   ::google::protobuf::int32 maxplayers_;
-  float evaluation_;
+  ::google::protobuf::int32 evaluation_;
   friend void  protobuf_AddDesc_ProtoGameServer_2eproto();
   friend void protobuf_AssignDesc_ProtoGameServer_2eproto();
   friend void protobuf_ShutdownFile_ProtoGameServer_2eproto();
@@ -1258,12 +1258,12 @@ class ServerStatus_Game : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 mapid() const;
   inline void set_mapid(::google::protobuf::int32 value);
 
-  // required float evaluation = 5;
+  // required int32 evaluation = 5;
   inline bool has_evaluation() const;
   inline void clear_evaluation();
   static const int kEvaluationFieldNumber = 5;
-  inline float evaluation() const;
-  inline void set_evaluation(float value);
+  inline ::google::protobuf::int32 evaluation() const;
+  inline void set_evaluation(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:ProtoGameServer.ServerStatus.Game)
  private:
@@ -1286,7 +1286,7 @@ class ServerStatus_Game : public ::google::protobuf::Message {
   ::google::protobuf::int32 gameid_;
   ::google::protobuf::int32 mode_;
   ::google::protobuf::int32 mapid_;
-  float evaluation_;
+  ::google::protobuf::int32 evaluation_;
   friend void  protobuf_AddDesc_ProtoGameServer_2eproto();
   friend void protobuf_AssignDesc_ProtoGameServer_2eproto();
   friend void protobuf_ShutdownFile_ProtoGameServer_2eproto();
@@ -1711,7 +1711,7 @@ inline void ListGame_Game::set_maxplayers(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ProtoGameServer.ListGame.Game.maxPlayers)
 }
 
-// required float evaluation = 7;
+// required int32 evaluation = 7;
 inline bool ListGame_Game::has_evaluation() const {
   return (_has_bits_[0] & 0x00000040u) != 0;
 }
@@ -1725,11 +1725,11 @@ inline void ListGame_Game::clear_evaluation() {
   evaluation_ = 0;
   clear_has_evaluation();
 }
-inline float ListGame_Game::evaluation() const {
+inline ::google::protobuf::int32 ListGame_Game::evaluation() const {
   // @@protoc_insertion_point(field_get:ProtoGameServer.ListGame.Game.evaluation)
   return evaluation_;
 }
-inline void ListGame_Game::set_evaluation(float value) {
+inline void ListGame_Game::set_evaluation(::google::protobuf::int32 value) {
   set_has_evaluation();
   evaluation_ = value;
   // @@protoc_insertion_point(field_set:ProtoGameServer.ListGame.Game.evaluation)
@@ -2210,7 +2210,7 @@ inline void ServerStatus_Game::set_mapid(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.Game.mapid)
 }
 
-// required float evaluation = 5;
+// required int32 evaluation = 5;
 inline bool ServerStatus_Game::has_evaluation() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
@@ -2224,11 +2224,11 @@ inline void ServerStatus_Game::clear_evaluation() {
   evaluation_ = 0;
   clear_has_evaluation();
 }
-inline float ServerStatus_Game::evaluation() const {
+inline ::google::protobuf::int32 ServerStatus_Game::evaluation() const {
   // @@protoc_insertion_point(field_get:ProtoGameServer.ServerStatus.Game.evaluation)
   return evaluation_;
 }
-inline void ServerStatus_Game::set_evaluation(float value) {
+inline void ServerStatus_Game::set_evaluation(::google::protobuf::int32 value) {
   set_has_evaluation();
   evaluation_ = value;
   // @@protoc_insertion_point(field_set:ProtoGameServer.ServerStatus.Game.evaluation)

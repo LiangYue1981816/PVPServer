@@ -56,9 +56,9 @@ namespace ProtoGateClient
   {
     public Match() {}
     
-    private float _evaluation;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"evaluation", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
-    public float evaluation
+    private int _evaluation;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"evaluation", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public int evaluation
     {
       get { return _evaluation; }
       set { _evaluation = value; }

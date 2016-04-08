@@ -285,12 +285,12 @@ class Match : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required float evaluation = 1;
+  // required int32 evaluation = 1;
   inline bool has_evaluation() const;
   inline void clear_evaluation();
   static const int kEvaluationFieldNumber = 1;
-  inline float evaluation() const;
-  inline void set_evaluation(float value);
+  inline ::google::protobuf::int32 evaluation() const;
+  inline void set_evaluation(::google::protobuf::int32 value);
 
   // required float timeout = 2;
   inline bool has_timeout() const;
@@ -310,7 +310,7 @@ class Match : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  float evaluation_;
+  ::google::protobuf::int32 evaluation_;
   float timeout_;
   friend void  protobuf_AddDesc_ProtoGateClient_2eproto();
   friend void protobuf_AssignDesc_ProtoGateClient_2eproto();
@@ -582,7 +582,7 @@ inline void Login::set_version(::google::protobuf::int32 value) {
 
 // Match
 
-// required float evaluation = 1;
+// required int32 evaluation = 1;
 inline bool Match::has_evaluation() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -596,11 +596,11 @@ inline void Match::clear_evaluation() {
   evaluation_ = 0;
   clear_has_evaluation();
 }
-inline float Match::evaluation() const {
+inline ::google::protobuf::int32 Match::evaluation() const {
   // @@protoc_insertion_point(field_get:ProtoGateClient.Match.evaluation)
   return evaluation_;
 }
-inline void Match::set_evaluation(float value) {
+inline void Match::set_evaluation(::google::protobuf::int32 value) {
   set_has_evaluation();
   evaluation_ = value;
   // @@protoc_insertion_point(field_set:ProtoGateClient.Match.evaluation)
