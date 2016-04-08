@@ -20,7 +20,7 @@ class _ServerExport CGateServer : public CIOCPServer
 public:
 	typedef struct {
 		CIOContext *pContext;                                                                      // 玩家上下文
-		float evaluation;                                                                          // 玩家评估值
+		int evaluation;                                                                            // 玩家评估值
 		float timeout;                                                                             // 玩家匹配超时
 	} PlayerStatus;
 
@@ -29,7 +29,7 @@ public:
 		int id;                                                                                    // 游戏ID
 		int mode;                                                                                  // 游戏模式
 		int mapid;                                                                                 // 游戏地图
-		float evaluation;                                                                          // 游戏评估
+		int evaluation;                                                                            // 游戏评估
 	} GameStatus;
 
 	typedef struct {

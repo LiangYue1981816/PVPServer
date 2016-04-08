@@ -65,7 +65,7 @@ public:
 
 	// 方法
 public:
-	virtual void SetGame(const char *password, int mode, int mapid, int maxPlayers, float evaluation); // 设置游戏
+	virtual void SetGame(const char *password, int mode, int mapid, int maxPlayers, int evaluation); // 设置游戏
 
 	virtual BOOL IsPrivate(void) const;                                                            // 获得游戏是否私有
 	virtual int GetMode(void) const;                                                               // 获得游戏模式
@@ -74,7 +74,7 @@ public:
 	virtual int GetCurPlayers(void) const;                                                         // 获得当前玩家数
 	virtual int GetMaxPlayers(void) const;                                                         // 获得最大玩家数
 
-	virtual float GetEvaluation(void) const;                                                       // 获得游戏权重
+	virtual int GetEvaluation(void) const;                                                         // 获得游戏权重
 
 public:
 	virtual int AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater);                  // 添加玩家
@@ -104,7 +104,7 @@ private:
 	int m_curPlayers;                                                                              // 当前玩家数
 	int m_maxPlayers;                                                                              // 最大玩家数
 
-	float m_evaluation;                                                                            // 游戏评估
+	int m_evaluation;                                                                              // 游戏评估
 
 private:
 	DWORD m_dwHostGUID;                                                                            // 主机玩家GUID

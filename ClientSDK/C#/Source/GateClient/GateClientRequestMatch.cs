@@ -2,7 +2,7 @@
 
 public partial class GateClient : NetClient
 {
-    public virtual void RequestMatch(float evaluation, float timeout)
+    public virtual void RequestMatch(int evaluation, float timeout)
     {
         mRequestMatch.evaluation = evaluation;
         mRequestMatch.timeout = timeout;

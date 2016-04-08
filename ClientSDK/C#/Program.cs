@@ -317,7 +317,7 @@ class Program
 
                 if (gameid == 0xcccccccc)
                 {
-                    mGameClients[indexGame][0].RequestCreateGame("", 0, 0, mGameClients[indexGame].Length, 0.0f);
+                    mGameClients[indexGame][0].RequestCreateGame("", 0, 0, mGameClients[indexGame].Length, 0);
                     bEnter = false;
                 }
                 else
@@ -390,7 +390,7 @@ class Program
         string gameid = Console.ReadLine();
         Console.WriteLine("Input Password ...");
         string password = Console.ReadLine();
-        mGameClient.RequestCreateGame(password, Int32.Parse(gameid), 1, 2, 10, 1.0f);
+        mGameClient.RequestCreateGame(password, Int32.Parse(gameid), 1, 2, 10, 0);
     }
 
     static void GameServerDestroyGame()
