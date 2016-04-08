@@ -57,22 +57,29 @@ namespace ProtoGateServer
   {
     public Match() {}
     
+    private ProtoGateServer.ERROR_CODE _err;
+    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"err", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public ProtoGateServer.ERROR_CODE err
+    {
+      get { return _err; }
+      set { _err = value; }
+    }
     private string _ip;
-    [global::ProtoBuf.ProtoMember(1, IsRequired = true, Name=@"ip", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"ip", DataFormat = global::ProtoBuf.DataFormat.Default)]
     public string ip
     {
       get { return _ip; }
       set { _ip = value; }
     }
     private int _port;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"port", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"port", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int port
     {
       get { return _port; }
       set { _port = value; }
     }
     private int _gameid;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     public int gameid
     {
       get { return _gameid; }
@@ -197,7 +204,10 @@ namespace ProtoGateServer
       ERR_PLAYER_NOT_NONE = 1002,
             
       [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_NOT_LOGIN", Value=1003)]
-      ERR_PLAYER_NOT_LOGIN = 1003
+      ERR_PLAYER_NOT_LOGIN = 1003,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_MATCH_TIMEOUT", Value=2000)]
+      ERR_MATCH_TIMEOUT = 2000
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"RESPONSE_MSG")]

@@ -65,11 +65,12 @@ enum ERROR_CODE {
   ERR_PLAYER_INVALID = 1000,
   ERR_PLAYER_INVALID_GUID = 1001,
   ERR_PLAYER_NOT_NONE = 1002,
-  ERR_PLAYER_NOT_LOGIN = 1003
+  ERR_PLAYER_NOT_LOGIN = 1003,
+  ERR_MATCH_TIMEOUT = 2000
 };
 bool ERROR_CODE_IsValid(int value);
 const ERROR_CODE ERROR_CODE_MIN = ERR_NONE;
-const ERROR_CODE ERROR_CODE_MAX = ERR_PLAYER_NOT_LOGIN;
+const ERROR_CODE ERROR_CODE_MAX = ERR_MATCH_TIMEOUT;
 const int ERROR_CODE_ARRAYSIZE = ERROR_CODE_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* ERROR_CODE_descriptor();
@@ -327,10 +328,17 @@ class Match : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required string ip = 1;
+  // required .ProtoGateServer.ERROR_CODE err = 1;
+  inline bool has_err() const;
+  inline void clear_err();
+  static const int kErrFieldNumber = 1;
+  inline ::ProtoGateServer::ERROR_CODE err() const;
+  inline void set_err(::ProtoGateServer::ERROR_CODE value);
+
+  // required string ip = 2;
   inline bool has_ip() const;
   inline void clear_ip();
-  static const int kIpFieldNumber = 1;
+  static const int kIpFieldNumber = 2;
   inline const ::std::string& ip() const;
   inline void set_ip(const ::std::string& value);
   inline void set_ip(const char* value);
@@ -339,22 +347,24 @@ class Match : public ::google::protobuf::Message {
   inline ::std::string* release_ip();
   inline void set_allocated_ip(::std::string* ip);
 
-  // required int32 port = 2;
+  // required int32 port = 3;
   inline bool has_port() const;
   inline void clear_port();
-  static const int kPortFieldNumber = 2;
+  static const int kPortFieldNumber = 3;
   inline ::google::protobuf::int32 port() const;
   inline void set_port(::google::protobuf::int32 value);
 
-  // required int32 gameid = 3;
+  // required int32 gameid = 4;
   inline bool has_gameid() const;
   inline void clear_gameid();
-  static const int kGameidFieldNumber = 3;
+  static const int kGameidFieldNumber = 4;
   inline ::google::protobuf::int32 gameid() const;
   inline void set_gameid(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:ProtoGateServer.Match)
  private:
+  inline void set_has_err();
+  inline void clear_has_err();
   inline void set_has_ip();
   inline void clear_has_ip();
   inline void set_has_port();
@@ -367,6 +377,7 @@ class Match : public ::google::protobuf::Message {
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::std::string* ip_;
+  int err_;
   ::google::protobuf::int32 port_;
   ::google::protobuf::int32 gameid_;
   friend void  protobuf_AddDesc_ProtoGateServer_2eproto();
@@ -766,15 +777,40 @@ inline void Login::set_guid(::google::protobuf::uint32 value) {
 
 // Match
 
-// required string ip = 1;
-inline bool Match::has_ip() const {
+// required .ProtoGateServer.ERROR_CODE err = 1;
+inline bool Match::has_err() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Match::set_has_ip() {
+inline void Match::set_has_err() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void Match::clear_has_ip() {
+inline void Match::clear_has_err() {
   _has_bits_[0] &= ~0x00000001u;
+}
+inline void Match::clear_err() {
+  err_ = 0;
+  clear_has_err();
+}
+inline ::ProtoGateServer::ERROR_CODE Match::err() const {
+  // @@protoc_insertion_point(field_get:ProtoGateServer.Match.err)
+  return static_cast< ::ProtoGateServer::ERROR_CODE >(err_);
+}
+inline void Match::set_err(::ProtoGateServer::ERROR_CODE value) {
+  assert(::ProtoGateServer::ERROR_CODE_IsValid(value));
+  set_has_err();
+  err_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGateServer.Match.err)
+}
+
+// required string ip = 2;
+inline bool Match::has_ip() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void Match::set_has_ip() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void Match::clear_has_ip() {
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline void Match::clear_ip() {
   if (ip_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -842,15 +878,15 @@ inline void Match::set_allocated_ip(::std::string* ip) {
   // @@protoc_insertion_point(field_set_allocated:ProtoGateServer.Match.ip)
 }
 
-// required int32 port = 2;
+// required int32 port = 3;
 inline bool Match::has_port() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
 inline void Match::set_has_port() {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
 }
 inline void Match::clear_has_port() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline void Match::clear_port() {
   port_ = 0;
@@ -866,15 +902,15 @@ inline void Match::set_port(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ProtoGateServer.Match.port)
 }
 
-// required int32 gameid = 3;
+// required int32 gameid = 4;
 inline bool Match::has_gameid() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
+  return (_has_bits_[0] & 0x00000008u) != 0;
 }
 inline void Match::set_has_gameid() {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
 }
 inline void Match::clear_has_gameid() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void Match::clear_gameid() {
   gameid_ = 0;

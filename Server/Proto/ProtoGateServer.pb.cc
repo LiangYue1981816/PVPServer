@@ -83,7 +83,8 @@ void protobuf_AssignDesc_ProtoGateServer_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Login));
   Match_descriptor_ = file->message_type(2);
-  static const int Match_offsets_[3] = {
+  static const int Match_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Match, err_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Match, ip_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Match, port_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Match, gameid_),
@@ -205,22 +206,23 @@ void protobuf_AddDesc_ProtoGateServer_2eproto() {
     "\n\025ProtoGateServer.proto\022\017ProtoGateServer"
     "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"\?\n\005Login\022(\n"
     "\003err\030\001 \002(\0162\033.ProtoGateServer.ERROR_CODE\022"
-    "\014\n\004guid\030\002 \001(\r\"1\n\005Match\022\n\n\002ip\030\001 \002(\t\022\014\n\004po"
-    "rt\030\002 \002(\005\022\016\n\006gameid\030\003 \002(\005\"\303\001\n\016ListGameSer"
-    "ver\022(\n\003err\030\001 \002(\0162\033.ProtoGateServer.ERROR"
-    "_CODE\022;\n\007servers\030\002 \003(\0132*.ProtoGateServer"
-    ".ListGameServer.GameServer\032J\n\nGameServer"
-    "\022\n\n\002ip\030\001 \002(\t\022\014\n\004port\030\002 \002(\005\022\020\n\010curGames\030\003"
-    " \002(\005\022\020\n\010maxGames\030\004 \002(\005\"*\n\014SendToPlayer\022\014"
-    "\n\004size\030\001 \002(\005\022\014\n\004data\030\002 \002(\014*\037\n\016VERSION_NU"
-    "MBER\022\r\n\007VERSION\020\200\200\004*\237\001\n\nERROR_CODE\022\014\n\010ER"
-    "R_NONE\020\000\022\027\n\023ERR_VERSION_INVALID\020\001\022\027\n\022ERR"
-    "_PLAYER_INVALID\020\350\007\022\034\n\027ERR_PLAYER_INVALID"
-    "_GUID\020\351\007\022\030\n\023ERR_PLAYER_NOT_NONE\020\352\007\022\031\n\024ER"
-    "R_PLAYER_NOT_LOGIN\020\353\007*^\n\014RESPONSE_MSG\022\n\n"
-    "\005HEART\020\270\027\022\n\n\005LOGIN\020\271\027\022\n\n\005MATCH\020\272\027\022\025\n\020LIS"
-    "T_GAME_SERVER\020\273\027\022\023\n\016SEND_TO_PLAYER\020\274\027B\002H"
-    "\001", 721);
+    "\014\n\004guid\030\002 \001(\r\"[\n\005Match\022(\n\003err\030\001 \002(\0162\033.Pr"
+    "otoGateServer.ERROR_CODE\022\n\n\002ip\030\002 \002(\t\022\014\n\004"
+    "port\030\003 \002(\005\022\016\n\006gameid\030\004 \002(\005\"\303\001\n\016ListGameS"
+    "erver\022(\n\003err\030\001 \002(\0162\033.ProtoGateServer.ERR"
+    "OR_CODE\022;\n\007servers\030\002 \003(\0132*.ProtoGateServ"
+    "er.ListGameServer.GameServer\032J\n\nGameServ"
+    "er\022\n\n\002ip\030\001 \002(\t\022\014\n\004port\030\002 \002(\005\022\020\n\010curGames"
+    "\030\003 \002(\005\022\020\n\010maxGames\030\004 \002(\005\"*\n\014SendToPlayer"
+    "\022\014\n\004size\030\001 \002(\005\022\014\n\004data\030\002 \002(\014*\037\n\016VERSION_"
+    "NUMBER\022\r\n\007VERSION\020\200\200\004*\267\001\n\nERROR_CODE\022\014\n\010"
+    "ERR_NONE\020\000\022\027\n\023ERR_VERSION_INVALID\020\001\022\027\n\022E"
+    "RR_PLAYER_INVALID\020\350\007\022\034\n\027ERR_PLAYER_INVAL"
+    "ID_GUID\020\351\007\022\030\n\023ERR_PLAYER_NOT_NONE\020\352\007\022\031\n\024"
+    "ERR_PLAYER_NOT_LOGIN\020\353\007\022\026\n\021ERR_MATCH_TIM"
+    "EOUT\020\320\017*^\n\014RESPONSE_MSG\022\n\n\005HEART\020\270\027\022\n\n\005L"
+    "OGIN\020\271\027\022\n\n\005MATCH\020\272\027\022\025\n\020LIST_GAME_SERVER\020"
+    "\273\027\022\023\n\016SEND_TO_PLAYER\020\274\027B\002H\001", 787);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGateServer.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -269,6 +271,7 @@ bool ERROR_CODE_IsValid(int value) {
     case 1001:
     case 1002:
     case 1003:
+    case 2000:
       return true;
     default:
       return false;
@@ -800,6 +803,7 @@ void Login::Swap(Login* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int Match::kErrFieldNumber;
 const int Match::kIpFieldNumber;
 const int Match::kPortFieldNumber;
 const int Match::kGameidFieldNumber;
@@ -824,6 +828,7 @@ Match::Match(const Match& from)
 void Match::SharedCtor() {
   ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
+  err_ = 0;
   ip_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   port_ = 0;
   gameid_ = 0;
@@ -875,8 +880,8 @@ void Match::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 7) {
-    ZR_(port_, gameid_);
+  if (_has_bits_[0 / 32] & 15) {
+    ZR_(err_, gameid_);
     if (has_ip()) {
       if (ip_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         ip_->clear();
@@ -901,9 +906,29 @@ bool Match::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required string ip = 1;
+      // required .ProtoGateServer.ERROR_CODE err = 1;
       case 1: {
-        if (tag == 10) {
+        if (tag == 8) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::ProtoGateServer::ERROR_CODE_IsValid(value)) {
+            set_err(static_cast< ::ProtoGateServer::ERROR_CODE >(value));
+          } else {
+            mutable_unknown_fields()->AddVarint(1, value);
+          }
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_ip;
+        break;
+      }
+
+      // required string ip = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_ip:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_ip()));
           ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
@@ -913,13 +938,13 @@ bool Match::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(16)) goto parse_port;
+        if (input->ExpectTag(24)) goto parse_port;
         break;
       }
 
-      // required int32 port = 2;
-      case 2: {
-        if (tag == 16) {
+      // required int32 port = 3;
+      case 3: {
+        if (tag == 24) {
          parse_port:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -928,13 +953,13 @@ bool Match::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(24)) goto parse_gameid;
+        if (input->ExpectTag(32)) goto parse_gameid;
         break;
       }
 
-      // required int32 gameid = 3;
-      case 3: {
-        if (tag == 24) {
+      // required int32 gameid = 4;
+      case 4: {
+        if (tag == 32) {
          parse_gameid:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
@@ -972,24 +997,30 @@ failure:
 void Match::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:ProtoGateServer.Match)
-  // required string ip = 1;
+  // required .ProtoGateServer.ERROR_CODE err = 1;
+  if (has_err()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->err(), output);
+  }
+
+  // required string ip = 2;
   if (has_ip()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->ip().data(), this->ip().length(),
       ::google::protobuf::internal::WireFormat::SERIALIZE,
       "ip");
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->ip(), output);
+      2, this->ip(), output);
   }
 
-  // required int32 port = 2;
+  // required int32 port = 3;
   if (has_port()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->port(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->port(), output);
   }
 
-  // required int32 gameid = 3;
+  // required int32 gameid = 4;
   if (has_gameid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->gameid(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->gameid(), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -1002,7 +1033,13 @@ void Match::SerializeWithCachedSizes(
 ::google::protobuf::uint8* Match::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:ProtoGateServer.Match)
-  // required string ip = 1;
+  // required .ProtoGateServer.ERROR_CODE err = 1;
+  if (has_err()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      1, this->err(), target);
+  }
+
+  // required string ip = 2;
   if (has_ip()) {
     ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->ip().data(), this->ip().length(),
@@ -1010,17 +1047,17 @@ void Match::SerializeWithCachedSizes(
       "ip");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        1, this->ip(), target);
+        2, this->ip(), target);
   }
 
-  // required int32 port = 2;
+  // required int32 port = 3;
   if (has_port()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->port(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->port(), target);
   }
 
-  // required int32 gameid = 3;
+  // required int32 gameid = 4;
   if (has_gameid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->gameid(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->gameid(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1035,21 +1072,27 @@ int Match::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required string ip = 1;
+    // required .ProtoGateServer.ERROR_CODE err = 1;
+    if (has_err()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->err());
+    }
+
+    // required string ip = 2;
     if (has_ip()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->ip());
     }
 
-    // required int32 port = 2;
+    // required int32 port = 3;
     if (has_port()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->port());
     }
 
-    // required int32 gameid = 3;
+    // required int32 gameid = 4;
     if (has_gameid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
@@ -1083,6 +1126,9 @@ void Match::MergeFrom(const ::google::protobuf::Message& from) {
 void Match::MergeFrom(const Match& from) {
   GOOGLE_CHECK_NE(&from, this);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_err()) {
+      set_err(from.err());
+    }
     if (from.has_ip()) {
       set_ip(from.ip());
     }
@@ -1109,13 +1155,14 @@ void Match::CopyFrom(const Match& from) {
 }
 
 bool Match::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
 
   return true;
 }
 
 void Match::Swap(Match* other) {
   if (other != this) {
+    std::swap(err_, other->err_);
     std::swap(ip_, other->ip_);
     std::swap(port_, other->port_);
     std::swap(gameid_, other->gameid_);
