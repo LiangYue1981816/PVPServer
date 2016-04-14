@@ -45,13 +45,12 @@ enum RESPONSE_MSG
 	HEART = 1000;
 	FLAGS = 1001;
 	LOGIN = 1002;
-	HOST = 1003;
-	LIST_GAME = 1004;
-	CREATE_GAME = 1005;
-	DESTROY_GAME = 1006;
-	ENTER_GAME = 1007;
-	EXIT_GAME = 1008;
-	SEND_TO_PLAYER = 1009;
+	LIST_GAME = 1003;
+	CREATE_GAME = 1004;
+	DESTROY_GAME = 1005;
+	ENTER_GAME = 1006;
+	EXIT_GAME = 1007;
+	SEND_TO_PLAYER = 1008;
 }
 
 message Heart
@@ -68,11 +67,6 @@ message Login
 {
 	required ERROR_CODE err = 1;
 	optional uint32 guid = 2;
-}
-
-message Host
-{
-	required uint32 guid = 1;
 }
 
 message ListGame
@@ -107,13 +101,15 @@ message EnterGame
 {
 	required ERROR_CODE err = 1;
 	optional uint32 guid = 2;
-	optional uint32 gameid = 3;
+	required uint32 host = 3;
+	optional uint32 gameid = 4;
 }
 
 message ExitGame
 {
 	required ERROR_CODE err = 1;
 	optional uint32 guid = 2;
+	required uint32 host = 3;
 }
 
 message SendToPlayer
