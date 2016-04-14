@@ -19,7 +19,6 @@ class _ServerExport CGateServer : public CIOCPServer
 	// 数据结构
 public:
 	typedef struct {
-		CIOContext *pContext;                                                                      // 玩家上下文
 		int evaluation;                                                                            // 玩家评估值
 		float timeout;                                                                             // 玩家匹配超时
 	} PlayerStatus;
@@ -40,7 +39,7 @@ public:
 		std::vector<GameStatus> games;                                                             // 游戏集合(可加入)
 	} GameServerStatus;
 
-	typedef std::map<DWORD, PlayerStatus> PlayerMap;                                               // 玩家集合
+	typedef std::map<DWORD, CIOContext*> PlayerMap;                                                // 玩家集合
 	typedef std::map<CIOContext*, GameServerStatus> GameServerMap;                                 // 游戏服务器集合
 
 

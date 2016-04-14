@@ -243,12 +243,15 @@ NEXT:
 	//
 	// 5. 添加到匹配集合
 	//
+	/*
 	PlayerMap::const_iterator itMatch = m_matchs.find(pContext->guid);
 	if (itMatch != m_matchs.end()) return;
 
 	m_matchs[pContext->guid] = m_players[pContext->guid];
 	m_matchs[pContext->guid].evaluation = requestMatch.evaluation();
 	m_matchs[pContext->guid].timeout = requestMatch.timeout();
+	*/
+	;
 }
 
 //
@@ -350,8 +353,8 @@ void CGateServer::OnSendToPlayer(CIOContext *pContext, WORD size)
 	}
 	else {
 		for (PlayerMap::const_iterator itPlayer = m_players.begin(); itPlayer != m_players.end(); ++itPlayer) {
-			if (pContext != itPlayer->second.pContext) {
-				SendTo(itPlayer->second.pContext, buffer, writeBuffer.GetActiveBufferSize());
+			if (pContext != itPlayer->second) {
+				SendTo(itPlayer->second, buffer, writeBuffer.GetActiveBufferSize());
 			}
 		}
 	}

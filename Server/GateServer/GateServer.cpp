@@ -109,13 +109,7 @@ BOOL CGateServer::Login(CIOContext *pContext, DWORD guid)
 	//
 	// 3. µÇÂ½
 	//
-	PlayerStatus player;
-	player.pContext = pContext;
-	player.pContext->guid = guid;
-	player.evaluation = 0;
-	player.timeout = 0.0f;
-
-	m_players[guid] = player;
+	m_players[guid] = pContext;
 
 	return TRUE;
 }
@@ -151,7 +145,7 @@ BOOL CGateServer::Logout(CIOContext *pContext)
 CIOContext* CGateServer::QueryContext(DWORD guid)
 {
 	PlayerMap::const_iterator itPlayer = m_players.find(guid);
-	return itPlayer != m_players.end() ? itPlayer->second.pContext : NULL;
+	return itPlayer != m_players.end() ? itPlayer->second : NULL;
 }
 
 //
