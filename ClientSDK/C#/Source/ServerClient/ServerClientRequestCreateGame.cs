@@ -34,6 +34,7 @@ public partial class ServerClient : NetClient
             if (mErrorCode == ProtoGameServer.ERROR_CODE.ERR_NONE)
             {
                 mGameID = responseCreateGame.gameid;
+                mHostGUID = responseCreateGame.host;
                 EnableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
                 DisableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
                 DisableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_GAMING);

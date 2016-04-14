@@ -81,14 +81,13 @@ namespace ProtoGameServer
       get { return _err; }
       set { _err = value; }
     }
-    private ProtoGameServer.ListGame.Game _games = null;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"games", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public ProtoGameServer.ListGame.Game games
+    private readonly global::System.Collections.Generic.List<ProtoGameServer.ListGame.Game> _games = new global::System.Collections.Generic.List<ProtoGameServer.ListGame.Game>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"games", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<ProtoGameServer.ListGame.Game> games
     {
       get { return _games; }
-      set { _games = value; }
     }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Game")]
   public partial class Game : global::ProtoBuf.IExtensible
   {

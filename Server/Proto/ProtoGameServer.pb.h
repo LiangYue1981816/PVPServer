@@ -614,27 +614,28 @@ class ListGame : public ::google::protobuf::Message {
   inline ::ProtoGameServer::ERROR_CODE err() const;
   inline void set_err(::ProtoGameServer::ERROR_CODE value);
 
-  // optional .ProtoGameServer.ListGame.Game games = 2;
-  inline bool has_games() const;
+  // repeated .ProtoGameServer.ListGame.Game games = 2;
+  inline int games_size() const;
   inline void clear_games();
   static const int kGamesFieldNumber = 2;
-  inline const ::ProtoGameServer::ListGame_Game& games() const;
-  inline ::ProtoGameServer::ListGame_Game* mutable_games();
-  inline ::ProtoGameServer::ListGame_Game* release_games();
-  inline void set_allocated_games(::ProtoGameServer::ListGame_Game* games);
+  inline const ::ProtoGameServer::ListGame_Game& games(int index) const;
+  inline ::ProtoGameServer::ListGame_Game* mutable_games(int index);
+  inline ::ProtoGameServer::ListGame_Game* add_games();
+  inline const ::google::protobuf::RepeatedPtrField< ::ProtoGameServer::ListGame_Game >&
+      games() const;
+  inline ::google::protobuf::RepeatedPtrField< ::ProtoGameServer::ListGame_Game >*
+      mutable_games();
 
   // @@protoc_insertion_point(class_scope:ProtoGameServer.ListGame)
  private:
   inline void set_has_err();
   inline void clear_has_err();
-  inline void set_has_games();
-  inline void clear_has_games();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::ProtoGameServer::ListGame_Game* games_;
+  ::google::protobuf::RepeatedPtrField< ::ProtoGameServer::ListGame_Game > games_;
   int err_;
   friend void  protobuf_AddDesc_ProtoGameServer_2eproto();
   friend void protobuf_AssignDesc_ProtoGameServer_2eproto();
@@ -1684,45 +1685,34 @@ inline void ListGame::set_err(::ProtoGameServer::ERROR_CODE value) {
   // @@protoc_insertion_point(field_set:ProtoGameServer.ListGame.err)
 }
 
-// optional .ProtoGameServer.ListGame.Game games = 2;
-inline bool ListGame::has_games() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void ListGame::set_has_games() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void ListGame::clear_has_games() {
-  _has_bits_[0] &= ~0x00000002u;
+// repeated .ProtoGameServer.ListGame.Game games = 2;
+inline int ListGame::games_size() const {
+  return games_.size();
 }
 inline void ListGame::clear_games() {
-  if (games_ != NULL) games_->::ProtoGameServer::ListGame_Game::Clear();
-  clear_has_games();
+  games_.Clear();
 }
-inline const ::ProtoGameServer::ListGame_Game& ListGame::games() const {
+inline const ::ProtoGameServer::ListGame_Game& ListGame::games(int index) const {
   // @@protoc_insertion_point(field_get:ProtoGameServer.ListGame.games)
-  return games_ != NULL ? *games_ : *default_instance_->games_;
+  return games_.Get(index);
 }
-inline ::ProtoGameServer::ListGame_Game* ListGame::mutable_games() {
-  set_has_games();
-  if (games_ == NULL) games_ = new ::ProtoGameServer::ListGame_Game;
+inline ::ProtoGameServer::ListGame_Game* ListGame::mutable_games(int index) {
   // @@protoc_insertion_point(field_mutable:ProtoGameServer.ListGame.games)
+  return games_.Mutable(index);
+}
+inline ::ProtoGameServer::ListGame_Game* ListGame::add_games() {
+  // @@protoc_insertion_point(field_add:ProtoGameServer.ListGame.games)
+  return games_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::ProtoGameServer::ListGame_Game >&
+ListGame::games() const {
+  // @@protoc_insertion_point(field_list:ProtoGameServer.ListGame.games)
   return games_;
 }
-inline ::ProtoGameServer::ListGame_Game* ListGame::release_games() {
-  clear_has_games();
-  ::ProtoGameServer::ListGame_Game* temp = games_;
-  games_ = NULL;
-  return temp;
-}
-inline void ListGame::set_allocated_games(::ProtoGameServer::ListGame_Game* games) {
-  delete games_;
-  games_ = games;
-  if (games) {
-    set_has_games();
-  } else {
-    clear_has_games();
-  }
-  // @@protoc_insertion_point(field_set_allocated:ProtoGameServer.ListGame.games)
+inline ::google::protobuf::RepeatedPtrField< ::ProtoGameServer::ListGame_Game >*
+ListGame::mutable_games() {
+  // @@protoc_insertion_point(field_mutable_list:ProtoGameServer.ListGame.games)
+  return &games_;
 }
 
 // -------------------------------------------------------------------

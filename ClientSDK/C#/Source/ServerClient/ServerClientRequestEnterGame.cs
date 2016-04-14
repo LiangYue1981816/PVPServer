@@ -22,6 +22,7 @@ public partial class ServerClient : NetClient
                 if (mGUID == responseEnterGame.guid)
                 {
                     mGameID = responseEnterGame.gameid;
+                    mHostGUID = responseEnterGame.host;
                     EnableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
                     DisableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
                     DisableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_GAMING);

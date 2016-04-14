@@ -83,7 +83,7 @@ message ListGame
 	}
 	
 	required ERROR_CODE err = 1;
-	optional Game games = 2;
+	repeated Game games = 2;
 }
 
 message CreateGame

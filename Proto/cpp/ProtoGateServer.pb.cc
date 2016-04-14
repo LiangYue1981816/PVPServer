@@ -231,7 +231,7 @@ void protobuf_AddDesc_ProtoGateServer_2eproto() {
     "otoGateServer.ERROR_CODE\022\n\n\002ip\030\002 \001(\t\022\014\n\004"
     "port\030\003 \001(\005\022\016\n\006gameid\030\004 \001(\005\"\r\n\013CancelMatc"
     "h\"\303\001\n\016ListGameServer\022(\n\003err\030\001 \002(\0162\033.Prot"
-    "oGateServer.ERROR_CODE\022;\n\007servers\030\002 \001(\0132"
+    "oGateServer.ERROR_CODE\022;\n\007servers\030\002 \003(\0132"
     "*.ProtoGateServer.ListGameServer.GameSer"
     "ver\032J\n\nGameServer\022\n\n\002ip\030\001 \002(\t\022\014\n\004port\030\002 "
     "\002(\005\022\020\n\010curGames\030\003 \002(\005\022\020\n\010maxGames\030\004 \002(\005\""
@@ -1769,7 +1769,6 @@ ListGameServer::ListGameServer()
 }
 
 void ListGameServer::InitAsDefaultInstance() {
-  servers_ = const_cast< ::ProtoGateServer::ListGameServer_GameServer*>(&::ProtoGateServer::ListGameServer_GameServer::default_instance());
 }
 
 ListGameServer::ListGameServer(const ListGameServer& from)
@@ -1782,7 +1781,6 @@ ListGameServer::ListGameServer(const ListGameServer& from)
 void ListGameServer::SharedCtor() {
   _cached_size_ = 0;
   err_ = 0;
-  servers_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1793,7 +1791,6 @@ ListGameServer::~ListGameServer() {
 
 void ListGameServer::SharedDtor() {
   if (this != default_instance_) {
-    delete servers_;
   }
 }
 
@@ -1819,12 +1816,8 @@ ListGameServer* ListGameServer::New() const {
 }
 
 void ListGameServer::Clear() {
-  if (_has_bits_[0 / 32] & 3) {
-    err_ = 0;
-    if (has_servers()) {
-      if (servers_ != NULL) servers_->::ProtoGateServer::ListGameServer_GameServer::Clear();
-    }
-  }
+  err_ = 0;
+  servers_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -1858,15 +1851,16 @@ bool ListGameServer::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .ProtoGateServer.ListGameServer.GameServer servers = 2;
+      // repeated .ProtoGateServer.ListGameServer.GameServer servers = 2;
       case 2: {
         if (tag == 18) {
          parse_servers:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_servers()));
+                input, add_servers()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(18)) goto parse_servers;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1902,10 +1896,10 @@ void ListGameServer::SerializeWithCachedSizes(
       1, this->err(), output);
   }
 
-  // optional .ProtoGateServer.ListGameServer.GameServer servers = 2;
-  if (has_servers()) {
+  // repeated .ProtoGateServer.ListGameServer.GameServer servers = 2;
+  for (int i = 0; i < this->servers_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->servers(), output);
+      2, this->servers(i), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -1924,11 +1918,11 @@ void ListGameServer::SerializeWithCachedSizes(
       1, this->err(), target);
   }
 
-  // optional .ProtoGateServer.ListGameServer.GameServer servers = 2;
-  if (has_servers()) {
+  // repeated .ProtoGateServer.ListGameServer.GameServer servers = 2;
+  for (int i = 0; i < this->servers_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        2, this->servers(), target);
+        2, this->servers(i), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1949,14 +1943,15 @@ int ListGameServer::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->err());
     }
 
-    // optional .ProtoGateServer.ListGameServer.GameServer servers = 2;
-    if (has_servers()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->servers());
-    }
-
   }
+  // repeated .ProtoGateServer.ListGameServer.GameServer servers = 2;
+  total_size += 1 * this->servers_size();
+  for (int i = 0; i < this->servers_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->servers(i));
+  }
+
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -1982,12 +1977,10 @@ void ListGameServer::MergeFrom(const ::google::protobuf::Message& from) {
 
 void ListGameServer::MergeFrom(const ListGameServer& from) {
   GOOGLE_CHECK_NE(&from, this);
+  servers_.MergeFrom(from.servers_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_err()) {
       set_err(from.err());
-    }
-    if (from.has_servers()) {
-      mutable_servers()->::ProtoGateServer::ListGameServer_GameServer::MergeFrom(from.servers());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -2008,16 +2001,14 @@ void ListGameServer::CopyFrom(const ListGameServer& from) {
 bool ListGameServer::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
-  if (has_servers()) {
-    if (!this->servers().IsInitialized()) return false;
-  }
+  if (!::google::protobuf::internal::AllAreInitialized(this->servers())) return false;
   return true;
 }
 
 void ListGameServer::Swap(ListGameServer* other) {
   if (other != this) {
     std::swap(err_, other->err_);
-    std::swap(servers_, other->servers_);
+    servers_.Swap(&other->servers_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

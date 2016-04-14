@@ -359,7 +359,7 @@ void protobuf_AddDesc_ProtoGameServer_2eproto() {
     "\005flags\030\001 \002(\r\"\?\n\005Login\022(\n\003err\030\001 \002(\0162\033.Pro"
     "toGameServer.ERROR_CODE\022\014\n\004guid\030\002 \001(\r\"\346\001"
     "\n\010ListGame\022(\n\003err\030\001 \002(\0162\033.ProtoGameServe"
-    "r.ERROR_CODE\022-\n\005games\030\002 \001(\0132\036.ProtoGameS"
+    "r.ERROR_CODE\022-\n\005games\030\002 \003(\0132\036.ProtoGameS"
     "erver.ListGame.Game\032\200\001\n\004Game\022\017\n\007private\030"
     "\001 \002(\010\022\016\n\006gameid\030\002 \002(\005\022\014\n\004mode\030\003 \002(\005\022\r\n\005m"
     "apid\030\004 \002(\005\022\022\n\ncurPlayers\030\005 \002(\005\022\022\n\nmaxPla"
@@ -1733,7 +1733,6 @@ ListGame::ListGame()
 }
 
 void ListGame::InitAsDefaultInstance() {
-  games_ = const_cast< ::ProtoGameServer::ListGame_Game*>(&::ProtoGameServer::ListGame_Game::default_instance());
 }
 
 ListGame::ListGame(const ListGame& from)
@@ -1746,7 +1745,6 @@ ListGame::ListGame(const ListGame& from)
 void ListGame::SharedCtor() {
   _cached_size_ = 0;
   err_ = 0;
-  games_ = NULL;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1757,7 +1755,6 @@ ListGame::~ListGame() {
 
 void ListGame::SharedDtor() {
   if (this != default_instance_) {
-    delete games_;
   }
 }
 
@@ -1783,12 +1780,8 @@ ListGame* ListGame::New() const {
 }
 
 void ListGame::Clear() {
-  if (_has_bits_[0 / 32] & 3) {
-    err_ = 0;
-    if (has_games()) {
-      if (games_ != NULL) games_->::ProtoGameServer::ListGame_Game::Clear();
-    }
-  }
+  err_ = 0;
+  games_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -1822,15 +1815,16 @@ bool ListGame::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .ProtoGameServer.ListGame.Game games = 2;
+      // repeated .ProtoGameServer.ListGame.Game games = 2;
       case 2: {
         if (tag == 18) {
          parse_games:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
-               input, mutable_games()));
+                input, add_games()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(18)) goto parse_games;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -1866,10 +1860,10 @@ void ListGame::SerializeWithCachedSizes(
       1, this->err(), output);
   }
 
-  // optional .ProtoGameServer.ListGame.Game games = 2;
-  if (has_games()) {
+  // repeated .ProtoGameServer.ListGame.Game games = 2;
+  for (int i = 0; i < this->games_size(); i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->games(), output);
+      2, this->games(i), output);
   }
 
   if (!unknown_fields().empty()) {
@@ -1888,11 +1882,11 @@ void ListGame::SerializeWithCachedSizes(
       1, this->err(), target);
   }
 
-  // optional .ProtoGameServer.ListGame.Game games = 2;
-  if (has_games()) {
+  // repeated .ProtoGameServer.ListGame.Game games = 2;
+  for (int i = 0; i < this->games_size(); i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        2, this->games(), target);
+        2, this->games(i), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -1913,14 +1907,15 @@ int ListGame::ByteSize() const {
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->err());
     }
 
-    // optional .ProtoGameServer.ListGame.Game games = 2;
-    if (has_games()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->games());
-    }
-
   }
+  // repeated .ProtoGameServer.ListGame.Game games = 2;
+  total_size += 1 * this->games_size();
+  for (int i = 0; i < this->games_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->games(i));
+  }
+
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -1946,12 +1941,10 @@ void ListGame::MergeFrom(const ::google::protobuf::Message& from) {
 
 void ListGame::MergeFrom(const ListGame& from) {
   GOOGLE_CHECK_NE(&from, this);
+  games_.MergeFrom(from.games_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_err()) {
       set_err(from.err());
-    }
-    if (from.has_games()) {
-      mutable_games()->::ProtoGameServer::ListGame_Game::MergeFrom(from.games());
     }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
@@ -1972,16 +1965,14 @@ void ListGame::CopyFrom(const ListGame& from) {
 bool ListGame::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
-  if (has_games()) {
-    if (!this->games().IsInitialized()) return false;
-  }
+  if (!::google::protobuf::internal::AllAreInitialized(this->games())) return false;
   return true;
 }
 
 void ListGame::Swap(ListGame* other) {
   if (other != this) {
     std::swap(err_, other->err_);
-    std::swap(games_, other->games_);
+    games_.Swap(&other->games_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

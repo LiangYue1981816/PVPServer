@@ -115,14 +115,13 @@ namespace ProtoGateServer
       get { return _err; }
       set { _err = value; }
     }
-    private ProtoGateServer.ListGameServer.GameServer _servers = null;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"servers", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    [global::System.ComponentModel.DefaultValue(null)]
-    public ProtoGateServer.ListGameServer.GameServer servers
+    private readonly global::System.Collections.Generic.List<ProtoGateServer.ListGameServer.GameServer> _servers = new global::System.Collections.Generic.List<ProtoGateServer.ListGameServer.GameServer>();
+    [global::ProtoBuf.ProtoMember(2, Name=@"servers", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public global::System.Collections.Generic.List<ProtoGateServer.ListGameServer.GameServer> servers
     {
       get { return _servers; }
-      set { _servers = value; }
     }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GameServer")]
   public partial class GameServer : global::ProtoBuf.IExtensible
   {

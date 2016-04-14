@@ -636,27 +636,28 @@ class ListGameServer : public ::google::protobuf::Message {
   inline ::ProtoGateServer::ERROR_CODE err() const;
   inline void set_err(::ProtoGateServer::ERROR_CODE value);
 
-  // optional .ProtoGateServer.ListGameServer.GameServer servers = 2;
-  inline bool has_servers() const;
+  // repeated .ProtoGateServer.ListGameServer.GameServer servers = 2;
+  inline int servers_size() const;
   inline void clear_servers();
   static const int kServersFieldNumber = 2;
-  inline const ::ProtoGateServer::ListGameServer_GameServer& servers() const;
-  inline ::ProtoGateServer::ListGameServer_GameServer* mutable_servers();
-  inline ::ProtoGateServer::ListGameServer_GameServer* release_servers();
-  inline void set_allocated_servers(::ProtoGateServer::ListGameServer_GameServer* servers);
+  inline const ::ProtoGateServer::ListGameServer_GameServer& servers(int index) const;
+  inline ::ProtoGateServer::ListGameServer_GameServer* mutable_servers(int index);
+  inline ::ProtoGateServer::ListGameServer_GameServer* add_servers();
+  inline const ::google::protobuf::RepeatedPtrField< ::ProtoGateServer::ListGameServer_GameServer >&
+      servers() const;
+  inline ::google::protobuf::RepeatedPtrField< ::ProtoGateServer::ListGameServer_GameServer >*
+      mutable_servers();
 
   // @@protoc_insertion_point(class_scope:ProtoGateServer.ListGameServer)
  private:
   inline void set_has_err();
   inline void clear_has_err();
-  inline void set_has_servers();
-  inline void clear_has_servers();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::ProtoGateServer::ListGameServer_GameServer* servers_;
+  ::google::protobuf::RepeatedPtrField< ::ProtoGateServer::ListGameServer_GameServer > servers_;
   int err_;
   friend void  protobuf_AddDesc_ProtoGateServer_2eproto();
   friend void protobuf_AssignDesc_ProtoGateServer_2eproto();
@@ -1181,45 +1182,34 @@ inline void ListGameServer::set_err(::ProtoGateServer::ERROR_CODE value) {
   // @@protoc_insertion_point(field_set:ProtoGateServer.ListGameServer.err)
 }
 
-// optional .ProtoGateServer.ListGameServer.GameServer servers = 2;
-inline bool ListGameServer::has_servers() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void ListGameServer::set_has_servers() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void ListGameServer::clear_has_servers() {
-  _has_bits_[0] &= ~0x00000002u;
+// repeated .ProtoGateServer.ListGameServer.GameServer servers = 2;
+inline int ListGameServer::servers_size() const {
+  return servers_.size();
 }
 inline void ListGameServer::clear_servers() {
-  if (servers_ != NULL) servers_->::ProtoGateServer::ListGameServer_GameServer::Clear();
-  clear_has_servers();
+  servers_.Clear();
 }
-inline const ::ProtoGateServer::ListGameServer_GameServer& ListGameServer::servers() const {
+inline const ::ProtoGateServer::ListGameServer_GameServer& ListGameServer::servers(int index) const {
   // @@protoc_insertion_point(field_get:ProtoGateServer.ListGameServer.servers)
-  return servers_ != NULL ? *servers_ : *default_instance_->servers_;
+  return servers_.Get(index);
 }
-inline ::ProtoGateServer::ListGameServer_GameServer* ListGameServer::mutable_servers() {
-  set_has_servers();
-  if (servers_ == NULL) servers_ = new ::ProtoGateServer::ListGameServer_GameServer;
+inline ::ProtoGateServer::ListGameServer_GameServer* ListGameServer::mutable_servers(int index) {
   // @@protoc_insertion_point(field_mutable:ProtoGateServer.ListGameServer.servers)
+  return servers_.Mutable(index);
+}
+inline ::ProtoGateServer::ListGameServer_GameServer* ListGameServer::add_servers() {
+  // @@protoc_insertion_point(field_add:ProtoGateServer.ListGameServer.servers)
+  return servers_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::ProtoGateServer::ListGameServer_GameServer >&
+ListGameServer::servers() const {
+  // @@protoc_insertion_point(field_list:ProtoGateServer.ListGameServer.servers)
   return servers_;
 }
-inline ::ProtoGateServer::ListGameServer_GameServer* ListGameServer::release_servers() {
-  clear_has_servers();
-  ::ProtoGateServer::ListGameServer_GameServer* temp = servers_;
-  servers_ = NULL;
-  return temp;
-}
-inline void ListGameServer::set_allocated_servers(::ProtoGateServer::ListGameServer_GameServer* servers) {
-  delete servers_;
-  servers_ = servers;
-  if (servers) {
-    set_has_servers();
-  } else {
-    clear_has_servers();
-  }
-  // @@protoc_insertion_point(field_set_allocated:ProtoGateServer.ListGameServer.servers)
+inline ::google::protobuf::RepeatedPtrField< ::ProtoGateServer::ListGameServer_GameServer >*
+ListGameServer::mutable_servers() {
+  // @@protoc_insertion_point(field_mutable_list:ProtoGateServer.ListGameServer.servers)
+  return &servers_;
 }
 
 // -------------------------------------------------------------------

@@ -16,10 +16,6 @@
                 ResponseLogin(buffer);
                 break;
 
-            case (short)ProtoGameServer.RESPONSE_MSG.HOST:
-                ResponseHost(buffer);
-                break;
-
             case (short)ProtoGameServer.RESPONSE_MSG.LIST_GAME:
                 ResponseListGame(buffer);
                 break;

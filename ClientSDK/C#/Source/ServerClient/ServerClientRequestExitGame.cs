@@ -28,6 +28,8 @@ public partial class ServerClient : NetClient
                 }
                 else
                 {
+                    mHostGUID = responseExitGame.host;
+
                     int index = 0;
                     while ((index = mPlayers.IndexOf(responseExitGame.guid)) >= 0)
                     {

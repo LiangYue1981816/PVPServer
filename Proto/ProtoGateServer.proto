@@ -64,7 +64,7 @@ message ListGameServer
 	}
 	
 	required ERROR_CODE err = 1;
-	optional GameServer servers = 2;
+	repeated GameServer servers = 2;
 }
 
 message SendToPlayer
