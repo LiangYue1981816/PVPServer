@@ -445,7 +445,7 @@ class CreateGame : public ::google::protobuf::Message {
   inline ::std::string* release_password();
   inline void set_allocated_password(::std::string* password);
 
-  // required int32 gameid = 2 [default = -1];
+  // required int32 gameid = 2;
   inline bool has_gameid() const;
   inline void clear_gameid();
   static const int kGameidFieldNumber = 2;
@@ -1123,7 +1123,7 @@ inline void CreateGame::set_allocated_password(::std::string* password) {
   // @@protoc_insertion_point(field_set_allocated:ProtoGameClient.CreateGame.password)
 }
 
-// required int32 gameid = 2 [default = -1];
+// required int32 gameid = 2;
 inline bool CreateGame::has_gameid() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -1134,7 +1134,7 @@ inline void CreateGame::clear_has_gameid() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline void CreateGame::clear_gameid() {
-  gameid_ = -1;
+  gameid_ = 0;
   clear_has_gameid();
 }
 inline ::google::protobuf::int32 CreateGame::gameid() const {

@@ -5,6 +5,7 @@ public partial class ServerClient : NetClient
     public virtual void RequestCreateGame(string password, int mode, int mapid, int maxPlayers, int evaluation)
     {
         mRequestCreateGame.password = password;
+        mRequestCreateGame.gameid = -1;
         mRequestCreateGame.mode = mode;
         mRequestCreateGame.mapid = mapid;
         mRequestCreateGame.maxPlayers = maxPlayers;
