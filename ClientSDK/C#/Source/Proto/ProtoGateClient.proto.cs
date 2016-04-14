@@ -75,6 +75,16 @@ namespace ProtoGateClient
       { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
   }
   
+  [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"CancelMatch")]
+  public partial class CancelMatch : global::ProtoBuf.IExtensible
+  {
+    public CancelMatch() {}
+    
+    private global::ProtoBuf.IExtension extensionObject;
+    global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+      { return global::ProtoBuf.Extensible.GetExtensionObject(ref extensionObject, createIfMissing); }
+  }
+  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"ListGameServer")]
   public partial class ListGameServer : global::ProtoBuf.IExtensible
   {
@@ -129,11 +139,14 @@ namespace ProtoGateClient
       [global::ProtoBuf.ProtoEnum(Name=@"MATCH", Value=3002)]
       MATCH = 3002,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"LIST_GAME_SERVER", Value=3003)]
-      LIST_GAME_SERVER = 3003,
+      [global::ProtoBuf.ProtoEnum(Name=@"CANCEL_MATCH", Value=3003)]
+      CANCEL_MATCH = 3003,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=3004)]
-      SEND_TO_PLAYER = 3004
+      [global::ProtoBuf.ProtoEnum(Name=@"LIST_GAME_SERVER", Value=3004)]
+      LIST_GAME_SERVER = 3004,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=3005)]
+      SEND_TO_PLAYER = 3005
     }
   
 }

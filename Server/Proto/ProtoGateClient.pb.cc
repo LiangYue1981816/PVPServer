@@ -29,6 +29,9 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* Match_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Match_reflection_ = NULL;
+const ::google::protobuf::Descriptor* CancelMatch_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  CancelMatch_reflection_ = NULL;
 const ::google::protobuf::Descriptor* ListGameServer_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   ListGameServer_reflection_ = NULL;
@@ -93,7 +96,21 @@ void protobuf_AssignDesc_ProtoGateClient_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Match));
-  ListGameServer_descriptor_ = file->message_type(3);
+  CancelMatch_descriptor_ = file->message_type(3);
+  static const int CancelMatch_offsets_[1] = {
+  };
+  CancelMatch_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      CancelMatch_descriptor_,
+      CancelMatch::default_instance_,
+      CancelMatch_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CancelMatch, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CancelMatch, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(CancelMatch));
+  ListGameServer_descriptor_ = file->message_type(4);
   static const int ListGameServer_offsets_[1] = {
   };
   ListGameServer_reflection_ =
@@ -107,7 +124,7 @@ void protobuf_AssignDesc_ProtoGateClient_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ListGameServer));
-  SendToPlayer_descriptor_ = file->message_type(4);
+  SendToPlayer_descriptor_ = file->message_type(5);
   static const int SendToPlayer_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, guids_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, size_),
@@ -144,6 +161,8 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     Match_descriptor_, &Match::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    CancelMatch_descriptor_, &CancelMatch::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     ListGameServer_descriptor_, &ListGameServer::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     SendToPlayer_descriptor_, &SendToPlayer::default_instance());
@@ -158,6 +177,8 @@ void protobuf_ShutdownFile_ProtoGateClient_2eproto() {
   delete Login_reflection_;
   delete Match::default_instance_;
   delete Match_reflection_;
+  delete CancelMatch::default_instance_;
+  delete CancelMatch_reflection_;
   delete ListGameServer::default_instance_;
   delete ListGameServer_reflection_;
   delete SendToPlayer::default_instance_;
@@ -174,22 +195,25 @@ void protobuf_AddDesc_ProtoGateClient_2eproto() {
     "\n\025ProtoGateClient.proto\022\017ProtoGateClient"
     "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"&\n\005Login\022\014\n"
     "\004guid\030\001 \002(\r\022\017\n\007version\030\002 \002(\005\",\n\005Match\022\022\n"
-    "\nevaluation\030\001 \002(\005\022\017\n\007timeout\030\002 \002(\002\"\020\n\016Li"
-    "stGameServer\"9\n\014SendToPlayer\022\r\n\005guids\030\001 "
-    "\003(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014*]\n\013REQUE"
-    "ST_MSG\022\n\n\005HEART\020\270\027\022\n\n\005LOGIN\020\271\027\022\n\n\005MATCH\020"
-    "\272\027\022\025\n\020LIST_GAME_SERVER\020\273\027\022\023\n\016SEND_TO_PLA"
-    "YER\020\274\027B\002H\001", 330);
+    "\nevaluation\030\001 \002(\005\022\017\n\007timeout\030\002 \002(\002\"\r\n\013Ca"
+    "ncelMatch\"\020\n\016ListGameServer\"9\n\014SendToPla"
+    "yer\022\r\n\005guids\030\001 \003(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data"
+    "\030\003 \002(\014*p\n\013REQUEST_MSG\022\n\n\005HEART\020\270\027\022\n\n\005LOG"
+    "IN\020\271\027\022\n\n\005MATCH\020\272\027\022\021\n\014CANCEL_MATCH\020\273\027\022\025\n\020"
+    "LIST_GAME_SERVER\020\274\027\022\023\n\016SEND_TO_PLAYER\020\275\027"
+    "B\002H\001", 364);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGateClient.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
   Login::default_instance_ = new Login();
   Match::default_instance_ = new Match();
+  CancelMatch::default_instance_ = new CancelMatch();
   ListGameServer::default_instance_ = new ListGameServer();
   SendToPlayer::default_instance_ = new SendToPlayer();
   Heart::default_instance_->InitAsDefaultInstance();
   Login::default_instance_->InitAsDefaultInstance();
   Match::default_instance_->InitAsDefaultInstance();
+  CancelMatch::default_instance_->InitAsDefaultInstance();
   ListGameServer::default_instance_->InitAsDefaultInstance();
   SendToPlayer::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_ProtoGateClient_2eproto);
@@ -212,6 +236,7 @@ bool REQUEST_MSG_IsValid(int value) {
     case 3002:
     case 3003:
     case 3004:
+    case 3005:
       return true;
     default:
       return false;
@@ -986,6 +1011,180 @@ void Match::Swap(Match* other) {
   ::google::protobuf::Metadata metadata;
   metadata.descriptor = Match_descriptor_;
   metadata.reflection = Match_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+#endif  // !_MSC_VER
+
+CancelMatch::CancelMatch()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:ProtoGateClient.CancelMatch)
+}
+
+void CancelMatch::InitAsDefaultInstance() {
+}
+
+CancelMatch::CancelMatch(const CancelMatch& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:ProtoGateClient.CancelMatch)
+}
+
+void CancelMatch::SharedCtor() {
+  _cached_size_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+CancelMatch::~CancelMatch() {
+  // @@protoc_insertion_point(destructor:ProtoGateClient.CancelMatch)
+  SharedDtor();
+}
+
+void CancelMatch::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void CancelMatch::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* CancelMatch::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return CancelMatch_descriptor_;
+}
+
+const CancelMatch& CancelMatch::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_ProtoGateClient_2eproto();
+  return *default_instance_;
+}
+
+CancelMatch* CancelMatch::default_instance_ = NULL;
+
+CancelMatch* CancelMatch::New() const {
+  return new CancelMatch;
+}
+
+void CancelMatch::Clear() {
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool CancelMatch::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  // @@protoc_insertion_point(parse_start:ProtoGateClient.CancelMatch)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+  handle_unusual:
+    if (tag == 0 ||
+        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+      goto success;
+    }
+    DO_(::google::protobuf::internal::WireFormat::SkipField(
+          input, tag, mutable_unknown_fields()));
+  }
+success:
+  // @@protoc_insertion_point(parse_success:ProtoGateClient.CancelMatch)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:ProtoGateClient.CancelMatch)
+  return false;
+#undef DO_
+}
+
+void CancelMatch::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:ProtoGateClient.CancelMatch)
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+  // @@protoc_insertion_point(serialize_end:ProtoGateClient.CancelMatch)
+}
+
+::google::protobuf::uint8* CancelMatch::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:ProtoGateClient.CancelMatch)
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:ProtoGateClient.CancelMatch)
+  return target;
+}
+
+int CancelMatch::ByteSize() const {
+  int total_size = 0;
+
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void CancelMatch::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const CancelMatch* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const CancelMatch*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void CancelMatch::MergeFrom(const CancelMatch& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void CancelMatch::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void CancelMatch::CopyFrom(const CancelMatch& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CancelMatch::IsInitialized() const {
+
+  return true;
+}
+
+void CancelMatch::Swap(CancelMatch* other) {
+  if (other != this) {
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata CancelMatch::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = CancelMatch_descriptor_;
+  metadata.reflection = CancelMatch_reflection_;
   return metadata;
 }
 

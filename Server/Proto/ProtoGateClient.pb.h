@@ -37,6 +37,7 @@ void protobuf_ShutdownFile_ProtoGateClient_2eproto();
 class Heart;
 class Login;
 class Match;
+class CancelMatch;
 class ListGameServer;
 class SendToPlayer;
 
@@ -44,8 +45,9 @@ enum REQUEST_MSG {
   HEART = 3000,
   LOGIN = 3001,
   MATCH = 3002,
-  LIST_GAME_SERVER = 3003,
-  SEND_TO_PLAYER = 3004
+  CANCEL_MATCH = 3003,
+  LIST_GAME_SERVER = 3004,
+  SEND_TO_PLAYER = 3005
 };
 bool REQUEST_MSG_IsValid(int value);
 const REQUEST_MSG REQUEST_MSG_MIN = HEART;
@@ -318,6 +320,75 @@ class Match : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static Match* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class CancelMatch : public ::google::protobuf::Message {
+ public:
+  CancelMatch();
+  virtual ~CancelMatch();
+
+  CancelMatch(const CancelMatch& from);
+
+  inline CancelMatch& operator=(const CancelMatch& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const CancelMatch& default_instance();
+
+  void Swap(CancelMatch* other);
+
+  // implements Message ----------------------------------------------
+
+  CancelMatch* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const CancelMatch& from);
+  void MergeFrom(const CancelMatch& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::google::protobuf::Metadata GetMetadata() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:ProtoGateClient.CancelMatch)
+ private:
+
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  friend void  protobuf_AddDesc_ProtoGateClient_2eproto();
+  friend void protobuf_AssignDesc_ProtoGateClient_2eproto();
+  friend void protobuf_ShutdownFile_ProtoGateClient_2eproto();
+
+  void InitAsDefaultInstance();
+  static CancelMatch* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -629,6 +700,10 @@ inline void Match::set_timeout(float value) {
   timeout_ = value;
   // @@protoc_insertion_point(field_set:ProtoGateClient.Match.timeout)
 }
+
+// -------------------------------------------------------------------
+
+// CancelMatch
 
 // -------------------------------------------------------------------
 
