@@ -19,6 +19,7 @@ public partial class ServerClient : NetClient
             {
                 if (mGUID == responseExitGame.guid)
                 {
+                    mPlayers.Clear();
                     mGameID = 0xcccccccc;
                     mHostGUID = 0xcccccccc;
                     DisableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);

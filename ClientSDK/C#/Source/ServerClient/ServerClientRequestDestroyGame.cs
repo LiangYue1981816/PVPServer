@@ -17,6 +17,7 @@ public partial class ServerClient : NetClient
 
             if (mErrorCode == ProtoGameServer.ERROR_CODE.ERR_NONE)
             {
+                mPlayers.Clear();
                 mGameID = 0xcccccccc;
                 mHostGUID = 0xcccccccc;
                 DisableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
