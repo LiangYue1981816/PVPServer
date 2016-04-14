@@ -122,14 +122,18 @@ BOOL CGateServer::Logout(CIOContext *pContext)
 	//
 	// 1. 注销玩家集合
 	//
-	PlayerMap::const_iterator itPlayer = m_players.find(pContext->guid);
+	PlayerMap::iterator itPlayer = m_players.find(pContext->guid);
 	if (itPlayer != m_players.end()) m_players.erase(itPlayer);
 
 	//
-	// 2. 注销匹配集合
+	// 2. 注销待匹配玩家集合
 	//
-	PlayerMap::const_iterator itMatch = m_matchs.find(pContext->guid);
-	if (itMatch != m_matchs.end()) m_matchs.erase(itMatch);
+	PlayerEvaluationMap::iterator itPlayerMap = m_evaluations.find(pContext->dwUserData);
+	if (itPlayerMap != m_evaluations.end()) {
+		std::map<DWORD, PlayerStatus>::iterator itPlayer = itPlayerMap->second.find(pContext->guid);
+		if (itPlayer != itPlayerMap->second.end()) itPlayerMap->second.erase(itPlayer);
+		if (itPlayerMap->second.empty()) m_evaluations.erase(itPlayerMap);
+	}
 
 	//
 	// 3. 恢复初始化

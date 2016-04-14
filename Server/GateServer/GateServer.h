@@ -41,6 +41,7 @@ public:
 
 	typedef std::map<DWORD, CIOContext*> PlayerMap;                                                // 玩家集合
 	typedef std::map<CIOContext*, GameServerStatus> GameServerMap;                                 // 游戏服务器集合
+	typedef std::map<DWORD, std::map<DWORD, PlayerStatus>> PlayerEvaluationMap;                    // 玩家评分集合
 
 
 	// 构造/析构函数
@@ -94,9 +95,9 @@ protected:
 protected:
 	HANDLE m_hUpdateThread;                                                                        // 更新线程句柄
 
-	PlayerMap m_matchs;                                                                            // 匹配集合
 	PlayerMap m_players;                                                                           // 玩家集合
 	GameServerMap m_servers;                                                                       // 游戏服务器集合
+	PlayerEvaluationMap m_evaluations;                                                             // 待匹配玩家集合
 
 protected:
 	DWORD m_dwUpdateCount;                                                                         // 更新次数

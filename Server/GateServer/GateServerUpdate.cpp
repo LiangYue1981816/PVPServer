@@ -243,15 +243,11 @@ NEXT:
 	//
 	// 5. 添加到匹配集合
 	//
-	/*
-	PlayerMap::const_iterator itMatch = m_matchs.find(pContext->guid);
-	if (itMatch != m_matchs.end()) return;
+	std::map<DWORD, PlayerStatus>::const_iterator itPlayer = m_evaluations[requestMatch.evaluation()].find(pContext->guid);
+	if (itPlayer != m_evaluations[requestMatch.evaluation()].end()) return;
 
-	m_matchs[pContext->guid] = m_players[pContext->guid];
-	m_matchs[pContext->guid].evaluation = requestMatch.evaluation();
-	m_matchs[pContext->guid].timeout = requestMatch.timeout();
-	*/
-	;
+	m_evaluations[requestMatch.evaluation()][pContext->guid].pContext = pContext;
+	m_evaluations[requestMatch.evaluation()][pContext->guid].timeout = 0.0f;
 }
 
 //
