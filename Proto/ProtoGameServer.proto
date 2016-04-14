@@ -83,13 +83,13 @@ message ListGame
 	}
 	
 	required ERROR_CODE err = 1;
-	repeated Game games = 2;
+	optional Game games = 2;
 }
 
 message CreateGame
 {
 	required ERROR_CODE err = 1;
-	required uint32 host = 2;
+	optional uint32 host = 2;
 	optional uint32 gameid = 3;
 }
 
@@ -102,7 +102,7 @@ message EnterGame
 {
 	required ERROR_CODE err = 1;
 	optional uint32 guid = 2;
-	required uint32 host = 3;
+	optional uint32 host = 3;
 	optional uint32 gameid = 4;
 }
 
@@ -110,7 +110,7 @@ message ExitGame
 {
 	required ERROR_CODE err = 1;
 	optional uint32 guid = 2;
-	required uint32 host = 3;
+	optional uint32 host = 3;
 }
 
 message SendToPlayer

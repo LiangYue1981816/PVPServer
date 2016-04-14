@@ -44,9 +44,9 @@ message Login
 message Match
 {
 	required ERROR_CODE err = 1;
-	required string ip = 2 [default = ""];
-	required int32 port = 3 [default = -1];
-	required int32 gameid = 4 [default = -1];
+	optional string ip = 2;
+	optional int32 port = 3;
+	optional int32 gameid = 4;
 }
 
 message CancelMatch
@@ -64,7 +64,7 @@ message ListGameServer
 	}
 	
 	required ERROR_CODE err = 1;
-	repeated GameServer servers = 2;
+	optional GameServer servers = 2;
 }
 
 message SendToPlayer
