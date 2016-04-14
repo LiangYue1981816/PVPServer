@@ -89,7 +89,8 @@ message ListGame
 message CreateGame
 {
 	required ERROR_CODE err = 1;
-	optional uint32 gameid = 2;
+	required uint32 host = 2;
+	optional uint32 gameid = 3;
 }
 
 message DestroyGame
