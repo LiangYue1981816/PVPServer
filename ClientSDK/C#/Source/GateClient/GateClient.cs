@@ -7,12 +7,14 @@ public partial class GateClient : NetClient
     public delegate void OnResponseError(ProtoGateServer.ERROR_CODE err);
     public delegate void OnResponseLogin();
     public delegate void OnResponseMatch(string ip, int port, int gameid);
+    public delegate void OnResponseCancelMatch();
     public delegate void OnResponseListGameServer(ProtoGateServer.ListGameServer responseListGameServer);
     public delegate void OnResponseSendToPlayer(int size, byte[] data);
 
     public OnResponseError onResponseError = null;
     public OnResponseLogin onResponseLogin = null;
     public OnResponseMatch onResponseMatch = null;
+    public OnResponseCancelMatch onResponseCancelMatch = null;
     public OnResponseListGameServer onResponseListGameServer = null;
     public OnResponseSendToPlayer onResponseSendToPlayer = null;
 
@@ -27,6 +29,7 @@ public partial class GateClient : NetClient
     private ProtoGateClient.Heart mRequestHeart = new ProtoGateClient.Heart();
     private ProtoGateClient.Login mRequestLogin = new ProtoGateClient.Login();
     private ProtoGateClient.Match mRequestMatch = new ProtoGateClient.Match();
+    private ProtoGateClient.CancelMatch mRequestCancelMatch = new ProtoGateClient.CancelMatch();
     private ProtoGateClient.ListGameServer mRequestListGameServer = new ProtoGateClient.ListGameServer();
     private ProtoGateClient.SendToPlayer mRequestSendToPlayer = new ProtoGateClient.SendToPlayer();
 

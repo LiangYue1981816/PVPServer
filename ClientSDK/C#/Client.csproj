@@ -47,6 +47,7 @@
     <Compile Include="Source\Common\SocketHelper.cs" />
     <Compile Include="Source\GateClient\GateClient.cs" />
     <Compile Include="Source\GateClient\GateClientProcessProto.cs" />
+    <Compile Include="Source\GateClient\GateClientRequestCancelMatch.cs" />
     <Compile Include="Source\GateClient\GateClientRequestHeart.cs" />
     <Compile Include="Source\GateClient\GateClientRequestListGameServer.cs" />
     <Compile Include="Source\GateClient\GateClientRequestLogin.cs" />
