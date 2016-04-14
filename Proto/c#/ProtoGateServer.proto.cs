@@ -64,22 +64,25 @@ namespace ProtoGateServer
       get { return _err; }
       set { _err = value; }
     }
-    private string _ip;
-    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"ip", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    private string _ip = "";
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"ip", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue("")]
     public string ip
     {
       get { return _ip; }
       set { _ip = value; }
     }
-    private int _port;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"port", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _port = default(int);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"port", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
     public int port
     {
       get { return _port; }
       set { _port = value; }
     }
-    private int _gameid;
-    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private int _gameid = default(int);
+    [global::ProtoBuf.ProtoMember(4, IsRequired = false, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(int))]
     public int gameid
     {
       get { return _gameid; }
@@ -112,13 +115,14 @@ namespace ProtoGateServer
       get { return _err; }
       set { _err = value; }
     }
-    private readonly global::System.Collections.Generic.List<ProtoGateServer.ListGameServer.GameServer> _servers = new global::System.Collections.Generic.List<ProtoGateServer.ListGameServer.GameServer>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"servers", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<ProtoGateServer.ListGameServer.GameServer> servers
+    private ProtoGateServer.ListGameServer.GameServer _servers = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"servers", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public ProtoGateServer.ListGameServer.GameServer servers
     {
       get { return _servers; }
+      set { _servers = value; }
     }
-  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"GameServer")]
   public partial class GameServer : global::ProtoBuf.IExtensible
   {

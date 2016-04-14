@@ -81,13 +81,14 @@ namespace ProtoGameServer
       get { return _err; }
       set { _err = value; }
     }
-    private readonly global::System.Collections.Generic.List<ProtoGameServer.ListGame.Game> _games = new global::System.Collections.Generic.List<ProtoGameServer.ListGame.Game>();
-    [global::ProtoBuf.ProtoMember(2, Name=@"games", DataFormat = global::ProtoBuf.DataFormat.Default)]
-    public global::System.Collections.Generic.List<ProtoGameServer.ListGame.Game> games
+    private ProtoGameServer.ListGame.Game _games = null;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"games", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    [global::System.ComponentModel.DefaultValue(null)]
+    public ProtoGameServer.ListGame.Game games
     {
       get { return _games; }
+      set { _games = value; }
     }
-  
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"Game")]
   public partial class Game : global::ProtoBuf.IExtensible
   {
@@ -164,8 +165,16 @@ namespace ProtoGameServer
       get { return _err; }
       set { _err = value; }
     }
+    private uint _host = default(uint);
+    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"host", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(uint))]
+    public uint host
+    {
+      get { return _host; }
+      set { _host = value; }
+    }
     private uint _gameid = default(uint);
-    [global::ProtoBuf.ProtoMember(2, IsRequired = false, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"gameid", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
     [global::System.ComponentModel.DefaultValue(default(uint))]
     public uint gameid
     {
@@ -214,8 +223,9 @@ namespace ProtoGameServer
       get { return _guid; }
       set { _guid = value; }
     }
-    private uint _host;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"host", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private uint _host = default(uint);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"host", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(uint))]
     public uint host
     {
       get { return _host; }
@@ -254,8 +264,9 @@ namespace ProtoGameServer
       get { return _guid; }
       set { _guid = value; }
     }
-    private uint _host;
-    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"host", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    private uint _host = default(uint);
+    [global::ProtoBuf.ProtoMember(3, IsRequired = false, Name=@"host", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    [global::System.ComponentModel.DefaultValue(default(uint))]
     public uint host
     {
       get { return _host; }
