@@ -72,6 +72,9 @@ protected:
 
 	// 属性
 public:
+	DWORD dwUserData;                                                                              // 用户数据
+
+public:
 	char ip[256];                                                                                  // 客户端ip地址
 	DWORD dwHeartTime;                                                                             // 心跳时间
 

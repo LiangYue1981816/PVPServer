@@ -5,7 +5,9 @@
 // иообнд
 //========================================================================
 CIOContext::CIOContext(void)
-	: dwHeartTime(0x00000000)
+	: dwUserData(0xffffffff)
+
+	, dwHeartTime(0x00000000)
 
 	, id(0xffffffff)
 	, guid(0xffffffff)
