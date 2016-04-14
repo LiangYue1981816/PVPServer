@@ -7,14 +7,14 @@
 //
 // 玩家
 //
-class _ServerExport CPVPServer;
-class _ServerExport CGameLogic;
-class _ServerExport CPlayerLogic : public CPlayer
+class _ServerExport CPVPGameServer;
+class _ServerExport CPVPGame;
+class _ServerExport CPVPPlayer : public CPlayer
 {
 	// 构造/析构函数
 public:
-	CPlayerLogic(CPVPServer *s);
-	virtual ~CPlayerLogic(void);
+	CPVPPlayer(CPVPGameServer *s);
+	virtual ~CPVPPlayer(void);
 
 
 	// 方法
@@ -28,12 +28,12 @@ protected:
 //
 // 游戏
 //
-class _ServerExport CGameLogic : public CGame
+class _ServerExport CPVPGame : public CGame
 {
 	// 构造/析构函数
 public:
-	CGameLogic(CPVPServer *s);
-	virtual ~CGameLogic(void);
+	CPVPGame(CPVPGameServer *s);
+	virtual ~CPVPGame(void);
 
 
 	// 方法
@@ -48,12 +48,12 @@ protected:
 //
 // 服务器
 //
-class _ServerExport CPVPServer : public CGameServer
+class _ServerExport CPVPGameServer : public CGameServer
 {
 	// 构造/析构函数
 public:
-	CPVPServer(void);
-	virtual ~CPVPServer(void);
+	CPVPGameServer(void);
+	virtual ~CPVPGameServer(void);
 
 
 	// 方法

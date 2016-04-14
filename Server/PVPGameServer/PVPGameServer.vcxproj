@@ -18,10 +18,19 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PVPGameServer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PVPGame.cpp" />
+    <ClCompile Include="PVPGameServer.cpp" />
+    <ClCompile Include="PVPGameServerUpdate.cpp" />
+    <ClCompile Include="PVPPlayer.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{46DD4732-0B36-4334-9B63-4680576C8456}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>GameLogic</RootNamespace>
+    <RootNamespace>PVPGameServer</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -91,7 +100,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;GAMELOGIC_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;../GameLogic</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;../PVPGameServer</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -108,7 +117,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;GAMELOGIC_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;../GameLogic</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;../PVPGameServer</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -127,7 +136,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;GAMELOGIC_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;../GameLogic</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;../PVPGameServer</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -148,7 +157,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;GAMELOGIC_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;../GameLogic</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../pthread-win32/;../protobuf/include;../Proto;../Common;../GameServer;../PVPGameServer</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996;4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -160,15 +169,6 @@
       <AdditionalDependencies>GameServer.lib;libprotobuf.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PVPServer.cpp" />
-    <ClCompile Include="PVPServerUpdate.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="PVPServer.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

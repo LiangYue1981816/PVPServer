@@ -1,12 +1,12 @@
-#include "PVPServer.h"
+#include "PVPGameServer.h"
 
 
-CPVPServer::CPVPServer(void)
+CPVPGameServer::CPVPGameServer(void)
 {
 
 }
 
-CPVPServer::~CPVPServer(void)
+CPVPGameServer::~CPVPGameServer(void)
 {
 
 }
@@ -14,7 +14,7 @@ CPVPServer::~CPVPServer(void)
 //
 // 分配游戏
 //
-BOOL CPVPServer::AllocGames(int maxGames)
+BOOL CPVPGameServer::AllocGames(int maxGames)
 {
 	//
 	// 1. 分配游戏存储
@@ -27,7 +27,7 @@ BOOL CPVPServer::AllocGames(int maxGames)
 	// 2. 建立游戏链表
 	//
 	for (int indexGame = 0; indexGame < m_maxGames; indexGame++) {
-		m_games[indexGame] = new CGameLogic(this);
+		m_games[indexGame] = new CPVPGame(this);
 		m_games[indexGame]->id = indexGame;
 	}
 
@@ -45,7 +45,7 @@ BOOL CPVPServer::AllocGames(int maxGames)
 //
 // 分配玩家
 //
-BOOL CPVPServer::AllocPlayers(int maxPlayers)
+BOOL CPVPGameServer::AllocPlayers(int maxPlayers)
 {
 	//
 	// 1. 分配上下文存储
@@ -58,7 +58,7 @@ BOOL CPVPServer::AllocPlayers(int maxPlayers)
 	// 2. 建立玩家链表
 	//
 	for (int indexContext = 0; indexContext < m_maxContexts; indexContext++) {
-		m_contexts[indexContext] = new CPlayerLogic(this);
+		m_contexts[indexContext] = new CPVPPlayer(this);
 		m_contexts[indexContext]->id = indexContext;
 	}
 
@@ -76,7 +76,7 @@ BOOL CPVPServer::AllocPlayers(int maxPlayers)
 //
 // 更新游戏逻辑
 //
-void CPVPServer::OnUpdateGameLogic(float deltaTime)
+void CPVPGameServer::OnUpdateGameLogic(float deltaTime)
 {
 
 }
