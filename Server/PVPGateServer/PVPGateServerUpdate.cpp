@@ -1,10 +1,10 @@
-#include "GateServer.h"
+#include "PVPGateServer.h"
 
 
 //
 // 更新匹配
 //
-void CGateServer::OnUpdateMatch(DWORD dwDeltaTime)
+void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 {
 	//
 	// 1. 更新即时检查

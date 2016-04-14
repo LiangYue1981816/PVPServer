@@ -21,6 +21,14 @@ void CGateServer::OnDisconnect(CIOContext *pContext)
 }
 
 //
+// 更新匹配
+//
+void CGateServer::OnUpdateMatch(DWORD dwDeltaTime)
+{
+
+}
+
+//
 // 更新接收消息
 //
 void CGateServer::OnUpdateRecv(DWORD dwDeltaTime)
