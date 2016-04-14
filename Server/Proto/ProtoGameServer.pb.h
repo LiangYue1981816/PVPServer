@@ -37,7 +37,6 @@ void protobuf_ShutdownFile_ProtoGameServer_2eproto();
 class Heart;
 class Flags;
 class Login;
-class Host;
 class ListGame;
 class ListGame_Game;
 class CreateGame;
@@ -125,13 +124,12 @@ enum RESPONSE_MSG {
   HEART = 1000,
   FLAGS = 1001,
   LOGIN = 1002,
-  HOST = 1003,
-  LIST_GAME = 1004,
-  CREATE_GAME = 1005,
-  DESTROY_GAME = 1006,
-  ENTER_GAME = 1007,
-  EXIT_GAME = 1008,
-  SEND_TO_PLAYER = 1009
+  LIST_GAME = 1003,
+  CREATE_GAME = 1004,
+  DESTROY_GAME = 1005,
+  ENTER_GAME = 1006,
+  EXIT_GAME = 1007,
+  SEND_TO_PLAYER = 1008
 };
 bool RESPONSE_MSG_IsValid(int value);
 const RESPONSE_MSG RESPONSE_MSG_MIN = HEART;
@@ -412,85 +410,6 @@ class Login : public ::google::protobuf::Message {
 
   void InitAsDefaultInstance();
   static Login* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class Host : public ::google::protobuf::Message {
- public:
-  Host();
-  virtual ~Host();
-
-  Host(const Host& from);
-
-  inline Host& operator=(const Host& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const Host& default_instance();
-
-  void Swap(Host* other);
-
-  // implements Message ----------------------------------------------
-
-  Host* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Host& from);
-  void MergeFrom(const Host& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required uint32 guid = 1;
-  inline bool has_guid() const;
-  inline void clear_guid();
-  static const int kGuidFieldNumber = 1;
-  inline ::google::protobuf::uint32 guid() const;
-  inline void set_guid(::google::protobuf::uint32 value);
-
-  // @@protoc_insertion_point(class_scope:ProtoGameServer.Host)
- private:
-  inline void set_has_guid();
-  inline void clear_has_guid();
-
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 guid_;
-  friend void  protobuf_AddDesc_ProtoGameServer_2eproto();
-  friend void protobuf_AssignDesc_ProtoGameServer_2eproto();
-  friend void protobuf_ShutdownFile_ProtoGameServer_2eproto();
-
-  void InitAsDefaultInstance();
-  static Host* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -962,10 +881,17 @@ class EnterGame : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 guid() const;
   inline void set_guid(::google::protobuf::uint32 value);
 
-  // optional uint32 gameid = 3;
+  // required uint32 host = 3;
+  inline bool has_host() const;
+  inline void clear_host();
+  static const int kHostFieldNumber = 3;
+  inline ::google::protobuf::uint32 host() const;
+  inline void set_host(::google::protobuf::uint32 value);
+
+  // optional uint32 gameid = 4;
   inline bool has_gameid() const;
   inline void clear_gameid();
-  static const int kGameidFieldNumber = 3;
+  static const int kGameidFieldNumber = 4;
   inline ::google::protobuf::uint32 gameid() const;
   inline void set_gameid(::google::protobuf::uint32 value);
 
@@ -975,6 +901,8 @@ class EnterGame : public ::google::protobuf::Message {
   inline void clear_has_err();
   inline void set_has_guid();
   inline void clear_has_guid();
+  inline void set_has_host();
+  inline void clear_has_host();
   inline void set_has_gameid();
   inline void clear_has_gameid();
 
@@ -984,6 +912,7 @@ class EnterGame : public ::google::protobuf::Message {
   mutable int _cached_size_;
   int err_;
   ::google::protobuf::uint32 guid_;
+  ::google::protobuf::uint32 host_;
   ::google::protobuf::uint32 gameid_;
   friend void  protobuf_AddDesc_ProtoGameServer_2eproto();
   friend void protobuf_AssignDesc_ProtoGameServer_2eproto();
@@ -1061,12 +990,21 @@ class ExitGame : public ::google::protobuf::Message {
   inline ::google::protobuf::uint32 guid() const;
   inline void set_guid(::google::protobuf::uint32 value);
 
+  // required uint32 host = 3;
+  inline bool has_host() const;
+  inline void clear_host();
+  static const int kHostFieldNumber = 3;
+  inline ::google::protobuf::uint32 host() const;
+  inline void set_host(::google::protobuf::uint32 value);
+
   // @@protoc_insertion_point(class_scope:ProtoGameServer.ExitGame)
  private:
   inline void set_has_err();
   inline void clear_has_err();
   inline void set_has_guid();
   inline void clear_has_guid();
+  inline void set_has_host();
+  inline void clear_has_host();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -1074,6 +1012,7 @@ class ExitGame : public ::google::protobuf::Message {
   mutable int _cached_size_;
   int err_;
   ::google::protobuf::uint32 guid_;
+  ::google::protobuf::uint32 host_;
   friend void  protobuf_AddDesc_ProtoGameServer_2eproto();
   friend void protobuf_AssignDesc_ProtoGameServer_2eproto();
   friend void protobuf_ShutdownFile_ProtoGameServer_2eproto();
@@ -1537,34 +1476,6 @@ inline void Login::set_guid(::google::protobuf::uint32 value) {
 
 // -------------------------------------------------------------------
 
-// Host
-
-// required uint32 guid = 1;
-inline bool Host::has_guid() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void Host::set_has_guid() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void Host::clear_has_guid() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void Host::clear_guid() {
-  guid_ = 0u;
-  clear_has_guid();
-}
-inline ::google::protobuf::uint32 Host::guid() const {
-  // @@protoc_insertion_point(field_get:ProtoGameServer.Host.guid)
-  return guid_;
-}
-inline void Host::set_guid(::google::protobuf::uint32 value) {
-  set_has_guid();
-  guid_ = value;
-  // @@protoc_insertion_point(field_set:ProtoGameServer.Host.guid)
-}
-
-// -------------------------------------------------------------------
-
 // ListGame_Game
 
 // required bool private = 1;
@@ -1929,15 +1840,39 @@ inline void EnterGame::set_guid(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:ProtoGameServer.EnterGame.guid)
 }
 
-// optional uint32 gameid = 3;
-inline bool EnterGame::has_gameid() const {
+// required uint32 host = 3;
+inline bool EnterGame::has_host() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void EnterGame::set_has_gameid() {
+inline void EnterGame::set_has_host() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void EnterGame::clear_has_gameid() {
+inline void EnterGame::clear_has_host() {
   _has_bits_[0] &= ~0x00000004u;
+}
+inline void EnterGame::clear_host() {
+  host_ = 0u;
+  clear_has_host();
+}
+inline ::google::protobuf::uint32 EnterGame::host() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.EnterGame.host)
+  return host_;
+}
+inline void EnterGame::set_host(::google::protobuf::uint32 value) {
+  set_has_host();
+  host_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameServer.EnterGame.host)
+}
+
+// optional uint32 gameid = 4;
+inline bool EnterGame::has_gameid() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void EnterGame::set_has_gameid() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void EnterGame::clear_has_gameid() {
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void EnterGame::clear_gameid() {
   gameid_ = 0u;
@@ -2004,6 +1939,30 @@ inline void ExitGame::set_guid(::google::protobuf::uint32 value) {
   set_has_guid();
   guid_ = value;
   // @@protoc_insertion_point(field_set:ProtoGameServer.ExitGame.guid)
+}
+
+// required uint32 host = 3;
+inline bool ExitGame::has_host() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ExitGame::set_has_host() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ExitGame::clear_has_host() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ExitGame::clear_host() {
+  host_ = 0u;
+  clear_has_host();
+}
+inline ::google::protobuf::uint32 ExitGame::host() const {
+  // @@protoc_insertion_point(field_get:ProtoGameServer.ExitGame.host)
+  return host_;
+}
+inline void ExitGame::set_host(::google::protobuf::uint32 value) {
+  set_has_host();
+  host_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameServer.ExitGame.host)
 }
 
 // -------------------------------------------------------------------
