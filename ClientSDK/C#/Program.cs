@@ -358,7 +358,7 @@ class Program
         int port = mGameServerPort;
 
         string input = Console.ReadLine();
-        int id = Int32.Parse(input);
+        int id = input != string.Empty ? Int32.Parse(input) : -1;
 
         if (id >= 0 && id < mGameServerList.Count)
         {
@@ -390,7 +390,7 @@ class Program
         string gameid = Console.ReadLine();
         Console.WriteLine("Input Password ...");
         string password = Console.ReadLine();
-        mGameClient.RequestCreateGame(password, Int32.Parse(gameid), 1, 2, 10, 0);
+        mGameClient.RequestCreateGame(password, gameid != string.Empty ? Int32.Parse(gameid) : -1, 1, 2, 10, 0);
     }
 
     static void GameServerDestroyGame()
@@ -404,7 +404,7 @@ class Program
         string gameid = Console.ReadLine();
         Console.WriteLine("Input Password ...");
         string password = Console.ReadLine();
-        mGameClient.RequestEnterGame(password, Int32.Parse(gameid));
+        mGameClient.RequestEnterGame(password, gameid != string.Empty ? Int32.Parse(gameid) : -1);
     }
 
     static void GameServerExitGame()
@@ -419,7 +419,7 @@ class Program
         Console.WriteLine("Input Text ...");
         string text = Console.ReadLine();
         byte[] data = System.Text.Encoding.Default.GetBytes(text);
-        mGameClient.RequestSendToPlayer(UInt32.Parse(guid), data.Length, data);
+        mGameClient.RequestSendToPlayer(guid != string.Empty ? UInt32.Parse(guid) : 0xffffffff, data.Length, data);
     }
 
     static void GameServerSendToPlayerAll()

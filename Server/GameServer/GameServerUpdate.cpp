@@ -537,7 +537,9 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	}
 
 	CGame *pGame = pPlayer->pGame;
-	pGame->DelPlayer(pPlayer);
+
+	err = (ProtoGameServer::ERROR_CODE)pGame->DelPlayer(pPlayer);
+	if (err != ProtoGameServer::ERROR_CODE::ERR_NONE) goto ERR;
 
 	if (pGame->IsEmpty()) {
 		ReleaseGame(pGame);
