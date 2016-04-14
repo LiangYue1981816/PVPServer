@@ -286,11 +286,7 @@ void CGameServer::OnListGame(CPlayer *pPlayer, WORD size)
 	//
 	ProtoGameServer::ERROR_CODE err = ProtoGameServer::ERROR_CODE::ERR_NONE;
 
-	if (pPlayer->pGame != NULL) {
-		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_INGAME; goto ERR;
-	}
-
-	if (pPlayer->GetFlags() != ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_LOGIN) {
+	if (pPlayer->IsLogin() == FALSE) {
 		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
 	}
 
@@ -345,18 +341,17 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 创建游戏
 	//
-	CGame *pGame = NULL;
 	ProtoGameServer::ERROR_CODE err = ProtoGameServer::ERROR_CODE::ERR_NONE;
+
+	if (pPlayer->IsLogin() == FALSE) {
+		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
+	}
 
 	if (pPlayer->pGame != NULL) {
 		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_INGAME; goto ERR;
 	}
 
-	if (pPlayer->GetFlags() != ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_LOGIN) {
-		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
-	}
-
-	pGame = GetNextGame(requestCreateGame.gameid());
+	CGame *pGame = GetNextGame(requestCreateGame.gameid());
 
 	if (pGame == NULL) {
 		err = ProtoGameServer::ERROR_CODE::ERR_SERVER_FULL; goto ERR;
@@ -365,6 +360,7 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 	pGame->SetGame(requestCreateGame.password().c_str(), requestCreateGame.mode(), requestCreateGame.mapid(), requestCreateGame.maxplayers(), requestCreateGame.evaluation());
 	pGame->AddPlayer(pPlayer, requestCreateGame.password().c_str(), TRUE);
 
+	responseCreateGame.set_host(pGame->GetHostGUID());
 	responseCreateGame.set_gameid(pGame->id);
 
 	goto NEXT;
@@ -381,13 +377,6 @@ NEXT:
 	// 4. 发送玩家
 	//
 	SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
-
-	//
-	// 5. 发送玩家主机
-	//
-	if (err == ProtoGameServer::ERROR_CODE::ERR_NONE) {
-		Host(pPlayer);
-	}
 }
 
 //
@@ -411,7 +400,24 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 销毁检查
 	//
-	responseDestroyGame.set_err(pPlayer->pGame ? ProtoGameServer::ERROR_CODE::ERR_NONE : ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_INGAME);
+	ProtoGameServer::ERROR_CODE err = ProtoGameServer::ERROR_CODE::ERR_NONE;
+
+	if (pPlayer->IsLogin() == FALSE) {
+		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
+	}
+
+	if (pPlayer->pGame == NULL) {
+		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_INGAME; goto ERR;
+	}
+
+	if (pPlayer->pGame->GetHostGUID() != pPlayer->guid) {
+		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_NOT_HOST; goto ERR;
+	}
+
+	goto NEXT;
+ERR:
+NEXT:
+	responseDestroyGame.set_err(err);
 
 	//
 	// 3. 序列化消息
@@ -421,7 +427,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 4. 发送玩家
 	//
-	if (pPlayer->pGame) {
+	if (err == ProtoGameServer::ERROR_CODE::ERR_NONE && pPlayer->pGame) {
 		SendToPlayerAll(pPlayer->pGame, NULL, buffer, writeBuffer.GetActiveBufferSize());
 	}
 	else {
@@ -431,7 +437,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 5. 销毁游戏
 	//
-	if (pPlayer->pGame) {
+	if (err == ProtoGameServer::ERROR_CODE::ERR_NONE) {
 		ReleaseGame(pPlayer->pGame);
 	}
 }
@@ -459,12 +465,12 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 	//
 	ProtoGameServer::ERROR_CODE err = ProtoGameServer::ERROR_CODE::ERR_NONE;
 
-	if (pPlayer->pGame != NULL) {
-		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_INGAME; goto ERR;
+	if (pPlayer->IsLogin() == FALSE) {
+		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
 	}
 
-	if (pPlayer->GetFlags() != ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_LOGIN) {
-		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
+	if (pPlayer->pGame != NULL) {
+		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_INGAME; goto ERR;
 	}
 
 	if (requestEnterGame.gameid() < 0 || requestEnterGame.gameid() >= m_maxGames) {
@@ -474,8 +480,9 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 	err = (ProtoGameServer::ERROR_CODE)m_games[requestEnterGame.gameid()]->AddPlayer(pPlayer, requestEnterGame.password().c_str(), FALSE);
 	if (err != ProtoGameServer::ERROR_CODE::ERR_NONE) goto ERR;
 
-	responseEnterGame.set_gameid(pPlayer->pGame->id);
 	responseEnterGame.set_guid(pPlayer->guid);
+	responseEnterGame.set_host(pPlayer->pGame->GetHostGUID());
+	responseEnterGame.set_gameid(pPlayer->pGame->id);
 
 	goto NEXT;
 ERR:
@@ -495,13 +502,6 @@ NEXT:
 	}
 	else {
 		SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
-	}
-
-	//
-	// 5. 发送玩家主机
-	//
-	if (err == ProtoGameServer::ERROR_CODE::ERR_NONE) {
-		Host(pPlayer);
 	}
 }
 
@@ -526,8 +526,31 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 退出游戏
 	//
-	responseExitGame.set_err(pPlayer->pGame ? ProtoGameServer::ERROR_CODE::ERR_NONE : ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_INGAME);
+	ProtoGameServer::ERROR_CODE err = ProtoGameServer::ERROR_CODE::ERR_NONE;
+
+	if (pPlayer->IsLogin() == FALSE) {
+		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_LOGIN; goto ERR;
+	}
+
+	if (pPlayer->pGame == NULL) {
+		err = ProtoGameServer::ERROR_CODE::ERR_PLAYER_FLAGS_NOT_INGAME; goto ERR;
+	}
+
+	CGame *pGame = pPlayer->pGame;
+	pGame->DelPlayer(pPlayer);
+
+	if (pGame->IsEmpty()) {
+		ReleaseGame(pGame);
+		pGame = NULL;
+	}
+
 	responseExitGame.set_guid(pPlayer->guid);
+	responseExitGame.set_host(pGame ? pGame->GetHostGUID() : 0xffffffff);
+
+	goto NEXT;
+ERR:
+NEXT:
+	responseExitGame.set_err(err);
 
 	//
 	// 3. 序列化消息
@@ -537,28 +560,11 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	//
 	// 4. 发送玩家
 	//
-	if (pPlayer->pGame) {
-		SendToPlayerAll(pPlayer->pGame, NULL, buffer, writeBuffer.GetActiveBufferSize());
-	}
-	else {
-		SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
+	if (err == ProtoGameServer::ERROR_CODE::ERR_NONE && pGame) {
+		SendToPlayerAll(pGame, NULL, buffer, writeBuffer.GetActiveBufferSize());
 	}
 
-	//
-	// 5. 退出游戏
-	//
-	if (CGame *pGame = pPlayer->pGame) {
-		DWORD dwLastHostGUID = pGame->GetHostGUID();
-
-		pGame->DelPlayer(pPlayer);
-
-		if (pGame->IsEmpty()) {
-			ReleaseGame(pGame);
-		}
-		else if (dwLastHostGUID != pGame->GetHostGUID()) {
-			Host(pGame);
-		}
-	}
+	SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
 }
 
 //
@@ -582,6 +588,10 @@ void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 查找目标玩家
 	//
+	if (pPlayer->IsLogin() == FALSE) {
+		return;
+	}
+
 	if (pPlayer->pGame == NULL) {
 		return;
 	}
@@ -627,6 +637,10 @@ void CGameServer::OnSendToPlayerAll(CPlayer *pPlayer, WORD size)
 	//
 	// 2. 查找目标玩家
 	//
+	if (pPlayer->IsLogin() == FALSE) {
+		return;
+	}
+
 	if (pPlayer->pGame == NULL) {
 		return;
 	}

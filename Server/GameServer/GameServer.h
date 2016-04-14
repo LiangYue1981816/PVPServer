@@ -165,10 +165,6 @@ protected:
 	virtual void SendToPlayerAll(CGame *pGame, CPlayer *pIgnore, BYTE *pBuffer, size_t size, DWORD dwFilter = 0xffffffff); // 发送所有玩家
 
 protected:
-	virtual void Host(CPlayer *pPlayer);                                                           // 主机
-	virtual void Host(CGame *pGame);                                                               // 主机
-
-protected:
 	virtual void OnConnect(CIOContext *pContext, SOCKET acceptSocket);                             // 客户端链接回调
 	virtual void OnDisconnect(CIOContext *pContext);                                               // 客户端断链回调
 

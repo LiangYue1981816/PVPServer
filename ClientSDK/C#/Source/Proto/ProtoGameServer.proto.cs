@@ -446,6 +446,9 @@ namespace ProtoGameServer
       [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_FLAGS_INGAME", Value=1005)]
       ERR_PLAYER_FLAGS_INGAME = 1005,
             
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_PLAYER_NOT_HOST", Value=1006)]
+      ERR_PLAYER_NOT_HOST = 1006,
+            
       [global::ProtoBuf.ProtoEnum(Name=@"ERR_GAME_INVALID", Value=2000)]
       ERR_GAME_INVALID = 2000,
             

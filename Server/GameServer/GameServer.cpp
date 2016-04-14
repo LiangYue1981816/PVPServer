@@ -443,62 +443,6 @@ void CGameServer::SendToPlayerAll(CGame *pGame, CPlayer *pIgnore, BYTE *pBuffer,
 }
 
 //
-// 主机
-//
-void CGameServer::Host(CPlayer *pPlayer)
-{
-	if (pPlayer->pGame) {
-		ProtoGameServer::Host responseHost;
-
-		BYTE buffer[PACK_BUFFER_SIZE];
-		CCacheBuffer writeBuffer(sizeof(buffer), buffer);
-
-		//
-		// 1. 获得主机GUID
-		//
-		responseHost.set_guid(pPlayer->pGame->GetHostGUID());
-
-		//
-		// 2. 序列化消息
-		//
-		Serializer(&writeBuffer, &responseHost, ProtoGameServer::RESPONSE_MSG::HOST);
-
-		//
-		// 3. 发送玩家
-		//
-		SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
-	}
-}
-
-//
-// 主机
-//
-void CGameServer::Host(CGame *pGame)
-{
-	if (pGame) {
-		ProtoGameServer::Host responseHost;
-
-		BYTE buffer[PACK_BUFFER_SIZE];
-		CCacheBuffer writeBuffer(sizeof(buffer), buffer);
-
-		//
-		// 1. 获得主机GUID
-		//
-		responseHost.set_guid(pGame->GetHostGUID());
-
-		//
-		// 2. 序列化消息
-		//
-		Serializer(&writeBuffer, &responseHost, ProtoGameServer::RESPONSE_MSG::HOST);
-
-		//
-		// 3. 发送玩家
-		//
-		SendToPlayerAll(pGame, NULL, buffer, writeBuffer.GetActiveBufferSize());
-	}
-}
-
-//
 // 监控
 //
 void CGameServer::Monitor(void)
