@@ -73,6 +73,11 @@ void CGateServer::OnUpdateRecv(DWORD dwDeltaTime)
 						OnHeartReset(pContext);
 						break;
 
+					case ProtoGateClient::REQUEST_MSG::CANCEL_MATCH:
+						OnCancelMatch(pContext, bodySize);
+						OnHeartReset(pContext);
+						break;
+
 					case ProtoGateClient::REQUEST_MSG::LIST_GAME_SERVER:
 						OnListGameServer(pContext, bodySize);
 						OnHeartReset(pContext);
@@ -248,6 +253,47 @@ NEXT:
 
 	m_evaluations[requestMatch.evaluation()][pContext->guid].pContext = pContext;
 	m_evaluations[requestMatch.evaluation()][pContext->guid].timeout = 0.0f;
+
+	pContext->dwUserData = requestMatch.evaluation();
+}
+
+//
+// 取消匹配
+//
+void CGateServer::OnCancelMatch(CIOContext *pContext, WORD size)
+{
+	ProtoGateClient::CancelMatch requestCancelMatch;
+	ProtoGateServer::CancelMatch responseCancelMatch;
+
+	BYTE buffer[PACK_BUFFER_SIZE];
+	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
+
+	//
+	// 1. 解析消息
+	//
+	if (Parser(&pContext->recvBuffer, &requestCancelMatch, size) == FALSE) {
+		return;
+	}
+
+	//
+	// 2. 取消匹配
+	//
+	PlayerEvaluationMap::iterator itPlayerMap = m_evaluations.find(pContext->dwUserData);
+	if (itPlayerMap != m_evaluations.end()) {
+		std::map<DWORD, PlayerStatus>::iterator itPlayer = itPlayerMap->second.find(pContext->guid);
+		if (itPlayer != itPlayerMap->second.end()) itPlayerMap->second.erase(itPlayer);
+		if (itPlayerMap->second.empty()) m_evaluations.erase(itPlayerMap);
+	}
+
+	//
+	// 3. 序列化消息
+	//
+	Serializer(&writeBuffer, &responseCancelMatch, ProtoGateServer::RESPONSE_MSG::CANCEL_MATCH);
+
+	//
+	// 4. 发送
+	//
+	SendTo(pContext, buffer, writeBuffer.GetActiveBufferSize());
 }
 
 //

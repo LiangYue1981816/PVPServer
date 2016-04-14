@@ -139,6 +139,7 @@ BOOL CGateServer::Logout(CIOContext *pContext)
 	// 3. »Ö¸´³õÊ¼»¯
 	//
 	pContext->guid = 0xffffffff;
+	pContext->dwUserData = 0xffffffff;
 
 	return TRUE;
 }

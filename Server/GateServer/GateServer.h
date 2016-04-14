@@ -80,6 +80,7 @@ protected:
 	virtual void OnHeart(CIOContext *pContext, WORD size);                                         // 心跳
 	virtual void OnLogin(CIOContext *pContext, WORD size);                                         // 登陆
 	virtual void OnMatch(CIOContext *pContext, WORD size);                                         // 匹配
+	virtual void OnCancelMatch(CIOContext *pContext, WORD size);                                   // 取消匹配
 	virtual void OnListGameServer(CIOContext *pContext, WORD size);                                // 游戏服务器列表
 	virtual void OnSendToPlayer(CIOContext *pContext, WORD size);                                  // 发送指定玩家
 	virtual void OnGameServerStatus(CIOContext *pContext, WORD size);                              // 游戏服务器状态
