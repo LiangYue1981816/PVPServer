@@ -7,8 +7,8 @@
 void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 {
 	static DWORD dwTime = 0;
-	static const float maxTimeOut = 10;// 100.0f;
-	static const int maxMatchs = 2;
+	static const float maxTimeOut = 100.0f;
+	static const int maxMatchs = 6;
 	static const int minEvaluation = 0;
 	static const int maxEvaluation = 10000;
 
