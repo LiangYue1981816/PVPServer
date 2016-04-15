@@ -294,26 +294,16 @@ class Match : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 evaluation() const;
   inline void set_evaluation(::google::protobuf::int32 value);
 
-  // required float timeout = 2;
-  inline bool has_timeout() const;
-  inline void clear_timeout();
-  static const int kTimeoutFieldNumber = 2;
-  inline float timeout() const;
-  inline void set_timeout(float value);
-
   // @@protoc_insertion_point(class_scope:ProtoGateClient.Match)
  private:
   inline void set_has_evaluation();
   inline void clear_has_evaluation();
-  inline void set_has_timeout();
-  inline void clear_has_timeout();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
   ::google::protobuf::int32 evaluation_;
-  float timeout_;
   friend void  protobuf_AddDesc_ProtoGateClient_2eproto();
   friend void protobuf_AssignDesc_ProtoGateClient_2eproto();
   friend void protobuf_ShutdownFile_ProtoGateClient_2eproto();
@@ -675,30 +665,6 @@ inline void Match::set_evaluation(::google::protobuf::int32 value) {
   set_has_evaluation();
   evaluation_ = value;
   // @@protoc_insertion_point(field_set:ProtoGateClient.Match.evaluation)
-}
-
-// required float timeout = 2;
-inline bool Match::has_timeout() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void Match::set_has_timeout() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void Match::clear_has_timeout() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void Match::clear_timeout() {
-  timeout_ = 0;
-  clear_has_timeout();
-}
-inline float Match::timeout() const {
-  // @@protoc_insertion_point(field_get:ProtoGateClient.Match.timeout)
-  return timeout_;
-}
-inline void Match::set_timeout(float value) {
-  set_has_timeout();
-  timeout_ = value;
-  // @@protoc_insertion_point(field_set:ProtoGateClient.Match.timeout)
 }
 
 // -------------------------------------------------------------------

@@ -111,6 +111,9 @@ BOOL CGateServer::Login(CIOContext *pContext, DWORD guid)
 	//
 	m_players[guid] = pContext;
 
+	pContext->guid = guid;
+	pContext->dwUserData = 0xffffffff;
+
 	return TRUE;
 }
 

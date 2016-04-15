@@ -7,8 +7,8 @@
 void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 {
 	static DWORD dwTime = 0;
-	static const float maxTimeOut = 100.0f;
-	static const int maxMatchs = 6;
+	static const float maxTimeOut = 10;// 100.0f;
+	static const int maxMatchs = 2;
 	static const int minEvaluation = 0;
 	static const int maxEvaluation = 10000;
 
@@ -44,20 +44,16 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 				if (itPlayer->second.minEvaluation < minEvaluation) itPlayer->second.minEvaluation = minEvaluation;
 				if (itPlayer->second.maxEvaluation > maxEvaluation) itPlayer->second.maxEvaluation = maxEvaluation;
 			}
-			// 2.2. 超时匹配失败
+			// 2.2. 匹配超时
 			else {
-				// 2.2.1. 发送匹配失败消息
+				// 2.2.1. 发送匹配超时消息
 				responseMatch.set_err(ProtoGateServer::ERROR_CODE::ERR_MATCH_TIMEOUT);
 
 				Serializer(&writeBuffer, &responseMatch, ProtoGateServer::RESPONSE_MSG::MATCH);
 				SendTo(itPlayer->second.pContext, buffer, writeBuffer.GetActiveBufferSize());
 
-				// 2.2.2. 从待匹配玩家集合中移除
-				itPlayer = itPlayerMap->second.erase(itPlayer);
-
-				if (itPlayerMap->second.empty()) {
-					itPlayerMap = m_evaluations.erase(itPlayerMap);
-				}
+				// 2.2.2. 标记玩家匹配失效
+				itPlayer->second.pContext->dwUserData = 0xffffffff;
 			}
 		}
 	}
@@ -67,17 +63,22 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 	//
 	for (PlayerEvaluationMap::iterator itPlayerMap = m_evaluations.begin(); itPlayerMap != m_evaluations.end(); ++itPlayerMap) {
 		for (std::map<DWORD, PlayerStatus>::iterator itPlayer = itPlayerMap->second.begin(); itPlayer != itPlayerMap->second.end(); ++itPlayer) {
-			CIOContext *matchs[maxMatchs] = { itPlayer->second.pContext };
-			BOOL bMatch = FALSE;
-
-			CIOContext *pGameServer = NULL;
+			GameServerMap::iterator itMatchGameServer;
 			float minLoadFactor = FLT_MAX;
 
+			CIOContext *matchs[maxMatchs] = { itPlayer->second.pContext };
+			BOOL bMatch = FALSE;
 			int numMatchs = 1;
+
 			int evaluation = itPlayerMap->first;
 			int evaluationOffset = (itPlayer->second.maxEvaluation - itPlayer->second.minEvaluation) / 2;
 
-			// 3.1. 尝试匹配
+			// 3.1. 检查失效玩家
+			if (itPlayer->second.pContext->dwUserData == 0xffffffff) {
+				continue;
+			}
+
+			// 3.2. 尝试匹配
 			bMatch = FALSE;
 			numMatchs = 1;
 
@@ -86,8 +87,8 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 					bMatch |= Match(evaluation, itPlayer->second, NULL, numMatchs, maxMatchs);
 				}
 				else {
-					bMatch |= Match(evaluation - offset, itPlayer->second, NULL, numMatchs, maxMatchs);
-					bMatch |= Match(evaluation + offset, itPlayer->second, NULL, numMatchs, maxMatchs);
+					if (evaluation - offset >= minEvaluation) bMatch |= Match(evaluation - offset, itPlayer->second, NULL, numMatchs, maxMatchs);
+					if (evaluation + offset <= maxEvaluation) bMatch |= Match(evaluation + offset, itPlayer->second, NULL, numMatchs, maxMatchs);
 				}
 			}
 
@@ -95,23 +96,26 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 				continue;
 			}
 
-			// 3.2. 选择负载最小的服务器
-			for (GameServerMap::const_iterator itGameServer = m_servers.begin(); itGameServer != m_servers.end(); ++itGameServer) {
+			// 3.3. 选择服务器
+			minLoadFactor = FLT_MAX;
+			itMatchGameServer = m_servers.end();
+
+			for (GameServerMap::iterator itGameServer = m_servers.begin(); itGameServer != m_servers.end(); ++itGameServer) {
 				if (itGameServer->second.games.empty() == false) {
 					float factor = 1.0f * itGameServer->second.curGames / itGameServer->second.maxGames;
 
 					if (minLoadFactor > factor) {
 						minLoadFactor = factor;
-						pGameServer = itGameServer->first;
+						itMatchGameServer = itGameServer;
 					}
 				}
 			}
 
-			if (pGameServer == NULL) {
+			if (itMatchGameServer == m_servers.end()) {
 				continue;
 			}
 
-			// 3.3. 正式匹配
+			// 3.4. 正式匹配
 			bMatch = FALSE;
 			numMatchs = 1;
 
@@ -120,26 +124,57 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 					bMatch |= Match(evaluation, itPlayer->second, matchs, numMatchs, maxMatchs);
 				}
 				else {
-					bMatch |= Match(evaluation - offset, itPlayer->second, matchs, numMatchs, maxMatchs);
-					bMatch |= Match(evaluation + offset, itPlayer->second, matchs, numMatchs, maxMatchs);
+					if (evaluation - offset >= minEvaluation) bMatch |= Match(evaluation - offset, itPlayer->second, matchs, numMatchs, maxMatchs);
+					if (evaluation + offset <= maxEvaluation) bMatch |= Match(evaluation + offset, itPlayer->second, matchs, numMatchs, maxMatchs);
 				}
 			}
 
-			// 3.4. 发送房间信息
+			// 3.5. 发送匹配消息
 			responseMatch.set_err(ProtoGateServer::ERROR_CODE::ERR_NONE);
-			responseMatch.set_ip(m_servers[pGameServer].ip);
-			responseMatch.set_port(m_servers[pGameServer].port);
-			responseMatch.set_gameid(m_servers[pGameServer].games[0].id);
+			responseMatch.set_ip(itMatchGameServer->second.ip);
+			responseMatch.set_port(itMatchGameServer->second.port);
+			responseMatch.set_gameid(itMatchGameServer->second.games.begin()->id);
 
 			Serializer(&writeBuffer, &responseMatch, ProtoGateServer::RESPONSE_MSG::MATCH);
 
 			for (int index = 0; index < maxMatchs; index++) {
+				matchs[index]->dwUserData = 0xffffffff;
 				SendTo(matchs[index], buffer, writeBuffer.GetActiveBufferSize());
 			}
 
-			// 3.5. 移除房间
-			m_servers[pGameServer].games.erase(m_servers[pGameServer].games.begin());
+			// 3.6. 移除房间
+			itMatchGameServer->second.games.erase(itMatchGameServer->second.games.begin());
 		}
+	}
+
+	//
+	// 4. 清理
+	//
+	for (PlayerEvaluationMap::iterator itPlayerMap = m_evaluations.begin(); itPlayerMap != m_evaluations.end();) {
+		for (std::map<DWORD, PlayerStatus>::iterator itPlayer = itPlayerMap->second.begin(); itPlayer != itPlayerMap->second.end();) {
+			if (itPlayer->second.pContext->dwUserData == 0xffffffff) {
+				itPlayerMap->second.erase(itPlayer++);
+				continue;
+			}
+
+			++itPlayer;
+		}
+
+		if (itPlayerMap->second.empty()) {
+			m_evaluations.erase(itPlayerMap++);
+			continue;
+		}
+
+		++itPlayerMap;
+	}
+
+	for (GameServerMap::iterator itGameServer = m_servers.begin(); itGameServer != m_servers.end();) {
+		if (itGameServer->second.games.empty()) {
+			m_servers.erase(itGameServer++);
+			continue;
+		}
+
+		++itGameServer;
 	}
 }
 
@@ -149,22 +184,30 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 BOOL CPVPGateServer::Match(int evaluation, const PlayerStatus &player, CIOContext *matchs[], int &indexMatch, int maxMatchs)
 {
 	if (indexMatch < maxMatchs) {
-		for (std::map<DWORD, PlayerStatus>::iterator itMatchPlayer = m_evaluations[evaluation].begin(); itMatchPlayer != m_evaluations[evaluation].end(); ++itMatchPlayer) {
-			if (player.pContext->guid == itMatchPlayer->second.pContext->guid ||
-				player.maxEvaluation < itMatchPlayer->second.minEvaluation ||
-				player.minEvaluation > itMatchPlayer->second.maxEvaluation) {
-				continue;
-			}
+		PlayerEvaluationMap::iterator itPlayerMap = m_evaluations.find(evaluation);
 
-			if (matchs) {
-				matchs[indexMatch] = itMatchPlayer->second.pContext;
-				itMatchPlayer = m_evaluations[evaluation].erase(itMatchPlayer);
-			}
+		if (itPlayerMap != m_evaluations.end()) {
+			for (std::map<DWORD, PlayerStatus>::iterator itMatchPlayer = itPlayerMap->second.begin(); itMatchPlayer != itPlayerMap->second.end(); ++itMatchPlayer) {
+				if (itMatchPlayer->second.pContext->dwUserData == 0xffffffff) {
+					continue;
+				}
+				if (player.pContext->guid == itMatchPlayer->second.pContext->guid) {
+					continue;
+				}
+				if (player.maxEvaluation < itMatchPlayer->second.minEvaluation ||
+					player.minEvaluation > itMatchPlayer->second.maxEvaluation) {
+					continue;
+				}
 
-			indexMatch++;
+				if (matchs) {
+					matchs[indexMatch] = itMatchPlayer->second.pContext;
+				}
 
-			if (indexMatch == maxMatchs) {
-				break;
+				indexMatch++;
+
+				if (indexMatch == maxMatchs) {
+					break;
+				}
 			}
 		}
 	}

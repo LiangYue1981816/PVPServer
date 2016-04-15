@@ -25,7 +25,6 @@ message Login
 message Match
 {
 	required int32 evaluation = 1;
-	required float timeout = 2;
 }
 
 message CancelMatch

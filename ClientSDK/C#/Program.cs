@@ -35,8 +35,12 @@ class Program
 
     static void Main(string[] args)
     {
+        mGateClient.onResponseError = OnResponseGateServerError;
+        mGateClient.onResponseMatch = OnResponseMatch;
         mGateClient.onResponseListGameServer = OnResponseListGameServer;
         mGateClient.onResponseSendToPlayer = OnResponseSendToPlayer;
+
+        mGameClient.onResponseError = OnResponseGameServerError;
         mGameClient.onResponseListGame = OnResponseListGame;
         mGameClient.onResponseSendToPlayer = OnResponseSendToPlayer;
 
@@ -61,7 +65,8 @@ class Program
             Console.WriteLine("[1] Connect");
             Console.WriteLine("[2] Login");
             Console.WriteLine("[3] ListGameServer");
-            Console.WriteLine("[4] SendToPlayer");
+            Console.WriteLine("[4] Match");
+            Console.WriteLine("[5] SendToPlayer");
             Console.WriteLine("");
 
             Console.WriteLine("GameServer");
@@ -96,6 +101,10 @@ class Program
                 GateServerListGameServer();
             }
             if (input == "4")
+            {
+                GateServerMatch();
+            }
+            if (input == "5")
             {
                 GateServerSendToPlayer();
             }
@@ -222,6 +231,13 @@ class Program
     static void GateServerListGameServer()
     {
         mGateClient.RequestListGameServer();
+    }
+
+    static void GateServerMatch()
+    {
+        Console.WriteLine("Input Evaluation ...");
+        string evaluation = Console.ReadLine();
+        mGateClient.RequestMatch(Int32.Parse(evaluation));
     }
 
     static void GateServerSendToPlayer()
@@ -431,6 +447,16 @@ class Program
     }
 
 
+    static void OnResponseGateServerError(ProtoGateServer.ERROR_CODE err)
+    {
+        Console.WriteLine("GateServer Error = " + err.ToString());
+    }
+
+    static void OnResponseGameServerError(ProtoGameServer.ERROR_CODE err)
+    {
+        Console.WriteLine("GameServer Error = " + err.ToString());
+    }
+
     static void OnResponseListGameServer(ProtoGateServer.ListGameServer responseListGameServer)
     {
         mGameServerList.Clear();
@@ -466,6 +492,11 @@ class Program
                 responseListGame.games[indexGame].curPlayers,
                 responseListGame.games[indexGame].maxPlayers));
         }
+    }
+
+   static  void OnResponseMatch(string ip, int port, int gameid)
+    {
+        Console.WriteLine(string.Format("ip = {0} port = {1} gameid = {2}", ip, port, gameid));
     }
 
     static void OnResponseSendToPlayer(int size, byte[] data)

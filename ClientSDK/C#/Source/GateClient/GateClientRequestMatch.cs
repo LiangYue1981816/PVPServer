@@ -2,10 +2,9 @@
 
 public partial class GateClient : NetClient
 {
-    public virtual void RequestMatch(int evaluation, float timeout)
+    public virtual void RequestMatch(int evaluation)
     {
         mRequestMatch.evaluation = evaluation;
-        mRequestMatch.timeout = timeout;
         SendProto(ProtoGateClient.REQUEST_MSG.MATCH, mRequestMatch);
     }
 

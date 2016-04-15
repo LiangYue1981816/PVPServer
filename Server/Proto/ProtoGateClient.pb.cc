@@ -81,9 +81,8 @@ void protobuf_AssignDesc_ProtoGateClient_2eproto() {
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Login));
   Match_descriptor_ = file->message_type(2);
-  static const int Match_offsets_[2] = {
+  static const int Match_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Match, evaluation_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Match, timeout_),
   };
   Match_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -194,14 +193,13 @@ void protobuf_AddDesc_ProtoGateClient_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\025ProtoGateClient.proto\022\017ProtoGateClient"
     "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"&\n\005Login\022\014\n"
-    "\004guid\030\001 \002(\r\022\017\n\007version\030\002 \002(\005\",\n\005Match\022\022\n"
-    "\nevaluation\030\001 \002(\005\022\017\n\007timeout\030\002 \002(\002\"\r\n\013Ca"
-    "ncelMatch\"\020\n\016ListGameServer\"9\n\014SendToPla"
-    "yer\022\r\n\005guids\030\001 \003(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data"
-    "\030\003 \002(\014*p\n\013REQUEST_MSG\022\n\n\005HEART\020\270\027\022\n\n\005LOG"
-    "IN\020\271\027\022\n\n\005MATCH\020\272\027\022\021\n\014CANCEL_MATCH\020\273\027\022\025\n\020"
-    "LIST_GAME_SERVER\020\274\027\022\023\n\016SEND_TO_PLAYER\020\275\027"
-    "B\002H\001", 364);
+    "\004guid\030\001 \002(\r\022\017\n\007version\030\002 \002(\005\"\033\n\005Match\022\022\n"
+    "\nevaluation\030\001 \002(\005\"\r\n\013CancelMatch\"\020\n\016List"
+    "GameServer\"9\n\014SendToPlayer\022\r\n\005guids\030\001 \003("
+    "\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014*p\n\013REQUEST"
+    "_MSG\022\n\n\005HEART\020\270\027\022\n\n\005LOGIN\020\271\027\022\n\n\005MATCH\020\272\027"
+    "\022\021\n\014CANCEL_MATCH\020\273\027\022\025\n\020LIST_GAME_SERVER\020"
+    "\274\027\022\023\n\016SEND_TO_PLAYER\020\275\027B\002H\001", 347);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGateClient.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
@@ -746,7 +744,6 @@ void Login::Swap(Login* other) {
 
 #ifndef _MSC_VER
 const int Match::kEvaluationFieldNumber;
-const int Match::kTimeoutFieldNumber;
 #endif  // !_MSC_VER
 
 Match::Match()
@@ -768,7 +765,6 @@ Match::Match(const Match& from)
 void Match::SharedCtor() {
   _cached_size_ = 0;
   evaluation_ = 0;
-  timeout_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -804,21 +800,7 @@ Match* Match::New() const {
 }
 
 void Match::Clear() {
-#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
-  &reinterpret_cast<Match*>(16)->f) - \
-   reinterpret_cast<char*>(16))
-
-#define ZR_(first, last) do {                              \
-    size_t f = OFFSET_OF_FIELD_(first);                    \
-    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
-    ::memset(&first, 0, n);                                \
-  } while (0)
-
-  ZR_(evaluation_, timeout_);
-
-#undef OFFSET_OF_FIELD_
-#undef ZR_
-
+  evaluation_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -840,21 +822,6 @@ bool Match::MergePartialFromCodedStream(
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &evaluation_)));
           set_has_evaluation();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(21)) goto parse_timeout;
-        break;
-      }
-
-      // required float timeout = 2;
-      case 2: {
-        if (tag == 21) {
-         parse_timeout:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
-                 input, &timeout_)));
-          set_has_timeout();
         } else {
           goto handle_unusual;
         }
@@ -892,11 +859,6 @@ void Match::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->evaluation(), output);
   }
 
-  // required float timeout = 2;
-  if (has_timeout()) {
-    ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->timeout(), output);
-  }
-
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -910,11 +872,6 @@ void Match::SerializeWithCachedSizes(
   // required int32 evaluation = 1;
   if (has_evaluation()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->evaluation(), target);
-  }
-
-  // required float timeout = 2;
-  if (has_timeout()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->timeout(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -934,11 +891,6 @@ int Match::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->evaluation());
-    }
-
-    // required float timeout = 2;
-    if (has_timeout()) {
-      total_size += 1 + 4;
     }
 
   }
@@ -971,9 +923,6 @@ void Match::MergeFrom(const Match& from) {
     if (from.has_evaluation()) {
       set_evaluation(from.evaluation());
     }
-    if (from.has_timeout()) {
-      set_timeout(from.timeout());
-    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -991,7 +940,7 @@ void Match::CopyFrom(const Match& from) {
 }
 
 bool Match::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
   return true;
 }
@@ -999,7 +948,6 @@ bool Match::IsInitialized() const {
 void Match::Swap(Match* other) {
   if (other != this) {
     std::swap(evaluation_, other->evaluation_);
-    std::swap(timeout_, other->timeout_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
