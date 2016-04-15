@@ -21,22 +21,22 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 	// 1. 更新频率检查
 	//
 	dwTime += dwDeltaTime;
-
-	if (dwTime < 1000) {
-		return;
+	{
+		if (dwTime < 1000) {
+			return;
+		}
 	}
-
 	dwTime = 0;
 
 	//
 	// 2. 计算当前玩家匹配范围
-	//    超时玩家发送匹配失败消息
 	//
 	for (PlayerEvaluationMap::iterator itPlayerMap = m_evaluations.begin(); itPlayerMap != m_evaluations.end(); ++itPlayerMap) {
 		for (std::map<DWORD, PlayerStatus>::iterator itPlayer = itPlayerMap->second.begin(); itPlayer != itPlayerMap->second.end(); ++itPlayer) {
 			itPlayer->second.timeout += 1.0f;
 
 			// 2.1. 计算匹配范围
+			//      算法: 随着时间增加线性扩大玩家可匹配范围
 			if (itPlayer->second.timeout < maxTimeOut) {
 				itPlayer->second.minEvaluation = (int)(itPlayerMap->first - maxEvaluation * itPlayer->second.timeout / maxTimeOut + 0.5f);
 				itPlayer->second.maxEvaluation = (int)(itPlayerMap->first + maxEvaluation * itPlayer->second.timeout / maxTimeOut + 0.5f);
@@ -70,6 +70,9 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 			CIOContext *matchs[maxMatchs] = { itPlayer->second.pContext };
 			BOOL bMatch = FALSE;
 
+			CIOContext *pGameServer = NULL;
+			float minLoadFactor = FLT_MAX;
+
 			int numMatchs = 1;
 			int evaluation = itPlayerMap->first;
 			int evaluationOffset = (itPlayer->second.maxEvaluation - itPlayer->second.minEvaluation) / 2;
@@ -88,8 +91,23 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 				}
 			}
 
-			// 3.2. 匹配失败
 			if (bMatch == FALSE) {
+				continue;
+			}
+
+			// 3.2. 选择负载最小的服务器
+			for (GameServerMap::const_iterator itGameServer = m_servers.begin(); itGameServer != m_servers.end(); ++itGameServer) {
+				if (itGameServer->second.games.empty() == false) {
+					float factor = 1.0f * itGameServer->second.curGames / itGameServer->second.maxGames;
+
+					if (minLoadFactor > factor) {
+						minLoadFactor = factor;
+						pGameServer = itGameServer->first;
+					}
+				}
+			}
+
+			if (pGameServer == NULL) {
 				continue;
 			}
 
@@ -107,38 +125,20 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 				}
 			}
 
-			// 3.4. 选择服务器
-			CIOContext *pServer = NULL;
-			float minFactor = FLT_MAX;
+			// 3.4. 发送房间信息
+			responseMatch.set_err(ProtoGateServer::ERROR_CODE::ERR_NONE);
+			responseMatch.set_ip(m_servers[pGameServer].ip);
+			responseMatch.set_port(m_servers[pGameServer].port);
+			responseMatch.set_gameid(m_servers[pGameServer].games[0].id);
 
-			for (GameServerMap::const_iterator itGameServer = m_servers.begin(); itGameServer != m_servers.end(); ++itGameServer) {
-				if (itGameServer->second.games.empty() == false) {
-					float factor = 1.0f * itGameServer->second.curGames / itGameServer->second.maxGames;
+			Serializer(&writeBuffer, &responseMatch, ProtoGateServer::RESPONSE_MSG::MATCH);
 
-					if (minFactor > factor) {
-						minFactor = factor;
-						pServer = itGameServer->first;
-					}
-				}
+			for (int index = 0; index < maxMatchs; index++) {
+				SendTo(matchs[index], buffer, writeBuffer.GetActiveBufferSize());
 			}
 
-			// 3.5. 发送房间信息
-			if (pServer) {
-				// 3.5.1. 发送房间信息
-				responseMatch.set_err(ProtoGateServer::ERROR_CODE::ERR_NONE);
-				responseMatch.set_ip(m_servers[pServer].ip);
-				responseMatch.set_port(m_servers[pServer].port);
-				responseMatch.set_gameid(m_servers[pServer].games[0].id);
-
-				Serializer(&writeBuffer, &responseMatch, ProtoGateServer::RESPONSE_MSG::MATCH);
-
-				for (int index = 0; index < maxMatchs; index++) {
-					SendTo(matchs[index], buffer, writeBuffer.GetActiveBufferSize());
-				}
-
-				// 3.5.2. 移除房间
-				m_servers[pServer].games.erase(m_servers[pServer].games.begin());
-			}
+			// 3.5. 移除房间
+			m_servers[pGameServer].games.erase(m_servers[pGameServer].games.begin());
 		}
 	}
 }
