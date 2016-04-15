@@ -46,13 +46,11 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 			}
 			// 2.2. 匹配超时
 			else {
-				// 2.2.1. 发送匹配超时消息
 				responseMatch.set_err(ProtoGateServer::ERROR_CODE::ERR_MATCH_TIMEOUT);
 
 				Serializer(&writeBuffer, &responseMatch, ProtoGateServer::RESPONSE_MSG::MATCH);
 				SendTo(itPlayer->second.pContext, buffer, writeBuffer.GetActiveBufferSize());
 
-				// 2.2.2. 标记玩家匹配失效
 				itPlayer->second.pContext->dwUserData = 0xffffffff;
 			}
 		}
