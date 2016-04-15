@@ -21,6 +21,8 @@ public:
 	typedef struct {
 		CIOContext *pContext;                                                                      // 玩家上下文
 		float timeout;                                                                             // 玩家匹配超时
+		int minEvaluation;                                                                         // 最小匹配范围
+		int maxEvaluation;                                                                         // 最大匹配范围
 	} PlayerStatus;
 
 	typedef struct {
@@ -41,7 +43,7 @@ public:
 
 	typedef std::map<DWORD, CIOContext*> PlayerMap;                                                // 玩家集合
 	typedef std::map<CIOContext*, GameServerStatus> GameServerMap;                                 // 游戏服务器集合
-	typedef std::map<DWORD, std::map<DWORD, PlayerStatus>> PlayerEvaluationMap;                    // 玩家评分集合
+	typedef std::map<DWORD, std::map<DWORD, PlayerStatus>> PlayerEvaluationMap;                    // 待匹配玩家集合
 
 
 	// 构造/析构函数

@@ -9,10 +9,25 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Proto">
+      <UniqueIdentifier>{03045a78-3f9f-4893-98f7-91cd92f462af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Proto\Header Files">
+      <UniqueIdentifier>{c3bfcf6b-6c08-4c1e-8d9b-08a9c3659667}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Proto\Source Files">
+      <UniqueIdentifier>{c16d0e87-a78e-4431-b63a-c091e6b0db62}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PVPGateServer.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Proto\ProtoGateServer.pb.h">
+      <Filter>Proto\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Proto\ProtoGateClient.pb.h">
+      <Filter>Proto\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -21,6 +36,12 @@
     </ClCompile>
     <ClCompile Include="PVPGateServerUpdate.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Proto\ProtoGateServer.pb.cc">
+      <Filter>Proto\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Proto\ProtoGateClient.pb.cc">
+      <Filter>Proto\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

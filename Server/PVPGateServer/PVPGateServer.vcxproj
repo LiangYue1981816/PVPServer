@@ -19,9 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Proto\ProtoGateClient.pb.h" />
+    <ClInclude Include="..\Proto\ProtoGateServer.pb.h" />
     <ClInclude Include="PVPGateServer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Proto\ProtoGateClient.pb.cc" />
+    <ClCompile Include="..\Proto\ProtoGateServer.pb.cc" />
     <ClCompile Include="PVPGateServer.cpp" />
     <ClCompile Include="PVPGateServerUpdate.cpp" />
   </ItemGroup>

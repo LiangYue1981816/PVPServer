@@ -7,6 +7,7 @@
 void CGateServer::OnConnect(CIOContext *pContext, SOCKET acceptSocket)
 {
 	pContext->guid = 0xffffffff;
+	pContext->dwUserData = 0xffffffff;
 	CIOCPServer::OnConnect(pContext, acceptSocket);
 }
 
@@ -207,7 +208,7 @@ NEXT:
 void CGateServer::OnMatch(CIOContext *pContext, WORD size)
 {
 	ProtoGateClient::Match requestMatch;
-	ProtoGateServer::Match responseMath;
+	ProtoGateServer::Match responseMatch;
 
 	BYTE buffer[PACK_BUFFER_SIZE];
 	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
@@ -230,12 +231,12 @@ void CGateServer::OnMatch(CIOContext *pContext, WORD size)
 
 	goto NEXT;
 ERR:
-	responseMath.set_err(err);
+	responseMatch.set_err(err);
 
 	//
 	// 3. 序列化消息
 	//
-	Serializer(&writeBuffer, &responseMath, ProtoGateServer::RESPONSE_MSG::MATCH);
+	Serializer(&writeBuffer, &responseMatch, ProtoGateServer::RESPONSE_MSG::MATCH);
 
 	//
 	// 4. 发送
@@ -246,13 +247,15 @@ ERR:
 NEXT:
 
 	//
-	// 5. 添加到匹配集合
+	// 5. 添加到待匹配玩家集合
 	//
 	std::map<DWORD, PlayerStatus>::const_iterator itPlayer = m_evaluations[requestMatch.evaluation()].find(pContext->guid);
 	if (itPlayer != m_evaluations[requestMatch.evaluation()].end()) return;
 
 	m_evaluations[requestMatch.evaluation()][pContext->guid].pContext = pContext;
 	m_evaluations[requestMatch.evaluation()][pContext->guid].timeout = 0.0f;
+	m_evaluations[requestMatch.evaluation()][pContext->guid].minEvaluation = requestMatch.evaluation();
+	m_evaluations[requestMatch.evaluation()][pContext->guid].maxEvaluation = requestMatch.evaluation();
 
 	pContext->dwUserData = requestMatch.evaluation();
 }
@@ -284,6 +287,8 @@ void CGateServer::OnCancelMatch(CIOContext *pContext, WORD size)
 		if (itPlayer != itPlayerMap->second.end()) itPlayerMap->second.erase(itPlayer);
 		if (itPlayerMap->second.empty()) m_evaluations.erase(itPlayerMap);
 	}
+
+	pContext->dwUserData = 0xffffffff;
 
 	//
 	// 3. 序列化消息

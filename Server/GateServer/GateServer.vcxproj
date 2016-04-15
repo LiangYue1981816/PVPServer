@@ -174,7 +174,6 @@
     <ClInclude Include="..\Common\Event.h" />
     <ClInclude Include="..\Common\IOCP.h" />
     <ClInclude Include="..\Common\Serializer.h" />
-    <ClInclude Include="..\Proto\ProtoGameClient.pb.h" />
     <ClInclude Include="..\Proto\ProtoGameServer.pb.h" />
     <ClInclude Include="..\Proto\ProtoGateClient.pb.h" />
     <ClInclude Include="..\Proto\ProtoGateServer.pb.h" />
@@ -185,7 +184,6 @@
     <ClCompile Include="..\Common\Event.cpp" />
     <ClCompile Include="..\Common\IOCP.cpp" />
     <ClCompile Include="..\Common\Serializer.cpp" />
-    <ClCompile Include="..\Proto\ProtoGameClient.pb.cc" />
     <ClCompile Include="..\Proto\ProtoGameServer.pb.cc" />
     <ClCompile Include="..\Proto\ProtoGateClient.pb.cc" />
     <ClCompile Include="..\Proto\ProtoGateServer.pb.cc" />

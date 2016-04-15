@@ -48,9 +48,6 @@
     <ClInclude Include="GateServer.h">
       <Filter>GateServer\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Proto\ProtoGameClient.pb.h">
-      <Filter>Proto\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Proto\ProtoGameServer.pb.h">
       <Filter>Proto\Header Files</Filter>
     </ClInclude>
@@ -78,9 +75,6 @@
       <Filter>GateServer\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="..\Proto\ProtoGameClient.pb.cc">
-      <Filter>Proto\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Proto\ProtoGameServer.pb.cc">
       <Filter>Proto\Source Files</Filter>
     </ClCompile>
