@@ -131,7 +131,11 @@ void CGameServer::OnUpdateGameMessage(CPlayer *pPlayer, WORD size, WORD msg)
 //
 void CGameServer::OnUpdateGameLogic(float deltaTime)
 {
-
+	if (CGame *pGame = m_pActiveGame) {
+		do {
+			pGame->Update(deltaTime);
+		} while (pGame = pGame->pNextActive);
+	}
 }
 
 //

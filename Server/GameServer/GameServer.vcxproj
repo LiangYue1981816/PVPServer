@@ -176,8 +176,6 @@
     <ClInclude Include="..\Common\Serializer.h" />
     <ClInclude Include="..\Proto\ProtoGameClient.pb.h" />
     <ClInclude Include="..\Proto\ProtoGameServer.pb.h" />
-    <ClInclude Include="..\Proto\ProtoGateClient.pb.h" />
-    <ClInclude Include="..\Proto\ProtoGateServer.pb.h" />
     <ClInclude Include="GameServer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -187,8 +185,6 @@
     <ClCompile Include="..\Common\Serializer.cpp" />
     <ClCompile Include="..\Proto\ProtoGameClient.pb.cc" />
     <ClCompile Include="..\Proto\ProtoGameServer.pb.cc" />
-    <ClCompile Include="..\Proto\ProtoGateClient.pb.cc" />
-    <ClCompile Include="..\Proto\ProtoGateServer.pb.cc" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="GameServerReport.cpp" />

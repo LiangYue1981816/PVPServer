@@ -15,6 +15,7 @@ public:
 	// 方法
 protected:
 	virtual void OnUpdateMatch(DWORD dwDeltaTime);                                                 // 更新匹配
+	virtual BOOL Match(int evaluation, const PlayerStatus &player, CIOContext *matchs[], int &indexMatch, int maxMatchs); // 匹配
 
 
 	// 属性

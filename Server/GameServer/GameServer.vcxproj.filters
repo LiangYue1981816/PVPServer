@@ -54,12 +54,6 @@
     <ClInclude Include="..\Proto\ProtoGameServer.pb.h">
       <Filter>Proto\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Proto\ProtoGateClient.pb.h">
-      <Filter>Proto\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Proto\ProtoGateServer.pb.h">
-      <Filter>Proto\Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\CacheBuffer.cpp">
@@ -91,12 +85,6 @@
       <Filter>Proto\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Proto\ProtoGameServer.pb.cc">
-      <Filter>Proto\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Proto\ProtoGateClient.pb.cc">
-      <Filter>Proto\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Proto\ProtoGateServer.pb.cc">
       <Filter>Proto\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameServerReport.cpp">

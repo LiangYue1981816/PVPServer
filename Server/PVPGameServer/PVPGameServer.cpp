@@ -72,11 +72,3 @@ BOOL CPVPGameServer::AllocPlayers(int maxPlayers)
 
 	return TRUE;
 }
-
-//
-// ¸üĞÂÓÎÏ·Âß¼­
-//
-void CPVPGameServer::OnUpdateGameLogic(float deltaTime)
-{
-
-}

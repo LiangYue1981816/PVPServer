@@ -43,7 +43,7 @@ public:
 
 	typedef std::map<DWORD, CIOContext*> PlayerMap;                                                // 玩家集合
 	typedef std::map<CIOContext*, GameServerStatus> GameServerMap;                                 // 游戏服务器集合
-	typedef std::map<DWORD, std::map<DWORD, PlayerStatus>> PlayerEvaluationMap;                    // 待匹配玩家集合
+	typedef std::map<int, std::map<DWORD, PlayerStatus>> PlayerEvaluationMap;                      // 待匹配玩家集合
 
 
 	// 构造/析构函数

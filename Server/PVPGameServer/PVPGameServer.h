@@ -63,7 +63,6 @@ protected:
 
 protected:
 	virtual void OnUpdateGameMessage(CPlayer *pPlayer, WORD size, WORD msg);                       // 更新游戏消息
-	virtual void OnUpdateGameLogic(float deltaTime);                                               // 更新游戏逻辑
 
 
 	// 属性

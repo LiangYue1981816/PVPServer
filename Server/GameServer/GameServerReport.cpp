@@ -10,7 +10,7 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 		SOCKET sock = INVALID_SOCKET;
 
 		while (WAIT_OBJECT_0 != WaitForSingleObject(pServer->m_hShutdownEvent, 0)) {
-			Sleep(1000);
+			Sleep(10 * 1000);
 
 			int rcode = NO_ERROR;
 
@@ -46,8 +46,9 @@ DWORD WINAPI CGameServer::ReportThread(LPVOID lpParam)
 
 				for (int index = 0; index < pServer->m_maxGames; index++) {
 					if (const CGame *pGame = pServer->m_games[index]) {
-						if ((pGame->IsEmpty() == TRUE) || 
-							(pGame->IsFull() == FALSE && pGame->IsPrivate() == FALSE)) {
+//						if ((pGame->IsEmpty() == TRUE) || 
+//							(pGame->IsFull() == FALSE && pGame->IsPrivate() == FALSE)) {
+						if ((pGame->IsEmpty() == TRUE)) {
 							ProtoGameServer::ServerStatus_Game *pGameStatus = requestServerStatus.add_games();
 							pGameStatus->set_empty(pGame->IsEmpty() ? true : false);
 							pGameStatus->set_gameid(pGame->id);
