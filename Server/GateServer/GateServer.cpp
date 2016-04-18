@@ -111,6 +111,9 @@ BOOL CGateServer::Login(CIOContext *pContext, DWORD guid)
 	//
 	m_players[guid] = pContext;
 
+	//
+	// 4. 初始化
+	//
 	pContext->guid = guid;
 	pContext->dwUserData = 0xffffffff;
 
@@ -229,7 +232,6 @@ DWORD WINAPI CGateServer::UpdateThread(LPVOID lpParam)
 					pServer->m_dwUpdateTimeTotal += dwEnd - dwBegin;
 					pServer->m_dwUpdateTime = pServer->m_dwUpdateTimeTotal / pServer->m_dwUpdateCount;
 
-					// 报告更新1FPS
 					if (dwReportDeltaTime > 1000) {
 						pServer->Monitor();
 						pServer->m_dwRuntimeTotal++;
