@@ -110,4 +110,6 @@ protected:
 
 	DWORD m_dwRecvDataSize;                                                                        // 接收数据量
 	DWORD m_dwSendDataSize;                                                                        // 发送数据量
+
+	DWORD m_dwMatchs;                                                                              // 匹配中玩家数
 };

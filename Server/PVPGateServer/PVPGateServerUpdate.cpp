@@ -150,6 +150,8 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 	//
 	// 4. «Â¿Ì
 	//
+	m_dwMatchs = 0;
+
 	for (PlayerEvaluationMap::iterator itPlayerMap = m_evaluations.begin(); itPlayerMap != m_evaluations.end();) {
 		for (std::map<DWORD, PlayerStatus>::iterator itPlayer = itPlayerMap->second.begin(); itPlayer != itPlayerMap->second.end();) {
 			if (itPlayer->second.pContext->dwUserData == 0xffffffff) {
@@ -158,6 +160,7 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 			}
 
 			++itPlayer;
+			++m_dwMatchs;
 		}
 
 		if (itPlayerMap->second.empty()) {

@@ -11,6 +11,8 @@ CGateServer::CGateServer(void)
 
 	, m_dwRecvDataSize(0)
 	, m_dwSendDataSize(0)
+
+	, m_dwMatchs(0)
 {
 
 }
@@ -197,7 +199,7 @@ void CGateServer::Monitor(void)
 	printf("Send Data = %dB (%2.2fMb/s)\n", m_dwSendDataSize, 8.0f * m_dwSendDataSize / 1024.0f / 1024.0f);
 	printf("Update Time = %dms\n", m_dwUpdateTime);
 	printf("Run Time = %2.2d:%2.2d:%2.2d\n", m_dwRuntimeTotal / 3600, m_dwRuntimeTotal / 60 - (m_dwRuntimeTotal / 3600) * 60, m_dwRuntimeTotal - (m_dwRuntimeTotal / 60) * 60);
-	printf("GameServers = %d, Players = %d/%d\n", m_servers.size(), m_players.size(), m_maxContexts);
+	printf("GameServers = %d, Players = %d/%d, Matchs = %d\n", m_servers.size(), m_players.size(), m_maxContexts, m_dwMatchs);
 }
 
 //
