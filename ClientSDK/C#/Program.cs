@@ -210,10 +210,24 @@ class Program
                 continue;
             }
 
-            // GameServerList
+            break;
+        }
+
+        // Match
+        Random rand = new Random();
+        for (int indexPlayer = 0; indexPlayer < mGateClients.Length; indexPlayer++)
+        {
+            mGateClients[indexPlayer].RequestMatch(rand.Next(10000));
+        }
+
+        while (true)
+        {
+            Thread.Sleep(33);
+
+            // Update
             for (int indexPlayer = 0; indexPlayer < mGateClients.Length; indexPlayer++)
             {
-                mGateClients[indexPlayer].RequestListGameServer();
+                mGateClients[indexPlayer].Update(33.0f / 1000.0f);
             }
         }
     }
