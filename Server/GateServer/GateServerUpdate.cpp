@@ -6,8 +6,6 @@
 //
 void CGateServer::OnConnect(CIOContext *pContext, SOCKET acceptSocket)
 {
-	pContext->guid = 0xffffffff;
-	pContext->dwUserData = 0xffffffff;
 	CIOCPServer::OnConnect(pContext, acceptSocket);
 }
 

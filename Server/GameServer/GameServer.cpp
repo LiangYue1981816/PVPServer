@@ -361,12 +361,12 @@ BOOL CGameServer::Login(CPlayer *pPlayer, DWORD guid)
 	//
 	// 4. 注册玩家
 	//
-	pPlayer->guid = guid;
 	m_guidmap[guid] = pPlayer;
 
 	//
 	// 5. 设置玩家标识
 	//
+	pPlayer->guid = guid;
 	pPlayer->SetFlags(ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_LOGIN);
 
 	return TRUE;
@@ -393,12 +393,12 @@ BOOL CGameServer::Logout(CPlayer *pPlayer)
 	//
 	// 3. 注销玩家
 	//
-	pPlayer->guid = 0xffffffff;
 	m_guidmap.erase(itPlayer);
 
 	//
 	// 4. 设置玩家标识
 	//
+	pPlayer->guid = 0xffffffff;
 	pPlayer->SetFlags(ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_NONE);
 
 	return TRUE;
@@ -494,7 +494,6 @@ DWORD WINAPI CGameServer::UpdateThread(LPVOID lpParam)
 					pServer->m_dwUpdateTimeTotal += dwEnd - dwBegin;
 					pServer->m_dwUpdateTime = pServer->m_dwUpdateTimeTotal / pServer->m_dwUpdateCount;
 
-					// 报告更新1FPS
 					if (dwReportDeltaTime > 1000) {
 						pServer->Monitor();
 						pServer->m_dwRuntimeTotal++;

@@ -654,7 +654,10 @@ void CIOCPServer::ReleaseContext(CIOContext *pContext, BOOL bLock)
 //
 void CIOCPServer::OnConnect(CIOContext *pContext, SOCKET acceptSocket)
 {
-	pContext->dwHeartTime = 0;
+	pContext->guid = 0xffffffff;
+	pContext->dwUserData = 0xffffffff;
+	pContext->dwHeartTime = 0x00000000;
+
 	pContext->ClearBuffer();
 	pContext->OnAccept(acceptSocket);
 }
