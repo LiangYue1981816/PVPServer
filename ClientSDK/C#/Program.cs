@@ -28,7 +28,7 @@ class Program
     static Thread mThreadUpdate = null;
     static GateClient mGateClient = new GateClient();
     static GameClient mGameClient = new GameClient();
-    static GateClient[] mGateClients = new GateClient[200];
+    static GateClient[] mGateClients = new GateClient[100];
     static GameClient[][] mGameClients = new GameClient[5][];
 
     static List<GameServerAddress> mGameServerList = new List<GameServerAddress>();
@@ -166,6 +166,7 @@ class Program
         }
 
         int nLoopCount = 0;
+        Random rand = new Random();
         while (true)
         {
             nLoopCount++;
@@ -210,14 +211,13 @@ class Program
                 continue;
             }
 
-            break;
-        }
+            // Match
+            for (int indexPlayer = 0; indexPlayer < mGateClients.Length; indexPlayer++)
+            {
+                mGateClients[indexPlayer].RequestMatch(rand.Next(10000));
+            }
 
-        // Match
-        Random rand = new Random();
-        for (int indexPlayer = 0; indexPlayer < mGateClients.Length; indexPlayer++)
-        {
-            mGateClients[indexPlayer].RequestMatch(rand.Next(10000));
+            break;
         }
 
         while (true)
