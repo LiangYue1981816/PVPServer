@@ -28,7 +28,7 @@ class Program
     static Thread mThreadUpdate = null;
     static GateClient mGateClient = new GateClient();
     static GameClient mGameClient = new GameClient();
-    static GateClient[] mGateClients = new GateClient[200];
+    static GateClient[] mGateClients = new GateClient[100];
     static GameClient[][] mGameClients = new GameClient[5][];
 
     static List<GameServerAddress> mGameServerList = new List<GameServerAddress>();
