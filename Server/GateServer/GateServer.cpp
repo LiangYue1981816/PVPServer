@@ -136,11 +136,13 @@ BOOL CGateServer::Logout(CIOContext *pContext)
 	//
 	// 2. 注销待匹配玩家集合
 	//
-	PlayerEvaluationMap::iterator itPlayerMap = m_evaluations.find(pContext->dwUserData);
-	if (itPlayerMap != m_evaluations.end()) {
-		std::map<DWORD, PlayerStatus>::iterator itPlayer = itPlayerMap->second.find(pContext->guid);
-		if (itPlayer != itPlayerMap->second.end()) itPlayerMap->second.erase(itPlayer);
-		if (itPlayerMap->second.empty()) m_evaluations.erase(itPlayerMap);
+	if (pContext->dwUserData != 0xffffffff) {
+		PlayerEvaluationMap::iterator itPlayerMap = m_evaluations.find(pContext->dwUserData);
+		if (itPlayerMap != m_evaluations.end()) {
+			std::map<DWORD, PlayerStatus>::iterator itPlayer = itPlayerMap->second.find(pContext->guid);
+			if (itPlayer != itPlayerMap->second.end()) itPlayerMap->second.erase(itPlayer);
+			if (itPlayerMap->second.empty()) m_evaluations.erase(itPlayerMap);
+		}
 	}
 
 	//

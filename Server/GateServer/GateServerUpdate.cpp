@@ -227,6 +227,10 @@ void CGateServer::OnMatch(CIOContext *pContext, WORD size)
 		err = ProtoGateServer::ERROR_CODE::ERR_PLAYER_NOT_LOGIN; goto ERR;
 	}
 
+	if ((DWORD)requestMatch.evaluation() == 0xffffffff) {
+		err = ProtoGateServer::ERROR_CODE::ERR_MATCH_INVALID_EVALUATION; goto ERR;
+	}
+
 	goto NEXT;
 ERR:
 	responseMatch.set_err(err);
@@ -247,15 +251,17 @@ NEXT:
 	//
 	// 5. 添加到待匹配玩家集合
 	//
-	std::map<DWORD, PlayerStatus>::const_iterator itPlayer = m_evaluations[requestMatch.evaluation()].find(pContext->guid);
-	if (itPlayer != m_evaluations[requestMatch.evaluation()].end()) return;
+	if (pContext->dwUserData == 0xffffffff) {
+		std::map<DWORD, PlayerStatus>::const_iterator itPlayer = m_evaluations[requestMatch.evaluation()].find(pContext->guid);
+		if (itPlayer != m_evaluations[requestMatch.evaluation()].end()) return;
 
-	m_evaluations[requestMatch.evaluation()][pContext->guid].pContext = pContext;
-	m_evaluations[requestMatch.evaluation()][pContext->guid].timeout = 0.0f;
-	m_evaluations[requestMatch.evaluation()][pContext->guid].minEvaluation = requestMatch.evaluation();
-	m_evaluations[requestMatch.evaluation()][pContext->guid].maxEvaluation = requestMatch.evaluation();
+		m_evaluations[requestMatch.evaluation()][pContext->guid].pContext = pContext;
+		m_evaluations[requestMatch.evaluation()][pContext->guid].timeout = 0.0f;
+		m_evaluations[requestMatch.evaluation()][pContext->guid].minEvaluation = requestMatch.evaluation();
+		m_evaluations[requestMatch.evaluation()][pContext->guid].maxEvaluation = requestMatch.evaluation();
 
-	pContext->dwUserData = requestMatch.evaluation();
+		pContext->dwUserData = requestMatch.evaluation();
+	}
 }
 
 //
@@ -279,14 +285,16 @@ void CGateServer::OnCancelMatch(CIOContext *pContext, WORD size)
 	//
 	// 2. 取消匹配
 	//
-	PlayerEvaluationMap::iterator itPlayerMap = m_evaluations.find(pContext->dwUserData);
-	if (itPlayerMap != m_evaluations.end()) {
-		std::map<DWORD, PlayerStatus>::iterator itPlayer = itPlayerMap->second.find(pContext->guid);
-		if (itPlayer != itPlayerMap->second.end()) itPlayerMap->second.erase(itPlayer);
-		if (itPlayerMap->second.empty()) m_evaluations.erase(itPlayerMap);
-	}
+	if (pContext->dwUserData != 0xffffffff) {
+		PlayerEvaluationMap::iterator itPlayerMap = m_evaluations.find(pContext->dwUserData);
+		if (itPlayerMap != m_evaluations.end()) {
+			std::map<DWORD, PlayerStatus>::iterator itPlayer = itPlayerMap->second.find(pContext->guid);
+			if (itPlayer != itPlayerMap->second.end()) itPlayerMap->second.erase(itPlayer);
+			if (itPlayerMap->second.empty()) m_evaluations.erase(itPlayerMap);
+		}
 
-	pContext->dwUserData = 0xffffffff;
+		pContext->dwUserData = 0xffffffff;
+	}
 
 	//
 	// 3. 序列化消息

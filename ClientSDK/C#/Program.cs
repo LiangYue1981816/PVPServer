@@ -216,19 +216,6 @@ class Program
             {
                 mGateClients[indexPlayer].RequestMatch(rand.Next(10000));
             }
-
-            break;
-        }
-
-        while (true)
-        {
-            Thread.Sleep(33);
-
-            // Update
-            for (int indexPlayer = 0; indexPlayer < mGateClients.Length; indexPlayer++)
-            {
-                mGateClients[indexPlayer].Update(33.0f / 1000.0f);
-            }
         }
     }
 

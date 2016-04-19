@@ -220,7 +220,10 @@ namespace ProtoGateServer
       ERR_PLAYER_NOT_LOGIN = 1003,
             
       [global::ProtoBuf.ProtoEnum(Name=@"ERR_MATCH_TIMEOUT", Value=2000)]
-      ERR_MATCH_TIMEOUT = 2000
+      ERR_MATCH_TIMEOUT = 2000,
+            
+      [global::ProtoBuf.ProtoEnum(Name=@"ERR_MATCH_INVALID_EVALUATION", Value=2001)]
+      ERR_MATCH_INVALID_EVALUATION = 2001
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"RESPONSE_MSG")]
