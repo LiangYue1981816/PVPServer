@@ -62,7 +62,6 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 			GameServerMap::iterator itMatchGameServer;
 			float minLoadFactor = FLT_MAX;
 
-			CIOContext *matchs[100] = { itPlayer->second.pContext };
 			BOOL bMatch = FALSE;
 			int numMatchs = 1;
 
@@ -114,14 +113,15 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 			// 3.4. 正式匹配
 			bMatch = FALSE;
 			numMatchs = 1;
+			m_matchs[0] = itPlayer->second.pContext;
 
 			for (int offset = 0; offset <= evaluationOffset; offset++) {
 				if (offset == 0) {
-					bMatch |= Match(evaluation, itPlayer->second, matchs, numMatchs, m_maxMatchs);
+					bMatch |= Match(evaluation, itPlayer->second, m_matchs, numMatchs, m_maxMatchs);
 				}
 				else {
-					if (evaluation - offset >= m_minEvaluation) bMatch |= Match(evaluation - offset, itPlayer->second, matchs, numMatchs, m_maxMatchs);
-					if (evaluation + offset <= m_maxEvaluation) bMatch |= Match(evaluation + offset, itPlayer->second, matchs, numMatchs, m_maxMatchs);
+					if (evaluation - offset >= m_minEvaluation) bMatch |= Match(evaluation - offset, itPlayer->second, m_matchs, numMatchs, m_maxMatchs);
+					if (evaluation + offset <= m_maxEvaluation) bMatch |= Match(evaluation + offset, itPlayer->second, m_matchs, numMatchs, m_maxMatchs);
 				}
 			}
 
@@ -134,8 +134,8 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 			Serializer(&writeBuffer, &responseMatch, ProtoGateServer::RESPONSE_MSG::MATCH);
 
 			for (int index = 0; index < m_maxMatchs; index++) {
-				matchs[index]->dwUserData = 0xffffffff; // 标记玩家失效
-				SendTo(matchs[index], buffer, writeBuffer.GetActiveBufferSize());
+				m_matchs[index]->dwUserData = 0xffffffff; // 标记玩家失效
+				SendTo(m_matchs[index], buffer, writeBuffer.GetActiveBufferSize());
 			}
 
 			// 3.6. 移除房间

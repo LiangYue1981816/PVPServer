@@ -22,4 +22,5 @@ protected:
 protected:
 	int m_maxMatchs;                                                                               // 最大匹配数
 	float m_maxTimeOut;                                                                            // 匹配超时
+	CIOContext **m_matchs;                                                                         // 匹配集合
 };
