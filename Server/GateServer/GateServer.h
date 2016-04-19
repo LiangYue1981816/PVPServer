@@ -96,6 +96,10 @@ protected:
 
 	// 属性
 protected:
+	int m_minEvaluation;                                                                           // 最小评估值
+	int m_maxEvaluation;                                                                           // 最大评估值
+
+protected:
 	HANDLE m_hUpdateThread;                                                                        // 更新线程句柄
 
 	PlayerMap m_players;                                                                           // 玩家集合

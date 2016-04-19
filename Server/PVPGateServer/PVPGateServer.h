@@ -20,4 +20,6 @@ protected:
 
 	// 属性
 protected:
+	int m_maxMatchs;                                                                               // 最大匹配数
+	float m_maxTimeOut;                                                                            // 匹配超时
 };

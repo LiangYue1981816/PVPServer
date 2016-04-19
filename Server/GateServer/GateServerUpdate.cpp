@@ -227,7 +227,7 @@ void CGateServer::OnMatch(CIOContext *pContext, WORD size)
 		err = ProtoGateServer::ERROR_CODE::ERR_PLAYER_NOT_LOGIN; goto ERR;
 	}
 
-	if ((DWORD)requestMatch.evaluation() == 0xffffffff) {
+	if (requestMatch.evaluation() < m_minEvaluation || requestMatch.evaluation() > m_maxEvaluation) {
 		err = ProtoGateServer::ERROR_CODE::ERR_MATCH_INVALID_EVALUATION; goto ERR;
 	}
 

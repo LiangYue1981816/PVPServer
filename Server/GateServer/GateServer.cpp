@@ -4,6 +4,9 @@
 CGateServer::CGateServer(void)
 	: m_hUpdateThread(NULL)
 
+	, m_minEvaluation(0)
+	, m_maxEvaluation(10000)
+
 	, m_dwUpdateCount(0)
 	, m_dwUpdateTime(0)
 	, m_dwUpdateTimeTotal(0)

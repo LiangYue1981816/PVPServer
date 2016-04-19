@@ -7,10 +7,6 @@
 void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 {
 	static DWORD dwTime = 0;
-	static const float maxTimeOut = 100.0f;
-	static const int maxMatchs = 6;
-	static const int minEvaluation = 0;
-	static const int maxEvaluation = 10000;
 
 	ProtoGateServer::Match responseMatch;
 
@@ -37,12 +33,12 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 
 			// 2.1. 计算匹配范围
 			//      算法: 随着时间增加线性扩大玩家可匹配范围
-			if (itPlayer->second.timeout < maxTimeOut) {
-				itPlayer->second.minEvaluation = (int)(itPlayerMap->first - maxEvaluation * itPlayer->second.timeout / maxTimeOut + 0.5f);
-				itPlayer->second.maxEvaluation = (int)(itPlayerMap->first + maxEvaluation * itPlayer->second.timeout / maxTimeOut + 0.5f);
+			if (itPlayer->second.timeout < m_maxTimeOut) {
+				itPlayer->second.minEvaluation = (int)(itPlayerMap->first - m_maxEvaluation * itPlayer->second.timeout / m_maxTimeOut + 0.5f);
+				itPlayer->second.maxEvaluation = (int)(itPlayerMap->first + m_maxEvaluation * itPlayer->second.timeout / m_maxTimeOut + 0.5f);
 
-				if (itPlayer->second.minEvaluation < minEvaluation) itPlayer->second.minEvaluation = minEvaluation;
-				if (itPlayer->second.maxEvaluation > maxEvaluation) itPlayer->second.maxEvaluation = maxEvaluation;
+				if (itPlayer->second.minEvaluation < m_minEvaluation) itPlayer->second.minEvaluation = m_minEvaluation;
+				if (itPlayer->second.maxEvaluation > m_maxEvaluation) itPlayer->second.maxEvaluation = m_maxEvaluation;
 			}
 			// 2.2. 匹配超时
 			else {
@@ -66,7 +62,7 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 			GameServerMap::iterator itMatchGameServer;
 			float minLoadFactor = FLT_MAX;
 
-			CIOContext *matchs[maxMatchs] = { itPlayer->second.pContext };
+			CIOContext *matchs[100] = { itPlayer->second.pContext };
 			BOOL bMatch = FALSE;
 			int numMatchs = 1;
 
@@ -84,11 +80,11 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 
 			for (int offset = 0; offset <= evaluationOffset; offset++) {
 				if (offset == 0) {
-					bMatch |= Match(evaluation, itPlayer->second, NULL, numMatchs, maxMatchs);
+					bMatch |= Match(evaluation, itPlayer->second, NULL, numMatchs, m_maxMatchs);
 				}
 				else {
-					if (evaluation - offset >= minEvaluation) bMatch |= Match(evaluation - offset, itPlayer->second, NULL, numMatchs, maxMatchs);
-					if (evaluation + offset <= maxEvaluation) bMatch |= Match(evaluation + offset, itPlayer->second, NULL, numMatchs, maxMatchs);
+					if (evaluation - offset >= m_minEvaluation) bMatch |= Match(evaluation - offset, itPlayer->second, NULL, numMatchs, m_maxMatchs);
+					if (evaluation + offset <= m_maxEvaluation) bMatch |= Match(evaluation + offset, itPlayer->second, NULL, numMatchs, m_maxMatchs);
 				}
 			}
 
@@ -121,11 +117,11 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 
 			for (int offset = 0; offset <= evaluationOffset; offset++) {
 				if (offset == 0) {
-					bMatch |= Match(evaluation, itPlayer->second, matchs, numMatchs, maxMatchs);
+					bMatch |= Match(evaluation, itPlayer->second, matchs, numMatchs, m_maxMatchs);
 				}
 				else {
-					if (evaluation - offset >= minEvaluation) bMatch |= Match(evaluation - offset, itPlayer->second, matchs, numMatchs, maxMatchs);
-					if (evaluation + offset <= maxEvaluation) bMatch |= Match(evaluation + offset, itPlayer->second, matchs, numMatchs, maxMatchs);
+					if (evaluation - offset >= m_minEvaluation) bMatch |= Match(evaluation - offset, itPlayer->second, matchs, numMatchs, m_maxMatchs);
+					if (evaluation + offset <= m_maxEvaluation) bMatch |= Match(evaluation + offset, itPlayer->second, matchs, numMatchs, m_maxMatchs);
 				}
 			}
 
@@ -137,7 +133,7 @@ void CPVPGateServer::OnUpdateMatch(DWORD dwDeltaTime)
 
 			Serializer(&writeBuffer, &responseMatch, ProtoGateServer::RESPONSE_MSG::MATCH);
 
-			for (int index = 0; index < maxMatchs; index++) {
+			for (int index = 0; index < m_maxMatchs; index++) {
 				matchs[index]->dwUserData = 0xffffffff; // 标记玩家失效
 				SendTo(matchs[index], buffer, writeBuffer.GetActiveBufferSize());
 			}
