@@ -194,20 +194,28 @@ void CIOContext::OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 {
 	if (wsaRecvBuffer.dwCompleteSize == wsaRecvBuffer.dwRequestSize) {
 		if (bIsRecvBufferOverflow == FALSE) {
-			if (recvBuffer.PushData(pBuffer, size) != size) {
-				bIsRecvBufferOverflow = TRUE;
-			}
+			WORD wPackSize;
 
-			if (bIsRecvBufferOverflow == FALSE) {
-				switch (dwType) {
-				case RECV_LEN:
-					WSARecv(*(WORD *)pBuffer, RECV_DATA);
-					break;
+			switch (dwType) {
+			case RECV_LEN:
+				WSARecv(*(WORD *)pBuffer, RECV_DATA);
+				break;
 
-				case RECV_DATA:
-					WSARecv(2, RECV_LEN);
+			case RECV_DATA:
+				wPackSize = (WORD)size;
+
+				if (recvBuffer.PushData((BYTE *)&wPackSize, sizeof(wPackSize)) != sizeof(wPackSize)) {
+					bIsRecvBufferOverflow = TRUE;
 					break;
 				}
+
+				if (recvBuffer.PushData(pBuffer, size) != size) {
+					bIsRecvBufferOverflow = TRUE;
+					break;
+				}
+
+				WSARecv(2, RECV_LEN);
+				break;
 			}
 		}
 	}
