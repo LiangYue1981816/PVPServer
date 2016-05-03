@@ -14,12 +14,16 @@ class _ServerExport CCacheBuffer
 {
 	// 构造/析构函数
 public:
+	CCacheBuffer(void);
 	CCacheBuffer(size_t size);
 	CCacheBuffer(size_t size, unsigned char *pBuffer);
 	virtual ~CCacheBuffer(void);
 
 
 	// 方法
+public:
+	void AllocBuffer(size_t size, unsigned char *pBuffer);                                         // 分配缓冲
+
 public:
 	size_t GetTotalBufferSize(void);                                                               // 获得缓冲总尺寸
 	size_t GetActiveBufferSize(void);                                                              // 获得活动缓冲尺寸

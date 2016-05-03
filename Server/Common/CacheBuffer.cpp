@@ -1,32 +1,20 @@
 #include "CacheBuffer.h"
 
 
-CCacheBuffer::CCacheBuffer(size_t size)
-	: m_totalBufferSize(size)
+CCacheBuffer::CCacheBuffer(void)
+	: m_totalBufferSize(0)
 	, m_activeBufferSize(0)
 
-	, m_bAllocBuffer(TRUE)
+	, m_bAllocBuffer(FALSE)
 	, m_pBuffer(NULL)
 	, m_pPushPointer(NULL)
 	, m_pPopPointer(NULL)
 {
-	//
-	// 1. 初始化互斥量
-	//
 	pthread_mutex_init(&m_mutex, NULL);
-
-	//
-	// 2. 分配数据缓冲并初始化
-	//
-	m_pBuffer = (unsigned char *)malloc(size);
-	m_pPopPointer = m_pBuffer;
-	m_pPushPointer = m_pBuffer;
-
-	memset(m_pBuffer, 0xc, m_totalBufferSize);
 }
 
-CCacheBuffer::CCacheBuffer(size_t size, unsigned char *pBuffer)
-	: m_totalBufferSize(size)
+CCacheBuffer::CCacheBuffer(size_t size)
+	: m_totalBufferSize(0)
 	, m_activeBufferSize(0)
 
 	, m_bAllocBuffer(FALSE)
@@ -40,13 +28,29 @@ CCacheBuffer::CCacheBuffer(size_t size, unsigned char *pBuffer)
 	pthread_mutex_init(&m_mutex, NULL);
 
 	//
-	// 2. 初始化数据缓冲
+	// 2. 分配数据缓冲
 	//
-	m_pBuffer = pBuffer;
-	m_pPopPointer = m_pBuffer;
-	m_pPushPointer = m_pBuffer;
+	AllocBuffer(size, NULL);
+}
 
-	memset(m_pBuffer, 0xc, m_totalBufferSize);
+CCacheBuffer::CCacheBuffer(size_t size, unsigned char *pBuffer)
+	: m_totalBufferSize(0)
+	, m_activeBufferSize(0)
+
+	, m_bAllocBuffer(FALSE)
+	, m_pBuffer(NULL)
+	, m_pPushPointer(NULL)
+	, m_pPopPointer(NULL)
+{
+	//
+	// 1. 初始化互斥量
+	//
+	pthread_mutex_init(&m_mutex, NULL);
+
+	//
+	// 2. 分配数据缓冲
+	//
+	AllocBuffer(size, pBuffer);
 }
 
 CCacheBuffer::~CCacheBuffer(void)
@@ -62,6 +66,34 @@ CCacheBuffer::~CCacheBuffer(void)
 	// 2. 销毁互斥量
 	//
 	pthread_mutex_destroy(&m_mutex);
+}
+
+//
+// 分配缓冲
+//
+void CCacheBuffer::AllocBuffer(size_t size, unsigned char *pBuffer)
+{
+	//
+	// 1. 释放缓冲
+	//
+	if (m_pBuffer && m_bAllocBuffer) {
+		free(m_pBuffer);
+
+		m_pBuffer = NULL;
+		m_bAllocBuffer = FALSE;
+	}
+
+	//
+	// 2. 分配缓冲
+	//
+	m_totalBufferSize = size;
+
+	m_bAllocBuffer = pBuffer == NULL ? TRUE : FALSE;
+	m_pBuffer = pBuffer == NULL ? (unsigned char *)malloc(size) : pBuffer;
+	m_pPopPointer = m_pBuffer;
+	m_pPushPointer = m_pBuffer;
+
+	memset(m_pBuffer, 0xc, m_totalBufferSize);
 }
 
 //
