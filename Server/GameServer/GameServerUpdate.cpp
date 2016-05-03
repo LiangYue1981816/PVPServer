@@ -31,83 +31,80 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 		CPlayer *pNextPlayer = (CPlayer *)pPlayer->pNextActive;
 
 		if (pPlayer->IsAlive()) {
-			pPlayer->recvBuffer.Lock();
-			{
-				pPlayer->dwHeartTime += dwDeltaTime;
+			pPlayer->SwitchBuffer();
+			pPlayer->dwHeartTime += dwDeltaTime;
 
-				while (TRUE) {
-					WORD msg;
-					WORD fullSize;
-					WORD bodySize;
+			while (TRUE) {
+				WORD msg;
+				WORD fullSize;
+				WORD bodySize;
 
-					if (pPlayer->recvBuffer.GetData((BYTE *)&fullSize, sizeof(fullSize)) != sizeof(fullSize)) break;
-					if (pPlayer->recvBuffer.GetActiveBufferSize() < sizeof(fullSize) + fullSize) break;
+				if (pPlayer->GetRecvBuffer().GetData((BYTE *)&fullSize, sizeof(fullSize)) != sizeof(fullSize)) break;
+				if (pPlayer->GetRecvBuffer().GetActiveBufferSize() < sizeof(fullSize) + fullSize) break;
 
-					if (pPlayer->recvBuffer.PopData((BYTE *)&fullSize, sizeof(fullSize)) != sizeof(fullSize)) break;
-					if (pPlayer->recvBuffer.PopData((BYTE *)&msg, sizeof(msg)) != sizeof(msg))  break;
+				if (pPlayer->GetRecvBuffer().PopData((BYTE *)&fullSize, sizeof(fullSize)) != sizeof(fullSize)) break;
+				if (pPlayer->GetRecvBuffer().PopData((BYTE *)&msg, sizeof(msg)) != sizeof(msg))  break;
 
-					bodySize = fullSize - sizeof(msg);
-					m_dwRecvDataSize += sizeof(fullSize) + fullSize;
+				bodySize = fullSize - sizeof(msg);
+				m_dwRecvDataSize += sizeof(fullSize) + fullSize;
 
-					switch (msg) {
-					case ProtoGameClient::REQUEST_MSG::HEART:
-						OnHeart(pPlayer, bodySize);
-						OnHeartReset(pPlayer);
-						break;
+				switch (msg) {
+				case ProtoGameClient::REQUEST_MSG::HEART:
+					OnHeart(pPlayer, bodySize);
+					OnHeartReset(pPlayer);
+					break;
 
-					case ProtoGameClient::REQUEST_MSG::FLAGS:
-						OnFlags(pPlayer, bodySize);
-						OnHeartReset(pPlayer);
-						break;
+				case ProtoGameClient::REQUEST_MSG::FLAGS:
+					OnFlags(pPlayer, bodySize);
+					OnHeartReset(pPlayer);
+					break;
 
-					case ProtoGameClient::REQUEST_MSG::LOGIN:
-						OnLogin(pPlayer, bodySize);
-						OnHeartReset(pPlayer);
-						break;
+				case ProtoGameClient::REQUEST_MSG::LOGIN:
+					OnLogin(pPlayer, bodySize);
+					OnHeartReset(pPlayer);
+					break;
 
-					case ProtoGameClient::REQUEST_MSG::LIST_GAME:
-						OnListGame(pPlayer, bodySize);
-						OnHeartReset(pPlayer);
-						break;
+				case ProtoGameClient::REQUEST_MSG::LIST_GAME:
+					OnListGame(pPlayer, bodySize);
+					OnHeartReset(pPlayer);
+					break;
 
-					case ProtoGameClient::REQUEST_MSG::CREATE_GAME:
-						OnCreateGame(pPlayer, bodySize);
-						OnHeartReset(pPlayer);
-						break;
+				case ProtoGameClient::REQUEST_MSG::CREATE_GAME:
+					OnCreateGame(pPlayer, bodySize);
+					OnHeartReset(pPlayer);
+					break;
 
-					case ProtoGameClient::REQUEST_MSG::DESTROY_GAME:
-						OnDestroyGame(pPlayer, bodySize);
-						OnHeartReset(pPlayer);
-						break;
+				case ProtoGameClient::REQUEST_MSG::DESTROY_GAME:
+					OnDestroyGame(pPlayer, bodySize);
+					OnHeartReset(pPlayer);
+					break;
 
-					case ProtoGameClient::REQUEST_MSG::ENTER_GAME:
-						OnEnterGame(pPlayer, bodySize);
-						OnHeartReset(pPlayer);
-						break;
+				case ProtoGameClient::REQUEST_MSG::ENTER_GAME:
+					OnEnterGame(pPlayer, bodySize);
+					OnHeartReset(pPlayer);
+					break;
 
-					case ProtoGameClient::REQUEST_MSG::EXIT_GAME:
-						OnExitGame(pPlayer, bodySize);
-						OnHeartReset(pPlayer);
-						break;
+				case ProtoGameClient::REQUEST_MSG::EXIT_GAME:
+					OnExitGame(pPlayer, bodySize);
+					OnHeartReset(pPlayer);
+					break;
 
-					case ProtoGameClient::REQUEST_MSG::SEND_TO_PLAYER:
-						OnSendToPlayer(pPlayer, bodySize);
-						OnHeartReset(pPlayer);
-						break;
+				case ProtoGameClient::REQUEST_MSG::SEND_TO_PLAYER:
+					OnSendToPlayer(pPlayer, bodySize);
+					OnHeartReset(pPlayer);
+					break;
 
-					case ProtoGameClient::REQUEST_MSG::SEND_TO_PLAYER_ALL:
-						OnSendToPlayerAll(pPlayer, bodySize);
-						OnHeartReset(pPlayer);
-						break;
+				case ProtoGameClient::REQUEST_MSG::SEND_TO_PLAYER_ALL:
+					OnSendToPlayerAll(pPlayer, bodySize);
+					OnHeartReset(pPlayer);
+					break;
 
-					default:
-						OnUpdateGameMessage(pPlayer, bodySize, msg);
-						OnHeartReset(pPlayer);
-						break;
-					}
+				default:
+					OnUpdateGameMessage(pPlayer, bodySize, msg);
+					OnHeartReset(pPlayer);
+					break;
 				}
 			}
-			pPlayer->recvBuffer.Unlock();
 		}
 
 		if (pPlayer->Check((DWORD)(1000 * m_timeOut)) == FALSE) {
@@ -160,7 +157,7 @@ void CGameServer::OnHeart(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &requestHeart, size) == FALSE) {
+	if (Parser(&pPlayer->GetRecvBuffer(), &requestHeart, size) == FALSE) {
 		return;
 	}
 
@@ -194,7 +191,7 @@ void CGameServer::OnFlags(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &requestFlags, size) == FALSE) {
+	if (Parser(&pPlayer->GetRecvBuffer(), &requestFlags, size) == FALSE) {
 		return;
 	}
 
@@ -228,7 +225,7 @@ void CGameServer::OnLogin(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &requestLogin, size) == FALSE) {
+	if (Parser(&pPlayer->GetRecvBuffer(), &requestLogin, size) == FALSE) {
 		return;
 	}
 
@@ -281,7 +278,7 @@ void CGameServer::OnListGame(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &requestListGame, size) == FALSE) {
+	if (Parser(&pPlayer->GetRecvBuffer(), &requestListGame, size) == FALSE) {
 		return;
 	}
 
@@ -338,7 +335,7 @@ void CGameServer::OnCreateGame(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &requestCreateGame, size) == FALSE) {
+	if (Parser(&pPlayer->GetRecvBuffer(), &requestCreateGame, size) == FALSE) {
 		return;
 	}
 
@@ -397,7 +394,7 @@ void CGameServer::OnDestroyGame(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &requestDestroyGame, size) == FALSE) {
+	if (Parser(&pPlayer->GetRecvBuffer(), &requestDestroyGame, size) == FALSE) {
 		return;
 	}
 
@@ -460,7 +457,7 @@ void CGameServer::OnEnterGame(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &requestEnterGame, size) == FALSE) {
+	if (Parser(&pPlayer->GetRecvBuffer(), &requestEnterGame, size) == FALSE) {
 		return;
 	}
 
@@ -523,7 +520,7 @@ void CGameServer::OnExitGame(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &requestExitGame, size) == FALSE) {
+	if (Parser(&pPlayer->GetRecvBuffer(), &requestExitGame, size) == FALSE) {
 		return;
 	}
 
@@ -587,7 +584,7 @@ void CGameServer::OnSendToPlayer(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &requestSendToPlayer, size) == FALSE) {
+	if (Parser(&pPlayer->GetRecvBuffer(), &requestSendToPlayer, size) == FALSE) {
 		return;
 	}
 
@@ -636,7 +633,7 @@ void CGameServer::OnSendToPlayerAll(CPlayer *pPlayer, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pPlayer->recvBuffer, &requestSendToPlayerAll, size) == FALSE) {
+	if (Parser(&pPlayer->GetRecvBuffer(), &requestSendToPlayerAll, size) == FALSE) {
 		return;
 	}
 

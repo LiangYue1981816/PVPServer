@@ -30,63 +30,60 @@ void CGateServer::OnUpdateRecv(DWORD dwDeltaTime)
 		CIOContext *pNextContext = pContext->pNextActive;
 
 		if (pContext->IsAlive()) {
-			pContext->recvBuffer.Lock();
-			{
-				pContext->dwHeartTime += dwDeltaTime;
+			pContext->SwitchBuffer();
+			pContext->dwHeartTime += dwDeltaTime;
 
-				while (TRUE) {
-					WORD msg;
-					WORD fullSize;
-					WORD bodySize;
+			while (TRUE) {
+				WORD msg;
+				WORD fullSize;
+				WORD bodySize;
 
-					if (pContext->recvBuffer.GetData((BYTE *)&fullSize, sizeof(fullSize)) != sizeof(fullSize)) break;
-					if (pContext->recvBuffer.GetActiveBufferSize() < sizeof(fullSize) + fullSize) break;
+				if (pContext->GetRecvBuffer().GetData((BYTE *)&fullSize, sizeof(fullSize)) != sizeof(fullSize)) break;
+				if (pContext->GetRecvBuffer().GetActiveBufferSize() < sizeof(fullSize) + fullSize) break;
 
-					if (pContext->recvBuffer.PopData((BYTE *)&fullSize, sizeof(fullSize)) != sizeof(fullSize)) break;
-					if (pContext->recvBuffer.PopData((BYTE *)&msg, sizeof(msg)) != sizeof(msg))  break;
+				if (pContext->GetRecvBuffer().PopData((BYTE *)&fullSize, sizeof(fullSize)) != sizeof(fullSize)) break;
+				if (pContext->GetRecvBuffer().PopData((BYTE *)&msg, sizeof(msg)) != sizeof(msg))  break;
 
-					bodySize = fullSize - sizeof(msg);
-					m_dwRecvDataSize += sizeof(fullSize) + fullSize;
+				bodySize = fullSize - sizeof(msg);
+				m_dwRecvDataSize += sizeof(fullSize) + fullSize;
 
-					switch (msg) {
-					case ProtoGateClient::REQUEST_MSG::HEART:
-						OnHeart(pContext, bodySize);
-						OnHeartReset(pContext);
-						break;
+				switch (msg) {
+				case ProtoGateClient::REQUEST_MSG::HEART:
+					OnHeart(pContext, bodySize);
+					OnHeartReset(pContext);
+					break;
 
-					case ProtoGateClient::REQUEST_MSG::LOGIN:
-						OnLogin(pContext, bodySize);
-						OnHeartReset(pContext);
-						break;
+				case ProtoGateClient::REQUEST_MSG::LOGIN:
+					OnLogin(pContext, bodySize);
+					OnHeartReset(pContext);
+					break;
 
-					case ProtoGateClient::REQUEST_MSG::MATCH:
-						OnMatch(pContext, bodySize);
-						OnHeartReset(pContext);
-						break;
+				case ProtoGateClient::REQUEST_MSG::MATCH:
+					OnMatch(pContext, bodySize);
+					OnHeartReset(pContext);
+					break;
 
-					case ProtoGateClient::REQUEST_MSG::CANCEL_MATCH:
-						OnCancelMatch(pContext, bodySize);
-						OnHeartReset(pContext);
-						break;
+				case ProtoGateClient::REQUEST_MSG::CANCEL_MATCH:
+					OnCancelMatch(pContext, bodySize);
+					OnHeartReset(pContext);
+					break;
 
-					case ProtoGateClient::REQUEST_MSG::LIST_GAME_SERVER:
-						OnListGameServer(pContext, bodySize);
-						OnHeartReset(pContext);
-						break;
+				case ProtoGateClient::REQUEST_MSG::LIST_GAME_SERVER:
+					OnListGameServer(pContext, bodySize);
+					OnHeartReset(pContext);
+					break;
 
-					case ProtoGateClient::REQUEST_MSG::SEND_TO_PLAYER:
-						OnSendToPlayer(pContext, bodySize);
-						OnHeartReset(pContext);
-						break;
+				case ProtoGateClient::REQUEST_MSG::SEND_TO_PLAYER:
+					OnSendToPlayer(pContext, bodySize);
+					OnHeartReset(pContext);
+					break;
 
-					case ProtoGameServer::REQUEST_MSG::SERVER_STATUS:
-						OnGameServerStatus(pContext, bodySize);
-						OnHeartReset(pContext);
-						break;
-					}
+				case ProtoGameServer::REQUEST_MSG::SERVER_STATUS:
+					OnGameServerStatus(pContext, bodySize);
+					OnHeartReset(pContext);
+					break;
 				}
 			}
-			pContext->recvBuffer.Unlock();
 		}
 
 		if (pContext->Check((DWORD)(1000 * m_timeOut)) == FALSE) {
@@ -127,7 +124,7 @@ void CGateServer::OnHeart(CIOContext *pContext, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pContext->recvBuffer, &requestHeart, size) == FALSE) {
+	if (Parser(&pContext->GetRecvBuffer(), &requestHeart, size) == FALSE) {
 		return;
 	}
 
@@ -161,7 +158,7 @@ void CGateServer::OnLogin(CIOContext *pContext, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pContext->recvBuffer, &requestLogin, size) == FALSE) {
+	if (Parser(&pContext->GetRecvBuffer(), &requestLogin, size) == FALSE) {
 		return;
 	}
 
@@ -214,7 +211,7 @@ void CGateServer::OnMatch(CIOContext *pContext, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pContext->recvBuffer, &requestMatch, size) == FALSE) {
+	if (Parser(&pContext->GetRecvBuffer(), &requestMatch, size) == FALSE) {
 		return;
 	}
 
@@ -278,7 +275,7 @@ void CGateServer::OnCancelMatch(CIOContext *pContext, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pContext->recvBuffer, &requestCancelMatch, size) == FALSE) {
+	if (Parser(&pContext->GetRecvBuffer(), &requestCancelMatch, size) == FALSE) {
 		return;
 	}
 
@@ -321,7 +318,7 @@ void CGateServer::OnListGameServer(CIOContext *pContext, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pContext->recvBuffer, &requestListGameServer, size) == FALSE) {
+	if (Parser(&pContext->GetRecvBuffer(), &requestListGameServer, size) == FALSE) {
 		return;
 	}
 
@@ -373,7 +370,7 @@ void CGateServer::OnSendToPlayer(CIOContext *pContext, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pContext->recvBuffer, &requestSendToPlayer, size) == FALSE) {
+	if (Parser(&pContext->GetRecvBuffer(), &requestSendToPlayer, size) == FALSE) {
 		return;
 	}
 
@@ -423,7 +420,7 @@ void CGateServer::OnGameServerStatus(CIOContext *pContext, WORD size)
 	//
 	// 1. 解析消息
 	//
-	if (Parser(&pContext->recvBuffer, &requestServerStatus, size) == FALSE) {
+	if (Parser(&pContext->GetRecvBuffer(), &requestServerStatus, size) == FALSE) {
 		return;
 	}
 

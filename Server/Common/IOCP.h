@@ -52,7 +52,12 @@ public:
 	// 方法
 public:
 	virtual BOOL IsAlive(void);                                                                    // 活动判断
+
 	virtual void ClearBuffer(void);                                                                // 清空缓冲
+	virtual void SwitchBuffer(void);                                                               // 切换缓冲
+	virtual CCacheBuffer& GetRecvBuffer(void);                                                     // 获得接收缓冲
+	virtual CCacheBuffer& GetSendBuffer(void);                                                     // 获得发送缓冲
+
 	virtual void Send(BYTE *pBuffer, DWORD size);                                                  // 发送数据
 	virtual BOOL Check(DWORD dwTimeOut);                                                           // 检查
 
@@ -72,30 +77,35 @@ protected:
 
 	// 属性
 public:
-	DWORD dwUserData;                                                                              // 用户数据
-
-public:
 	char ip[256];                                                                                  // 客户端ip地址
 	DWORD dwHeartTime;                                                                             // 心跳时间
 
 public:
 	DWORD id;                                                                                      // id
 	DWORD guid;                                                                                    // guid
-
-	BOOL bInUsed;                                                                                  // 使用中
-
-	CCacheBuffer recvBuffer;                                                                       // 接收缓冲
-	CCacheBuffer sendBuffer;                                                                       // 发送缓冲
+	DWORD dwUserData;                                                                              // 用户数据
 
 protected:
-	SOCKET acceptSocket;                                                                           // SOCKET
-
-	WSA_BUFFER wsaRecvBuffer;                                                                      // 接收缓冲
-	WSA_BUFFER wsaSendBuffer;                                                                      // 发送缓冲
+	BOOL m_bInUsed;                                                                                // 使用中
 
 protected:
-	BOOL bIsRecvBufferOverflow;                                                                    // 接收缓冲溢出
-	BOOL bIsSendBufferOverflow;                                                                    // 发送缓冲溢出
+	BOOL m_bIsRecvBufferOverflow;                                                                  // 接收缓冲溢出
+	BOOL m_bIsSendBufferOverflow;                                                                  // 发送缓冲溢出
+
+	int m_indexRecvBuffer;                                                                         // 接收缓冲索引
+	int m_indexSendBuffer;                                                                         // 发送缓冲索引
+
+	CCacheBuffer m_recvBuffer[2];                                                                  // 接收缓冲
+	CCacheBuffer m_sendBuffer[2];                                                                  // 发送缓冲
+
+	CRITICAL_SECTION m_sectionRecvBuffer;                                                          // 缓冲索引界区
+	CRITICAL_SECTION m_sectionSendBuffer;                                                          // 缓冲索引界区
+
+protected:
+	SOCKET m_acceptSocket;                                                                         // SOCKET
+
+	WSA_BUFFER m_wsaRecvBuffer;                                                                    // 接收缓冲
+	WSA_BUFFER m_wsaSendBuffer;                                                                    // 发送缓冲
 
 public:
 	CIOContext *pNext;                                                                             // 下一个上下文

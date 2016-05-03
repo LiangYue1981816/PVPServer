@@ -5,32 +5,41 @@
 // 上下文
 //========================================================================
 CIOContext::CIOContext(void)
-	: dwUserData(0xffffffff)
-
-	, dwHeartTime(0x00000000)
+	: dwHeartTime(0x00000000)
 
 	, id(0xffffffff)
 	, guid(0xffffffff)
+	, dwUserData(0xffffffff)
 
-	, bInUsed(FALSE)
-	, acceptSocket(INVALID_SOCKET)
+	, m_bInUsed(FALSE)
+	, m_acceptSocket(INVALID_SOCKET)
 
-	, recvBuffer(RECV_BUFFER_SIZE)
-	, sendBuffer(SEND_BUFFER_SIZE)
-
-	, bIsRecvBufferOverflow(FALSE)
-	, bIsSendBufferOverflow(FALSE)
+	, m_indexRecvBuffer(0)
+	, m_indexSendBuffer(0)
+	, m_bIsRecvBufferOverflow(FALSE)
+	, m_bIsSendBufferOverflow(FALSE)
 
 	, pNext(NULL)
 	, pNextActive(NULL)
 	, pPrevActive(NULL)
 {
+	m_recvBuffer[0].AllocBuffer(RECV_BUFFER_SIZE, NULL);
+	m_recvBuffer[1].AllocBuffer(RECV_BUFFER_SIZE, NULL);
+	m_sendBuffer[0].AllocBuffer(SEND_BUFFER_SIZE, NULL);
+	m_sendBuffer[1].AllocBuffer(SEND_BUFFER_SIZE, NULL);
+
+	InitializeCriticalSectionAndSpinCount(&m_sectionRecvBuffer, 4000);
+	InitializeCriticalSectionAndSpinCount(&m_sectionSendBuffer, 4000);
+
 	ClearBuffer();
 }
 
 CIOContext::~CIOContext(void)
 {
 	OnDisconnect();
+
+	DeleteCriticalSection(&m_sectionRecvBuffer);
+	DeleteCriticalSection(&m_sectionSendBuffer);
 }
 
 //
@@ -38,7 +47,7 @@ CIOContext::~CIOContext(void)
 //
 BOOL CIOContext::IsAlive(void)
 {
-	return acceptSocket != INVALID_SOCKET ? TRUE : FALSE;
+	return m_acceptSocket != INVALID_SOCKET ? TRUE : FALSE;
 }
 
 //
@@ -48,17 +57,53 @@ void CIOContext::ClearBuffer(void)
 {
 	memset(ip, 0, sizeof(ip));
 
-	memset(&wsaRecvBuffer, 0, sizeof(wsaRecvBuffer));
-	memset(&wsaSendBuffer, 0, sizeof(wsaSendBuffer));
+	memset(&m_wsaRecvBuffer, 0, sizeof(m_wsaRecvBuffer));
+	memset(&m_wsaSendBuffer, 0, sizeof(m_wsaSendBuffer));
 
-	wsaRecvBuffer.pContext = this;
-	wsaSendBuffer.pContext = this;
+	m_wsaRecvBuffer.pContext = this;
+	m_wsaSendBuffer.pContext = this;
 
-	bIsRecvBufferOverflow = FALSE;
-	bIsSendBufferOverflow = FALSE;
+	m_bIsRecvBufferOverflow = FALSE;
+	m_bIsSendBufferOverflow = FALSE;
 
-	recvBuffer.ClearBuffer();
-	sendBuffer.ClearBuffer();
+	m_recvBuffer[0].ClearBuffer();
+	m_recvBuffer[1].ClearBuffer();
+	m_sendBuffer[0].ClearBuffer();
+	m_sendBuffer[1].ClearBuffer();
+}
+
+//
+// 切换缓冲
+//
+void CIOContext::SwitchBuffer(void)
+{
+	EnterCriticalSection(&m_sectionRecvBuffer);
+	{
+		m_indexRecvBuffer = 1 - m_indexRecvBuffer;
+	}
+	LeaveCriticalSection(&m_sectionRecvBuffer);
+
+	EnterCriticalSection(&m_sectionSendBuffer);
+	{
+		m_indexSendBuffer = 1 - m_indexSendBuffer;
+	}
+	LeaveCriticalSection(&m_sectionSendBuffer);
+}
+
+//
+// 获得接收缓冲
+//
+CCacheBuffer& CIOContext::GetRecvBuffer(void)
+{
+	return m_recvBuffer[m_indexRecvBuffer];
+}
+
+//
+// 获得发送缓冲
+//
+CCacheBuffer& CIOContext::GetSendBuffer(void)
+{
+	return m_sendBuffer[m_indexSendBuffer];
 }
 
 //
@@ -66,15 +111,11 @@ void CIOContext::ClearBuffer(void)
 //
 void CIOContext::Send(BYTE *pBuffer, DWORD size)
 {
-	sendBuffer.Lock();
-	{
-		if (bIsSendBufferOverflow == FALSE) {
-			if (sendBuffer.PushData(pBuffer, size) != size) {
-				bIsSendBufferOverflow = TRUE;
-			}
+	if (m_bIsSendBufferOverflow == FALSE) {
+		if (GetSendBuffer().PushData(pBuffer, size) != size) {
+			m_bIsSendBufferOverflow = TRUE;
 		}
 	}
-	sendBuffer.Unlock();
 }
 
 //
@@ -82,12 +123,12 @@ void CIOContext::Send(BYTE *pBuffer, DWORD size)
 //
 BOOL CIOContext::Check(DWORD dwTimeOut)
 {
-	if (bIsRecvBufferOverflow || bIsSendBufferOverflow || dwHeartTime > dwTimeOut) {
-		if (bIsRecvBufferOverflow) {
+	if (m_bIsRecvBufferOverflow || m_bIsSendBufferOverflow || dwHeartTime > dwTimeOut) {
+		if (m_bIsRecvBufferOverflow) {
 			WriteLog("%s: Recv buffer overflow\n", ip);
 		}
 
-		if (bIsSendBufferOverflow) {
+		if (m_bIsSendBufferOverflow) {
 			WriteLog("%s: Send buffer overflow\n", ip);
 		}
 
@@ -113,8 +154,8 @@ void CIOContext::OnAccept(SOCKET sock)
 	int size = sizeof(addr);
 	memset(&addr, 0, sizeof(addr));
 
-	acceptSocket = sock;
-	getpeername(acceptSocket, (SOCKADDR *)&addr, &size);
+	m_acceptSocket = sock;
+	getpeername(m_acceptSocket, (SOCKADDR *)&addr, &size);
 	strcpy(ip, inet_ntoa(addr.sin_addr));
 
 	//
@@ -122,7 +163,7 @@ void CIOContext::OnAccept(SOCKET sock)
 	//
 	int on = 1;
 	int off = 0;
-	setsockopt(acceptSocket, IPPROTO_TCP, TCP_NODELAY, (const char *)&on, sizeof(on));
+	setsockopt(m_acceptSocket, IPPROTO_TCP, TCP_NODELAY, (const char *)&on, sizeof(on));
 
 	//
 	// 3. 接收数据
@@ -135,10 +176,10 @@ void CIOContext::OnAccept(SOCKET sock)
 //
 void CIOContext::OnDisconnect(void)
 {
-	if (acceptSocket != INVALID_SOCKET) {
-		shutdown(acceptSocket, SD_BOTH);
-		closesocket(acceptSocket);
-		acceptSocket = INVALID_SOCKET;
+	if (m_acceptSocket != INVALID_SOCKET) {
+		shutdown(m_acceptSocket, SD_BOTH);
+		closesocket(m_acceptSocket);
+		m_acceptSocket = INVALID_SOCKET;
 	}
 }
 
@@ -152,37 +193,37 @@ void CIOContext::OnComplete(WSA_BUFFER *pIOBuffer, DWORD dwTransferred)
 
 	switch (pIOBuffer->operationType >> 16) {
 	case RECV_POSTED:
-		recvBuffer.Lock();
+		EnterCriticalSection(&m_sectionRecvBuffer);
 		{
 			pIOBuffer->dwCompleteSize += dwTransferred;
 
 			if (pIOBuffer->dwCompleteSize < pIOBuffer->dwRequestSize) {
 				pIOBuffer->wsaBuffer.len = pIOBuffer->dwRequestSize - pIOBuffer->dwCompleteSize;
 				pIOBuffer->wsaBuffer.buf = (char *)&pIOBuffer->dataBuffer[pIOBuffer->dwCompleteSize];
-				::WSARecv(acceptSocket, &pIOBuffer->wsaBuffer, 1, &dwBytes, &dwFlags, &pIOBuffer->overlapped, NULL);
+				::WSARecv(m_acceptSocket, &pIOBuffer->wsaBuffer, 1, &dwBytes, &dwFlags, &pIOBuffer->overlapped, NULL);
 			}
 			else {
 				OnRecvNext(pIOBuffer->dataBuffer, pIOBuffer->dwCompleteSize, pIOBuffer->operationType & 0x0000ffff);
 			}
 		}
-		recvBuffer.Unlock();
+		LeaveCriticalSection(&m_sectionRecvBuffer);
 		break;
 
 	case SEND_POSTED:
-		sendBuffer.Lock();
+		EnterCriticalSection(&m_sectionSendBuffer);
 		{
 			pIOBuffer->dwCompleteSize += dwTransferred;
 
 			if (pIOBuffer->dwCompleteSize < pIOBuffer->dwRequestSize) {
 				pIOBuffer->wsaBuffer.len = pIOBuffer->dwRequestSize - pIOBuffer->dwCompleteSize;
 				pIOBuffer->wsaBuffer.buf = (char *)&pIOBuffer->dataBuffer[pIOBuffer->dwCompleteSize];
-				::WSASend(acceptSocket, &pIOBuffer->wsaBuffer, 1, &dwBytes, dwFlags, &pIOBuffer->overlapped, NULL);
+				::WSASend(m_acceptSocket, &pIOBuffer->wsaBuffer, 1, &dwBytes, dwFlags, &pIOBuffer->overlapped, NULL);
 			}
 			else {
 				OnSendNext();
 			}
 		}
-		sendBuffer.Unlock();
+		LeaveCriticalSection(&m_sectionSendBuffer);
 		break;
 	}
 }
@@ -192,8 +233,8 @@ void CIOContext::OnComplete(WSA_BUFFER *pIOBuffer, DWORD dwTransferred)
 //
 void CIOContext::OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 {
-	if (wsaRecvBuffer.dwCompleteSize == wsaRecvBuffer.dwRequestSize) {
-		if (bIsRecvBufferOverflow == FALSE) {
+	if (m_wsaRecvBuffer.dwCompleteSize == m_wsaRecvBuffer.dwRequestSize) {
+		if (m_bIsRecvBufferOverflow == FALSE) {
 			WORD wPackSize;
 
 			switch (dwType) {
@@ -204,13 +245,13 @@ void CIOContext::OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 			case RECV_DATA:
 				wPackSize = (WORD)size;
 
-				if (recvBuffer.PushData((BYTE *)&wPackSize, sizeof(wPackSize)) != sizeof(wPackSize)) {
-					bIsRecvBufferOverflow = TRUE;
+				if (m_recvBuffer[1 - m_indexRecvBuffer].PushData((BYTE *)&wPackSize, sizeof(wPackSize)) != sizeof(wPackSize)) {
+					m_bIsRecvBufferOverflow = TRUE;
 					break;
 				}
 
-				if (recvBuffer.PushData(pBuffer, size) != size) {
-					bIsRecvBufferOverflow = TRUE;
+				if (m_recvBuffer[1 - m_indexRecvBuffer].PushData(pBuffer, size) != size) {
+					m_bIsRecvBufferOverflow = TRUE;
 					break;
 				}
 
@@ -226,12 +267,12 @@ void CIOContext::OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 //
 void CIOContext::OnSendNext(void)
 {
-	if (wsaSendBuffer.dwCompleteSize == wsaSendBuffer.dwRequestSize) {
+	if (m_wsaSendBuffer.dwCompleteSize == m_wsaSendBuffer.dwRequestSize) {
 		BYTE buffer[PACK_BUFFER_SIZE];
-		size_t size = min(sizeof(buffer), sendBuffer.GetActiveBufferSize());
+		size_t size = min(sizeof(buffer), m_sendBuffer[1 - m_indexRecvBuffer].GetActiveBufferSize());
 
 		if (size > 0) {
-			if (sendBuffer.PopData(buffer, size) == size) {
+			if (m_sendBuffer[1 - m_indexRecvBuffer].PopData(buffer, size) == size) {
 				WSASend(buffer, size);
 			}
 		}
@@ -250,8 +291,8 @@ BOOL CIOContext::WSARecv(DWORD size, DWORD dwType)
 		return FALSE;
 	}
 
-	if (size > sizeof(wsaRecvBuffer.dataBuffer)) {
-		bIsRecvBufferOverflow = TRUE;
+	if (size > sizeof(m_wsaRecvBuffer.dataBuffer)) {
+		m_bIsRecvBufferOverflow = TRUE;
 		return FALSE;
 	}
 
@@ -261,14 +302,14 @@ BOOL CIOContext::WSARecv(DWORD size, DWORD dwType)
 	DWORD dwBytes = 0;
 	DWORD dwFlags = 0;
 
-	wsaRecvBuffer.dwRequestSize = size;
-	wsaRecvBuffer.dwCompleteSize = 0;
+	m_wsaRecvBuffer.dwRequestSize = size;
+	m_wsaRecvBuffer.dwCompleteSize = 0;
 
-	wsaRecvBuffer.wsaBuffer.len = size;
-	wsaRecvBuffer.wsaBuffer.buf = (char *)wsaRecvBuffer.dataBuffer;
-	wsaRecvBuffer.operationType = RECV_POSTED << 16 | dwType;
+	m_wsaRecvBuffer.wsaBuffer.len = size;
+	m_wsaRecvBuffer.wsaBuffer.buf = (char *)m_wsaRecvBuffer.dataBuffer;
+	m_wsaRecvBuffer.operationType = RECV_POSTED << 16 | dwType;
 
-	::WSARecv(acceptSocket, &wsaRecvBuffer.wsaBuffer, 1, &dwBytes, &dwFlags, &wsaRecvBuffer.overlapped, NULL);
+	::WSARecv(m_acceptSocket, &m_wsaRecvBuffer.wsaBuffer, 1, &dwBytes, &dwFlags, &m_wsaRecvBuffer.overlapped, NULL);
 
 	return TRUE;
 }
@@ -285,8 +326,8 @@ BOOL CIOContext::WSASend(BYTE *pBuffer, DWORD size, DWORD dwType)
 		return FALSE;
 	}
 
-	if (size > sizeof(wsaSendBuffer.dataBuffer)) {
-		bIsSendBufferOverflow = TRUE;
+	if (size > sizeof(m_wsaSendBuffer.dataBuffer)) {
+		m_bIsSendBufferOverflow = TRUE;
 		return FALSE;
 	}
 
@@ -296,16 +337,16 @@ BOOL CIOContext::WSASend(BYTE *pBuffer, DWORD size, DWORD dwType)
 	DWORD dwBytes = 0;
 	DWORD dwFlags = 0;
 
-	memcpy(wsaSendBuffer.dataBuffer, pBuffer, size);
+	memcpy(m_wsaSendBuffer.dataBuffer, pBuffer, size);
 
-	wsaSendBuffer.dwRequestSize = size;
-	wsaSendBuffer.dwCompleteSize = 0;
+	m_wsaSendBuffer.dwRequestSize = size;
+	m_wsaSendBuffer.dwCompleteSize = 0;
 
-	wsaSendBuffer.wsaBuffer.len = size;
-	wsaSendBuffer.wsaBuffer.buf = (char *)wsaSendBuffer.dataBuffer;
-	wsaSendBuffer.operationType = SEND_POSTED << 16 | dwType;
+	m_wsaSendBuffer.wsaBuffer.len = size;
+	m_wsaSendBuffer.wsaBuffer.buf = (char *)m_wsaSendBuffer.dataBuffer;
+	m_wsaSendBuffer.operationType = SEND_POSTED << 16 | dwType;
 
-	::WSASend(acceptSocket, &wsaSendBuffer.wsaBuffer, 1, &dwBytes, dwFlags, &wsaSendBuffer.overlapped, NULL);
+	::WSASend(m_acceptSocket, &m_wsaSendBuffer.wsaBuffer, 1, &dwBytes, dwFlags, &m_wsaSendBuffer.overlapped, NULL);
 
 	return TRUE;
 }
@@ -583,7 +624,7 @@ CIOContext* CIOCPServer::GetNextContext(BOOL bLock)
 			//
 			pContext = m_pFreeContext;
 
-			pContext->bInUsed = TRUE;
+			pContext->m_bInUsed = TRUE;
 			pContext->pPrevActive = NULL;
 			pContext->pNextActive = m_pActiveContext;
 
@@ -616,8 +657,8 @@ void CIOCPServer::ReleaseContext(CIOContext *pContext, BOOL bLock)
 {
 	if (bLock) EnterCriticalSection(&m_sectionContext);
 	{
-		if (pContext->bInUsed) {
-			pContext->bInUsed = FALSE;
+		if (pContext->m_bInUsed) {
+			pContext->m_bInUsed = FALSE;
 
 			//
 			// 1. 断开连接
@@ -685,13 +726,9 @@ void CIOCPServer::OnUpdateSend(void)
 {
 	if (CIOContext *pContext = m_pActiveContext) {
 		do {
-			pContext->sendBuffer.Lock();
-			{
-				if (pContext->bIsSendBufferOverflow == FALSE) {
-					pContext->OnSendNext();
-				}
+			if (pContext->m_bIsSendBufferOverflow == FALSE) {
+				pContext->OnSendNext();
 			}
-			pContext->sendBuffer.Unlock();
 		} while (pContext = pContext->pNextActive);
 	}
 }
