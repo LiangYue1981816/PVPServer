@@ -30,7 +30,7 @@ void CGateServer::OnUpdateRecv(DWORD dwDeltaTime)
 		CIOContext *pNextContext = pContext->pNextActive;
 
 		if (pContext->IsAlive()) {
-			pContext->SwitchBuffer();
+			pContext->SwitchRecvBuffer();
 			pContext->dwHeartTime += dwDeltaTime;
 
 			while (TRUE) {
