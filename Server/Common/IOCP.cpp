@@ -280,10 +280,10 @@ void CIOContext::OnSendNext(void)
 	if (m_wsaSendBuffer.dwCompleteSize == m_wsaSendBuffer.dwRequestSize) {
 		if (m_bIsSendBufferOverflow == FALSE) {
 			BYTE buffer[PACK_BUFFER_SIZE];
-			size_t size = min(sizeof(buffer), m_sendBuffer[1 - m_indexRecvBuffer].GetActiveBufferSize());
+			size_t size = min(sizeof(buffer), m_sendBuffer[1 - m_indexSendBuffer].GetActiveBufferSize());
 
 			if (size > 0) {
-				if (m_sendBuffer[1 - m_indexRecvBuffer].PopData(buffer, size) == size) {
+				if (m_sendBuffer[1 - m_indexSendBuffer].PopData(buffer, size) == size) {
 					WSASend(buffer, size);
 				}
 			}
