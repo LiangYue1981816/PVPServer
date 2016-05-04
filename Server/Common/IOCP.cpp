@@ -237,40 +237,37 @@ void CIOContext::OnComplete(WSA_BUFFER *pIOBuffer, DWORD dwTransferred)
 //
 void CIOContext::OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 {
-	if (m_wsaRecvBuffer.dwCompleteSize == m_wsaRecvBuffer.dwRequestSize) {
-		if (m_bIsRecvBufferOverflow == FALSE) {
-			WORD wPackSize;
+	EnterCriticalSection(&m_sectionRecvBuffer);
+	{
+		if (m_wsaRecvBuffer.dwCompleteSize == m_wsaRecvBuffer.dwRequestSize) {
+			if (m_bIsRecvBufferOverflow == FALSE) {
+				WORD wPackSize;
 
-			switch (dwType) {
-			case RECV_LEN:
-				WSARecv(*(WORD *)pBuffer, RECV_DATA);
-				break;
+				switch (dwType) {
+				case RECV_LEN:
+					WSARecv(*(WORD *)pBuffer, RECV_DATA);
+					break;
 
-			case RECV_DATA:
-				int index;
-				EnterCriticalSection(&m_sectionRecvBuffer);
-				{
-					index = 1 - m_indexRecvBuffer;
-				}
-				LeaveCriticalSection(&m_sectionRecvBuffer);
+				case RECV_DATA:
+					wPackSize = (WORD)size;
 
-				wPackSize = (WORD)size;
+					if (m_recvBuffer[1 - m_indexRecvBuffer].PushData((BYTE *)&wPackSize, sizeof(wPackSize)) != sizeof(wPackSize)) {
+						m_bIsRecvBufferOverflow = TRUE;
+						break;
+					}
 
-				if (m_recvBuffer[index].PushData((BYTE *)&wPackSize, sizeof(wPackSize)) != sizeof(wPackSize)) {
-					m_bIsRecvBufferOverflow = TRUE;
+					if (m_recvBuffer[1 - m_indexRecvBuffer].PushData(pBuffer, size) != size) {
+						m_bIsRecvBufferOverflow = TRUE;
+						break;
+					}
+
+					WSARecv(2, RECV_LEN);
 					break;
 				}
-
-				if (m_recvBuffer[index].PushData(pBuffer, size) != size) {
-					m_bIsRecvBufferOverflow = TRUE;
-					break;
-				}
-
-				WSARecv(2, RECV_LEN);
-				break;
 			}
 		}
 	}
+	LeaveCriticalSection(&m_sectionRecvBuffer);
 }
 
 //
@@ -278,25 +275,22 @@ void CIOContext::OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 //
 void CIOContext::OnSendNext(void)
 {
-	if (m_wsaSendBuffer.dwCompleteSize == m_wsaSendBuffer.dwRequestSize) {
-		if (m_bIsSendBufferOverflow == FALSE) {
-			int index;
-			EnterCriticalSection(&m_sectionSendBuffer);
-			{
-				index = 1 - m_indexSendBuffer;
-			}
-			LeaveCriticalSection(&m_sectionSendBuffer);
+	EnterCriticalSection(&m_sectionSendBuffer);
+	{
+		if (m_wsaSendBuffer.dwCompleteSize == m_wsaSendBuffer.dwRequestSize) {
+			if (m_bIsSendBufferOverflow == FALSE) {
+				BYTE buffer[PACK_BUFFER_SIZE];
+				size_t size = min(sizeof(buffer), m_sendBuffer[1 - m_indexSendBuffer].GetActiveBufferSize());
 
-			BYTE buffer[PACK_BUFFER_SIZE];
-			size_t size = min(sizeof(buffer), m_sendBuffer[index].GetActiveBufferSize());
-
-			if (size > 0) {
-				if (m_sendBuffer[index].PopData(buffer, size) == size) {
-					WSASend(buffer, size);
+				if (size > 0) {
+					if (m_sendBuffer[1 - m_indexSendBuffer].PopData(buffer, size) == size) {
+						WSASend(buffer, size);
+					}
 				}
 			}
 		}
 	}
+	LeaveCriticalSection(&m_sectionSendBuffer);
 }
 
 //
