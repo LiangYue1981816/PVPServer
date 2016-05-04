@@ -268,12 +268,14 @@ void CIOContext::OnRecvNext(BYTE *pBuffer, DWORD size, DWORD dwType)
 void CIOContext::OnSendNext(void)
 {
 	if (m_wsaSendBuffer.dwCompleteSize == m_wsaSendBuffer.dwRequestSize) {
-		BYTE buffer[PACK_BUFFER_SIZE];
-		size_t size = min(sizeof(buffer), m_sendBuffer[1 - m_indexRecvBuffer].GetActiveBufferSize());
+		if (m_bIsSendBufferOverflow == FALSE) {
+			BYTE buffer[PACK_BUFFER_SIZE];
+			size_t size = min(sizeof(buffer), m_sendBuffer[1 - m_indexRecvBuffer].GetActiveBufferSize());
 
-		if (size > 0) {
-			if (m_sendBuffer[1 - m_indexRecvBuffer].PopData(buffer, size) == size) {
-				WSASend(buffer, size);
+			if (size > 0) {
+				if (m_sendBuffer[1 - m_indexRecvBuffer].PopData(buffer, size) == size) {
+					WSASend(buffer, size);
+				}
 			}
 		}
 	}
@@ -726,9 +728,7 @@ void CIOCPServer::OnUpdateSend(void)
 {
 	if (CIOContext *pContext = m_pActiveContext) {
 		do {
-			if (pContext->m_bIsSendBufferOverflow == FALSE) {
-				pContext->OnSendNext();
-			}
+			pContext->OnSendNext();
 		} while (pContext = pContext->pNextActive);
 	}
 }
