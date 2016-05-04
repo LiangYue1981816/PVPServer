@@ -54,7 +54,8 @@ public:
 	virtual BOOL IsAlive(void);                                                                    // ªÓ∂Ø≈–∂œ
 
 	virtual void ClearBuffer(void);                                                                // «Âø’ª∫≥Â
-	virtual void SwitchBuffer(void);                                                               // «–ªªª∫≥Â
+	virtual void SwitchRecvBuffer(void);                                                           // «–ªªΩ” ’ª∫≥Â
+	virtual void SwitchSendBuffer(void);                                                           // «–ªª∑¢ÀÕª∫≥Â
 	virtual CCacheBuffer& GetRecvBuffer(void);                                                     // ªÒµ√Ω” ’ª∫≥Â
 	virtual CCacheBuffer& GetSendBuffer(void);                                                     // ªÒµ√∑¢ÀÕª∫≥Â
 

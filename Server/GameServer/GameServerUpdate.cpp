@@ -31,7 +31,7 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 		CPlayer *pNextPlayer = (CPlayer *)pPlayer->pNextActive;
 
 		if (pPlayer->IsAlive()) {
-			pPlayer->SwitchBuffer();
+			pPlayer->SwitchRecvBuffer();
 			pPlayer->dwHeartTime += dwDeltaTime;
 
 			while (TRUE) {

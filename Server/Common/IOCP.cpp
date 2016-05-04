@@ -73,19 +73,29 @@ void CIOContext::ClearBuffer(void)
 }
 
 //
-// ÇÐ»»»º³å
+// ÇÐ»»½ÓÊÕ»º³å
 //
-void CIOContext::SwitchBuffer(void)
+void CIOContext::SwitchRecvBuffer(void)
 {
 	EnterCriticalSection(&m_sectionRecvBuffer);
 	{
-		m_indexRecvBuffer = 1 - m_indexRecvBuffer;
+		if (m_recvBuffer[m_indexRecvBuffer].GetActiveBufferSize() == 0) {
+			m_indexRecvBuffer = 1 - m_indexRecvBuffer;
+		}
 	}
 	LeaveCriticalSection(&m_sectionRecvBuffer);
+}
 
+//
+// ÇÐ»»·¢ËÍ»º³å
+//
+void CIOContext::SwitchSendBuffer(void)
+{
 	EnterCriticalSection(&m_sectionSendBuffer);
 	{
-		m_indexSendBuffer = 1 - m_indexSendBuffer;
+		if (m_sendBuffer[1 - m_indexSendBuffer].GetActiveBufferSize() == 0) {
+			m_indexSendBuffer = 1 - m_indexSendBuffer;
+		}
 	}
 	LeaveCriticalSection(&m_sectionSendBuffer);
 }
@@ -728,7 +738,10 @@ void CIOCPServer::OnUpdateSend(void)
 {
 	if (CIOContext *pContext = m_pActiveContext) {
 		do {
-			pContext->OnSendNext();
+			if (pContext->IsAlive()) {
+				pContext->SwitchSendBuffer();
+				pContext->OnSendNext();
+			}
 		} while (pContext = pContext->pNextActive);
 	}
 }
