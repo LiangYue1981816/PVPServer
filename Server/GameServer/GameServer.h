@@ -128,6 +128,9 @@ class _ServerExport CGameServer : public CIOCPServer
 public:
 	typedef std::map<DWORD, CPlayer*> GUIDMAP;                                                     // GUID映射表
 
+	typedef void(CGameServer::*ResponseFunc)(CPlayer *pPlayer, WORD size);                         // 响应函数
+	typedef std::map<DWORD, ResponseFunc> ResponseFuncs;                                           // 响应函数集合
+
 
 	// 构造/析构函数
 public:
@@ -169,7 +172,6 @@ protected:
 	virtual void OnDisconnect(CIOContext *pContext);                                               // 客户端断链回调
 
 	virtual void OnUpdateRecv(DWORD dwDeltaTime);                                                  // 更新接收消息
-	virtual void OnUpdateGameMessage(CPlayer *pPlayer, WORD size, WORD msg);                       // 更新游戏消息
 	virtual void OnUpdateGameLogic(float deltaTime);                                               // 更新游戏逻辑
 
 	virtual void OnHeartReset(CPlayer *pPlayer);                                                   // 重置心跳
@@ -195,6 +197,7 @@ protected:
 	// 属性
 protected:
 	GUIDMAP m_guidmap;                                                                             // GUID映射表
+	ResponseFuncs m_responses;                                                                     // 响应集合
 
 protected:
 	int m_curGames;                                                                                // 当前游戏数

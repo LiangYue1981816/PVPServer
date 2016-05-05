@@ -21,6 +21,17 @@ CGameServer::CGameServer(void)
 {
 	m_nGateServerPort = 0;
 	memset(m_szGateServerIP, 0, sizeof(m_szGateServerIP));
+
+	m_responses[ProtoGameClient::REQUEST_MSG::HEART] = &CGameServer::OnHeart;
+	m_responses[ProtoGameClient::REQUEST_MSG::FLAGS] = &CGameServer::OnFlags;
+	m_responses[ProtoGameClient::REQUEST_MSG::LOGIN] = &CGameServer::OnLogin;
+	m_responses[ProtoGameClient::REQUEST_MSG::LIST_GAME] = &CGameServer::OnListGame;
+	m_responses[ProtoGameClient::REQUEST_MSG::CREATE_GAME] = &CGameServer::OnCreateGame;
+	m_responses[ProtoGameClient::REQUEST_MSG::DESTROY_GAME] = &CGameServer::OnDestroyGame;
+	m_responses[ProtoGameClient::REQUEST_MSG::ENTER_GAME] = &CGameServer::OnEnterGame;
+	m_responses[ProtoGameClient::REQUEST_MSG::EXIT_GAME] = &CGameServer::OnExitGame;
+	m_responses[ProtoGameClient::REQUEST_MSG::SEND_TO_PLAYER] = &CGameServer::OnSendToPlayer;
+	m_responses[ProtoGameClient::REQUEST_MSG::SEND_TO_PLAYER_ALL] = &CGameServer::OnSendToPlayerAll;
 }
 
 CGameServer::~CGameServer(void)

@@ -61,9 +61,6 @@ protected:
 	virtual BOOL AllocGames(int maxGames);                                                         // 分配游戏
 	virtual BOOL AllocPlayers(int maxPlayers);                                                     // 分配玩家
 
-protected:
-	virtual void OnUpdateGameMessage(CPlayer *pPlayer, WORD size, WORD msg);                       // 更新游戏消息
-
 
 	// 属性
 protected:

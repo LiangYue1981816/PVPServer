@@ -47,42 +47,11 @@ void CGateServer::OnUpdateRecv(DWORD dwDeltaTime)
 				bodySize = fullSize - sizeof(msg);
 				m_dwRecvDataSize += sizeof(fullSize) + fullSize;
 
-				switch (msg) {
-				case ProtoGateClient::REQUEST_MSG::HEART:
-					OnHeart(pContext, bodySize);
-					OnHeartReset(pContext);
-					break;
+				ResponseFuncs::const_iterator itFunc = m_responses.find(msg);
+				if (itFunc == m_responses.end()) continue;
 
-				case ProtoGateClient::REQUEST_MSG::LOGIN:
-					OnLogin(pContext, bodySize);
-					OnHeartReset(pContext);
-					break;
-
-				case ProtoGateClient::REQUEST_MSG::MATCH:
-					OnMatch(pContext, bodySize);
-					OnHeartReset(pContext);
-					break;
-
-				case ProtoGateClient::REQUEST_MSG::CANCEL_MATCH:
-					OnCancelMatch(pContext, bodySize);
-					OnHeartReset(pContext);
-					break;
-
-				case ProtoGateClient::REQUEST_MSG::LIST_GAME_SERVER:
-					OnListGameServer(pContext, bodySize);
-					OnHeartReset(pContext);
-					break;
-
-				case ProtoGateClient::REQUEST_MSG::SEND_TO_PLAYER:
-					OnSendToPlayer(pContext, bodySize);
-					OnHeartReset(pContext);
-					break;
-
-				case ProtoGameServer::REQUEST_MSG::SERVER_STATUS:
-					OnGameServerStatus(pContext, bodySize);
-					OnHeartReset(pContext);
-					break;
-				}
+				(this->*itFunc->second)(pContext, bodySize);
+				OnHeartReset(pContext);
 			}
 		}
 

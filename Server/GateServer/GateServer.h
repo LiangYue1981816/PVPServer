@@ -45,6 +45,9 @@ public:
 	typedef std::map<CIOContext*, GameServerStatus> GameServerMap;                                 // 游戏服务器集合
 	typedef std::map<int, std::map<DWORD, PlayerStatus>> PlayerEvaluationMap;                      // 待匹配玩家集合
 
+	typedef void(CGateServer::*ResponseFunc)(CIOContext *pContext, WORD size);                     // 响应函数
+	typedef std::map<DWORD, ResponseFunc> ResponseFuncs;                                           // 响应函数集合
+
 
 	// 构造/析构函数
 public:
@@ -105,6 +108,8 @@ protected:
 	PlayerMap m_players;                                                                           // 玩家集合
 	GameServerMap m_servers;                                                                       // 游戏服务器集合
 	PlayerEvaluationMap m_evaluations;                                                             // 待匹配玩家集合
+
+	ResponseFuncs m_responses;                                                                     // 响应集合
 
 protected:
 	DWORD m_dwUpdateCount;                                                                         // 更新次数

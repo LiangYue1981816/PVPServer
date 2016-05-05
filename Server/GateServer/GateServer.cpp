@@ -17,7 +17,13 @@ CGateServer::CGateServer(void)
 
 	, m_dwMatchs(0)
 {
-
+	m_responses[ProtoGateClient::REQUEST_MSG::HEART] = &CGateServer::OnHeart;
+	m_responses[ProtoGateClient::REQUEST_MSG::LOGIN] = &CGateServer::OnLogin;
+	m_responses[ProtoGateClient::REQUEST_MSG::MATCH] = &CGateServer::OnMatch;
+	m_responses[ProtoGateClient::REQUEST_MSG::CANCEL_MATCH] = &CGateServer::OnCancelMatch;
+	m_responses[ProtoGateClient::REQUEST_MSG::LIST_GAME_SERVER] = &CGateServer::OnListGameServer;
+	m_responses[ProtoGateClient::REQUEST_MSG::SEND_TO_PLAYER] = &CGateServer::OnSendToPlayer;
+	m_responses[ProtoGameServer::REQUEST_MSG::SERVER_STATUS] = &CGateServer::OnGameServerStatus;
 }
 
 CGateServer::~CGateServer(void)

@@ -48,62 +48,11 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 				bodySize = fullSize - sizeof(msg);
 				m_dwRecvDataSize += sizeof(fullSize) + fullSize;
 
-				switch (msg) {
-				case ProtoGameClient::REQUEST_MSG::HEART:
-					OnHeart(pPlayer, bodySize);
-					OnHeartReset(pPlayer);
-					break;
+				ResponseFuncs::const_iterator itFunc = m_responses.find(msg);
+				if (itFunc == m_responses.end()) continue;
 
-				case ProtoGameClient::REQUEST_MSG::FLAGS:
-					OnFlags(pPlayer, bodySize);
-					OnHeartReset(pPlayer);
-					break;
-
-				case ProtoGameClient::REQUEST_MSG::LOGIN:
-					OnLogin(pPlayer, bodySize);
-					OnHeartReset(pPlayer);
-					break;
-
-				case ProtoGameClient::REQUEST_MSG::LIST_GAME:
-					OnListGame(pPlayer, bodySize);
-					OnHeartReset(pPlayer);
-					break;
-
-				case ProtoGameClient::REQUEST_MSG::CREATE_GAME:
-					OnCreateGame(pPlayer, bodySize);
-					OnHeartReset(pPlayer);
-					break;
-
-				case ProtoGameClient::REQUEST_MSG::DESTROY_GAME:
-					OnDestroyGame(pPlayer, bodySize);
-					OnHeartReset(pPlayer);
-					break;
-
-				case ProtoGameClient::REQUEST_MSG::ENTER_GAME:
-					OnEnterGame(pPlayer, bodySize);
-					OnHeartReset(pPlayer);
-					break;
-
-				case ProtoGameClient::REQUEST_MSG::EXIT_GAME:
-					OnExitGame(pPlayer, bodySize);
-					OnHeartReset(pPlayer);
-					break;
-
-				case ProtoGameClient::REQUEST_MSG::SEND_TO_PLAYER:
-					OnSendToPlayer(pPlayer, bodySize);
-					OnHeartReset(pPlayer);
-					break;
-
-				case ProtoGameClient::REQUEST_MSG::SEND_TO_PLAYER_ALL:
-					OnSendToPlayerAll(pPlayer, bodySize);
-					OnHeartReset(pPlayer);
-					break;
-
-				default:
-					OnUpdateGameMessage(pPlayer, bodySize, msg);
-					OnHeartReset(pPlayer);
-					break;
-				}
+				(this->*itFunc->second)(pPlayer, bodySize);
+				OnHeartReset(pPlayer);
 			}
 		}
 
@@ -113,14 +62,6 @@ void CGameServer::OnUpdateRecv(DWORD dwDeltaTime)
 
 		pPlayer = pNextPlayer;
 	}
-}
-
-//
-// 更新游戏消息
-//
-void CGameServer::OnUpdateGameMessage(CPlayer *pPlayer, WORD size, WORD msg)
-{
-
 }
 
 //
