@@ -178,6 +178,8 @@ protected:
 	virtual void OnHeart(CPlayer *pPlayer, WORD size);                                             // 心跳
 	virtual void OnFlags(CPlayer *pPlayer, WORD size);                                             // 标识
 	virtual void OnLogin(CPlayer *pPlayer, WORD size);                                             // 登陆
+	virtual void OnWaiting(CPlayer *pPlayer, WORD size);                                           // 等待
+	virtual void OnReady(CPlayer *pPlayer, WORD size);                                             // 就绪
 	virtual void OnListGame(CPlayer *pPlayer, WORD size);                                          // 获得游戏列表
 	virtual void OnCreateGame(CPlayer *pPlayer, WORD size);                                        // 创建游戏
 	virtual void OnDestroyGame(CPlayer *pPlayer, WORD size);                                       // 销毁游戏

@@ -25,6 +25,8 @@ CGameServer::CGameServer(void)
 	m_responses[ProtoGameClient::REQUEST_MSG::HEART] = &CGameServer::OnHeart;
 	m_responses[ProtoGameClient::REQUEST_MSG::FLAGS] = &CGameServer::OnFlags;
 	m_responses[ProtoGameClient::REQUEST_MSG::LOGIN] = &CGameServer::OnLogin;
+	m_responses[ProtoGameClient::REQUEST_MSG::WAITING] = &CGameServer::OnWaiting;
+	m_responses[ProtoGameClient::REQUEST_MSG::READY] = &CGameServer::OnReady;
 	m_responses[ProtoGameClient::REQUEST_MSG::LIST_GAME] = &CGameServer::OnListGame;
 	m_responses[ProtoGameClient::REQUEST_MSG::CREATE_GAME] = &CGameServer::OnCreateGame;
 	m_responses[ProtoGameClient::REQUEST_MSG::DESTROY_GAME] = &CGameServer::OnDestroyGame;
