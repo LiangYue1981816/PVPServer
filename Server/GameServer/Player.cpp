@@ -75,14 +75,6 @@ BOOL CPlayer::IsReady(void) const
 }
 
 //
-// 等待中状态
-//
-BOOL CPlayer::IsWaiting(void) const
-{
-	return IS_ENABLE(m_dwFlags, ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_WAITING);
-}
-
-//
 // 游戏中状态
 //
 BOOL CPlayer::IsGaming(void) const

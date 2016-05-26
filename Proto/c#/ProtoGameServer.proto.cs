@@ -408,14 +408,11 @@ namespace ProtoGameServer
       [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_LOGIN", Value=1)]
       PLAYER_FLAGS_LOGIN = 1,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_WAITING", Value=2)]
-      PLAYER_FLAGS_WAITING = 2,
+      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_READY", Value=2)]
+      PLAYER_FLAGS_READY = 2,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_READY", Value=4)]
-      PLAYER_FLAGS_READY = 4,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_GAMING", Value=8)]
-      PLAYER_FLAGS_GAMING = 8
+      [global::ProtoBuf.ProtoEnum(Name=@"PLAYER_FLAGS_GAMING", Value=4)]
+      PLAYER_FLAGS_GAMING = 4
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"ERROR_CODE")]

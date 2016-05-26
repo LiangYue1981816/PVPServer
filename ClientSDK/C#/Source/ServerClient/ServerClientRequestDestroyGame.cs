@@ -20,7 +20,6 @@ public partial class ServerClient : NetClient
                 mPlayers.Clear();
                 mGameID = 0xcccccccc;
                 mHostGUID = 0xcccccccc;
-                DisableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
                 DisableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
                 DisableFlag(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_GAMING);
 

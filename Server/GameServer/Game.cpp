@@ -139,7 +139,8 @@ int CGame::AddPlayer(CPlayer *pPlayer, const char *password, BOOL bCreater)
 	//
 	// 3. 设置玩家状态
 	//
-	pPlayer->EnableFlag(ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_WAITING);
+	pPlayer->DisableFlag(ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_READY);
+	pPlayer->DisableFlag(ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_GAMING);
 
 	//
 	// 4. 记录玩家

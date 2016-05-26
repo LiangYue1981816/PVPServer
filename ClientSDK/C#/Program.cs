@@ -54,7 +54,6 @@ class Program
             Console.WriteLine("GameID: " + mGameClient.GetGameID().ToString());
             Console.WriteLine("IsHost: " + mGameClient.IsHost().ToString());
             Console.WriteLine("IsLogin: " + mGameClient.IsLogin().ToString());
-            Console.WriteLine("IsWaiting: " + mGameClient.IsWaiting().ToString());
             Console.WriteLine("IsReady: " + mGameClient.IsReady().ToString());
             Console.WriteLine("IsGaming: " + mGameClient.IsGaming().ToString());
             Console.WriteLine("Error: " + mGameClient.GetLastError().ToString());
@@ -335,7 +334,7 @@ class Program
                 uint gameid = 0xcccccccc;
                 for (int indexPlayer = 0; indexPlayer < mGameClients[indexGame].Length; indexPlayer++)
                 {
-                    if (mGameClients[indexGame][indexPlayer].IsWaiting() == true)
+                    if (mGameClients[indexGame][indexPlayer].GetGameID() != 0xcccccccc)
                     {
                         gameid = mGameClients[indexGame][indexPlayer].GetGameID();
                         break;
@@ -351,7 +350,7 @@ class Program
                 {
                     for (int indexPlayer = 0; indexPlayer < mGameClients[indexGame].Length; indexPlayer++)
                     {
-                        if (mGameClients[indexGame][indexPlayer].IsWaiting() == false)
+                        if (mGameClients[indexGame][indexPlayer].GetGameID() == 0xcccccccc)
                         {
                             mGameClients[indexGame][indexPlayer].RequestEnterGame("", (int)gameid);
                             bEnter = false;

@@ -35,7 +35,6 @@ public:
 
 	virtual BOOL IsLogin(void) const;                                                              // 登陆状态
 	virtual BOOL IsReady(void) const;                                                              // 已准备状态
-	virtual BOOL IsWaiting(void) const;                                                            // 等待中状态
 	virtual BOOL IsGaming(void) const;                                                             // 游戏中状态
 
 

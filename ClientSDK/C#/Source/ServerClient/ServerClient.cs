@@ -95,11 +95,6 @@ public partial class ServerClient : NetClient
         return IsEnable(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_LOGIN);
     }
 
-    public bool IsWaiting()
-    {
-        return IsEnable(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_WAITING);
-    }
-
     public bool IsReady()
     {
         return IsEnable(ProtoGameServer.FLAGS_CODE.PLAYER_FLAGS_READY);
