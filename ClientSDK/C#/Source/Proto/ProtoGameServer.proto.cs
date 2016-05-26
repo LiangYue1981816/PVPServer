@@ -487,29 +487,26 @@ namespace ProtoGameServer
       [global::ProtoBuf.ProtoEnum(Name=@"LOGIN", Value=1002)]
       LOGIN = 1002,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"WAITING", Value=1003)]
-      WAITING = 1003,
+      [global::ProtoBuf.ProtoEnum(Name=@"READY", Value=1003)]
+      READY = 1003,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"READY", Value=1004)]
-      READY = 1004,
+      [global::ProtoBuf.ProtoEnum(Name=@"LIST_GAME", Value=1004)]
+      LIST_GAME = 1004,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"LIST_GAME", Value=1005)]
-      LIST_GAME = 1005,
+      [global::ProtoBuf.ProtoEnum(Name=@"CREATE_GAME", Value=1005)]
+      CREATE_GAME = 1005,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"CREATE_GAME", Value=1006)]
-      CREATE_GAME = 1006,
+      [global::ProtoBuf.ProtoEnum(Name=@"DESTROY_GAME", Value=1006)]
+      DESTROY_GAME = 1006,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"DESTROY_GAME", Value=1007)]
-      DESTROY_GAME = 1007,
+      [global::ProtoBuf.ProtoEnum(Name=@"ENTER_GAME", Value=1007)]
+      ENTER_GAME = 1007,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"ENTER_GAME", Value=1008)]
-      ENTER_GAME = 1008,
+      [global::ProtoBuf.ProtoEnum(Name=@"EXIT_GAME", Value=1008)]
+      EXIT_GAME = 1008,
             
-      [global::ProtoBuf.ProtoEnum(Name=@"EXIT_GAME", Value=1009)]
-      EXIT_GAME = 1009,
-            
-      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=1010)]
-      SEND_TO_PLAYER = 1010
+      [global::ProtoBuf.ProtoEnum(Name=@"SEND_TO_PLAYER", Value=1009)]
+      SEND_TO_PLAYER = 1009
     }
   
     [global::ProtoBuf.ProtoContract(Name=@"REQUEST_MSG")]

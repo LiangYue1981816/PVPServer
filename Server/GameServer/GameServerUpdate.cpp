@@ -206,49 +206,6 @@ NEXT:
 }
 
 //
-// 等待
-//
-void CGameServer::OnWaiting(CPlayer *pPlayer, WORD size)
-{
-	ProtoGameClient::Waiting requestWaiting;
-	ProtoGameServer::Flags responseFlags;
-
-	BYTE buffer[PACK_BUFFER_SIZE];
-	CCacheBuffer writeBuffer(sizeof(buffer), buffer);
-
-	//
-	// 1. 解析消息
-	//
-	if (Parser(&pPlayer->GetRecvBuffer(), &requestWaiting, size) == FALSE) {
-		return;
-	}
-
-	//
-	// 2. 标识
-	//
-	if (pPlayer->IsLogin() == FALSE) {
-		return;
-	}
-
-	if (pPlayer->pGame == NULL) {
-		return;
-	}
-
-	pPlayer->EnableFlag(ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_WAITING);
-	responseFlags.set_flags(pPlayer->GetFlags());
-
-	//
-	// 3. 序列化消息
-	//
-	Serializer(&writeBuffer, &responseFlags, ProtoGameServer::RESPONSE_MSG::FLAGS);
-
-	//
-	// 4. 发送玩家
-	//
-	SendToPlayer(pPlayer, buffer, writeBuffer.GetActiveBufferSize());
-}
-
-//
 // 就绪
 //
 void CGameServer::OnReady(CPlayer *pPlayer, WORD size)
@@ -277,7 +234,13 @@ void CGameServer::OnReady(CPlayer *pPlayer, WORD size)
 		return;
 	}
 
-	pPlayer->EnableFlag(ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_READY);
+	if (requestReady.ready()) {
+		pPlayer->EnableFlag(ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_READY);
+	}
+	else {
+		pPlayer->DisableFlag(ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_READY);
+		pPlayer->DisableFlag(ProtoGameServer::FLAGS_CODE::PLAYER_FLAGS_GAMING);
+	}
 	responseFlags.set_flags(pPlayer->GetFlags());
 
 	//

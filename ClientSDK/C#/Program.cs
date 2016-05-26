@@ -81,8 +81,8 @@ class Program
             Console.WriteLine("[18] ExitGame");
             Console.WriteLine("[19] SendToPlayer");
             Console.WriteLine("[20] SendToPlayerAll");
-            Console.WriteLine("[21] Waiting");
-            Console.WriteLine("[22] Ready");
+            Console.WriteLine("[21] Ready");
+            Console.WriteLine("[22] UnReady");
 
             string input = Console.ReadLine();
 
@@ -157,11 +157,11 @@ class Program
             }
             if (input == "21")
             {
-                GameServerWaiting();
+                GameServerReady(true);
             }
             if (input == "22")
             {
-                GameServerReady();
+                GameServerReady(false);
             }
         }
     }
@@ -457,14 +457,9 @@ class Program
         mGameClient.RequestSendToPlayerAll(0xffffffff, data.Length, data);
     }
 
-    static void GameServerWaiting()
+    static void GameServerReady(bool bReady)
     {
-        mGameClient.RequestWaiting();
-    }
-
-    static void GameServerReady()
-    {
-        mGameClient.RequestReady();
+        mGameClient.RequestReady(bReady);
     }
 
 

@@ -37,7 +37,6 @@ void protobuf_ShutdownFile_ProtoGameClient_2eproto();
 class Heart;
 class Flags;
 class Login;
-class Waiting;
 class Ready;
 class ListGame;
 class CreateGame;
@@ -51,15 +50,14 @@ enum REQUEST_MSG {
   HEART = 1000,
   FLAGS = 1001,
   LOGIN = 1002,
-  WAITING = 1003,
-  READY = 1004,
-  LIST_GAME = 1005,
-  CREATE_GAME = 1006,
-  DESTROY_GAME = 1007,
-  ENTER_GAME = 1008,
-  EXIT_GAME = 1009,
-  SEND_TO_PLAYER = 1010,
-  SEND_TO_PLAYER_ALL = 1011
+  READY = 1003,
+  LIST_GAME = 1004,
+  CREATE_GAME = 1005,
+  DESTROY_GAME = 1006,
+  ENTER_GAME = 1007,
+  EXIT_GAME = 1008,
+  SEND_TO_PLAYER = 1009,
+  SEND_TO_PLAYER_ALL = 1010
 };
 bool REQUEST_MSG_IsValid(int value);
 const REQUEST_MSG REQUEST_MSG_MIN = HEART;
@@ -315,75 +313,6 @@ class Login : public ::google::protobuf::Message {
 };
 // -------------------------------------------------------------------
 
-class Waiting : public ::google::protobuf::Message {
- public:
-  Waiting();
-  virtual ~Waiting();
-
-  Waiting(const Waiting& from);
-
-  inline Waiting& operator=(const Waiting& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const Waiting& default_instance();
-
-  void Swap(Waiting* other);
-
-  // implements Message ----------------------------------------------
-
-  Waiting* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const Waiting& from);
-  void MergeFrom(const Waiting& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-  ::google::protobuf::Metadata GetMetadata() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // @@protoc_insertion_point(class_scope:ProtoGameClient.Waiting)
- private:
-
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  friend void  protobuf_AddDesc_ProtoGameClient_2eproto();
-  friend void protobuf_AssignDesc_ProtoGameClient_2eproto();
-  friend void protobuf_ShutdownFile_ProtoGameClient_2eproto();
-
-  void InitAsDefaultInstance();
-  static Waiting* default_instance_;
-};
-// -------------------------------------------------------------------
-
 class Ready : public ::google::protobuf::Message {
  public:
   Ready();
@@ -437,13 +366,23 @@ class Ready : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
+  // required bool ready = 1;
+  inline bool has_ready() const;
+  inline void clear_ready();
+  static const int kReadyFieldNumber = 1;
+  inline bool ready() const;
+  inline void set_ready(bool value);
+
   // @@protoc_insertion_point(class_scope:ProtoGameClient.Ready)
  private:
+  inline void set_has_ready();
+  inline void clear_has_ready();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
+  bool ready_;
   friend void  protobuf_AddDesc_ProtoGameClient_2eproto();
   friend void protobuf_AssignDesc_ProtoGameClient_2eproto();
   friend void protobuf_ShutdownFile_ProtoGameClient_2eproto();
@@ -1183,11 +1122,31 @@ inline void Login::set_version(::google::protobuf::int32 value) {
 
 // -------------------------------------------------------------------
 
-// Waiting
-
-// -------------------------------------------------------------------
-
 // Ready
+
+// required bool ready = 1;
+inline bool Ready::has_ready() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void Ready::set_has_ready() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void Ready::clear_has_ready() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void Ready::clear_ready() {
+  ready_ = false;
+  clear_has_ready();
+}
+inline bool Ready::ready() const {
+  // @@protoc_insertion_point(field_get:ProtoGameClient.Ready.ready)
+  return ready_;
+}
+inline void Ready::set_ready(bool value) {
+  set_has_ready();
+  ready_ = value;
+  // @@protoc_insertion_point(field_set:ProtoGameClient.Ready.ready)
+}
 
 // -------------------------------------------------------------------
 

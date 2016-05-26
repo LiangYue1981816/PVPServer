@@ -29,9 +29,6 @@ const ::google::protobuf::internal::GeneratedMessageReflection*
 const ::google::protobuf::Descriptor* Login_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Login_reflection_ = NULL;
-const ::google::protobuf::Descriptor* Waiting_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  Waiting_reflection_ = NULL;
 const ::google::protobuf::Descriptor* Ready_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Ready_reflection_ = NULL;
@@ -112,22 +109,9 @@ void protobuf_AssignDesc_ProtoGameClient_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Login));
-  Waiting_descriptor_ = file->message_type(3);
-  static const int Waiting_offsets_[1] = {
-  };
-  Waiting_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      Waiting_descriptor_,
-      Waiting::default_instance_,
-      Waiting_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Waiting, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Waiting, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(Waiting));
-  Ready_descriptor_ = file->message_type(4);
+  Ready_descriptor_ = file->message_type(3);
   static const int Ready_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Ready, ready_),
   };
   Ready_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -140,7 +124,7 @@ void protobuf_AssignDesc_ProtoGameClient_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(Ready));
-  ListGame_descriptor_ = file->message_type(5);
+  ListGame_descriptor_ = file->message_type(4);
   static const int ListGame_offsets_[1] = {
   };
   ListGame_reflection_ =
@@ -154,7 +138,7 @@ void protobuf_AssignDesc_ProtoGameClient_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ListGame));
-  CreateGame_descriptor_ = file->message_type(6);
+  CreateGame_descriptor_ = file->message_type(5);
   static const int CreateGame_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CreateGame, password_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(CreateGame, gameid_),
@@ -174,7 +158,7 @@ void protobuf_AssignDesc_ProtoGameClient_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(CreateGame));
-  DestroyGame_descriptor_ = file->message_type(7);
+  DestroyGame_descriptor_ = file->message_type(6);
   static const int DestroyGame_offsets_[1] = {
   };
   DestroyGame_reflection_ =
@@ -188,7 +172,7 @@ void protobuf_AssignDesc_ProtoGameClient_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(DestroyGame));
-  EnterGame_descriptor_ = file->message_type(8);
+  EnterGame_descriptor_ = file->message_type(7);
   static const int EnterGame_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EnterGame, gameid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(EnterGame, password_),
@@ -204,7 +188,7 @@ void protobuf_AssignDesc_ProtoGameClient_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(EnterGame));
-  ExitGame_descriptor_ = file->message_type(9);
+  ExitGame_descriptor_ = file->message_type(8);
   static const int ExitGame_offsets_[1] = {
   };
   ExitGame_reflection_ =
@@ -218,7 +202,7 @@ void protobuf_AssignDesc_ProtoGameClient_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ExitGame));
-  SendToPlayer_descriptor_ = file->message_type(10);
+  SendToPlayer_descriptor_ = file->message_type(9);
   static const int SendToPlayer_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, guid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayer, size_),
@@ -235,7 +219,7 @@ void protobuf_AssignDesc_ProtoGameClient_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SendToPlayer));
-  SendToPlayerAll_descriptor_ = file->message_type(11);
+  SendToPlayerAll_descriptor_ = file->message_type(10);
   static const int SendToPlayerAll_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayerAll, filter_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SendToPlayerAll, size_),
@@ -272,8 +256,6 @@ void protobuf_RegisterTypes(const ::std::string&) {
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     Login_descriptor_, &Login::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    Waiting_descriptor_, &Waiting::default_instance());
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     Ready_descriptor_, &Ready::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     ListGame_descriptor_, &ListGame::default_instance());
@@ -300,8 +282,6 @@ void protobuf_ShutdownFile_ProtoGameClient_2eproto() {
   delete Flags_reflection_;
   delete Login::default_instance_;
   delete Login_reflection_;
-  delete Waiting::default_instance_;
-  delete Waiting_reflection_;
   delete Ready::default_instance_;
   delete Ready_reflection_;
   delete ListGame::default_instance_;
@@ -329,27 +309,26 @@ void protobuf_AddDesc_ProtoGameClient_2eproto() {
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\025ProtoGameClient.proto\022\017ProtoGameClient"
     "\"\032\n\005Heart\022\021\n\ttimestamp\030\001 \002(\005\"\007\n\005Flags\"&\n"
-    "\005Login\022\014\n\004guid\030\001 \002(\r\022\017\n\007version\030\002 \002(\005\"\t\n"
-    "\007Waiting\"\007\n\005Ready\"\n\n\010ListGame\"s\n\nCreateG"
-    "ame\022\020\n\010password\030\001 \002(\t\022\016\n\006gameid\030\002 \002(\005\022\014\n"
-    "\004mode\030\003 \002(\005\022\r\n\005mapid\030\004 \002(\005\022\022\n\nmaxPlayers"
-    "\030\005 \002(\005\022\022\n\nevaluation\030\006 \002(\005\"\r\n\013DestroyGam"
-    "e\"-\n\tEnterGame\022\016\n\006gameid\030\001 \002(\005\022\020\n\010passwo"
-    "rd\030\002 \002(\t\"\n\n\010ExitGame\"8\n\014SendToPlayer\022\014\n\004"
-    "guid\030\001 \002(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014\"="
-    "\n\017SendToPlayerAll\022\016\n\006filter\030\001 \002(\r\022\014\n\004siz"
-    "e\030\002 \002(\005\022\014\n\004data\030\003 \002(\014*\317\001\n\013REQUEST_MSG\022\n\n"
-    "\005HEART\020\350\007\022\n\n\005FLAGS\020\351\007\022\n\n\005LOGIN\020\352\007\022\014\n\007WAI"
-    "TING\020\353\007\022\n\n\005READY\020\354\007\022\016\n\tLIST_GAME\020\355\007\022\020\n\013C"
-    "REATE_GAME\020\356\007\022\021\n\014DESTROY_GAME\020\357\007\022\017\n\nENTE"
-    "R_GAME\020\360\007\022\016\n\tEXIT_GAME\020\361\007\022\023\n\016SEND_TO_PLA"
-    "YER\020\362\007\022\027\n\022SEND_TO_PLAYER_ALL\020\363\007B\002H\001", 675);
+    "\005Login\022\014\n\004guid\030\001 \002(\r\022\017\n\007version\030\002 \002(\005\"\026\n"
+    "\005Ready\022\r\n\005ready\030\001 \002(\010\"\n\n\010ListGame\"s\n\nCre"
+    "ateGame\022\020\n\010password\030\001 \002(\t\022\016\n\006gameid\030\002 \002("
+    "\005\022\014\n\004mode\030\003 \002(\005\022\r\n\005mapid\030\004 \002(\005\022\022\n\nmaxPla"
+    "yers\030\005 \002(\005\022\022\n\nevaluation\030\006 \002(\005\"\r\n\013Destro"
+    "yGame\"-\n\tEnterGame\022\016\n\006gameid\030\001 \002(\005\022\020\n\010pa"
+    "ssword\030\002 \002(\t\"\n\n\010ExitGame\"8\n\014SendToPlayer"
+    "\022\014\n\004guid\030\001 \002(\r\022\014\n\004size\030\002 \002(\005\022\014\n\004data\030\003 \002"
+    "(\014\"=\n\017SendToPlayerAll\022\016\n\006filter\030\001 \002(\r\022\014\n"
+    "\004size\030\002 \002(\005\022\014\n\004data\030\003 \002(\014*\301\001\n\013REQUEST_MS"
+    "G\022\n\n\005HEART\020\350\007\022\n\n\005FLAGS\020\351\007\022\n\n\005LOGIN\020\352\007\022\n\n"
+    "\005READY\020\353\007\022\016\n\tLIST_GAME\020\354\007\022\020\n\013CREATE_GAME"
+    "\020\355\007\022\021\n\014DESTROY_GAME\020\356\007\022\017\n\nENTER_GAME\020\357\007\022"
+    "\016\n\tEXIT_GAME\020\360\007\022\023\n\016SEND_TO_PLAYER\020\361\007\022\027\n\022"
+    "SEND_TO_PLAYER_ALL\020\362\007B\002H\001", 665);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ProtoGameClient.proto", &protobuf_RegisterTypes);
   Heart::default_instance_ = new Heart();
   Flags::default_instance_ = new Flags();
   Login::default_instance_ = new Login();
-  Waiting::default_instance_ = new Waiting();
   Ready::default_instance_ = new Ready();
   ListGame::default_instance_ = new ListGame();
   CreateGame::default_instance_ = new CreateGame();
@@ -361,7 +340,6 @@ void protobuf_AddDesc_ProtoGameClient_2eproto() {
   Heart::default_instance_->InitAsDefaultInstance();
   Flags::default_instance_->InitAsDefaultInstance();
   Login::default_instance_->InitAsDefaultInstance();
-  Waiting::default_instance_->InitAsDefaultInstance();
   Ready::default_instance_->InitAsDefaultInstance();
   ListGame::default_instance_->InitAsDefaultInstance();
   CreateGame::default_instance_->InitAsDefaultInstance();
@@ -396,7 +374,6 @@ bool REQUEST_MSG_IsValid(int value) {
     case 1008:
     case 1009:
     case 1010:
-    case 1011:
       return true;
     default:
       return false;
@@ -1079,180 +1056,7 @@ void Login::Swap(Login* other) {
 // ===================================================================
 
 #ifndef _MSC_VER
-#endif  // !_MSC_VER
-
-Waiting::Waiting()
-  : ::google::protobuf::Message() {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:ProtoGameClient.Waiting)
-}
-
-void Waiting::InitAsDefaultInstance() {
-}
-
-Waiting::Waiting(const Waiting& from)
-  : ::google::protobuf::Message() {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:ProtoGameClient.Waiting)
-}
-
-void Waiting::SharedCtor() {
-  _cached_size_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-Waiting::~Waiting() {
-  // @@protoc_insertion_point(destructor:ProtoGameClient.Waiting)
-  SharedDtor();
-}
-
-void Waiting::SharedDtor() {
-  if (this != default_instance_) {
-  }
-}
-
-void Waiting::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* Waiting::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return Waiting_descriptor_;
-}
-
-const Waiting& Waiting::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_ProtoGameClient_2eproto();
-  return *default_instance_;
-}
-
-Waiting* Waiting::default_instance_ = NULL;
-
-Waiting* Waiting::New() const {
-  return new Waiting;
-}
-
-void Waiting::Clear() {
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
-}
-
-bool Waiting::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ProtoGameClient.Waiting)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0 ||
-        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-      goto success;
-    }
-    DO_(::google::protobuf::internal::WireFormat::SkipField(
-          input, tag, mutable_unknown_fields()));
-  }
-success:
-  // @@protoc_insertion_point(parse_success:ProtoGameClient.Waiting)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:ProtoGameClient.Waiting)
-  return false;
-#undef DO_
-}
-
-void Waiting::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ProtoGameClient.Waiting)
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-  // @@protoc_insertion_point(serialize_end:ProtoGameClient.Waiting)
-}
-
-::google::protobuf::uint8* Waiting::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:ProtoGameClient.Waiting)
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:ProtoGameClient.Waiting)
-  return target;
-}
-
-int Waiting::ByteSize() const {
-  int total_size = 0;
-
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void Waiting::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const Waiting* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const Waiting*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void Waiting::MergeFrom(const Waiting& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void Waiting::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void Waiting::CopyFrom(const Waiting& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool Waiting::IsInitialized() const {
-
-  return true;
-}
-
-void Waiting::Swap(Waiting* other) {
-  if (other != this) {
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::google::protobuf::Metadata Waiting::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = Waiting_descriptor_;
-  metadata.reflection = Waiting_reflection_;
-  return metadata;
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
+const int Ready::kReadyFieldNumber;
 #endif  // !_MSC_VER
 
 Ready::Ready()
@@ -1273,6 +1077,7 @@ Ready::Ready(const Ready& from)
 
 void Ready::SharedCtor() {
   _cached_size_ = 0;
+  ready_ = false;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1308,6 +1113,7 @@ Ready* Ready::New() const {
 }
 
 void Ready::Clear() {
+  ready_ = false;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -1321,14 +1127,33 @@ bool Ready::MergePartialFromCodedStream(
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
-  handle_unusual:
-    if (tag == 0 ||
-        ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-        ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-      goto success;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required bool ready = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &ready_)));
+          set_has_ready();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
     }
-    DO_(::google::protobuf::internal::WireFormat::SkipField(
-          input, tag, mutable_unknown_fields()));
   }
 success:
   // @@protoc_insertion_point(parse_success:ProtoGameClient.Ready)
@@ -1342,6 +1167,11 @@ failure:
 void Ready::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:ProtoGameClient.Ready)
+  // required bool ready = 1;
+  if (has_ready()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(1, this->ready(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1352,6 +1182,11 @@ void Ready::SerializeWithCachedSizes(
 ::google::protobuf::uint8* Ready::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:ProtoGameClient.Ready)
+  // required bool ready = 1;
+  if (has_ready()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(1, this->ready(), target);
+  }
+
   if (!unknown_fields().empty()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
@@ -1363,6 +1198,13 @@ void Ready::SerializeWithCachedSizes(
 int Ready::ByteSize() const {
   int total_size = 0;
 
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // required bool ready = 1;
+    if (has_ready()) {
+      total_size += 1 + 1;
+    }
+
+  }
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -1388,6 +1230,11 @@ void Ready::MergeFrom(const ::google::protobuf::Message& from) {
 
 void Ready::MergeFrom(const Ready& from) {
   GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_ready()) {
+      set_ready(from.ready());
+    }
+  }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
 
@@ -1404,12 +1251,15 @@ void Ready::CopyFrom(const Ready& from) {
 }
 
 bool Ready::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
   return true;
 }
 
 void Ready::Swap(Ready* other) {
   if (other != this) {
+    std::swap(ready_, other->ready_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
   }
