@@ -36,6 +36,8 @@ public partial class ServerClient : NetClient
     private ProtoGameClient.Heart mRequestHeart = new ProtoGameClient.Heart();
     private ProtoGameClient.Flags mRequestFlags = new ProtoGameClient.Flags();
     private ProtoGameClient.Login mRequestLogin = new ProtoGameClient.Login();
+    private ProtoGameClient.Ready mRequestReady = new ProtoGameClient.Ready();
+    private ProtoGameClient.Waiting mRequestWaiting = new ProtoGameClient.Waiting();
     private ProtoGameClient.ListGame mRequestListGame = new ProtoGameClient.ListGame();
     private ProtoGameClient.CreateGame mRequestCreateGame = new ProtoGameClient.CreateGame();
     private ProtoGameClient.DestroyGame mRequestDestroyGame = new ProtoGameClient.DestroyGame();

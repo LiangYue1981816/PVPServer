@@ -159,7 +159,9 @@
     <Compile Include="Source\ServerClient\ServerClientRequestHeart.cs" />
     <Compile Include="Source\ServerClient\ServerClientRequestListGame.cs" />
     <Compile Include="Source\ServerClient\ServerClientRequestLogin.cs" />
+    <Compile Include="Source\ServerClient\ServerClientRequestReady.cs" />
     <Compile Include="Source\ServerClient\ServerClientRequestSendToPlayer.cs" />
+    <Compile Include="Source\ServerClient\ServerClientRequestWaiting.cs" />
     <Compile Include="Source\ServerClient\ServerClientUpdate.cs" />
   </ItemGroup>
   <ItemGroup>
